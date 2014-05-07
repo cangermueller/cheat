@@ -1,0 +1,17 @@
+# Misc
+* ProxyCommand: command which is executed when 'ssh host' is typed
+
+# Port fowarding
+* https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding
+* Local port forwarding:
+  ssh -L 5901:dest:5900 hn01
+  -> forward localhost:5901 to dest:5900 on hn01
+* Reverse port forward
+  ssh -R 5901:dest:5900 hn01
+  -> open conntection to hn01
+  -> if there is a connection on hn01 to localhost:5901
+     forward it to dest:5900 on the current host
+* Dynamic port forward
+  ssh -D 1080 hn01
+  -> current host becomes a SOCKS proxy listening on port 1080
+  -> every connection x:y on localhost is forwarded to x:y on hn01

@@ -1,0 +1,20 @@
+# debug(fun)
+debug(fun)
+undebug(fun)
+Q // exit
+where // stack
+c // continue 
+n // next
+
+
+# library(debug)
+* mtrace(function)  // enable debugging
+* mtrace(f, FALSE), mtrace.off()  // disable debugging
+* is.mtraced(f)
+* bp(line)  // set/clear breakpoint
+* go()  // continue until breakpoint
+* go(n) // continue until line n
+* skip(line)  // jump to line number
+* qqq() // quit debugger
+* get.retval()  // return current return value
+

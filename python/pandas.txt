@@ -1,0 +1,109 @@
+# Missing values
+count() // # non-missing
+isnull()
+fillna(0)
+dropna(axis=) // drop axis with missing values
+interpolate() // fill missing values by interpolation
+
+# pandas printoptions
+pd.set_option('display.width', 150) 
+pd.set_option('display.height', 150)
+pd.set_option('display.max_columns', 150)
+pd.set_option('display.max_rows', 150)
+
+# Melting and reshaping
+df.pivot_table(rows=, cols=, values=) // list -> matrix
+pd.melt(matrix, ids_vars=, value_vars=, var_name) // matrix -> list
+
+
+# Convert to numpy array / structured array
+t = df.values // unstructured
+t = df.to_records() //structured
+
+# Iterating
+for row in df.iterrows():
+  row['x']
+# Plotting
+p = df.plot(x=, y=, kind='bar')
+p.set_xlabel()
+
+
+# R datasets
+import numpy.rpy.common as com
+com.load_data('mtcars')
+
+
+# Grouping
+g = df.groupby(['c1', 'c2'])
+g.groups  // groups as dictionary
+g.groups.keys() // group names
+g.get_group((g1, g2)) // query group by tuple
+g.ngroups // number of groups
+for name, value in g: // iterate over groups
+g.count()
+g.describe()
+g.fist()  // first element of each group
+g.last()  // last element of each group
+g.size()  // # group members
+g['c1', 'c2'] // select columns
+g.aggregate([fun1, fun2]) // summarize functions as single value
+g.aggregate({label:fun})
+g.transform(lambda x: np.mean(x)) // group specific modification; same size as group
+g.filter(lambda x: np.mean(x) > 0.5)  // return only members of groups that satisfy constraint
+g.apply(lambda df: pd.DataFrame({...})  // apply arbitrary function to groups
+
+# Summary
+df.head() / df.tail()
+df.columns / df.index
+df.describe()
+
+# Comparing DataFrames
+df.all(axis=0)
+df.all().all()
+import pandas.util.testing as pt
+pt.assert_frame_equal(df1, df2)
+
+# Sql
+import sqlite3 as sql
+import pandas.io.sql as psql
+con = sql.connect()
+df = psql.read_sql('SELECT * ', con, index_col=)
+
+
+# DataFrame
+DataFrame({'id':np.arange(3), 'value':np.linspace(3)}, columns=['id', 'value'])
+DataFrame(np.ones((n, m)), columns=)
+DataFrame(index=['r1', 'r2'], columns=['c1', 'c2'])
+DataFrame.from_dict
+DataFrame.from_csv
+
+## Misc
+df.values // numpy array used internally
+df.values.nbytes  // memory usage
+
+## selection
+.loc[rowlabel, collabel]  // purely label based
+.iloc[rowindex, colindex] // purely index based
+.ix[rowlabel, colindex] // mixed label index
+.at[rowlabel, collabel] // scalar label based
+.iat[rowindex, colindex]  // scalar index based
+df[a & b | c & ~d]  // boolean access
+
+## Hierarchical indexing
+df.ix['level1', 'level2', 'level3']
+df.xs('value', level='level')
+df.index
+df.set_index()
+df.reset_index()
+
+## hdf5
+df.to_hdf('file', 'groupname')
+df = pd.read_hdf('file', 'groupname')
+
+# Missing values
+dropna(...)  // drop columns with nan
+  axis=0/1
+  how=any/all
+  inplace=F
+isnull(), notnull()
+

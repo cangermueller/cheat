@@ -1,0 +1,33 @@
+:Git cmd  // execute git command
+:Gstatus
+  <CR>  // open file for edit
+  <C-N> // next file
+  <C-P> // previous file
+  - // stage file
+  d // vim-diff
+  cc  // commit changes
+:Gwrite // write and stage
+:Gedit, :Gsplit, :Gvsplit, :Gtabedit <revision>  // open revision for editing
+:Ggrep git-grep // git grep; \cw for quickfix window
+:Glog // log of current file in quickfix
+:Gbrowse  // open current file in browser
+
+# Revisions
+code.py // file in worktree
+HEAD: // tree of HEAD
+HEAD^:code.py // child of HEAD
+master^:code.py // master branch
+- // HEAD of current file
+^ // ancestor of current file
+~1  // 1 commit ago
+
+# Key mappings in git objects
+- // go to tree
+under cursor
+  <CR>  // HEAD
+  o // HEAD split
+  O // HEAD tab
+  S // HEAD vsplit
+  ~ // previous commit
+
+

@@ -1,0 +1,18 @@
+swap-windows -t 0 // rearrange windows
+? // show keybings
+s //  switch between sessions
+
+# Windows bindings
+j, k  // previous, next window
+p // laste window
+& // kill window
+. // change index of window
+
+# Panes
+h, l  // left, right pane
+i, n  // top, bottom pane
+; // last pane
+space // next pane layout
+{}  // swap panes
+! // break pane
+x // kill pane

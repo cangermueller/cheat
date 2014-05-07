@@ -1,0 +1,5 @@
+.schema // show databases
+.quit
+.help
+.open file.sqlite // load database
+.mode tabs, list, csv, html

@@ -1,0 +1,16 @@
+corrplot(matrix, method=, ...)
+# methods
+color
+
+# parameters
+is.corr=FALSE
+order=c('origional|hclust') // hclust correct?
+addrect=5 // rectangles, only if order='hclust'
+tl.col='black'  // color labels
+col=color_palette // c(col, col) do obtain full range
+cl.lim=c(0, 1)
+
+# colors
+col1 = colorRampPalette(c('white', 'blue'))
+col=col1(200)
+

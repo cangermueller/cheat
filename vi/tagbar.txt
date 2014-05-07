@@ -1,0 +1,4 @@
+p // open without move
+P // open preview
+s // switch sort order
+x // zoom

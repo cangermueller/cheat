@@ -1,0 +1,13 @@
+== varvbsbinoptimize
+* varbvsbinoptimize(x, y, sa, logodds, ...)
+* x must be scaled! -> scale(x)
+* y vector with two values
+* sa: hyperparameter for prior beta ~ N(0, sa) over coefficients 
+  * high -> large effect sizes -> less variables will be selected
+* logodds = log p/(1-p); p is hyperparameter for prior pi ~ Bernoulli(p)
+  * p high -> more variables will be selected
+* Value
+  * alpha: mean of posterior P(gamma)
+  * mu: mean of posterior P(beta)
+  * s: variance of posterior P(beta)
+  * lnZ: variational lower bound (see output) -> which is maximized, i.e. should be high

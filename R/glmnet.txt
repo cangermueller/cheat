@@ -1,0 +1,58 @@
+# Alternative
+* LARS packages
+  * may be more efficient if p >> n
+* relaxo
+  * relaxed lasso
+  * linear regression
+  * different penalty parameters for feature selection/estimation
+
+
+* library(glmnet)
+* glm1 <- glmnet(x, y)
+  - alpha=1
+    * elastice net mixture parameter
+    * alpha * L_1 + (1-alpha) * L_2
+    * alpha=1 -> L1; alpha = 0 -> L2
+  - nlambda=100 // number of lambda values to try
+  - standardize=T // feature normalization
+    * all features are weighted equally
+    * coefficients are returned on the original scale
+  - pmax  // maximum number of variables to be zero
+  - type.logistic= // "Newton": exact; "modified.Newton": approximation -> fast
+* creating design matrix
+  x <- model.matrix(y~.-1, data=data)
+  y <- model.matrix(~y, data=data)[,2] 
+* glm1
+  - $lambda  // lambda values used
+  - $df // degrees of freedom corresponding to lambda
+* print(glm1) // lambda (df) vs. %dev - percent deviance explained
+* plot(glm1)  // plot coefficients along the lambda sequence
+  - xvar="norm" // L1 norm on x-axis
+  - xvar="lambda" // log(lambda) on x-axis
+  - label=T
+* coef(glm1, s=lambda)  // extract coefficients for lambda
+* predict(glm1, newx=x)
+  - s=0.01  // lambda for which prediction should be made
+  - type="response"
+
+== Cross validation
+* cv.glm <- cv.glmnet(x, y) // cross validation to select the optimal value for lambda
+  - nfolds=10
+  - type.measure=c("deviance", "mse", "class", "auc") 
+  - keep=T  // return glmnet.fit object
+  - ... // parameters passed to glmnet
+* cv.glm
+  - lambda  // lambda sequence tried
+  - cvm // cross validation measure for each lambda
+  - lambda.min  // lambda that optimizes cvm
+  - lambda.1se  // largest lambda s.t. cvm <= min(cvm) + se(min(cvm))
+  - nzero // # non-zero coefficients for each lambda
+  - glmnet.fit  // fitted values
+* plot(cv.glm)
+  - first dotted line // lambda.min
+  - second dotted line  // lambda.1se
+* coef(cv.glm)  // optimal coefficients
+  - s=c("lambda.min", "lambda.1se")
+  - exact=T // refit coefficients for s without interpolation
+* predict(cv.glm, newx=, s=)
+  - s=lambda.1se  // predict with lambda.1se, lambda.min, or any other lambda sequence

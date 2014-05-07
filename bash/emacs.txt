@@ -1,0 +1,48 @@
+# emacs key bindings  
+http://web.mit.edu/gnu/doc/html/features_7.html
+
+## Navigation
+c-a // beginning line
+c-b // end of line
+c-f // forward character
+c-b // backward charcter
+m-f // forward word
+m-b // backwawrd word
+c-] // search character forward
+c-m-] // search character backward
+m-0..9  // specifiy argument of command
+
+## Del
+c-w // delete back until whitespace
+c-u // del until beginning line
+c-k // del until end of line
+c-d // delete under cursor
+m-del // del back until word
+m-d // del forward until word
+
+## yank
+c-y
+M-. // insert last argument of previous command
+
+## Modification
+c-t // swap characters
+M-T // swap words, transpose words
+M-c // capitialize word
+M-u // upper case word
+M-l // lower case word
+
+## History search
+c-r // reverse search
+c-s // forward search (stty -ixon)
+c-p // previous commad
+c-n // next command
+
+## Misc
+c-x c-u // undo last change
+c-_ // undo last change
+m-r //undo all changes
+c-l // clear screen
+M-? // list of possible completions
+c-x c-v // print shell version
+c-j  // execute current line
+c-q // unlock terminal when frozen

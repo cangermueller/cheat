@@ -1,0 +1,33 @@
+* XYply(object, group, fun)
+  * X: input
+  * Y: output
+  * group: grouping variable
+  * fun: function applied on each group
+* ddply # data.frame -> data.frame
+* dlply # data.frame -> list
+* daply # data.frame -> array/vector
+* d_ply # data.frame -> discard results
+* adply(array, 2, fun)  # array -> data.frame, like apply
+* rdply(5, fun) # call function 5 times
+* strip_splits  # remove split variables, ddply(object, .(split), strip_splits)
+
+* name_rows(df) # add/remove column for rownames -> plyr function ignore rownames!!!
+* rename(object, c(o1=n1, o2=n2)) # rename columns
+* revalue(factor/vector, c(old=new))  # replace specific values
+* arrange(mtcars, vs, gear) # sort by multiple columns
+* mutate(df, a=a+1, new=a+2)  # modify/add columns; similar to transform, but iterative
+* transform(df, a=a+1, new=a+2)  # does not work, since not iterative!
+* round_any(121, 3) # round to next multiple of number
+
+* join(a, b)  # join data.frames by common columns
+* join_all(df.list) # join list of data.frame
+* match_df(a, b)  # select rows a which are matched in b
+* rbind.fill(a, b)  # rbind columns and fill missing columns with NA  
+
+* colwise(mean)(mtcars) # apply function on each column
+* splat(f)(mtcars)  # call f with correct columns from mtcars
+
+== dplyr
+* next generation of plyr
+* more efficient
+* SQLite support

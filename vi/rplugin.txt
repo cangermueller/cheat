@@ -1,0 +1,33 @@
+# Send quickly
+\w  // line
+\d  // line down
+\q  // line new one
+
+# Global
+\rl // ls()
+\rr // clear console
+\rm // rm(list=ls())
+c-x c-u // complete arguments and chunk options
+
+# Status variable
+\rp // print
+\rs // summary
+\rt // str
+\rg //plot
+
+# Help
+\rh // show help
+\ra // show arguments
+\re // show example
+
+# Sending
+\pp // block
+\pe // block, echo
+\pa // block, echo, down
+\cc // knitr chunk
+\ss // visual selection
+
+# Knitr
+\cc // send chunk
+\op // open pdf
+gn, gN  // next, previous chunk

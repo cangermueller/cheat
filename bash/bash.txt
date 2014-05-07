@@ -1,0 +1,118 @@
+# ftp
+ftp ftp://ftpusr43:0afwmRLv@ftp2.babraham.ac.uk
+ls
+put local_file  // upload local file
+get remote_file // download remove file
+delete remote_file
+quit
+
+
+
+# rsync
+-a  // archive mode: preserve user, permissions, ...
+-z  // compress for transfer
+-v  // verbose
+
+# File system
+mount // show file system
+df  // show statistics about file system
+fdisk // partitions
+diskutil info /Volumns/hdd
+
+
+# tree
+* -L  maxlevels
+* -d  // only directories
+* -a  // all files
+* --prune // do not show empty dirs
+* -P pattern  // only files matching pattern
+* -s, -h  // size (human readable)
+* -p  // ls -l 
+
+
+# find
+-name file.h  // only match filename
+-name "?il*.[ho]" // ?, *, [] are special characters
+-path pattern // match complete path
+-path "*/src" // all src directories
+-regex "*/.EADME" // emacs regex whole path
+-type df  // directory of file
+-exec
+-delete
+-ls
+
+
+
+
+
+# grep
+grep pattern file1 file2  // print files containing pattern
+grep pattern dir1 dir2 -R // all files in dir1 or dir2
+grep -e pattern1 -e pattern2  // pattern1 or pattern2
+-i  // ignore case
+-c  // count matches
+-v  // invert matches
+--include PATTERN // include files
+--exclude PATTERN // exclude files
+--exclude-dir PATTERN // exclude dir
+
+## pattern
+-G  // basic; default; does not support ranges
+-E  // extended -> egrep
+-P  // perl
+. // any character
+^,$
+[ab], [^ab], [[:alpha:]]
+?, *, +, {min,max}
+
+
+
+
+# misc commands
+* uptime  // displays uptime and CPU load
+* tr SET SET  // translate characters
+  * tr -d SET // delete characters
+  * tr -s SET // sequence set of consecutive characters
+* readlink -f FILE  // get absolute path
+* ldd [binary]  // prints shared libraries [binary] depends on
+
+
+
+# variables
+* $0: script name
+* $$: process id
+* $!: id of last process ran in background
+
+
+
+# convert 
+* convert IN OUT
+* -density 300 // 300 dpi
+* -resize 50%
+* - size 400x100
+* convert -delay 50 *.png animation.gif
+
+
+
+# od (octal dump)
+* od -t c // translate to character
+* od -t d1  // translate one byte to signed integer
+* od -t u1  // translate one byte to unsigned integer
+* od -t x1  // translate one byte to hex
+* od -t dI  // translate four bytes to integer
+* od -t c -t u1 // translate to character and unsigned integer
+
+
+
+# hd (hexdump) -> better use od
+* hd -c // character
+* hd -b // byte
+
+
+
+
+# color output
+GREEN=$(tput setaf 2; tput bold)
+YELLOW=$(tput setaf 3)
+RED=$(tput setaf 1)
+echo -e "$RED Hello world"

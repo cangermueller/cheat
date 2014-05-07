@@ -1,0 +1,67 @@
+  == pROC
+* Visualization, confidence interval, hypothesis test
+* roc <- roc(p, y)
+  * roc@sens
+  * roc@spec
+  * roc@thres
+* plot.roc(roc, ...)
+  * ci=F  // confidence interval
+  * print.auc=F // print auc
+  * print.thres=F // print predictor threshold
+    * TRUE  // threshold that maximizes sens+spec
+    * 0.5 // p=0.5
+* plot.ci(ci, ...)
+  * type="bar"  // bars
+  * type="shape"  // filled shape
+* ci(roc, ...)  // compute confidence interval
+  * type="se" // sensitivity
+  * type="sp" // specificity
+  * type="auc"  // auc
+  * method="bootstrap"  // bootstrap confidence interval
+  * method="delong" // delong approximation based on U-statistic -> faster than bootstrap
+* roc.test(...)
+  * roc.test(roc1, roc2)
+  * roc.test(response, pred1, pred2)
+  * method="bootstrap"
+  * method="delong"
+  * alternative="two.sided, less, greater"
+
+== ROCR
+* Different curves: TPR/FPR, Sens/Spec
+* ROC threshold can colored
+* Statistics: AUC, MCC, ...
+* No confidence intervals, hypothesis tests
+
+* library(ROCR)
+* pred <- ROCR::prediction(p, y)
+  * p, y can be lists!
+* perf <- ROCR::performance(pred, "x.value", "y.value")
+  * methods: tpr, (rec, sens), tnr, fpr, fnr, ppv, auc, err
+  * perf@x.values
+  * perf@y.values
+  * perf@alpha.values // cut-off
+* Find optimal cut-off
+  * t <- which.max(perf@x.values[[1]] + perf@y.values[[1]])
+  * perf@alpha.values[[1]][t]
+
+== OptimalCutpoints
+* library(OptimalCutpoints)
+* data(elas)
+  * $elas  // the diagnostic marker, e.g. predicted probabilities
+  * $status // true diagnosis, i.e. 0 or 1
+  * $gender // optimal variable for grouping patients
+* oc <- optimal.cutpoints(data=elas, marker="elas", status="status", tag.healthy="0", method="Youden")
+  * marker="elas" // name of marker variable in data.frame
+  * status="status" // name of status variable
+  * tag.healty=0  // interpretation of status variable
+  * method="Youden" // score to be optimized
+  * categorical.cov="gender"  // find optimal cutpoint for different groups of people
+  * control=control.cutpoints() // list with optimization parameters
+  * pop.prev=0.01 // population prevalence; 
+* summary(oc)
+* plot(oc)
+* control.cutpoints() // list with optimization parameters
+  * $valueSp  // target value for method="ValueSp"
+  * $valueSe
+  * $valueDLR.positive 
+

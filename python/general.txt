@@ -1,0 +1,268 @@
+# Array letters, characters
+import string
+list(string.letters[:10])
+
+
+# Size objects/memory usage
+sys.getsizeof(a)
+a.nbytes  // numpy memory
+
+# executable python script
+#!/usr/env python
+
+# Special variables
+__name__  == module name, if imported as module
+__name__ == __main__, if executed as script
+## input history
+_i12, _iN
+_i, _ii, _iii
+_ih
+## output history
+_12, _N
+_, __, ___
+_oh
+
+# scope information
+dir() // all names in current scope
+locals()  // dictionary of local variables
+globals() // dictionary of global variables
+
+# generators
+* like iterators, but more efficients
+* not all objects are kept in memory
+* iteratable only once
+for i in xrange(100)
+squares = (x**2 for x in xrange(10))
+for s in squares: // works
+  print s 
+for s in squares: // does not work
+  print s
+
+## yield
+def irange(n):
+  i = 0
+  while i < n:
+    yield i   // jump to code of caller
+    i = i + 1
+for i in irange(10):
+  yield jumps to this position
+
+# Useful
+index, value = min(enumerate(list), key=lambda x: x[1])
+
+# Operators
+## Arithmetic operators
+2**4 == 16
+4 % 3 == 1
+4.0 / 3.0 == 1.33
+4.0 // 3.0 == 1.0
+
+## Boolean operators
+* not, and, or, xor
+
+## Bitwise operators
+~, |, &, ^, <<, >>
+
+## Other operators
+a == b  // compare content
+a is b  // compare references
+
+
+# References
+b = a // only copies references -> same value
+b = list(a) // copy value a
+import copy; 
+b = copy.deepcopy(a)  // copy by value
+b = copy.copy(a)  // shallow copy; members not copied
+a == b  // compare values
+a is b  // compare references
+
+# Data Structures
+## Constants
+True, False
+None
+
+## Number data types
+int(1)
+long(1L)
+float(1.0)
+float(1e2)
+complex(1+2j)
+
+
+## Indexing
+l[start:end:step]
+l[0], l[-1] // first, last
+l[i:], l[:i]  // i to end, start to i
+l[::-1] // reverse array
+l[:-1] // remove last element
+
+## Iterator
+s = 'Hello'
+it = iter(s)
+next(it)
+* iteratable Class: Class.__iter__(): return ClassIterator
+* iterator: 
+  ClassIterator.__next__(): 
+    return StopIterator if empty else value
+      
+## List
+del l[i]      // delete by index
+[1, 2] + [3] = [1, 2, 3]
+[1, 2].extend([3]) = [1, 2, 3]
+[1, 2].append([3]) = [1, 2, [3]]
+l.pop(i)      // remove and return by index
+l.remove(v)   // delete by value
+l.index(v)    // index first v
+v in l  // True if v is in l
+l.sort()      // modifying
+sorted(l)     // non-modifying
+l.sort(key=lambda x: x[-1]  // apply function on element before comparison
+l.sort(cmp=lambda x,y: x[-1] - y[-1]  // define comparison function
+idx = sorted(range(len(a)), key=a.__getitem__)
+l.reverse()   // modifying
+reversed(l)   // non-modifying
+map(f, list)  // applies f on each element
+filter(f, list) // returns elements for which f returns True
+reduce(lambda l, next: l.extend(next), list) // applies f on result and next element
+zip([1, 2], [3, 4]) = [(1, 3), (2, 4)]
+
+## Sets
+unordered, immutable
+s = {1, 2, 3}
+s.add(3)
+s.update({2, 3})
+s.update([2, 3])
+s.remove(10)
+s.pop() // remove and return first element
+x in s
+s | t
+s & t
+len(s)
+s = s & {1, 2, 3}
+t = s.copy()
+
+## tuples
+* sorted, immunable -> can be member of a set
+t = (2, 3, 4)
+t[0] = 4  // error
+l = [1, 2, 3]
+s = {l} // error
+s = {t} // no error
+
+## Strings
+'{} is {} years old!'.format('Christof', 25)
+'{name} is {age} years old!'.format(age=25, names='Christof')
+'{}+{}={:.2f}'.format(1, 2, 3)
+'%s is %d years old' % ('Christof', 25)
+'123'.isdigit() // check if str is numeric
+
+## Quotes
+s = "backslash \n is interpreted"
+s = 'backslash \n is interpreted'
+s = r'backslash not interpreted in raw strings'
+s = '''hello 'world'!'''
+s = """multiline string that can contain "quotes" """
+
+
+## Regular expression, regex
+import re
+m = re.match(pattern, string, flags)  // complete match
+m = re.search(pattern, string, flags) // first match
+re.findall(pattern, string)  // returns all matches
+for m in re.findall(pattern, string)  // all matches
+Return value: match objects or None
+  m.group()
+  m.group(i)
+re.sub(pattern, sub, string, flags)
+re.compile(pattern, flags)  // precompile pattern
+re.split(pattern, string)
+
+### flags
+re.I  // insensitive
+re.M  // multiline: ^, $ match lines instead of whole string
+re.S  // single line: . matches \n
+
+
+## Array
+* like list, but restricts type
+from array import *
+a = array('f', [1.0, 2.1, 3.0])
+c = array('c', 'Hello world')
+'i, I': signed/unsigned integer
+'l, L': signed/unsigned long
+'f, F': signed/unsigned float
+'c': character
+
+
+# Control structures
+
+## Conditional
+if x > 1:
+  ...
+elif x < -2:
+  ...
+else:
+  ...
+if x > 1: CMD
+
+## Ternary operator
+a = 1 if True else b
+
+## switch/case
+does not exist
+
+
+## Loops
+for i in set:
+for i in range(10):
+while i:
+  ...
+else:
+
+## comprehensions
+[2*x for x in range(3)]
+[x*y for x in A for y in B]
+[x for x in A if x > 5]
+
+## Functions
+def fun(a, b=1, *vars)
+fun = lambda *vars: sum(vars)
+  * no return
+  * no assignments
+  * single expression
+
+## Modules
+utils.py
+import utils  // namespace utils
+from utils import * // into current namespace
+from utils import a as alias
+dir(utils)
+globals() // dictionary of global variables
+locals()  // dictionary of local variables
+## Reloading modules
+%load_ext autoreload
+%autoreload 2 // reload all but excluded modules
+%autoreload 1 // reload only included modules
+%aimport  // modules automatically imported
+%aimport foo  // include foo
+%aimport -foo // exclude foo
+## Reloading modules 2
+from IPython.lib.deepreload import reload; reload(module)
+
+## Packages
+* For structuring modules; avoiding name collisions
+* Require __init__.py for being recognized as packages!
+pkg/__init__.py
+  spkg1/
+    __init__.py
+    module.py
+  spkg2/
+    __init__.py
+    module.py
+  module.py
+import pkg.spkg1.module
+import pkg.spkg2.module
+import pkg.module
+
+

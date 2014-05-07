@@ -1,0 +1,26 @@
+== BMA
+* library(BMA)
+* Bayesian Model Averaging
+* bic.glm(form, data=, glm.family=)
+  - factor.type=FALSE // dummy variables can be selected independently
+  - BUG1: 
+    * bm = bic.glm(nih$y~., data=nih.x) // nih$y and nih$x are different objects
+    * predict(bm, newdata=nih.x[1:10,]) -> Error variable length
+    * Solution1: variables in formula must be in the same object
+    * Solution2: bic.glm(nih$x, nih$y)
+  - BUG2:
+    * predict(bic.glm, data=data.train) -> "Invalid dimensions"
+    * set maxCol=ncol(data.test): bic.glm <- bic.glm(y~., data=data.train, maxCol=ncol(data.train))
+* Return value m
+  - n.models  // #models averaged over
+  - postprob // posterior prob of all models
+  - prior // prior prob
+  - bic // bic of models
+  - label // label of all models (names of selected variables)
+  - which // matrix with selected variables
+  - mle // matrix of maximum likelihood estimates for all models and variables
+  - postmean  // posterior mean estimate of all variables: coefficients averages over all models
+  - postsd  // sd of of posterior mean estimate
+* summary(m)
+* plot(m)
+* imageplot(m)

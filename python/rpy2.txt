@@ -1,0 +1,8 @@
+%load_ext rmagic
+
+%R a=1; b=2 // execute expr and return last assignment
+%Rpush a  // push a from py ns to R ns
+%R -i // == %Rpush a
+%Rpull a  // pull a from R ns to py ns
+%R -o a // == %Rpull a
+%%R // start of multiline section -> alone in cell!

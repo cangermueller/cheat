@@ -1,0 +1,32 @@
+http://pytables.github.io/usersguide/tutorials.html#
+
+f = File('filename')
+f = open_file('filename', 'rwar+')
+f.create_group('/', 'g1')
+ 
+# Appending row
+t = f.root.g1.t1
+r = t.row
+r['id'] = 1
+r['value'] = 1.2
+r.append()
+t.append([(1, 12), (2, 13)])
+
+f.create_table('/g1', 't1', description)
+## description
+class Person(IsDescriptor):
+  id = Int16Col()
+  value = Float16Col()
+Person
+np.dtype([('id', np.int8), ('value', np.float16)])
+{'id':Int8Col(), 'value':Float16Col}
+
+for x in t
+for x in t.iterrows
+t.iterrows(start=, end=, step=)
+t.itersequence([0, 1, 1])
+
+# Show file content
+f.list_nodes('/')
+for x in f.iter_nodes('/')
+group = [x._v_name for x in file.iter_nodes('/')]

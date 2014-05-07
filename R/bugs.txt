@@ -1,0 +1,46 @@
+== Bugs
+* dnorm(mu, tau)  // tau = 1/sigma^2
+* inprod(x[i,], b[])  // inner product of vectors
+
+
+== R2WinBUGS
+* data = list(n=100, x=x, y=y)  // data for WinBUGS with correct variable names
+* inits = list(alpha=0, beta=0) // initial values for WinBUGS
+* params = c("alpha", "beta") // parameters to be monitored
+* sim = bugs(data, inits, params, working.direcory="wd", model.file="model.txt")
+  - working.directory // Error if not specified
+  - model.file  // relative to working.directoy
+* print(sim)  // summary
+* plot(sim)
+
+== coda
+* library(coda)
+* sim = bugs(codaPkg=T)
+* sim.coda = read.bugs(sim)
+  * list
+  * each entry corresponds to one chain
+  * matrix with states
+* summary(sim.coda)
+* plot(sim.coda, ask=T)
+  - ask=T // ask user for next plot
+* densityplot()
+* traceplot()
+* effectiveSize // effective sample size
+* rejectionRate() // Metropolis Hastings rejection rate
+  - different values for variables if they were drawn independently
+
+= correlation
+* autocorr.diag(sim.coda)
+* autocorr.plot(sim.coda)
+  - k = Lag = distance between samples
+  - cor(x_i, x_{i+k}) should decrease for higher k for good mixing
+* crosscorr, crosscorr.plot
+
+= Checking convergence
+* gelman.diag(sim.coda)
+* gelman.plot(sim.coda)
+  * R = potential scale reduction factors
+  * Good mixing: 1 <- R
+  * Bad mixing: R > 1.1, 1.2
+* heidel.diag(sim.coda)
+* raftery.diag(sim.coda)

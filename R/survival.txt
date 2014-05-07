@@ -1,0 +1,26 @@
+library(survival)
+
+# Example dataset
+* lung
+* aml
+* colon
+
+# Functions
+* Surv  // Creates survival object
+* Surv(time, event) // right censored data
+  * Surv(c(5, 2), c(0, 1)) 
+  * Sample1: right censoring at time 5 (observation ended; dropped out of study)
+  * Sample2: death at time 2
+* cox <- coxph(Surv(time, event) ~ x, data=data)
+  * strata(x) // identifies x as stratification variable -> x converted to factor; like factor(x)
+  * coxph(Surv ~ x + strata(drug))
+* summary(cox)
+* sf <- survfit(cox)) // generate survival curve
+  * plot(sf)
+* bh <- basehaz(cox)  // generate cumulative survival curve
+  * plot(bh)
+* survdiff(Surv(time, status) ~ x, data=data)
+  * Check for differences between survival curves
+  * Observed: # observed events (e.g. deaths)
+  * Expected: # expected events
+  * p < 0.05: survival curves are significantly different ~ log-rank test

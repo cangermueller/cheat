@@ -1,0 +1,30 @@
+f = File('filename.hdf5', [r w r+ a]
+g = f.create_group('g1')
+d = [fg].create_dataset('d1', (n,m), dtype='i')
+d = [fg].create_dataset('d1', data=np.arange(3))
+d = f['g1/d1']
+d.attrs['a1'] = 'value'
+del f['/object/']
+enable_ipython_completer()
+
+# create_dataset
+d = [fg].create_dataset('d1', (n,m), dtype='i')
+d = [fg].create_dataset('d1', data=np.arange(3))
+create_dataset((1e5, 1e5), chunks=(100, 100))
+* split dataset into chunks of size (100, 100)
+* access by B-tree instead of linear access
+* keep chunk size between 10 KB and 1MB
+* not everything is loaded into memory
+compression='gzip'
+maxshape=(None, 100)  // resizeable dataset
+
+# Access
+for name in f:
+    print name
+f.keys(), f.values()
+'g1' in f
+f.visit(callable_function)  // callable_function(name)
+f['name'] = ExternalLink('filename', '/group/object')
+d[...]
+d[:]
+d[i, :]

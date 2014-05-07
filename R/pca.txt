@@ -1,0 +1,50 @@
+== Misc
+* M = scale(M, center=T, scale=T)    
+  - center and scale data matrix
+  - center=T: substract column means
+  - scale: devide by sd
+
+== svd
+* svd = svd(M)
+  - svd$u: left singular vectors svd$u[,i]
+  - svd$v: right singular vectors svd$v[,i]
+  - svd$d: singular values
+  - if M is scaled, i.e. svd(scale(M)):
+    * svd$v: eigenvectors, principal components
+    * svd$d^2: eigenvalues  // unscaled, not the same as prcomp() or eigen()!
+* fast SVD
+  - library(corpor)
+  - fast.svd
+* data compression
+  - M' = svd$u[,1:k] %*% diag(svd$d[1:k], nrow=k) %*% t(svd$v[,1:k])
+
+== prcomp
+* princomp  // out-dated
+* pc = prcomp(M, scale=T)
+  - !! Always use scale=T !!
+  - prcomp(M, scale=T) == prcomp(scale(M))
+  - pc$rotation[,i]: principal components
+    * loadings of component i
+    * pc$rotation[j,i]: correlation variable j with component i
+  - pc$x: data matrix rotated by pc$rotation == component score
+    * pc$x[i,j] = data[i,] %*% pc$rotation[,j]
+    * pc$x[i,j] == projection of data[i,] onto component j -> coordinate j
+    * pc$x[i,]  // component scores of sample i
+  - pc$sdev^2: eigen values
+  - pc$center, pc$scale: centering and scaling of data matrix (if scale=T)
+* summary(pc)
+* plot(pc)  // plot variance = sqrt(eigenvalues)
+* biplot(pc)
+* plot(pc$x[,1:2], col=M$y) // scores w.r.t. first two components -> like biplot
+
+== eigen
+* eig = eigen(cov(M))
+  - eig$vectors: principal components
+  - eig$values: eigen values
+
+== Interpretation
+* if M = scale(M)
+  - svd$v == pc$rotation == eig$vectors
+  - svd$d^2 ~ eig$value 
+  - svd$d^2 / sum(svd$d^2)  // percentage of variance explained
+

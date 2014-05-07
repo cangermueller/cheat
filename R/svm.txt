@@ -1,0 +1,52 @@
+* library(e1071)
+* interface to libsvm
+
+* model <- svm(...)
+  * svm(y~., data=)
+  * svm(x, y)
+  * kernel="linear", "polynomial", "radial"
+  * gamma=1/dim // kernel parameter gamma (precision)
+  * degree=3  // degree of polynomial kernel
+  * coef0=0 // coefficient of polynomial kernel 
+  * cost=1  // cost for violating constraints
+  * class.weights=1 // NAMED! class weights in case of unbalanced data
+    * class.weights=list("0"=0.8, "1"=0.2)
+    * 1 / table(y)
+    * rev(table(y) / n) // inverse fraction
+    * w1 * cost(class 1) + w2 * cost(class 2) // increase weight of costs of minority class
+  * probability=F // allow probability predictions
+  * cross=0 // perform k-fold validation and determine accuracy
+* model object
+  * $SV // support vectors scaled by mean and variance
+  * $index // index support vectors in data matrix
+  * $acc  // accuracy k-fold cross validation
+  * $tot.acc  // mean accuracy k-fold cross validation
+* fitted(model) // fitted values
+* summary(model)
+* predict(model, newdata=data,...)
+  * probability=T, decision.values=F 
+    * predict class probabilities; decision values
+    * attributes(p)$prob, attributes(p)$decision
+
+# Parameter tuning
+* tune()
+  * tunes paramater via grid search
+  * error is estimated via resampling (cv, bootstrap, ...)
+  * classification: classification error
+  * regression: MSE
+* t <- tune.svm(y~., data=data, tunecontrol=tune.control(), gamma=, cost=, ...)
+  * gamma=2^c(-2:6) // gamma range
+  * cost=10^c(-2,2) // cost range
+  * class.weights=list(list("1"=0.8, "0"=0.2), list("1"=1.0, "0"=1.0))  // optimize class.weights -> list of lists!
+* model t
+  * t$best.model // best model trained on WHOLE data set
+  * t$best.params
+  * t$best.performance
+  * t$performance // all parameters + performances
+* plot(t, transform.x=log2, transform.y=log10)
+* tune.control(repeat=1, sampling="cross", cross=10)
+  * controls tuning parameters
+  * sampling: cross, boot, fix
+  * cross=10: 10-fold cv
+  * repeat=1: number of repetition, e.g. 2 * 3-fold cv
+

@@ -1,0 +1,135 @@
+* Dynamic report generation
+* Substitutes R-code by its corresponding output in documents
+* Extension of sweave
+* Supported documents
+  * Rmd: R markdown
+  * Rtex: tex
+  * Rhtml: html
+* http://yihui.name/knitr/
+
+== Methods
+* knit(): // Compile R source
+* knit2pdf(): Rnw -> pdf    // only lates source!
+* knit2html(): Rmd -> html  // only markdown!
+
+== Chunks
+<starttag> chunk.name, options <end>
+* chunk.name  // name of chunk
+* options // knitr options in latex format
+
+== Rnw-chunk
+<< chunk.name, options>>=
+@
+\Sexpr{code}
+
+== Rmd-chunk
+```{r chunk.name, chunk.options}
+```
+`r inline code`
+
+== Options
+=== Basic options
+* See http://yihui.name/knitr/options
+* tidy=T  // reformat R-code
+* eval=F  // do not evaluate R-code -> only print code
+* echo=F  // do not print code -> only evaluate code
+* message=F // suppress output
+* include=F // do not generate any output put evaluate code 
+* warning=F  // do not show warnings
+* error=F  // do not show errors
+* results='markup'  // R output is displayed
+  * markup  // as markup
+  * hide  // suppress any output
+  * asis  // as plain output in *.tex file -> for generating tex code
+* split=T // split code out of *.tex file -> figures/chunk.name.tex
+* cache=T // only evaluate code chunk once; update cache if code changes; output is shown
+* engine='python' // use different languages; variables can not be stored
+
+=== Plot options
+* fig.width, fig.height
+* out.width='.5\linewidth'
+* fig.pos='!h'
+* fig.align='center'
+* fig.cap='caption'
+* fig.path='/figure/base_'  figure/base_fig.pdf
+* fig.path='/figure/'  figure/fig.pdf
+* cache.path='cache/'
+* fig.dev='png'
+* fig.lp='fig:'
+* fig.show='asis'
+  * fig.width, out.width applies to each plot separately
+  * asis: generate plots in the sequence they occur in the chunk: ADDs newline after block
+  * hold: generate plots at end of chunks -> two plots side by side
+
+
+== library(knitr)
+* library(knitr)
+* knitr("file.Rmd") // file.Rmd -> file.md
+* knitr2pdf("file")
+* knitr2html("file")
+
+== Options
+* opts_<x>  // options
+  * $get("include")
+  * $set(include=F)
+  * $restore()  // restore default options
+* opts_knit // knitr options
+* opts_chunk  // global chunk options
+* opts_chunk$set(fig.path='myfigs/', cache.path='mycache/')
+
+== hooks
+* Two types of hooks
+  1) hooks that are executed before/after chunk: http://yihui.name/knitr/hooks#chunk_hooks
+      -> somehow do not work
+  2) hooks for formatting output: http://yihui.name/knitr/hooks#output_hooks
+      -> set dataanalysis/*/index.Rmd for example
+* knit_hook$set(inline = function(x) { if (is.character(x) sprintf("%.2f", x); else x }) }
+  -> format inline code
+
+== Documents with childs
+=== Compiling main document
+* Including child document as chunk:
+<<include_child, child='child/child.Rnw'>>
+@
+* Including child document inline:
+\Sexpr{knit_child('child/child.Rnw')}
+* Only reads child.Rnw
+* Does not create any files in child/, i.e. child/figure
+* All files stored in directory of main document
+* Child may not contain preamble
+* chunk tags must be unique among all childs
+
+=== Compiling child document
+* \Sexpr{set_parent('../main.Rnw')}
+* Includes preamble and evaluates chunks in preamble
+* All files are created in child directory
+
+== Referencing chunks
+* http://yihui.name/knitr/demo/reference/
+=== With chunk declaration
+<<chunk>>=
+<<chunk_other>>
+@
+=== ref.label
+<<chunk, ref.label='chunk_other'>>
+code that is replaced by code in chunk_other
+@
+* substitutes source by source of other chunk
+
+== Cache
+* http://yihui.name/knitr/demo/cache/
+* options
+  * cache=T // activate caching
+  * dependson='chunk' // dependencies
+  * dependson=c('a', 'b')
+* Invalided if
+  * chunk option except 'include' is changed
+  * code is changed (even space)
+* Do not cache chunks that
+  * set options: opts_chunk()$set, options$set()
+  * load libraries that are used by other chunks (okay if only used by this chunk)
+  * source() files, since it affects global environment
+* Files in cache/
+  * .rdx  // index
+  * .rdb  // database
+  * lazyLoad('hash')  // load database

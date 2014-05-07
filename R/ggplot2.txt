@@ -1,0 +1,174 @@
+# Misc
+aes_string(fill='mean') // aes variable
+round_any(var, 0.1) // discretize/round continuous information
+
+# ggdendro
+plot_hclust <- function(hc) {
+  p <- ggdendrogram(hc) #+ theme(plot.background=element_rect(fill='transparent', color=NA)))
+  return (p)
+}
+plot_hclust <- function(hc) {
+  dendro <- as.dendrogram(hc)
+  dendro_d <- dendro_data(dd.row)
+  dendro_d_s <- segment(dendro_d)
+  dendro_d_l <- label(dendro_d)
+  p <- ggplot(dendro_d_s) + geom_segment(aes(x=x, y=y, xend=xend, yend=yend))
+  p <- p + geom_text(data=dendro_d_l, aes(x=x, y=y, label=label, color=label), size=3, vjust=3)
+  p <- p + guides(color=FALSE) + theme_dendro()
+  return (p)
+}
+
+# Sausage plot / error bars
+geom_errorbar(x=, ymin=, ymax=)
+geom_ribbon(x=, ymin=, ymax=) // fill between lines
+geom_area(x=, y=) // fill underneath line
+
+# Transparent background
+theme(plot.background=element_rect(fill='transparent', color=NA))
+
+# Text
+geom_text(aes(label=sprintf('%f', value)), hjust=, vjust=, size=, angle=)
+vjust // offset, jitter, shift text
+
+
+# Title
+labs(title=title)
+ggtitle(title)
+
+# Axis
+coord_cartesian(xlim=c(min, max), ylim=c(min, max)) // zoom, do not discard points
+scale_x_continuous(xlim=, breaks=, labels=) // xlim (points discarded), breaks, labels axis
+xlim(min, max)  // discard points
+xlab('x'), ylab('y')
+theme(axis.title=element_blank()) // no axis labels
+scale_x_discrete(title='xlab')
+theme(axis.text.x=element_test(angle=-90))  // rotate axis ticks labels
+
+# Colors
+fill=, color=
+NA  // transparent
+aes(...), fill='red'
+aes(..., fill=I('red'))
+scale_color_manual(values=c('g1'='red', 'g2'='blue'))
+scale_fill_hue(), scale_fill_brewer(), scale_fill_X()
+scale_fill_gradient2(min='blue', mid='white', hight='red', midpoint=0.5)
+scale_fill_gradientn(colors=brewer.pal(7, 'Spectral')) // see brewer.txt
+
+# Legend
+theme(legend.position='bottom', legend.direction='horizontal')  // global legend settings
+geom_point(show_guide=FALSE)  // turn all legends of points off
+geom_points() + guides(size=FALSE)  // turn specific legends off
+scale_fill_discrete(guide=FALSE) // turn specific legends off
+guides(color=guide_legend(...), size=guide_legend(...)) // change legend format
+guide_legend(title='New title', nrow=, ncol=, keywidth=, ...) // change legend format
+scale_fill_continuous(limits=c(0, 1)) // set color range
+scale_size(range=c(1, 6)) // adjust min/max size of points
+
+
+# Multiple overlapping plots
+# gridBase
+library(gridBase)
+vp.main = viewport()
+pushViewport(vp)
+par(new=T, fig=gridFIG())
+plot(1, 2)
+vp.child = viewport(x=0.1, y=0.1, w=0.5, h=0.5, just=c('left', 'bottom')
+pushViewport(vp.child)  // add and navigate to child viewport
+par(new=T, fig=gridFIG())
+plot(2, 3)
+popViewport() // go one layer out
+upViewport()  // go one layer out
+print(ggplot, vp=viewport())  // add ggplot2 plot
+### Layout
+pushViewport(viewport(layout=grid.layout(nrow=1, ncol=2, width=c(w1, w2))))
+print(p1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
+print(p2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
+
+## gridExtra
+grid.arrange(plot1, plot2)  // vertical alignment
+
+
+
+
+
+* Implementation Grammar of Graphics
+* Default R lattice model: pen an pencil -> draws things directly
+* gg: modular -> adding/removing objects
+* higher flexibility; slower
+
+== Useful function
+* last_plot() // retrieve last plot
+* ggsave('file.pdf')
+  * saves last_plot()
+  * size depends on dev() size
+  * format = file extension
+
+== qplot
+* qplot(x, y, data=data, geom="point", ...)
+* qplot(mpg, hp, data=mtcars, geom="point")
+* geom=c("point") // can not be appreviated
+  * point
+  * line
+  * boxplot
+  * jitter
+  * smooth
+  * density
+  * histogram
+  * bar
+* color=
+  * fieldnames
+  * I("red")
+  * I("red"), alpha=I([0;1])
+* pch=, shape=
+* size= // point size
+* main="title"
+* xlim, ylim
+* log="x", log="y", log="xy"
+
+= geom="smooth"
+* method="loess", span=0.1
+* method="lm", formula=y~x , formula=y~I(x^2)
+
+= geom="histogram"
+* qplot(var, geom="histogram")
+* qplot(var, ..density.., geom="histogram") // show density instead of counts
+* binwidth=1.0
+
+= geom="density"
+* color=color
+* fill=I("red")
+
+= geom="bar"
+* counts levels of factor
+* qplot(factor, geom="bar")
+* qplot(factor, geom="bar", col=factor2)  // stacked bar plot
+
+= facets
+* Visualizing different subgroups
+  * by aesthetics: color, shape, size, ...
+  * by subplots -> facets
+* facet_warp(~var)
+* facet_grid(xvar~.)
+* facet_grid(xvar~yvar)
+* facets are applied to all data objects -> must contain the same factors
+  * http://docs.ggplot2.org/0.9.3.1/facet_wrap.html: invalid factor level, NAs generated
+
+* p <- ggplot()
+* p + layer(geom="geom_point", geom_params=list(col="darkblue"))
+* p + geom_point(col="darkblue")
+* Mapping to variables: 
+  * geom_point(aes(color=factor)), geom_point(aes(col="darkblue"))
+  * qplot(color=factor)
+* Setting to single values:
+  * geom_point(color="darkblue")
+  * qplot(color=I("darkblue"))
+
+== Grouping
+* library(nlme)
+* ggplot(Oxboys, aes(age, height)) + geom_line()  // Not grouped by subject
+* ggplot(Oxboys, aes(age, height, group=Subject)) + geom_line()  // grouped by subject
+* group=1 // sets grouping to complete data; overwrites default grouping
+  * ggplot(Oxboys, aes(age, height, group=Subject)) + geom_line() + geom_smooth(aes(group=1), lwd=2)
+  * ggplot(data=dia, aes(x=cut)) + geom_histogram(aes(y=..density.., group=1))
+
+

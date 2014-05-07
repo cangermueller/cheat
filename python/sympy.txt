@@ -1,0 +1,80 @@
+# Latex output
+init_printing()
+
+# Variables
+s = Symbol('x', integer=True, real=True, function=True)
+a, b = symbols('a b') = symbols('a, b')
+b0, b1 = symbols('b0:2')
+a, b, c = symbols('alpha, beta, gamma')
+A = IndexedBase('A', shape=(m, n))
+A.shape
+i = Idx('i', (lower, upper))
+
+# Arithmetic operations
+expand((a+b)**2)
+factor(a**2+2*a*b+b**2)
+simplify(2*a + a + a)
+(a+b).subs(a, 1)  // substitute variable by value
+N(1 + pi) // evaluate expression; return value
+(1 + pi).evalf() // evaluate expression; return value
+together(a/b + a/(2*b))
+apart((a+b)/(a*b))
+
+# Calculus
+diff(a*x*2, x)  // differentiate wrt x
+integrate(1/x*a)  // integrate wrt x
+integrate(1/x, (x, -00, x)) // proper integral -00 -> x
+limit(f, x, b)  // lim f(x), x->b
+series(f, x, a, o)  // series of f wrt x at a of order o
+f.series(x, a, o)
+series(1/x**2, x, 1, 5)
+Sum(1/x, (x, 1, 10))
+Prod(1/x, (x, 1, 10))
+solve([x+y, x-y], [x, y])
+
+# Matrix algebra
+M <- Matrix([[m11, m12], [m21, m22]])
+M.inv()
+M.transpose()
+M.det()
+
+# Plotting
+plot(y=f(x), (x, s, e), 'r')
+plot(x**2, (x, -5, 5))
+p = plot()
+## Attributes
+title, xlabel, ylabel
+axis_center=(x,y)
+
+
+fig = p._backend.fig  // matplotlib.figure
+plot_implicit(Eq(-x+y, 0))  // only 2d
+plotting.plot3d(z=f(x, y), (x, s, e), (y, s, e))
+plotting.plot3d_parametric_line(x=f(k), y=g(k), z=g(k))
+plotting.plot3d_parametric_surface(x=f(k,j), y=g(k,j), z=g(k,j))
+
+# scipy.stats !!! DEPRECATED !!!
+## Distributions
+n = statistics.Normal(mu, sigma)
+u = statistics.Uniform(a, b)
+e = statistics.distributions.PDF(pdf(x), (x, 0, oo))
+
+n.mean, n.variance
+n.pdf(q), n.cdf(q)
+n.confidence(0.95)  // symmetric 95% interval
+n.probability(-0.5, 0.5) // P(-0.5 <= X <= 0.5)
+n.random([n]) // sample of size n
+n2 = Normal.fit(s)  // fit distribution to sample
+
+## Sample
+s = statistics.distributions.Sample([1, 2, 3])
+s.mean, s.variance, s.count
+
+
+# scipy.stats
+X = Normal('X', u, s)
+Z = X + Y
+Z = given(X, Eq(X, 5))
+E(X), variance(X), std(X)
+P(X < 1), density(X)(0) cdf(X)(5)
+sample(X)

@@ -1,0 +1,188 @@
+== General
+* demo(graphics): some nice demo graphics
+* pdf(file, width=, height=, title=)
+* par(mfrow=c(nrows,ncols)): multiple frames filled by rows
+* par(mfcol=c(nrows,ncols)): multiple frames filled by columns
+
+== Misc
+* Nice colors: darkblue, salmon
+
+== Devices
+* ?Devices  // show all available devices
+* help(dev.cur())
+  - dev.new(), dev.off()
+  - dev.list(), dev.cur()
+  - dev.next(), dev.prev()
+* dev.list(): list all devices
+* dev.cur(): current device
+* dev.set(2): switch to device 2
+* dev.set(dev.next()): switch to next device
+* dev.off(): close current device / device i
+* graphics.off(): close all devices
+* dev.copy(device): copy current device to new device 
+  * dev.copy(pdf, file="file", width=)
+  * dev.off()
+  -> write current device new pdf device
+  -> dev.off() necessary to shut down the devices
+* dev.print(pdf, file="file", width=10, height=5)
+  * copy current device to new device and close new device
+  * same as dev.copy() + dev.off()
+* dev.copy2pdf(file="", ...)
+  * same as dev.print(pdf, file="")
+
+== General plot function
+* plot.new()  // create empty plot
+* plot(x, xlim=c(min,max), ylim=c(min,max), main="title", col="color", pch=19, lwd=1, type='t')
+* plot(y~x) // plot variable y against x
+* type='t':
+  - p: points
+  - l: lines
+  - b: both
+  - n: nothing
+* matplot(x, m): plot multiple curves stored in a matrix
+  - matlines
+  - matpoints
+* pie(x)  // pie chart
+* mosaicplot(table(x, y), col=topo.colors(n))  // for categorical variables
+  
+
+== Parameters
+* main: main title
+* xlab, ylab
+* xlim, ylim
+* col: color
+* pch: point character
+  - 0-20: predefined characters
+  - 15-20: filled characters
+    * 19: round, filled
+  - > 20: ascii characters
+  - 'a','b',...
+* cex=.2: scale character size / point size
+* lwd: line width
+* lty: [0-10], "solid","dashed","dotted"  
+* log="x"|"y"|"xy": logarithmic scale
+* xaxt="n", yaxt="n": no axis -> use axis() instead 
+* las = 0/1: horizontal, vertical axis labels
+
+== Adding objects
+* lines(x=c(x1, x2), y=c(y1, y2))  // x,y are vectors which define points to be connected
+* points(x,y) // x,y defines points to be added
+* curve(x*x, from=, to=, add=)  //plot some expression
+* abline(h=c(), v=c())  // draws a set of horizontal/vertical line
+* abline(intercept, slope)  // draw line with intercept and slope -> abline(0, 1) for diagonal
+* arrows(x0,y0,x1,y1)
+* segments(x0, y0, x1, y1)  // draw line segment between points
+  - like line(c(x0, x1), c(y0, y1))
+* text(x,y,labels)  // add labels at points defined by x and y
+  - b = barplot() // returns x cooridates
+  - text(x, par("usr")[3], srt=45, adj=1)
+    * par("usr")[3]: y1 of plotting area
+    * srt=45 // rotation angle
+    * adj=1 // center of rotation
+* title(main=, xlab=, ylab=) // define different titles
+* mtext("Figure a)", side=3, line=distance) // draws text on margin of plot
+* axis([1=bottom,2=left,3=top,4=right], at=, labels=, cex.axis=)
+* grid()
+* legend("topright|right|bottomright", c("L1","L2"), col=c(), pch=c(), lty=c())
+* box(): draws a box around the plot
+* polygon(x, y, col='salmo'salmon' // x, y are coordinates of points that are connected by lines; col=fill color
+
+== Scatterplot
+* plot(data$x, data$y) / plot(data$y ~ data$y)
+* plot(data$x, data$y, col=ifelse(data$g == 1, "blue", "red")) // color groups differently
+* plot(data$x, data$y, col=data$g)  // color groups differently
+* plot(data$x, data$y, cex=data$age)  // adjust point size
+* dealing with many data points
+  - A) sampling
+    * s = sample(length(x), 100)
+    * plot(x[s], y[s])
+  - B) smoothScatter(x, y)
+* pairs(M) // create scatterplot matrix of all variables (columns) of M
+* pairs(~var1+var2+var3, data=df) // create scatterplot matrix of data.frame
+
+
+== Barplot
+* barplot(c(3,4,3), names.args=c("A", "B", "C"), horiz=T)
+* barplot(matrix, besides=T)  // Several groups besides
+
+== Function curves
+* curve(x*x, xlim=c(-5,5)): plot function
+
+== Histogram
+* hist(data$score, names=, freq=)
+* breaks=seq(min(data), max(data), by=2)  // specify bin width
+* names: group labels
+* freq=F: plot probabilities instead of counts
+
+== Density lines
+* d = density(data$score)
+* lines(d)
+
+== Box plot
+* boxplot(data$score ~ data$group, varwidth=)
+* varwidth=: change width depending on the number of observations
+
+== qqplot
+* qqnorm(x) // x vs. normal distribution
+* qqline(x) // add line
+* qqplot(x, y)  // x vs. y
+
+== Heat map
+* image(x, y, z)  // colors point at (x, y) with color for value (z)
+* image(matrix)
+  - matrix[x, y] = z  // matrix[1, 10] is top left
+  - image(t(matrix)[,nrow(matrix):1]) // draw matrix as exprected
+  - heatmap(matrix, Rowv=NA, Colv=NA) // rows reversed -> first row at bottom
+  - image(t(matrix)[,nrow(matrix):1]) == heatmap(matrix[nrow(matrix):1,], Rowv=NA, Colv=NA)
+
+== Clustered heatmap
+* heatmap(matrix, ...)
+  - Rowv=NA // do not cluster rows
+  - Colv=NA // do not cluster columns
+  - labRow=NA, labCol=NA  // no labels
+  - margins=c(0,0)  // avoid margins at right site and bottom
+  - revC=F  // reverse order of ROWS; if Rowv=NA, plot 1:nrow instead nrow:1
+* heatmap.2(matrix, ...)
+  - library(gplot), allows different ratio width/height
+  - key=T // show color key
+  - density.info='density'  // show density information in color key
+  - trace='none'  // do not draw trace lines in heatmap
+
+== Labels/Font 
+* subscript: ylab=(expression("CSBLAST"[dis]))
+* supscript: ylab=(expression("Area [nm]"^2))
+* greek letters: xlab=expression(Phi)
+* change label font size: par(cex.lab=2.0)
+
+== par()
+* function for accessing default graphic parameters
+?par
+* par(p), par(p=v)
+* dev.off() restores default parameters
+* parameters:
+  - bg: background color
+  - cex, cex.main, cex.lab, cex.axis: font scaling
+  - font=[1:plain, 2:bold, 3:italic, 4:bold+italic]
+  - col, col.axis, col.main, col.lab
+  - mfrow=c(nrows, ncols): multi-frame plot filled by row
+  - mfcol=c(nrows, ncols): multi-frame plot filled by column
+  - Global title
+    * par(oma=c(0, 0, 2, 0))
+    * mtext("Text", side=3, outer=T)  
+  - mar=c(bottom,  left, top, right): margins of plot
+  - oma=c(bottom,  left, top, right): outer margin -> for multiple plots
+  - las=1 (horizontal axis labels), las=2 (perpendicular axis labels)
+  - usr -> c(x1, x2, y1, y2) : plot region
+  - xpd // defines where plotting is possible
+    * FALSE // only in plot region (default)
+    * TRUE  // in figures
+    * NA    // in device
+
+== Colors
+* rainbow(n), heat.colors(n), topo.colors(n), cm.colors(n)
+* col = heat.colors(10) // col[1] == red -> hottest
+* colors(): list of color names
+  - grep("red", colors())
+  - colors[]: respective rgb values
+* col2rgb("color"): get rgb value
+* rgb(r,g,b)

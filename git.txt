@@ -1,0 +1,39 @@
+# Ignoring files
+.gitignore  // shared
+.git/info/exclude // not shared
+
+# Commit messages
+file.h: fix bug at line 88
+
+Fix bug at line 88 caused by division of zero.
+
+* Imperative, present
+* First line
+    * file: update changes
+    * title
+    * no full stop
+    * present, imparative
+    * &lt 50 characters
+* Whitespace
+* Description
+  * Present, imperative
+  * &lt50 characters
+
+# Submodules
+* git submodule CMD
+* status  // status information
+* init // add entry for all modules in .gitmodules to .git/config
+* update  // checkout head
+* .git/modules  // configuration files, e.g. info/exclude
+
+## Checkout all submodule
+* git submodule init
+* git submodule update
+
+## Addding fresh submodule
+* git submodule add git://github.com... [PATH]
+* git commit
+
+## Addding checked out submodule: exactly the same as before!
+* git submodule add git://github.com... [PATH]
+* git commit

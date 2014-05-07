@@ -1,0 +1,23 @@
+plot(p)
+print(p, file='file.html', tag=)
+  tag=caption
+  tag=chart
+
+
+gvisMotionChart
+gvisAnnotatedTimeLine
+gvisBarChart
+gvisLineChart
+gvisAreaChart
+gvisStackedAreaChart
+gvisScatterChart
+gvisGeoChart
+
+gvisTable
+p12 = gvisMerge(p1, p2, horizontal=F)
+
+# Legend
+title
+legend
+width, height
+gvis.editor='Edit me!'

@@ -1,0 +1,68 @@
+# Packages
+* [nnet](http://cran.r-project.org/web/packages/nnet/nnet.pdf): NN with single hidden layer
+* [neuralnet](http://cran.r-project.org/web/packages/neuralnet/neuralnet.pdf): training neural network
+
+# nnet
+## nnet: training via BFGS
+* `nnet(formula, data, ...)`
+* `nnet(x, y, size, rang, maxit, ...)`
+    + `x`: input variables
+    + `y`: output variables - instance of `class.ind()`
+    + `range`: range for initial random weights. 
+      Should be above 0.5 and `1/max(|x|)` if inputs are large.
+    + `decay=0`: penalty for weights: $decay=10^{-3 \cdots 0}$ can avoid overfitting
+    + `maxit=100`: maxium numbe of iterations for trainings
+    + `linout=F`: linear activation function for regression
+    + `softmax=F`: softmax activation function
+        - generalization of logistic function to multiple classes
+        - log-linear model
+        - node probabilities will sum up to 1
+          $$\delta_i=\frac{\exp{a_i}}{\sum_j \exp{a_j}}$$
+          $$a_j=\sum_i x_i w_{i,j}$$
+
+* Results
+    + `value`: convergence criterion
+    + `convergence`: `maxit` reached?
+    + `wts`: weights
+
+```{r cached=T, results='hide'}
+library(nnet)
+x <- subset(iris, select=-Species)
+y <- class.ind(iris$Species)
+while (T) {
+  nn <- nnet(x, y, size=3, maxit=200, range=1/max(abs(x)), abstol=0, reltol=0)
+  if (nn$value <= 2.0) {
+    break
+  }
+}
+```
+
+## predict
+* `predict.nn(nnet, x, type, ...)`
+    + `type=raw`: matrix output
+    + `type=class`: output most likely class. Only if `formula` was used
+
+```{r}
+p <- predict(nn, x)
+table(max.col(y), max.col(p))
+```
+
+
+# neuralnet
+## neuralnet
+* trains neural network
+* `neuralnet(formula, data, hidden, rep)`
+    + `hidden=1`: number of hidden units
+    + `rep=1`: training repetitions
+    + `act.fct='logistic'`: activation function of string (logistic, tanh)
+    + `linear.output=F`: do no apply activation function to output units
+* still buggy
+
+## AND/OR function
+```{r, cached=T, results='hide'}
+library(neuralnet)
+binary.data <- data.frame(expand.grid(c(0,1), c(0,1), c(0,1)), AND, OR)
+net <- neuralnet(AND+OR~Var1+Var2+Var3, binary.data, hidden=0, rep=10)
+print(net)
+plot(net, rep='best')
+```

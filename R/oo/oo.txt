@@ -1,0 +1,33 @@
+== S3 class
+* person <- list(id=123, name="Christof")
+* class(person) <- "Person" // Now it is an instance of Person
+* Attributes:
+  - person$id
+  - person$name
+* Methods:
+  - print.Person <- function(p) cat("Id:", p$id, "\n", "Name:", p$name, "\n")
+  - plot.Person <- function(p) plot(...)
+  - print(person)
+  - plot(person)
+* Creating new generic function:
+  - newprint <- function(x, ...) UseMethod("newprint", x)
+  - newprint.class <- function(x, y) {}
+  - methods(newprint)
+
+== S4 class
+* Class definition
+  - setClass("Person", representation(id="numeric", name="character"))
+  - setClass("OldPerson", representation(values="matrix"), contains="Person")
+* Instantiation
+  - p = new("Person", id=1, name="Anger")
+* Attributes (slots)
+  * p@age - p@SLOT
+* Overwriting generic methods
+  - via setMethod("X") -> X must alread exist
+  - use the same interface as the generic function:
+    - setMethod("show", "Person", function(object) { cat("Name: ", object@name) })
+  - redefine the interface: 
+    - setMethod("plot", signature(x="Person"), function(x) {plot("N", xlim=c(1,5), ylim=c(1,5)); text(1,1, x@name)})
+  - plot(o), show(o)
+* Creating a new generic function
+  - setGeneric("newGeneric", function(object) { default function})

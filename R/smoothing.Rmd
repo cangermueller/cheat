@@ -1,0 +1,104 @@
+# Smoothing
+
+```{r src}
+library(plyr)
+library(ggplot2)
+library(reshape2)
+
+data <- read.table("cd4.data", col.names=c("time", "cd4", "age", "packs", "drugs", "sex", "cesd", "id"))
+data <- arrange(data, time)
+
+
+smooth.avg <- function(data, n=1) {
+  smooth <- data
+  for (i in 1:length(data)) {
+    l <- max(i - n, 1)
+    r <- min(i + n, length(data))
+    smooth[i] <- mean(data[l:r])
+  }
+  return (smooth)
+}
+
+tukey <- function(x) {
+  return (pmax(0, 1 - x**2))
+}
+
+tukey.weights <- function(n=1) {
+  w <- tukey(seq(-n, n) / (n + 1))
+  return (w / sum(w))
+}
+
+smooth.tukey <- function(x, n=1) {
+  weights <- tukey.weights(n)
+  c <- n + 1
+  smooth <- c()
+  for (i in 1:length(x)) {
+    l <- max(1, i - n)
+    r <- min(length(x), i + n)
+    w <- weights[(c - (i - l)):(c + (r - i))]
+    smooth[i] <- sum(x[l:r] * w) / sum(w)
+  }
+  return (smooth)
+}
+
+smooth.filter <- function(x, n=1) {
+  return (filter(x, rep(1, n) / n))
+}
+
+smooth <- function(smooth.fun=smooth.avg, nn=c(0, 10, 40)) {
+  l <- lapply(nn, function(n) {
+              return (data.frame(time=data$time, 
+                                 cd4=smooth.fun(data$cd4, n=n),
+                                 n=rep(n, nrow(data))
+                                 ))
+  })
+  data.smooth <- do.call(rbind.data.frame, l)
+  data.smooth$n <- as.factor(data.smooth$n)
+  return (data.smooth)
+}
+
+plot.smooth <- function(data.smooth) {
+  return (ggplot(subset(data.smooth, n==0), aes(x=time, y=cd4), color='black') + geom_point() + xlab('time') + ylab('cd4') + geom_line(data=subset(data.smooth, n!=0), aes(x=time, y=cd4, color=n), size=2))
+}
+```
+
+## Smoothing by averaging
+```{r avg, dpi=150, fig.width=10, fig.height=5}
+data.avg <- smooth(smooth.avg)
+print(plot.smooth(data.avg))
+```
+
+## Smoothing by filter
+```{r filter, dpi=150, fig.width=10, fig.height=5}
+data.filter <- smooth(smooth.filter)
+print(plot.smooth(data.avg))
+```
+
+## Smoothing by Tukey weights
+```{r tukey, dpi=150, fig.width=10, fig.height=5}
+data.tukey <- smooth(smooth.tukey)
+print(plot.smooth(data.tukey))
+```
+
+```{r splines}
+ns.melt <- function(x) {
+  x.ns <- ns(x, df=3)
+  x.ns.df <- melt(x.ns, varnames=c('x', 'spline'))
+  x.ns.df$spline <- factor(x.ns.df$spline)
+  return (x.ns.df)
+}
+
+time.ns.df <- ns.melt(data$time)
+p <- ggplot(time.ns.df, aes(x=x, y=value, color=spline)) + geom_point()
+print(p)
+
+x.ns.df <- ns.melt(seq(min(data$time), max(data$time), length=length(data$time)))
+p <- ggplot(x.ns.df, aes(x=x, y=value, color=spline)) + geom_point()
+print(p)
+
+time.ns <- ns(data$time, df=3)
+time.ns.lm <- lm(data$cd4~time.ns)
+p <- ggplot(data, aes(x=time, y=cd4)) + geom_point()
+p <- p + geom_point(data=cbind.data.frame(time=data$time, cd4=time.ns.lm$fitted), aes(x=time, y=cd4), color='red')
+
+```

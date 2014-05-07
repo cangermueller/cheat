@@ -1,0 +1,138 @@
+```{r include=F}
+library(caret)
+library(e1071)
+library(plyr)
+D <- list()
+D$iris <- rename(iris, c(Species='y'))
+D$iris.bin <- D$iris
+D$iris.bin$y <- factor(D$iris.bin$y == 'setosa', levels=c('FALSE', 'TRUE'), labels=c('other', 'setosa'))
+```
+
+# TODO
+* parallel
+
+
+# train
+* `method`: rf, svmLinear, svmRadial, svmPoly
+    + NOTE: ksvm instead of e1071 is used
+* `metric`: 'Accuracy', 'Kappa', 'ROC', 'RMSE'
+* `trControl`: trainControl object
+* `tuneGrid`: data.frame with columns .Parameter=values
+    + `createGrid('svm.Radial', len=3)`
+    + `data.frame(.C=c(1, 2), .sigma=c(0.4, 0.5))`
+* `tuneLength`: number of levels of each tuning parameter
+* `preProc=NULL`: 'scale', 'center', ...
+
+# trainControl
+* `method`: 'cv', 'repeatedcv', 'LOOCV', 'LGOCV', 'boot', 'boot632'
+* `repeats`: number of repetitions
+* `number`: number of folds
+* `summaryFunction`
+    + `defaultSummary`
+    + `twoClassSummary`: for two classes and metric='ROC'
+* `classProbs=F`: for metric='ROC'
+* `p=0.75`: for LGOCV = Leave-Group-Out-CV
+
+# predict.train
+* prediction of best model (finalModel)
+* `predict(train, newdata=data, type=c('raw', 'prob'))`
+* `predict(list(tr1, tr2))`: computes prediction of list of training objects
+
+# plot
+* `metric`: which metric to plot
+
+# createFolds
+* statified sampling
+* `k=10`: number of folds
+```{r createFolds}
+test.folds <- createFolds(data$y, k=10)
+print(sapply(test.folds, function(x) table(data[x,'y'])))
+```
+
+# createResample
+* simple random sampling with replacement
+* `times=10`: number of samples
+
+# confusionMatrix
+* `confusionMatrix(prediction, reference)`
+```{r confusionMatrix}
+svm <- ksvm(y~Sepal.Width, data=D$iris.bin, kernel='vanilladot')
+confusionMatrix(svm@fitted, D$iris.bin$y)
+```
+
+ 
+
+```{r trainROC, cache=T}
+trControl <- trainControl(method='repeatedcv', 
+                          repeats=1, number=10, classProbs=T,
+                          summaryFunction=twoClassSummary)
+tr.bin <- train(y~Sepal.Width, data=D$iris.bin, method='svmLinear', metric='ROC', tuneLength=5, trControl=trControl)
+print(tr.bin)
+p <- predict(tr.bin, newdata=D$iris.bin, type='prob') # predict with best model
+auc(D$iris.bin$y, p$setosa) # compute auc with pROC
+```
+
+```{r trainKappa}
+trControl <- trainControl(method='repeatedcv', 
+                          repeats=1, number=10)
+tuneGrid <- data.frame(.C=2^c(-2, 2), .sigma=c(0.01, 2)) # alternative: createGrid('svmRadial', len=3)
+tr.kappa <- train(y~Petal.Width, data=D$iris, method='svmRadial', tuneGrid=tuneGrid)
+print(tr.kappa)
+```
+
+# createDataPartion
+* statified sampling
+* `p=0.5`: fraction training points
+* `time=1`: number of samples
+* `list=F`: return matrix
+```{r createDataPartition}
+test <- createDataPartition(data$y, p=1/3)
+table(data[test[[1]], 'y'])
+table(data[-test[[1]], 'y'])
+```
+
+# Bagging
+* Framework for bagging
+* `r$fits` contains bagging models
+```{r svmBag, include=F, cache=T}
+bagSvm <- bag(subset(D$iris.bin, select=-y), D$iris.bin$y, B=10,
+              bagControl=bagControl(fit=svmBag$fit,
+                                    predict=svmBag$pred,
+                                    aggregate=svmBag$aggregate)
+              )
+```
+
+# Visualization
+## imageplot
+* `featurePlot(x, y, plot=type)`
+    + pairs
+    + ellipse
+    + density
+    + box
+
+```{r featurePlotPair}
+featurePlot(subset(iris, select=-Species), iris$Species, plot='pairs')
+```
+```{r featurePlotEllipse}
+featurePlot(subset(iris, select=-Species), iris$Species, plot='ellipse')
+```
+```{r featurePlotDensity}
+featurePlot(subset(iris, select=-Species), iris$Species, plot='density')
+featurePlot(subset(iris, select=-Species), iris$Species, plot='box')
+```
+
+# Preprocessing
+* `dv <- dummyVar(formula, data=data)`
+    + `fullRank=T`: remove first level
+    + `sep='.'`: separator variable name and levels
+    + predict(dv, newdata=data)
+
+
+```{r dummyVar}
+data(mtcars)
+cars <- mtcars
+cars$gear <- factor(cars$gear)
+cars$vs <- factor(cars$vs)
+dv <- dummyVars(~gear+vs+cyl+cyl:vs, data=cars)
+cars.dummy <- predict(dv, newdata=cars)
+```

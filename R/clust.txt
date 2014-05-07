@@ -1,0 +1,52 @@
+* d <- dist(m, method=)
+  - computes the distances between the rows of matrix m
+  - method: euclidean, manhattan, maximum, binary...
+* NA
+  * NA are removed
+  * sum is scaled: dist2(c(1, NA, 3), c(3, 3, 3)) = sqrt(4 * 3/2), since 2 out of 3 columns contain values 
+* computing distances manually
+  * d <- as.dist(x)  // converts square matrix with distances d(x,y) between objects x,y into distance matrix
+* computing distance from correlation
+  * cor(x)  // correlation between columns of m
+  * d <- as.dist((1-cor(t(m)))/2) // distance (cor) between the rows of m
+* as.matrix(d)
+* as.dist(as.matrix(d))
+
+# cor
+cor(M, method=, use=)
+between columns of M
+methods = pearson, spearman, kendall
+use=
+  * everything: NA produce column with NA
+  * all: NA throws error
+  * complete.obs: remove rows that contain >0 NA (all samples)
+  * pairwise.complete.obs: remove only rows for pairwise comparison (different rows for different pairs)
+
+== hclust: Hierachical clustering
+* hc = hclust(dist(data, method=))
+  - method=single/complete/average
+  - hc$order  // order or rows
+* plot(hc)
+* members = cutree(hc, k=, h=)
+  - return cluster assignment for hierachical clustering
+  - k: number of clusters
+  - h: height
+
+== heatmap: Heatmap + clustering rows/columns
+* heatmap(data, ...)
+  * data  // data matrix with samples as rows
+  * Rowv=NA // do not cluster rows
+  * Colv=NA // do not cluster columns
+  * labCol=NA, labRow=NA  // do not show labels
+  * margins=c(0,0)  // avoid margins at right site and bottom
+  * revC=F  // reverse order of ROWS; if Rowv=NA, plot 1:nrow instead nrow:1
+  * distfun=dist(m)  // functions for computing distances between rows m; see dist() above
+
+== kmeans: partitioning clustering
+* km = kmeans(data, centers=, nstart=, iter.max=) 
+* km$cluster  // cluster assignments
+* km$centers  // centroids
+* km$size // cluster sizes
+* km$totss  // total sum of squares
+* km$tot.withinss
+* fitted(km)  // returns data points fitted to cluster centers

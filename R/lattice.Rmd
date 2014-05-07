@@ -1,0 +1,28 @@
+# lattice
+***trellis graphs***: relationship y~x conditioned on z
+
+
+```{r}
+library(lattice)
+data(mtcars)
+mtcars$gear.f <- factor(mtcars$gear)
+mtcars$vs.f <- factor(mtcars$vs)
+mtcars$am.f <- factor(mtcars$am)
+
+xyplot(mpg~drat|gear.f, data=mtcars) # scatter
+xyplot(mpg~drat|vs.f*am.f, data=mtcars) # scatter
+dotplot(mpg~drat|vs.f*am.f, data=mtcars)  # dots
+cloud(mpg~drat*hp|vs.f*am.f, data=mtcars, layout=c(4, 1)) # 3d scatter
+splom(mtcars[1:3])  # scatter matrix
+densityplot(~mpg|gear.f, data=mtcars) # density
+```
+
+# latticeExtra
+* additional plotting functions
+* [http://latticeextra.r-forge.r-project.org/#mapplot&theme=default]
+
+```{r latticeExtra}
+library(latticeExtra)
+ecdfplot(~rate.male|state, data=USCancerRates)
+
+```

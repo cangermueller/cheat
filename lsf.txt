@@ -1,0 +1,40 @@
+# LSF
+Load Sharing Facility
+
+# bsub
+-R "rusage[mem=100]" -M 100 // request 100 MB
+-n ncpu // tell LSF number of cpus, memory x ncpu
+-o  file  // append stdout to file
+    file%J  // substitute %J by job id
+-e  file  // append stderr to file
+-oo, -ee  // overwrite instead of append
+-cwd dir  // change to dir before executing command, logs in dir
+-q research-rh6  // research queue (default)
+-q production-rh6 // production jobs run with higher priority
+-XF // X11 forwarding
+
+## Interactive job
+bsub -Is tmux // interactive shell
+bsub -Ip ipython console  // interactive console
+bsub -Ip -XF ipython console  // interactive job with X11 forwarding
+
+
+# Managing jobs
+bjobs -l ID
+bkill 0 // kill all jobs
+bkill -h /groupname 0 // kill all jobs of group
+
+
+# Groups
+bgadd -L 2 /groupname // group with 2 slots (max 2 jobs)
+bgmod -L 10 /groupname  // change slots
+bjgroup -s /groupname // get info
+bsub -g /groupname -o …. -e …. // submit using group
+bkill -g /groupname 0 // kill jobs of group
+
+
+# General infos
+lsid  // show current cluster
+lsload -E // show current load
+lshosts // show spec of nodes
+bqueues // show all queues

@@ -1,0 +1,188 @@
+== General
+* help function
+* doc function
+* cmd1; cmd2; // Execute commands without output
+* cmd1, cmd2  // Execute commands with output
+* exit, quit
+* A(2:end, :) = A(2:size(A, 1), :) // end: last element
+* Comments:
+  % line
+  %{
+    block comment
+  %}
+  # line, #{#}
+* Function calls:
+  * save filename x // non-functional, only allowed for some built-in functions
+  * save("filename", x) //functional, should be used
+* 1:10  // 1 2 ... 10
+* 1:0.5:2 // 1 1.5 1.0
+* linspace(min, max, n) // return n elements between min and max
+* pause;  // pause program
+* numel(v)  // number of elements in v
+* length(v) // length of vector
+* size(A, 1) // rows of matrix
+* size(A, 2) // columns of matrix
+* exist // check if object exists
+  * exist name type
+  * exist('name', 'type')
+  * exist('a', 'var')
+  * exist a var
+  * exist file.txt file
+
+== Flushing output
+* disp() is buffering output
+* more off  // turns buffering off
+* fflush(stdout)  // flush
+
+== Time measurement
+* tic(); sleep(5); elapsedTime = toc();
+* tic() // sets timer to zero
+* sleep(2.5)  // waits 2.5s
+* toc() // elapsed time since last tic() call
+
+== Operators
+= Arithmetic
+* matrix wise: A + B, A * B
+* element wise: A .+ B, A .* B
+= logical
+* ~a <-> not(a)
+* a & b <-> and(a, b)
+* a | b <-> or(a, b)
+
+== Asserts
+* assert(1 == 0, '1 should be 0')
+* any(v == 1)
+* all(v == 1)
+
+== Directory
+* pwd
+* ls
+* cd(newdir)
+
+
+== Special variable values
+* NA  // not available
+* NAN // not a number, no matlab feature!
+* Inf // infinity
+* isX // check variable type
+  * isna, isnan, isinf, isbool
+
+== Environment
+* who // variables
+* whos // variables with data types
+* whos v // query type of variable
+* clear // clear all variables
+* clear x // clear x
+* clc // clear screen
+
+== Input output
+* disp(v)
+* format long // many decimal places
+* format short // few decimal places
+* sprintf
+* save
+  * save("filename")  // save all variables to file
+  * save("filename", "v1", "v2") // save v1, v2 to file
+  * save("-format") // use a specific format
+  * -ascii, -binary, -text (default)
+* load
+  * load("filename")  // load all variables into scope
+  * d = load("filename")
+    * file contains strucutre: return structure
+    * file contains single values: return vector/matrix
+
+== Control structures
+if a < 3 
+  disp("Smaller three");
+elsif a < 5
+  disp("Smaller five");
+else
+  disp("Greater five");
+end;
+if (a < 3)
+  disp('test');
+end
+if (a < 3) disp('test'); end
+
+for i=1:10,
+end
+
+while i < 10,
+  break, continue
+end;
+
+== Functions
+function y = squareThis(x),
+  y = x^2
+end;
+
+addpath("search path for functions")
+
+f = @name // pointer to function name
+  fminunc(@optFunc, x0, options)
+sqr = @(x)(x.^2); // anoymous function
+f = @(t)(f1(t, 2)); // pointer to f1, second arg = 2
+
+
+== Random number
+* rand: random number [0;1]
+* rand(n): nxn matrix with random numbers [0;1]
+* rand(m, n): mxn matrix
+* randperm(n): permutation of [n]
+
+== Plotting
+* plot(x, y)
+  - plot(x, y, FORMAT, OPTIONS)
+  - plot(x, y, "@r", "MarkerSize", 10)
+  - FORMAT:
+    - : line
+    *, @, +: dots
+    r, g, b: red, green, blue
+  - OPTIONS:
+    "MarkerSize", 10
+    "LineWidth", 2
+  - plot(x1, y1, x2, y2)  // plot two curves
+* fplot(@function, [xmin xmax]) // function plotting
+* drawLine([x1 y1], [x2 y2]) 
+* axis([xmin xmay ymin ymax])
+* axis("off")
+* xlabel("x")
+* ylabel("y")
+* title("title")
+* legend("curveA", "curveB")
+* hold on: add objects instead of creating new plot
+* hold off
+* figure(N): create/choose empty figure
+* subplot(N, M, i): create multiple plots
+* close
+* clf: clear figures
+* print -dpng picture.png
+* drawnow // update figures
+
+== 2d plotting
+* imagesc: visualizes matrix values
+  * imagesc(M)
+  * imagesc([xmin xmax], [ymin ymax], M)
+  * colormap("grey"), colorbar
+  * contour: creates a contour plot
+  * contour(x1_values, x2_values, f(x1_values, x2_values))
+
+== 3d plotting
+* surf: surface plot
+  * surf(x1_values, x2_values, f(x1_values, x2_values))
+
+== Advanced optimization
+* function [J, grad] = costs(theta)
+* opts = optimset("GradObj", "on", "MaxIter", 100)
+  GradObj: costs returns function value an gradient
+* fminunc(@cost, theta, opts)
+* BFGS is gradient is provided
+
+== File IO input output
+* fin = fopen(filename, "r")
+* text = fscanf(fin, "%c")
+* fclose(fin)
+* frewind(fin)
+* fgetl, fgets  // read line
+* fread // read binary data
+* fprintf, fputs

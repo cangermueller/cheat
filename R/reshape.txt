@@ -1,0 +1,16 @@
+# melt.data.frame
+melt.data.frame(D, id.vars=, measure.vars=, variable.name=, value.name=)
+  !! convert id.vars to factor or numeric if error
+id.vars=  // columns which are kept
+measure.vars= // columns which are molden
+variable.name='type'
+value.name='value'
+
+# melt.matrix
+melt.matrix(m, varnames=c('row', 'column'), value.names='value')
+-> three column df: [row, column, value]
+
+
+# Column -> columns
+dcast(df, keep1+keep2~sample, fill=)  // values column sample -> columns
+acast(df, row~columns, value.var='value')  // df to matrix

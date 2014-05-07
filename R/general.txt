@@ -1,0 +1,241 @@
+# Representing missing values
+* NA
+  * missing value
+  * c(1, NA) // integer NA
+  * c(TRUE, NA) // logical NA
+* NULL
+  * NULL object
+  * c(1, NULL)  // c(1)
+  * class(NULL) == 'NULL'
+* f = function(a, b)
+  * if (missing(b)) { ... }
+* NaN 
+  - Not a number
+  - 0 / 0
+  - class: numeric
+* Inf: 1 / 0
+
+# Misc
+suppressWarnings(...) // no warnings
+!is.na(suppressWarnings(is.numeric(s))) // check if string is numeric
+
+# Environment variables
+Sys.getenv(env)
+Sys.setenv(env)
+
+# Logical operators
+[T T T] &  [T F F] -> [T F F]  // element wise
+[T T T] && [T F F] -> T  // only first element
+
+# Packages
+* install.packages("name", dep=T): install package from CRAN
+* download.file("http://www.lepem.ufc.br/jaa/colorout_1.0-0.tar.gz", destfile = "colorout_1.0-0.tar.gz")
+* install.packages("colorout_1.0-0.tar.gz", type = "source", repos = NULL)
+* installed.packages()
+* available.packages()
+* remove.packages('pkg')  // uninstall package
+* update.packages() // update all packages in library
+  * ask=F // do not ask
+  * checkBuild=T // built with R 2.15; but now R 3.0 -> check
+* chooseCRANmirror()
+* R CMD INSTALL <pkg directory> // install source package manually
+* library, require(name): load packages
+  - library: error if packages does not exist
+  - require: warning if package does not exist
+* library(): show all available libraries
+* search(): show all loaded libraries
+* detach(package:name): unload library
+* system.file("name", package="package")  // Find file in package directory
+* R.version // version VARIABLE
+
+# Rscript
+* Rscript main.R
+* #!/usr/bin/Rscript
+  args <- commandArgs(T)
+* Rscipt -e 'library(knitr); knit2pdf("main.Rnw")'
+
+# Files
+* file.exists
+* file.edit
+* file.show
+* file.info
+
+# Workspace
+* ls()
+* rm(object)
+* rm(list=ls()): remove all variables
+* gc()  // call garbage collector
+* gcinfo(TRUE)  // show when gc takes place
+* Rprof(), summaryRprof() // R profiling
+* quit(status=1): quit with exit-code 1
+* c-e + l // clear console
+* args <- commandArgs(T): returns arguments after R -f script.R --args ARG1 ARG2
+* getwd(): get working directory
+* setwd(): set working directory
+* dir(): list files
+* r = system(CMD, T): execute system command
+* p = pipe('grep SCORE file'): create pipe
+  - read.table(p)
+* dirname(p), basename(p): components of path
+* X11(), locator(1): prevent R from closing the graphic device
+* source(file): read R source code
+
+# Getting help
+* help.start() // R help browser
+* help(x), ?x
+* help(package=ggplot2)
+* help.search(x)
+* example(tune)
+* args(tune)
+* apropos("x")
+* ??x
+* demo(graphics), demo(package="stats")
+* libraries() // list available libraries
+* vignette("name")  // show vignette: pdf + source code
+  * vignette()  // show all available vignettes
+  * vignette("affy")  
+  * v <- vignette("affy"); edit(v)  // source code
+
+# Output
+* cat(x,y,z, sep="")
+  * prints to stdout -> not string like print, format, paste
+  * not generic
+  * fill=T  // append "\n"
+  * fill=10 // break at line width 10
+* print(x)
+  * prints to string
+  * generic -> dispatches method depending on class
+* format(x, width=w, trim=T, justify="right")
+* sprintf()
+* paste(v, w, sep="-")
+* paste(v, collapse=";")  // join by ;
+* paste0(v, w)  // sep = ""
+* show(object) // print or plot object depending on its class
+* summary(o)  // summary of object
+* str(o)  // structure of object
+  - str(glm)  // function definition
+  - str(df) // data frame with data types
+* symnum(cor(d))  // symbolic representation of data
+
+# Random numbers
+* set.seed(0)
+* runif(n, min, max), rnorm(n, mu, s), nexp(n, la), npois(n, la)
+* sample(from, size=length(from), replace=FALSE)
+* sample(10, 3) // sample 3 values from {1, ..., 10}
+* jitter(rep(1, 10), factor=1, amount=10) // add noise to vector
+
+# References
+* Not possible in R
+* b = a will create a copy of a
+* workaround:
+  change <- function(env) {
+    a = get("a", env=env) # read value from environment
+    a = a + 1
+    assign("a", a, env=env) # write value back to environment
+  }
+  a = 1
+  change(environment()) # change a of current environment
+
+# system
+* system(cmd) // execute command)
+* system.time(cmd)  // execute R command and measure time
+* system.file(package='plyr') // returns directory of package
+
+# Sys
+* For querying system properties
+* Sys.getenv("DISPLAY") // get env variable
+* Sys.setenv(DISPLAY=":1.0")  // set env varibale
+* Sys.date(), Sys.time()
+* Sys.which("R")  
+* Sys.sleep(10)
+
+# Environments
+* Container for named objects
+* Function calls create new environment
+* ls(env=x) // select specific environment
+* environment() // current environment
+* environemnt(formula) = x  // change environment of formula or function
+* parent.env(environment()) // parent environment
+* globalenv() == .GlobalEnv // global environment
+* e1 <- new.env() // create new environment
+* get("name", env=e)  // get copy of variable value
+* assign("name", value, env=e)  // assign value to variable in environment
+* copy_a = get("a", env=globalenv()) // copy variable of an environment
+* attach(d) // attach all columns of data.frame d to the environment
+  - d = data.frame(ids=1:10, names=LETTERS[1:10])
+  - attach(d)
+  - ids
+* with(d, {print(ids); print(names)}) // evaluate expr in new env with d attached
+
+# Expressions
+* e = expression(1 + 2 + 3)
+* eval(e) -> 6
+* e = expression(1:10)
+* c = eval(e) -> c(1,2,3,...,10)
+* parse(text="1:10") // parse file or text and return expression
+* eval(parse("1:10")) -> 1:10
+
+# Date
+* d = Sys.Date()
+* d = as.Date("2013-03-15")
+* weekdays(d), months(d)
+* julian(d) // number of days since origin (1970)
+
+# Progress bar
+* t <- txtProgressBar()
+* setTxtProgressBar(t, i)
+* getTxtProgressBar(t)
+* close(t)
+
+# Diagnostic messages
+* message("Hello world")  // Message that is neither error nor warning
+* warning("warning message")
+* stop("will stop with this message")
+* stopifnot(v)  // stops with error message if one element in v is not true
+
+# Converting data types
+* A * 1 // logical matrix to numeric matrix
+* matrix(as.integer(M), nrow=nrow(M)) // integer matrix
+* storage.mode(M) <- "integer"
+* mode(M) <- "integer"
+
+# Comparing objects
+* x == y  // returns objects of same type; NA -> NA
+* identical(x, y) // check if objects are identical
+  - a = c(1, 2, 3); b = c(1, 2, 3)
+  - a == b -> [TRUE TRUE TRUE]
+  - identical(a, b) -> TRUE
+* all.equal(x, y) // check if objects are almost identical
+  * tolerance=0.5 // threshold for comparing numbers
+* duplicated(x) // logical vector with elements that have duplicate with LOWER SUBSCRIPT
+* anyDuplicated(x)  // 0 or index of first duplicated element
+
+# Factor
+* Stores elements belong to a certain category (level)
+* f <- factor(c("a", "b", "a", "a"))
+* f <- ordered(c(3, 4, 1, 2)); f <- factor(c(3, 2, 1, 2), ordered=T)  // levels are ordered
+* f <- factor(c("b", "a", "a"), levels=c("a", "b")) // state level order
+* levels(f), levels(f) <- c()
+* droplevels(f) // drop unused levels
+* table(f)
+* as.vector, as.numeric // convert factor into vector
+* gl(2, 3, 9) 
+  - generate factor with 2 classes, 3 repetitions and total length 6
+  - 0 0 0 1 1 1 0 0 0
+* Changing order factor levels
+  * factor(data, levels=c('low', 'medium', 'high'))  // Specify order directly
+  * relevel(f, 'low') // make 'low' as the first level
+  * NOTE: levels(f) will change the labels of f, but not the order!
+
+# Matrix
+* Stores a specific data type as matrix
+* m <- matrix(c(1,2,3,4), nrow=2, ncol=2, byrow=T)
+* matrix(0, 3, 4) // create 3x4 matrix filled with 0
+* diag(n): diagonal matrix of dimension n
+* diag(v, n): v*diag(n)
+* diag(v, nrow, ncol) // diagonal matrix with value v, nrows, ncols
+* as.vector(m) // matrix -> vector flattening
+* dim(v) = c(2, 5)  // convert vector into matrix
+* rownames(m) <- c(), colnames(m) <- c()
+* m[i, j, drop=F]  // always return matrix
+

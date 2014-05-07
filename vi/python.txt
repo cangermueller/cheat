@@ -1,0 +1,53 @@
+# python-mode
+* pylint  // syntax checking
+* rope  // code refactoring
+* pydoc // show documentation -> use jedi instead
+
+## Keybindings
+[[, ]]  // previous, next class or function
+[M, ]M  // previous, next class or function
+iM, aM  // select inner/a method
+iC, aC  // select inner/a class
+
+## PyLint
+\ll // check code
+\ln, \lp  // navigate
+\lc // close quickfix
+:PymodeLint // check code
+:PymodeLintToggle // switch PyLint on/off
+:PymodeLintAuto // autocorrect changes
+
+## Rope
+:let g:pymode_rope=1  // must be activated
+<c-c>rr // rename word under curser
+:PymodeRopeUndo
+:PymodeRopeNewProject // create new project (done automatically)
+
+
+
+# jedi
+c-space // auto-completion
+l-g // goto definition
+l-d // goto definition
+l-r // rename variable (not function!)
+K // show pydoc
+l-n // show quickfix where object is used
+:Pyimport numpy // open module
+
+
+
+# vim-ipython
+## Documentation
+bundle/vim-ipython/ftplugin/python/ipy.vim
+
+## Connection
+:IPython  // connect to most recent kernel
+:IPython --existing ... // define kernel
+:IPythonClipboard // paste connection string from clipboard
+
+## Keybindings
+-> defined in ipy.vim
+c-s // send selection of current line
+c-x c-u // ipython completion
+<F5>  // run file
+%run file.py  // run entire file in console to load variables

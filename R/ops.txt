@@ -1,0 +1,114 @@
+# Misc
+* split(v, f) // split vector of data.frame into groups defined by factor
+  - split(1:10, rf(2, 5))
+  - split(airquality, airquality$Month)
+* cut(points, breaks=, labels=) // cuts points into bins
+  * breaks= // breaks mark start of interval; start is not included; end is included
+  * cut(1:20, breaks=seq(0, 20, by=2)) // ]0,2] ]2, 4] ]4, 6] ...
+* aggregate(df, FUN=fun)  // aggregate variables of a data.frame
+  * aggregate(y~x, data=df, FUN=fun)  // aggregate variables y grouped by factors x
+    * all other columns: aggregate(.~ Species, data=iris, mean)
+    * specific columns: aggregate(cbind(x, y, z) ~ cut, data=diamonds, mean)
+    * function of columns: aggregate(x*y, z), aggregate(x+y, z), aggregate(f(x), z)
+  * aggregate(df, list(f1=factor, f2=factor)) // aggregate all variables in df by factors f1, f2 (length(f1) == length(f2) == nrow(df))
+    * d <- iris[, -5]
+    * aggregate(d, list(ShortSepal=d$Sepal.Length < 5, LongPetal=d$Petal.Length > 1.7))
+
+# Summarizing data
+* table(a, b, useNA="ifany")  // contingency table; NA is normally excluded
+* prop.table(t, dim=NULL) // proportion of each table entry
+  * dim=NULL  // all prob sum to 1
+  * dim=1     // row prob sum to 1
+  * dim=2     // column prob sum to 1
+* ftable(a, b, c) // flat table for comparing more than two variables
+* xtabs(c~a+b, data=) // count c by the groups determined by a + b
+  - xt=xtabs(nih$y ~ HLA+sex+ccr5, data=nih)  // count cases (1 in nih$y) for HLA, sex, ccr5
+  - ftable(xt)  // create a flat table
+* min, which.min, max, which.max
+* which.max // takes first of ties
+* which.is.max  // breaks ties at random 
+* max.col(matrix) // finds maximum column for each row in matrix
+* pmax(v1, v2)  // returns max(v1[i], v2[i]) for all i of several vectors or matrices
+* range // [min max]
+* quantile(a) // quantiles for continuous variable
+* rowSums, colSums, rowMeans, colMeans
+* any(v > 5)  // check if logical vector contains TRUE
+* all(v > 5)  // check if all elements are TRUE
+* complete.cases(v1, v2)  // check if conjunction of vectors contains NA
+  - complete.cases(c(NA, 2, 3), c(10, 20, NA)) -> [FALSE TRUE FALSE]
+  - df = df[complete.cases(df), ] // remove entries with NA in a column
+
+# Sets
+* union(x, y)
+* intersect(x, y)
+* setdiff(x, y)
+* unique(x)
+* is.element(a, b), a %in% in // return T/F if a occurs in b
+* match(a, b) // returns first index where a occurs in b
+
+# Sorting
+* sort(v, dec=T)  // sort elements in v
+* sort(v, w)  // sort by two columns
+* order(v, dec=T) // returns order of elements in v
+* m = m[order(m[,i]),] // order matrix rows by column i
+* cut(v, b=10)  // assign values of v to one of 10 intervals
+
+# Selection
+* v == 1  // returns logical vector [TRUE FALSE FALSE]
+* v[v == 1] // selects all 1 elements in v
+* which(v == 1) // returns indices of TRUE in logical vector
+* which.max, which.min // index of maximum/minimum
+* v[which(v == 1)] == v[v == 1]
+* match(c(99, 1, 3), c(4, 3, 1)) -> [NA, 3, 2] // returns indices of first occurrence or NA for all elements in the fist vector
+* c(99, 1, 3) %in% c(4, 3, 1) -> [FALSE, TRUE, TRUE] // return logical values
+* grep("^HLA$", v) // returns indices where pattern occurs
+* grep("^HLA$", v, value=T) // returns values
+* subset data.frame/matrix
+  - subset(airquality, Temp < 80)
+  - subset(airquality, Temp < 80, select=-Temp)
+  - subset(airquality, Temp < 80, select=c(Temp, Day))
+  - airquality[airquality$Temp < 80, ]
+  - airquality[, c("Temp", "Day")]  // select several columns by name possible
+  - airquality[, !(names(airquality) %in% c("Temp", "Day"))]  // excluding several columns by name more complicated
+
+# Applying functions on objects
+* apply(M, 1/2, fun, ...)  // apply fun on each row/column of a matrix
+  - apply(M, c(1,2), fun) // apply on each element
+  - ... // optional arguments passed to fun
+* sapply(M, fun), sapply(v, fun)  // apply function on each element of a matrix or vector
+* mapply(rep, x=1:4, times=2:5)
+  - calls rep(x=1, times=2), rep(x=2, times=3), ..., rep(x=4, times=5)
+  - multidimensional version of sapply
+* lapply(M, fun)  // like sapply, but return list
+* rapply(list, fun) // recursive version of lapply, i.e. list can contain lists
+  - rapply(list(a=1, b=list(2:5), c=6), function(x) x + 2)
+* tapply(v, f, fun) // apply fun on all groups in v that are determined by factor f
+  - v must be a vector
+  - f can be one or multiple factors (-> contingency table)
+  - tapply(rep(c(10,20), each=100), as.factor(rep(c(1, 2), each=100)), mean) -> [10, 20]
+* do.call(fun, args) // calls functions with arguments defined in w
+  * do.call(rnorm, list(n=10, mean=5, sd=3))
+  * do.call(rbind, l) -> rbind(l[[1]], l[[2]], l[[3]])  // will combine all elements of list l
+
+# Handling NA
+* na.omit ~ na.exclude
+* na.omit(data.frame(a=c(1,2,3), b=c(10, NA, 30)))  // removes rows with NA
+* as.vector(na.omit(c(1, NA, 2))) // remove NA from vector
+* na.fail(DF) // throws exception in case of NA
+
+# Regular expression
+* sub("\\.\\w+$", "", filename, perl=T): remove file extension
+* gsub(patter, s, perl=T)
+* m <- regexpr(pattern, s, perl=T)
+  - m[1] = start, attributes(m)$match.length
+  - regmatches(s, m)  // returns matches
+  - regexpr(pattern, s)  // regurns start position or -1
+* grep(pattern, vector) // return indices of matched
+  - value=T // return value instead of indices
+  - fixed=T // interpretate pattern as string: "a." will not match "ab"
+  - ignore.case=T // case insensitive
+  - perl=T  // use perl patterns
+  - invert=T  // return indices that do not match
+* grepl(pattern, vector)  // returna logical vector
+* match(strings, databases) // returns for each string position of exact match in db
+* pmatch(string, database)  // like match, but string needs to be only prefix

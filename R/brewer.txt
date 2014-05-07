@@ -1,0 +1,18 @@
+* http://colorbrewer2.org/
+* library(RColorBrewer)
+* type=
+  * seq: sequence
+  * div: divergent
+  * qual: qualitative
+* display.brewer.all()
+* display.brewer.pal(name='Greens', n=5)
+* brewer.pal.info // list all
+* brewer.pal(n, name)
+  * col <- brewer.pal(5, 'Greens')
+  * col <- brewer.pal(5, 'YlOrRd')  // Yellow Orange Red
+
+# Nice palettes
+'Spectral'  // div
+'RdYlGn'
+colorRampPalette(pal)(200)  // interpolate color palette to 200 colors
+

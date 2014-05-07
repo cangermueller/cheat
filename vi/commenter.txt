@@ -1,0 +1,9 @@
+:tab help NERDCommenter
+
+\c<space> // toggle
+\ci // toggle individually
+\cc // comment
+\cs // comment sexy
+\cu // uncomment
+\c$ // comment rest of line
+\cA // add comment at the end

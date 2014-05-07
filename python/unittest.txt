@@ -1,0 +1,9 @@
+import unittest
+class TestFunction(unittest.TestCase):
+  def test_fun(self):
+    self.assertEqual(result, expected)
+if __name__ == '__main__':
+    unittest.main()
+
+@unittest.skip('reason')
+

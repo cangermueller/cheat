@@ -1,0 +1,4 @@
+driver = dbDriver('SQLite')
+con = dbConnect(driver, './db.sqlite')
+df = dbGetQuery(con, 'SELECT * FROM table')
+dbDisconnect(con)

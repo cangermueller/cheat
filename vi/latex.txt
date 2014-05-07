@@ -1,0 +1,13 @@
+<leader>ll  // compile with latexmk
+<leader>lc  // clean temporary output
+<leader>lC  // clean all output
+<leader>lk  // quit latexmk
+<leader>lg  // show status latexmk
+<leader>le  // show log file
+
+# Motions
+[[  // begin
+]]  // end
+fn <F5> // change env 
+% // move between () or \begin
+" right option + () // jump between braces

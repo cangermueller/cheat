@@ -1,0 +1,48 @@
+# file operations
+* dir() // show directory content
+* file.show(file) // open file with vi
+* file.choose()
+* file.exists()
+* file.create()
+* file.remove()
+* file.info()
+* file.path('/root', 'filename')  // combine path and filename
+* basename(path)  // basename
+* library(tools); file_ext(path)  // extract file extension
+* list.files()
+* list.dirs()
+
+# Table
+* read.table(filename, head=F, sep=" ", skip=0)
+* read.csv()  // read.table with predefined parameters
+* write.table(x, file=, quote=T)
+* write.csv()
+
+# Manual
+* readLines(file, n=) // read all lines from file/connection/url
+* readLines("http://...")
+* writeLines(lines, file=)
+* scan(file, n=, skip=, what=)
+  - more complex than readLines
+  - scan file for data or particular type (what=)
+  - what="integer", "character", "raw", list("", "", "")
+* cat("Line1", "Line2", sep="\n", file=filename)
+
+# Connections
+* ?connections
+* file = file(filename, "r")
+* file = file(url, "r")
+* close(file)
+
+# XLSX
+* library(xlsx)
+* read.xlsx(file, sheet)  // slow
+* read.xlsx2(file, sheet) // fast
+
+# XML
+* library(XML)
+* for parsing XML output
+
+# matlab
+* library(R.matlab)
+* readMat(file)

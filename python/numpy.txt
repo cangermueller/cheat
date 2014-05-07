@@ -1,0 +1,175 @@
+# Efficiency
+C-order: matrix stored row by row in memory // default numpy
+F-oder: matrix stored column by column  // fortran
+A = array(order='F')
+A.stride  // stide: bytes to go to next axis
+np.max(list) is bad!  // do not use np functions on lists - conversion to array
+
+## Matrix to vector
+flatten // returns copy
+ravel // return reference
+
+A.take([1, 2], axis=0)  // select slices along axis
+A.compress([1, 2], axis=0)  // select slices along axis
+
+
+# Apply function over axis
+np.apply_along_axis(fun, axis, array) 0 == columns! // returns numpy array
+r = [fun(row) for row in array] // returns list
+
+# Comparing values
+import numpy.testing as nt
+nt.assert_almost_equal(A, B)
+
+# Data type, dtype
+int16 'i2'
+float8  'f8'
+str 'S'
+x.astype(np.float16)  // change dtype
+x.view(np.float16)  // change view on dtype
+
+# Structure array
+np.empty((3, 2), np.dtype([('name', 'S16'), ('value', 'f32')]))
+np.empty((3, 2), np.dtype([('name', np.str, 16), ('value', np.float32)]))
+dt = np.dtype({'names':['name', 'value'], 'formats':['S16', np.float32]})
+t = np.empty((3, 2), dt)
+t[0] = ('Hans', 123)
+
+# Conversion to matlab
+import scipi.io as io
+io.savemat('file.mat', {'a':a, 'b':b})
+## Cell array
+cell = np.empty((n, m), dtype=np.object)
+cell[i, j] = np.ones((3, 4))
+
+# Indexing arrays
+a[a > b]  // logical numpy array; not supported by default arrays
+
+# Broadcasting
+A = np.random.rand(3, 5)
+b = np.arange(5)
+A + b  // add row vector to each row
+A + b[:,np.newaxis] // add column vector to each column
+## Broadcasting rule
+5 x 3 x 2
+        2
+5 x 3 x 2
+        2
+
+# setting options
+np.set_printoption(linewidth=100, precision=4)
+np.get_printoption(linewidth)
+
+# array: array of specific type
+array([1, 2, 3])
+array([1, 2.0, 3])
+array([1, 2, 3], dtype=complex)
+array([1, 2, 3], ndim=2)
+array([1, 2, 3], dtype='f')
+array([(1, 'a'), (2, 'b')]) // data frame
+
+## attributes
+a.size  // # elements
+a.ndim  // # dimensions
+a.shape
+a.dtype
+a.astype(float) // convert type
+
+## initialization
+arange(start, stop, step)
+linspace(start, stop, num)
+logspace(start, stop, num)
+linspace(0, 10, 16).reshape((2, 8))
+ones(5) // init vector
+ones_like(M)  // the shape as M
+a = empty(5); a.fill(v) // fast way to fill with same value
+ones((2, 8))
+zeros((2, 8))
+empty((2, 8))
+random.rand(x, y, z)  // ndarray from uniform distribution
+random.randn(x, y, y) // ndarray from std normal distribution
+random.randint(start, stop, (2, 8))
+random.uniform(start, stop, (1, 2, 3))
+identity(3)
+eye(3)
+diag([1, 2, 3]) // create diagonal matrix
+diagonal(matrix)  // extract diagonal from matrix
+a.copy()
+
+## functions
+insert(a, index, value)
+delete(a, index)
+append(a, value)
+concatenate((a, b))
+.sort()
+.argsort()  // order
+
+## operations
+a1 * a2 // pairwise multiplication
+multiply(a1, a2)  // pairwise multiplication
+dot(a1, a2) // dot product
+dot(m, a) // matrix vector product
+m.dot(a)  // matrix vector product
+sum, mean, var, std(a)  // of all elements
+sum, mean, var, std(a, 0) // over all rows
+sum(a, 0) // sum vertically (over rows)
+sum(a, 1) // sum horizontally (over columns)
+max, min
+argmax, argmin  // index minimum/maximum
+maximum(a, b) // pairwise maximum of two arrays
+unique(a)
+
+## io
+save('data.npy', data)  // binary npy format
+data = load('data.npy')
+savez('data.npz', data) // compressed
+savetxt('data.csv', data, sep=',')
+loadtxt('data.csv', sep=',')
+
+## reshape
+.reshape(3, 4)
+.reshape(3, -1) // calculate missing dim
+.flatten()
+.ravel()  // flatten(), but reference if possible
+a[:, newaxis] // vector to column vector
+a.sqeeze()  // remove 1 dims, e.g. column vector to vector
+hstack((a, b))  // concat left - right
+vstack((a, b))  // concat top - down
+concatenate((a, b), 0)  // concat -
+hsplit(M, 4)  // split M into 4 parts |
+vsplit(M, 4)  // split M into 4 parts -
+repeat(a, n)  // repeat each element n times
+tile(M, (3, 4)) // copy M 3x4
+
+## boolean array
+b = data[:, 5] > 5
+b.sum()
+b.any()
+b.all()
+b.nonzero()
+where(b > 0)
+
+## vectorize function
+vectorize(func)(a)  // calls func with each element of a
+
+
+## comparison
+array_equal // same shape and elements
+array_equiv // similar shape and same elements
+allclose // similar within tolerance
+
+# mat: matrix
+m = mat([[1, 2], [3, 4]])
+mat('1 2; 3 4')
+m.shape, shape(m) // dimension -> NOTE: attribute, no function
+m[i,:]  // row vector
+m[:,i]  // column vector
+m * n // matrix product, not pairwise product!
+m.T // transpose
+
+# linalg
+linalg.eig
+linalg.det
+linalg.inv
+linalg.svd
+linalg.norm

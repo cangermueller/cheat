@@ -1,0 +1,97 @@
+# lm / glm
+* glm(data$y~data$x, family=binomial) // data is attached to environment
+* glm(y~x, data=data, family=binomial) // searches data= for variables in formula
+* glm(y~x, offset=d)
+  - fit y = b0 + b1*x + d
+* glm(y~x, subset=(x == 1 || x == 2))
+  - subset: logical vector that defines which records are to be used
+* glm(na.action=)
+  - na.omit // omit points with missing values; length(fitted(lr)) == # points without missing values; default
+  - na.exclude  // exclude points with missing values for fitting but insert NA in lr$fitted
+  - na.fail // stop in case of missing values
+  - na.pass // allow missing values
+
+# Formula
+* y ~ x // y response, x covariate
+* y ~ x + z // several variables without interactions
+* y[-i] ~ x[-i] // exclude certain points
+* y ~ x:z // y = b1 + b2*x*z
+* y ~ x*z // y ~ x + y + x:z -> y = b1 + b2*x + b3*y + b4*x*y
+* y ~ (a+b+c)^2 // y ~ a + b + c + a:b + a:c + b:c
+* y~ .^2  // all first order and second order interactions
+* y ~ I(x+z)  // y = b1 + b2*(x+z) -> I(arithmetic expression)
+* y ~ . // against all variables apart from y
+* y ~ (a+b+c)*d // y ~ a*d + b*d  + c*d
+* y ~ (a+b)*c - bc // y = a + b + c + a*c -> remove term bc
+* y ~ 0 + x // no intercept
+* y ~ as.factor(x)  // treat x as categorical variable
+* y ~ relevel(x, ref=2) // change order of categorical variable
+* y ~ I(group == 1) // only consider as specific group
+* as.expression(sprintf("y ~ %s", paste(fs, collapse="+")))
+
+# Results
+* lr = glm(y~x, data=mydata)
+* s = summary(lr)
+  - s$sigma // square root of residuals
+* coeff(lr) == lr$coeff == lr$coefficients
+* vcov(lr)  // variance-covariance matrix of coefficients
+* fitted(lr) == lr$fitted.values == pred(lr, newdata=data) // predicted values
+* lr$linear // beta*x without applying the inverse link function
+* resid(lr, type="deviance") == residuals(lr) // resid and residuals are aliases!
+  - extracts residuals
+  - resid(lr, type="working") == lr$resid
+  - resid(lr, type="response") == y - lr$fitted
+* rstudent(lr)  // normalized residuals with sd 1
+* l1$model  // y and x used for fitting
+* confint(lr) // confidence intervals of regression coefficients
+  - beta will be between lower and upper bound with 95% probability
+* logLik(lr)  // log likelihood
+* plotting regression line
+  - abline(coef(lr))  // abline(intercept, slope)
+  - y ~ a + b, a=continuous, b = {0,1}
+  - curve(cbind(1, x, 1) %*% coef(lr)) // y = a for b = 1
+  - curve(cbind(1, x, 0) %*% coef(lr)) // y = a for b = 0
+
+# predict.glm
+* predict(type="link") // predict input of link function -> Tx
+* predict(type="response") // predict value of response variable -> g^-1(Tx)
+
+# creating design matrix
+* model.matrix(y~., data=data)  // matrix
+  * y~. // drop response variable
+  * y~.-1 // drop response variable and intercept
+  * ~.  // do not drop response variable
+* sparse.model.matrix(~.-y, data=data)  // sparse matrix, e.g. for factors
+* model.frame(~.-y, data=data)  // data.frame for glm -> like glm$model
+
+# Testing if adding/dropping terms improves the fit
+* start with glm
+* add/drop terms and test change in deviance
+* deviance = -2*log L
+* aic = -2*log L + 2*dof
+* bic = -2*log L + log(n)*dof
+* LRT = -2 log L(M0)/M(1) = 2 log L(M1)/L(M0)
+  * drop1: M0 is compared to M1
+  * add1: M1 is compared to M0
+  * anova: M(i-1) = M0, Mi = M1
+* anova(glm, test="LRT"), drop1(), add(1)
+  * glm // the reference model
+  * test  // test statistic: LRT == Chisq
+
+## anova
+* Start with null model and sequentially adds variables: M0, M1, ...
+* Computes for each model Mi deviance
+* Compares Mi with M(i-1) 
+  * test="LRT" -> likelihood ratio test
+
+## drop1
+* drop1(glm, scope=1, test=)
+* starts with glm
+* drops one variable from glm and compared the new model to glm
+* scope // variables that can be dropped
+
+## add1
+* add1(glm, scope~.^2, test=)
+* start with glm
+* add one variable to glm and compare the new model to glm
+* scope // variables that can be added

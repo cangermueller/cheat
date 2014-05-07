@@ -1,0 +1,20 @@
+# single, double quotes
+* double quotes for docstrings: """Return a value."""
+* no technical difference, personal choice
+# single, double quotes
+* double quotes for docstrings: """Return a value."""
+* no technical difference, personal choice
+
+# whitespaces
+i = i + 1 // whitespace for 
+def fun(a=1, b=2) // no whitespace for default arguments
+fun(b=2*3)  // no whitespace for function arguments
+
+
+# Modules
+* At beginning of file
+* Group modules: std modules, 3rd party modules, local modules
+* Whitespace between groups
+* Not allowed:
+  * import module1, module2 // several modules per line
+  * from module import *  // wildcards

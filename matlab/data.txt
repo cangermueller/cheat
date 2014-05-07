@@ -1,0 +1,97 @@
+== Vectors
+* all elements must have same data type!
+* for different types: cell array!
+* v = [1 2 3] // row vector
+* v = [1, 2, 3] // row vector
+* v = [1; 2; 3] // column vector
+* v = []  // double array
+* v = ['a', 'b']  // char array
+* v = repmat(struct('Name', '', 'age', 1), 10, 1) // struct array
+  * all structs must have the same fields!
+* v(:)  // return column vector
+* v(2:end)  // remove first element
+* length(v)
+* isempty(v)  // length(v) == 0
+* logical([0 0 1]) // converts vector into logical vector
+* sorting data
+  * sort(v)
+  * [values, idx] = sort(v, "descend")
+* norm(x, 2)  // return L2 norm
+* arrayfun(fun, array)  // apply function on each array/matrix element
+  * arrayfun(@(x) numel(x), array)
+
+== logical vectors
+* v = [1 2 3] == 0
+* find(v) // indices 1
+* [r c] = find(matrix > 0)  // matrix indices
+* all(v)  // all 1?
+* any(v)  // any 1?
+* logical([0 0 1])  // convert to logical vector
+
+== Structures
+* like lists in R
+* s = struct('a', 1', 'b', [1 2], 'c', {{'a', 'b'}})
+* s.a = 1, s.b = 2, s.c = 3
+* fieldnames(s)
+* isfield(s, 'a')
+* getfield(s, 'a') // s.a
+* setfield(s, 'a', value) // s.a = value
+* s = rmfield(s, 'a')
+
+== Cell arrays
+* N dimensional array with elements of different data types
+* C = {1, "Name", rand(3)};
+* C{1} => 1, C{3} => matrix;
+* C{1, 2} = 1; C{2, 2} = "Name";
+* size(C) => matrix dimensions;
+* storing array of arrays: {[1 2 3], [2 3 4], [9 1]}
+
+== Matrices
+* eye(n): identity matrix
+* diag([1 2 3]): create matrix with [1 2 3] on the diagonal
+* ones(n, m): matrix whoes elements are all 1
+* zeros(n, m): matrix whoes elements are all 0
+* rand, rand(n), rand(n, m): random numbers in [0;1]
+* repmat(M, n, m) // repeat matrix M
+* Matrix -> vector: M(:)
+* Vector -> matrix: reshape([1 2 3 4 5 6], 2, 3)
+* A(:, i) = []  // remove column i
+* A ./ c // element wise operation
+* A + c == A .+ c
+* A / c == A ./ c
+* Selecting rows by condition:
+  - A(A(:, 3) == 1, :);
+  - find(A(:, 3) == 0); // returns indices where logical vector == 1
+  - A(find(A(:, 3) == 0), :)
+  - logical([0 0 1]) // converts vector into logical vector
+* Applying a function on elements of two matrices with same dimension
+  - bsxfun(F, A, B)
+  - F: function pointer
+  - A, B: matrices with the same dimension / B is vector
+  - bsxfun(@plus, A, B) // add matrix B to A
+  - bsxfun(@plus, A, [1;2;3]) // add [1;2;3] to each column
+  - bsxfun(@plus, A, [1 2 3]) // add [1 2 3] to each row
+  - @plus, @minus, @rdivide, @ldivide, @times
+
+== Multidemensional arrays
+* A(1, 1, 1) = 1  // 3d
+* A = rand(3, 3)  // 2d
+* A(:, :, 2) = rand(3, 3) // extend by 3 dimension
+* rand(n, m, o), zeros(n, m, o), ones(n, m, o)
+* reshape(A, 3, 2)  // reshape dimensions
+* sequeeze(A) // remove all dimensions with size 1
+
+== Operations
+* log, exp, plus, minus, times
+* sum(A, 1), sum(A) // sum over rows
+* sum(A, 2) // sum over columns
+* max(v) // maximum
+* max(v, w) // pairwise maximum of vectors with same size
+* max(A, [], 1) // maximum over rows
+* floor, ceil, round
+* inv(A), pinv(A) // inverse, pseudoinverse
+
+== Check equality
+* eq(a, b) <-> a == b // equality of elements
+* isequal([1 2], [1 2]) // equality of objects
+

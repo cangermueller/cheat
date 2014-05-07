@@ -1,0 +1,147 @@
+# ipython
+%quickref
+?
+help()
+?object, object?
+string.split?
+command history: c-p, c-n, c-r
+
+# Customizing ipython
+http://ipython.org/ipython-doc/dev/config/
+ipython locate
+IPYTHONDIR  // for changing default directory
+ipython profile [profile name]  // create profile
+ipython/profile_<name>/ipython_<frontent>_config.py // config files
+
+# system commands
+!ls
+a = !ls
+a = !cat {filename}
+!echo 1+2={1+2}
+
+# kernel / frontend
+https://github.com/ipython/ipython/wiki/Cookbook:-Connecting-to-a-remote-kernel-via-ssh
+ipython locate  // kernel directory
+ipython kernel  // start kernel without frontent
+ipython qtconsole|console|notebook  // start kernel with frontent
+ipython qtconsole|console --existing file.json  // connect to existing kernel
+%connect_info // connection info -> file.json
+%qtconsole  // start qtconsole connected to current kernel
+ipython console --ssh host --existing file.json
+quit() == exit()  // exit frontend and kernel
+quit(True) == exit(True)  // exit frontend and keep kernel alive
+
+## notebook converter
+ipython nbconvert nb.ipynb
+--to html, latex, markdown
+--template basic, article
+--post PDF, server
+ipython nbconvert --to latex --template article --post PDF nb.ipynb
+ipython nbconvert --to slides --post server nb.ipynb
+
+## qtconsole
+%guiref
+%load file.py // load and edit file
+c-return  // multiline editings
+s-return  // execute multiline block
+m-<>      // move to beginning/end block
+c-a,e     // move to beginning/end line
+ipython qtconsole --paging [vsplit|hsplit]
+c-o // switch pages
+%less, %man // show results in page
+c-t // new tab with new kernel
+c-s-t // new tab with existing kernel
+
+
+# magics
+%magic  // show magic help
+
+%pdoc // show python doc of object
+%pdef // show function (class) definition 
+%psource  // show source code
+%pfile object // show file that contains object
+%pycat file.py  // show syntax highlighted file
+%pysave file.py 1-10  // save lines 1-10 to file.py
+%edit file  // edit file in editor
+%%file file.py -a // write/append code to file
+%who  // defined objects
+%whos // information about all objects
+%timeit command // benchmark command
+%cd dir // change directory
+%pwd // show current directory
+%debug
+%alias funname echo 'Hello %s and %s'!  // magic for system command (bash command)
+  funname 'Foo' 'Bar'
+%clear  // clear screen
+%reset  // reset workspace
+%reset_selective  regex // delete specific objects
+%reset_selective -f a // delete all objects containing a
+%reset_selective -f ^a$ // delete just a
+
+
+# defining magics
+@register_line_magic
+def mymagic(a, b):
+  ...
+%mymagic 1, 2 // b == None
+mymagic(1, 2) // a == 1 and b == 2
+
+
+# running file/module
+%run file.py arg1 arg2
+%run -m module
+%run -t // time command
+%run -p // profiler
+%run -d -b10 // debug mode, breakpoint line 10
+
+# browsing command history
+%hist
+%hist -n  // show line numbers
+%hist 100-105 // range line numbers
+%hist -g cmd  // all commands containing cmd
+%hist -f tmp -l 5 // save last 5 lines to tmp
+%rerun 1-5 6  
+%rerun -g cmd
+%rerun -l 5 // last 5 lines
+%macro name 100-105
+
+# automatic parenthesis, quotes
+/fun a b // fun(a, b)
+,fun a b // fun('a', 'b')
+;fun a b // fun('a b')
+
+
+# logging command history
+%logstart filename.py [over]
+%logoff
+ipython --logfile filename.py
+
+# debugging
+%run -d file  // start in debug mode
+%debug  // open debug mode after exception
+%pdb  // automatically start debug on exception
+%tb // trace back
+
+# edit, macro, save
+## %edit
+%edit // open file and execute at the end
+%edit fun // edit function definition
+%edit 1-3 5 // edit lines
+%edit -x  // no not execute
+
+## %macro
+%macro name 1-3 4 // define macro
+name
+
+## %save
+%save file 1-3 4  // save lines to file
+
+# rpy2 
+http://nbviewer.ipython.org/github/ipython/ipython/blob/master/examples/notebooks/R%20Magics.ipynb
+%R rcode  // execute inline code
+%%R
+  rcode1
+  rcode2
+%Rpush x z y  // push variables to python
+xx = %Rget x  // pull variable from R to new variable
+%Rpull x  //  pull variable x from R to existing variable x in python

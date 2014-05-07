@@ -1,0 +1,55 @@
+
+# Special methods
+http://docs.python.org/2/reference/datamodel.html#special-method-names
+__init__  // constructor
+__del__   // destructor
+__getitem__ // a[i]
+__setitem__ // a[i] = v
+__len__   // len(a)
+__repr_   // unique representation of object
+__str__   // readable representation; str(s)
+__add__   // a + b
+__sub__   // a - b
+__cmp__   // a == b
+
+# Getting, setting attributes
+o = Class()
+hasattr(o, 'a')
+getattr(o, 'a')
+setattr(o, 'a', v)
+dir(o)  // list attributes
+
+# overriding
+class Child(Parent):
+  def method(self):
+    super(Parent, self).method()
+
+# decorators
+@staticmethod
+def f(arg):
+* No implicit first argument
+* ref = Class.f // class is not bound
+
+@classmethod
+def f(cls, arg)
+* cls as implicit first argument
+* ref = Class.f // unbound
+
+
+
+# Static class methods
+@staticmethod
+def class_info():
+  return 'Class information'
+
+# Multiple constructors
+class Class:
+  def __init__(self, data):
+    default constructor
+
+  @classmethod
+  def from_data(cls, filename):
+    data = read(filename)
+    cls(data)
+    
+

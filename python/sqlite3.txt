@@ -1,0 +1,11 @@
+con = sql.connect(file)
+con.commit()  // needs to be executed before close()!
+con.close()
+
+con.executescript(f.read()) // execute all commands of string
+cmd = con.execute('INSERT INTO chromo (name) VALUES (?)', [opts.chromo])
+id = cmd.lastrowid
+con.executemany('INSERT INTO feature (name) VALUES (?)', [[name1], [name2]])
+
+tuple = cmd.fetchone()  // None is EOF
+list_tuples = cmd.fetchall()

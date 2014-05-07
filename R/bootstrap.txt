@@ -1,0 +1,58 @@
+== Theory
+* Population -> Samples -> Estimator E
+* How good is E?
+* Samples -> bootstrap_samples_1 + ... + bootstrap_samples_K
+                    > E1         + ... +          EK
+* Use bootstrap estimator E1, ..., E_k to estimate: 
+  - bias
+  - variance
+  - standard error
+* Examples estimators
+  - mean estimator
+  - regression coefficients
+  - predicted probabilities
+  - 0.368 bootstrap error 
+* Bagging: Bootstrap aggregating
+  - for i = 1 to K
+    * draw bootstrap samples
+    * train model M_i
+  - Combine models for predictions
+    * classification: majority vote
+    * regression: average
+  - Same bias
+  - Lower variance
+* Boosting
+  - for i = 1 to K
+    * give higher weights to samples that were misclassified by the previous model
+    * draw weighted bootstrap samples
+    * train model M_i
+    * compute classification error
+  - Combine models for prediction
+  - Lower bias
+  - Lower variance
+  - Prone to overfitting, susceptible to noise
+  
+
+== Jackknife/Leave-one-out
+* library(bootstrap)
+* jk <- jackknife(data, theta)
+
+== Boostrapping
+* library(boot) // NOTE: not bootstrap!
+* bt = boot(data, statistic)
+  - statistic <- function(x, bootstrap.indices)
+  - R=1000  // number of bootstrap estimates
+  - sim="parametric"  // use parametric bootstrapping
+  - ran.gen=function(x, mle)  // function for generating data in case of parametric bootstrapping
+  - mle // Maximum likelihood estimate for parametric bootstrapping
+  - ... // other parameters passed to statistic
+* bt
+  - bt$t0 // estimator for complete data
+  - bt$t  // matrix of bootstrap estimators
+* boot.ci(bt) // compute confidence interval
+  - index=i // of variable bt$t[,i]
+  - type="all"  // type of bootstrap CI
+    * basic // basic 
+    * perc  // percentile
+    * stud  // studentized
+    * bca   // bias-corrected

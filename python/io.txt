@@ -1,0 +1,9 @@
+f = open(filename, 'rwa')
+f.read()  // read everything
+f.readline()
+f.readlines()
+for line in f:
+
+# Checking eof
+f.readline() == ''
+f.tell() = tell_previous

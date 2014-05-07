@@ -1,0 +1,162 @@
+== Simple trees
+* library(tree)
+* t = tree(y~x1+x2, data=data, control=tree.control(nobs=nrow(data), mindev=0.01, minsize=3))
+* tree.control()  // control paramters for tree construction
+  * nobs  // number of observations in training set
+  * mindev=0.01 // cost complexity parameter (cp); minimum improvement, e.g. increase IG
+  * minsize=20  // min number of samples in node to be split
+* summary(t)
+* plot(t)
+* text(t)
+  - all=T // additional labels
+  - pretty=0  // for categorical variables
+* partition.tree(t) // Partitioning if there are <= 2 variables
+* p = predict(t, newdata)
+  - method="class"  // return class with highest prob
+
+= Pruning
+* Cost complexity = resubstitution error + k * # leafes
+  - Minimize error and complexity of tree
+  - Resubstitution error: error on training set
+  - k: cost complexity parameter
+    * k large -> high bias (like lambda)
+* cv = cv.tree(t)
+  - CV to determine the optimal value for k or the number of nodes
+  - cv.tree(t, method="misclass") // use misclassification error instead of deviance
+* pt = prune.tree(t, k=, best=)
+  - prune tree t
+  - k: cost complexity parameter k
+  - best: number of leafes
+
+== rpart
+* recursive partitioning and regression tree
+* almost identical to tree library
+  * same basic algorithm: Breiman and Friedman 1984
+  * differ in usage and output
+* http://www.statmethods.net/advstats/cart.html
+* library(rpart)
+* rp <- rpart(y~., data=data, method="class", control=rpart.control(cp=0.001, minsplit=3)
+  * method="class"  // classification
+  * method="anova"  // regression
+  * control=rpart.control() // set parameters for tree construction
+* rpart.control()
+  * cost=0.1  // cost complexity parameter (cp). Minimum improvement, e.g. increae IG
+  * minsplit=20  // minimum number of instances in node for splitting
+  * xval=10 // number of crossvalidations
+* summary(rp)
+* printcp(rp) // print crossvalidation results for cp 
+* prune(rp, cp=x) // prune tree with cost complexity parameter x
+* plot(rp)
+* text(rp)
+* post(rp, file=)  // create nice postscript tree
+* predict(rp, newdata=x, type="class/prob")
+* xpred.rpart(rp, xval=K)  // perform K-fold CV with different cost-complexity parameters
+
+== Random forest
+==== Theory
+* Invented by Breiman 1995
+* Ensemble technique: generate set of trees
+  * Bagging: Bootstrap aggregating
+  * Bag: sampled data points
+  * Out-of-bag (error): remaining data points
+* Methods for tree generation
+  * Introduction of randomness
+    * Boostrapping samples used for tree construction
+    * Randomly select subset of features for splitting
+    * Different split types: threshold x < t (axis parallel split), x^2 < t, x+y < t
+    * Different objective: entropy, gini index
+    * Different predictor in tree: predict majority class; fit SVM
+    * Different stopping criterium
+* Breiman's original method
+  * Boostrapping (ntree)
+  * Random sampling of variables (mtry)
+  * -> randomForest library
+* Variable importance
+  * Permutation importance
+    * Compute OOB error
+    * Permute (randomly change) variable Xij=xij -> Xij=per(xij) of OOB sample i
+    * Recalculate OOB error
+    * Importance variable j: OOB before - OOB after permutation
+  * Mean decrease node impurity (gini index, entropy)
++ High classification accurarcy
++ Non-linear decision boundaries
++ Can handle a high number of variables
++ Gives an impression of which variables are important
++ Parallelization: random forests can be combined -> map-reduce
+- Runtime
+- Overfitting
+
+==== Basics
+* library(randomForest)
+* rf <- randomForest(x, y, ...)
+* rf <- randomForest(y~x, data, ...)
+  - IF (is.factor(y)) classificate ELSE regression
+  - proximity=T // calculate proximity matrix
+    * m x m matrix, where m are the number of training points
+    * 0 <= proximity <= 1, diagonal entries == 1
+    * proximity(i, j) -> 1: i and j often occur in the same terminal node
+  - ntree=  // number of trees to be grown = number of bootstrap samples
+  - mtry= // number of variables m < M to be sampled at each split
+  - maxnodes= // maximum number of terminal nodes
+  - classwt= // prior class weight! DO NOT USE, IMPLEMENTATION ISSUES
+  - na.action=  // action if na is found
+  - importance=T  // estimate mean decrease in accurarcy on OOB samples
+* print(rf)
+* plot(rf)  // plot classification error depending on the number of trees
+* predict(rf, newdata=data, type="response")
+  * type="prob"
+* t <- getTree(rf, k) // extract tree k
+  * labelVar=T
+* classCenter(x, y, rf$proximity)  // calculate class centers given the labeled data and the proximity matrix
+* combine(rf1, rf2, rf3)  // combine random forest
+* x' <- rfImpute(x, y)  // impute missing values in x
+  - NA of sample i is imputed based on its proximity to other samples j
+  - continous variable: average weighted by proximity to samples without missing value
+  - categorical variable: category with highest average proximity
+* outlier(rf$proximity) // compute outlier score for each sample
+  - outlier score i = n / sum(proximity(i, j)^2)
+  - high, if i has a low proximity to most of the other points
+
+==== Parameter optimization
+* tuneRF(x, y, mtryStart, ntree=50, factor=2, improve=0.05, doBest=F)
+  * tunes mtry using OOB error by moving to the left and to the right
+  * ntree: # bootstrap trees
+  * factor: increase, decrease factor mtry
+  * improve: minimum relative improvement to continue going left/right
+  * doBest=T: return randomForest object for optimal mtry parameter
+* tune.randomForest // library(e1071)
+
+==== Variable importance
+* rf <- randomForest(importance=T)
+  * rf$importance
+  * rf$importance$SD
+  * 1st column: decrease acc on class 0
+  * 2nd column: decrease acc on class 1
+* importance(rf, type=, scale=T) // relative importance of variables
+  * type=1  // mean decrease acc (good)
+  * type=2  // mean decrease gini (bad, instable)
+  * scale=T // divide mean decrease by SD: rf$importance / rf$importance$SD
+* varImpPlot(rf) // variable importance plot
+* cv <- rfcv(x, y)
+  - estimates CV error when using the k most important predictors, where k = ncol(x), ..., 1
+  - cv$n.var  // number of variables used in each step
+  - cv$err  // prediction error
+  - cv$pred // predicted class labels
+
+
+== AdaBoost
+* Boosting
+  - initialize weights D(i) = 1/m
+  - for i = 1 to n.trees
+    - train tree t_i that minimizes the weighted classification error e_i based on D(i)
+    - compute importance a_i based on e_i
+    - recalculate D(i)
+  - return strong classifier t = sum_i a_i * t_i
+* library(gbm)
+* gbm1 <- gbm(y~x, data=, distribution="bernoulli")
+  - does not work if is.factor(y)
+* predict(gbm1, newdata=, n.trees=, type=)
+  - n.trees=x // use all trees of the first x iterations
+  - type="response/link"
+* summary(gbm1)
+* gbm1.perf(gbm1) // assess performance
