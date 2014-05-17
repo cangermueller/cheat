@@ -1,0 +1,24 @@
+---
+title       : K-means clustering
+subtitle    : 
+author      : Christof Angermueller, PhD
+job         : European Bioinformatics Institute (EBI/EMBL)
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# library(slidify)
+# slidify('template.Rmd')
+# make this an external chunk that can be included in any file
+options(width = 100)
+options(xtable.type = 'html')
+```
+
+## Introduction
+
+

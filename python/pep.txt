@@ -1,15 +1,21 @@
-# single, double quotes
-* double quotes for docstrings: """Return a value."""
-* no technical difference, personal choice
+# Naming convention
+variable_name
+function_name
+_one_slash_to_avoid_name_collisions
+__private_instance_variable
+__private_instance_method
+CONSTANT_NAME
+ClassName
+
+
 # single, double quotes
 * double quotes for docstrings: """Return a value."""
 * no technical difference, personal choice
 
 # whitespaces
-i = i + 1 // whitespace for 
+i = i + 1
 def fun(a=1, b=2) // no whitespace for default arguments
 fun(b=2*3)  // no whitespace for function arguments
-
 
 # Modules
 * At beginning of file

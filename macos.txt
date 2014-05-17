@@ -1,0 +1,25 @@
+# Keyboard shortcuts
+cmd - h // hide all others
+cmd - m // minimise
+cmd - n // new window
+
+# Switch application
+cmd - tab ~ // back menu
+cmd - ~ // next window
+cmd - shift - ~ // previous window
+
+# Mission control
+ctrl - up // switch workspaces
+ctrl - down // switch windows
+F11 // show desktop
+F12 // show dashboard
+
+# Screenshots
+cmd-shift-4 // select region
+cmd-shift-4-space // current window
+ctrl - ...  // copy to clipboard instead of desktop
+
+# port
+selfupdate  // update ports
+upgrade outdated  // upgrade all ports
+
