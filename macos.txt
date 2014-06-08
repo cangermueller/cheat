@@ -1,7 +1,10 @@
+^ = ctrl
+
 # Keyboard shortcuts
 cmd - h // hide all others
 cmd - m // minimise
 cmd - n // new window
+cmd-shift-. // open hidden file
 
 # Switch application
 cmd - tab ~ // back menu
@@ -13,6 +16,8 @@ ctrl - up // switch workspaces
 ctrl - down // switch windows
 F11 // show desktop
 F12 // show dashboard
+^-[12] // switch to desktop
+click window + ^-left // move window between spaces
 
 # Screenshots
 cmd-shift-4 // select region
@@ -22,4 +27,9 @@ ctrl - ...  // copy to clipboard instead of desktop
 # port
 selfupdate  // update ports
 upgrade outdated  // upgrade all ports
-
+## selecting default group
+select --list python  // list options
+select --set python27 // make default
+## variants
+port info vim
+port install vim +python27

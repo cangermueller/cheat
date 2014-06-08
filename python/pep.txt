@@ -24,3 +24,7 @@ fun(b=2*3)  // no whitespace for function arguments
 * Not allowed:
   * import module1, module2 // several modules per line
   * from module import *  // wildcards
+* can be renamed, but convection does not exist
+  * import numpy as np
+  * import scipy as sp
+  * import matplotlib.pyplot as plt

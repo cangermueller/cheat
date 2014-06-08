@@ -8,6 +8,7 @@ np.max(list) is bad!  // do not use np functions on lists - conversion to array
 ## Matrix to vector
 flatten // returns copy
 ravel // return reference
+squeeze // remove single entry dimensions; column vector -> row vector
 
 A.take([1, 2], axis=0)  // select slices along axis
 A.compress([1, 2], axis=0)  // select slices along axis
@@ -59,6 +60,9 @@ A + b[:,np.newaxis] // add column vector to each column
 # setting options
 np.set_printoption(linewidth=100, precision=4)
 np.get_printoption(linewidth)
+np.seterr(all=, divide=, under=, over=, divide=, invalid=)  // errors, warnings, exceptions
+  ['ignore', 'warn', 'print', 'raise']
+np.geterr()
 
 # array: array of specific type
 array([1, 2, 3])
@@ -86,10 +90,6 @@ a = empty(5); a.fill(v) // fast way to fill with same value
 ones((2, 8))
 zeros((2, 8))
 empty((2, 8))
-random.rand(x, y, z)  // ndarray from uniform distribution
-random.randn(x, y, y) // ndarray from std normal distribution
-random.randint(start, stop, (2, 8))
-random.uniform(start, stop, (1, 2, 3))
 identity(3)
 eye(3)
 diag([1, 2, 3]) // create diagonal matrix
@@ -129,7 +129,7 @@ loadtxt('data.csv', sep=',')
 ## reshape
 .reshape(3, 4)
 .reshape(3, -1) // calculate missing dim
-.flatten()
+.flatten()  // matrix to vector
 .ravel()  // flatten(), but reference if possible
 a[:, newaxis] // vector to column vector
 a.sqeeze()  // remove 1 dims, e.g. column vector to vector
@@ -172,4 +172,17 @@ linalg.eig
 linalg.det
 linalg.inv
 linalg.svd
-linalg.norm
+linalg.norm(m)  // compute Frobenius norm of matrix
+linalg.norm(v)  // Euclidean norm of vector
+linalg.norm(m, axis=0) // Euclidean norm of all column vectors
+
+# random
+random.seed(0)
+random.rand(x, y, z)  // ndarray from [0, 1]
+random.randn(x, y, y) // ndarray form N(0, 1)
+random.randint(low, high, size)
+random.uniform(low, hight, size)
+random.normal(mean, std, size)
+np.shuffle(array) // shuffle entries inplace
+np.random.choice(array, size, replace=False)  // sample (without) replacement from array
+

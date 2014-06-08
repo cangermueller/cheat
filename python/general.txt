@@ -30,7 +30,7 @@ globals() // dictionary of global variables
 for i in xrange(100)
 squares = (x**2 for x in xrange(10))
 for s in squares: // works
-  print s 
+  print s
 for s in squares: // does not work
   print s
 ## yield
@@ -45,16 +45,18 @@ for i in irange(10):
 # References
 b = a // only copies references -> same value
 b = list(a) // copy value a
-import copy; 
+import copy;
 b = copy.deepcopy(a)  // copy by value
 b = copy.copy(a)  // shallow copy; members not copied
 a == b  // compare values
 a is b  // compare references
 
 # Functions
-def fun(a, b=1, *args, **kwargs)
+def fun(a, b=1, *args, **kwargs):
+  fun2(*args, **kwargs) // not fun2(args, kwargs)!
 *args // list of unnamed args
 **kwargs  // dict of names args
+
 
 # Modules
 import utils  // namespace utils

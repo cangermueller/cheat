@@ -8,15 +8,17 @@ cmd-shift-t // undo close tab
 cmd-shift-e // tab group view
 cmd-l // url bar
 cmd-k // search bar
-cmd-b // bookmark sidebae
+cmd-b // bookmark sidebar
 cmd-shift-b // bookmark window
 cmd-j // downloads
+
 ## search
 cmd-f // find
 ESC // close search
 cmd-g // find next
 cmd-shift-g // find previous
 opt-arrows  // switch search enignes
+
 ## pdf
 arrows  // next, previous page
 cmd-opt-p // presentation mode

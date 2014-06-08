@@ -1,4 +1,3 @@
-
 # Special methods
 http://docs.python.org/2/reference/datamodel.html#special-method-names
 __init__  // constructor
