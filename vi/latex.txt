@@ -1,5 +1,12 @@
 :tab help latex-box
 
+# Completion
+c-x-o
+\be // commands
+begin{al  // environments
+$a =  // inline math
+\ref{eq // references
+
 # Compilation
 :Latexmk
 <LocalLeader>ll  // compile with latexmk
@@ -13,6 +20,10 @@
 <LocalLeader>lg  // show status latexmk
 :LatexError
 <LocalLeader>le  // show log file
+:LatexView
+<LocalLeader>lv  // view document
+:LatexTOC
+<LocalLeader>lv // open table of contents
 
 # Motions
 [[  // begin

@@ -86,7 +86,20 @@ If $x_1$ and $x_2$ and independent:
   \Var{A \bs{x} + \bs{b}} &= A \Var{x} A^T \\
   \Var{A_1 \bs{x}_1 + A_2 \bs{x}_2 + \bs{b}} &= A_1 \Var{x_1} A_1^T + A_2 \Var{x_2} A_2^T + 2 A_1 S_{12} A_2^T \\
 \end{align*}
+Variance of quadratic form:
+\begin{align*}
+  \Var{\bs{x}^T A \bs{x}} &= 4 \bs{m}^T A' S A' \bs{m} + 2 \Tr{A' S A' S} \\
+  A' &= \frac{1}{2} (A + A^T) \\
+  \Var{\bs{x}^T \bs{x}} &= 4 \bs{m}^T S \bs{m} + 2 \Tr{S S} \\
+\end{align*}
 
+If $\bs{x}_1$ and $\bs{x}_2$ are independent:
+\begin{align*}
+  \Var{\bs{x}_1^T \bs{x}_2} &= \sum_i \Exp{{{x_1}_i}^2} \Exp{{{x_2}_i}^2} + \Exp{{x_1}_i}^2 \Exp{{x_2}_i}^2 \\
+                            &= \sum_i \Exp{{x_1}_i}^2 \Var{{x_2}_i} + \Exp{{x_2}_i}^2 \Var{{x_1}_i} + \Var{{x_1}_i} \Var{{x_2}_i}
+\end{align*}
+
+\newpage
 \section{Covariance}
 \subsection{Random variable}
 \begin{align*}
