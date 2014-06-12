@@ -1,4 +1,4 @@
-# references
+ references
 * overview: http://matplotlib.org/contents.html
 * pyplot: http://matplotlib.org/api/pyplot_api.html
 * screenshots: http://matplotlib.org/users/screenshots.html
@@ -42,6 +42,7 @@ line, = plot(x, y, ...)
   fontsize=18
 scatter(x, y) // scatter plot
 bar(x, y, width)  // barplot
+boxplot(data) // data is 2d numpy array with distributions in columns
 imshow(image) // plot image (mxn array) values/heatmap
 contour(x, y, z, color=, cmap=)  // contour plot
 plot_surface(x, y, z, cmap=)  // from mpl_toolkits.mplot3d.axes3d import Axes3D
@@ -99,29 +100,25 @@ linewidth
 
 ## color maps
 import matplotlib.cm as cm
-cm.rainbow  // color map class
+cmap = cm.rainbow  // color map class
+cmap(1) // return color for value 1
+cmap([1, 2, 3]) // returns colors for difference values
 cm.get_cmap(rainbow)  == cm.rainbow // get color map class
-cm.rainbow([0.0, 0.5, 1.0]) // map values in range [0;1] to rgb array
 cm.datad.keys() // all colormaps, _r: reverse
-
-### color maps mappers
+### Normalize
 norm = colors.Normalize(vmin, vmax) // Maps [vmin; vmax] -> [0.0, 1.0]
-cm.ScalarMappable(norm=normalizer, map=colormap)  // Maps [vmin; vmax] -> [colmin; colmax]
-cm.ScalarMappable(norm=colors.Normalize(min, max), map=cm.rainbow)
-
-# MATLAB style
-from pylab import *
-figure()
-subfigure(1, 2, 1)
-plot(x, y, 'r--')
-subfigure(1, 2, 2)
-plot(x, y, 'g--')
+plot(cmap=cmap, norm=norm) // use colors cmap and normalize with norm
+### Getting colors for specific range
+cmap = cm.rainbow
+norm = colors.Normalize(vmin=, vmax=)
+mapper = cm.ScalarMappale(cmap=cmap, norm=norm)
+colors = mapper.to_rgba(values)
 
 
-# imshow
+# imshow: heatmap
 * plot 2d matrix in the way it is in memory (X[0,0] top/left)
 * http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.imshow
-imshow(M, interpolation='nearest', cmap=cm.RuBu, norm=norm,aspect='auto')
+imshow(M, interpolation='nearest,none', cmap=cm.RuBu, norm=norm,aspect='auto')
 aspect='auto' // adjust width/height
 ## Adjusting scale
 import matplotlib.colors as col
@@ -135,5 +132,4 @@ Don't know how to do specific for each axis
 
 
 
-# Hiding box/frame
 

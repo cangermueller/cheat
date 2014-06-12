@@ -1,13 +1,33 @@
-<leader>ll  // compile with latexmk
-<leader>lc  // clean temporary output
-<leader>lC  // clean all output
-<leader>lk  // quit latexmk
-<leader>lg  // show status latexmk
-<leader>le  // show log file
+:tab help latex-box
+
+# Completion
+c-x-o
+\be // commands
+begin{al  // environments
+$a =  // inline math
+\ref{eq // references
+
+# Compilation
+:Latexmk
+<LocalLeader>ll  // compile with latexmk
+:LatexmkClean
+<LocalLeader>lc  // clean temporary output
+:LatexmkClean!
+<LocalLeader>l>lC  // clean all output
+:LatexmkStop
+<LocalLeader>lk  // quit latexmk
+:LatexmkStatus
+<LocalLeader>lg  // show status latexmk
+:LatexError
+<LocalLeader>le  // show log file
+:LatexView
+<LocalLeader>lv  // view document
+:LatexTOC
+<LocalLeader>lv // open table of contents
 
 # Motions
 [[  // begin
 ]]  // end
-fn <F5> // change env 
+fn <F5> // change env
 % // move between () or \begin
-" right option + () // jump between braces
+right option + () // jump between braces

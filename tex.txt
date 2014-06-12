@@ -1,0 +1,2 @@
+\newcommand{Cmd}[2]{cmd#1cmd#s}
+

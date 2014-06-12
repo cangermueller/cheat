@@ -1,0 +1,27 @@
+# keybindings
+F6  // next frame
+shift-F6  // previous frame
+cmd-shift-f // toggle fullscreen
+cmd - arrows  // back, forward, top page
+space // fast scroll
+cmd-shift-t // undo close tab
+cmd-shift-e // tab group view
+cmd-l // url bar
+cmd-k // search bar
+cmd-b // bookmark sidebar
+cmd-shift-b // bookmark window
+cmd-j // downloads
+
+## search
+cmd-f // find
+ESC // close search
+cmd-g // find next
+cmd-shift-g // find previous
+opt-arrows  // switch search enignes
+
+## pdf
+arrows  // next, previous page
+cmd-opt-p // presentation mode
+cmd-alt-g // page number
+ctrl-0  // automatic zoom, choose zoom
+

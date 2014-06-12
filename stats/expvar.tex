@@ -1,0 +1,118 @@
+\documentclass[a4paper]{article}
+\usepackage[
+    bookmarks,
+    bookmarksopen=true,
+    backref,
+    plainpages=false,
+    pdfpagelabels,
+    hypertexnames=false,
+    linktocpage,
+    colorlinks=true,
+    linkcolor=blue,
+    anchorcolor=blue,
+    citecolor=blue,
+    filecolor=blue,
+    menucolor=blue,
+    urlcolor=cyan,
+]{hyperref}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage[parfill]{parskip}
+
+\author{Angermueller Christof}
+\date{\today}
+\title{Expectation / Variance}
+
+
+\begin{document}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\Exp}[1]{\operatorname{E}[#1]}
+\newcommand{\Var}[1]{\operatorname{Var}[#1]}
+\newcommand{\Cov}[1]{\operatorname{Cov}[#1]}
+\newcommand{\Tr}[1]{\operatorname{Tr}[#1]}
+\maketitle
+\tableofcontents
+\section{Notations}
+The following document summarizes rules for computing the expected value, variance, and covariance of random variables and random vectors.
+$x_i$ denotes a random variable with expectation value $m_i=\Exp{x_i}$, variance $s_i=\Var{x_i}$ and covariance $s_{ij}=\Cov{x_i, x_j}$. $a_i$ and $b_i$ are constant scalars.
+$\bs{x}_i$ denotes a random vector with expectation vector $\bs{m}_i=\Exp{\bs{x}_i}$, variance matrix $S_i=\Var{\bs{x}_i}$ and covariance matrix $S_{ij}=\Cov{\bs{x}_i, \bs{x}_j}$. $A_i$ and $\bs{b}_i$ is a constant matrix and vector.
+\newpage
+
+\section{Expectation}
+\subsection{Random variable}
+\begin{align*}
+  \Exp{x} &= \int p(x) x \: dx \\
+  \Exp{ax + b} &= am + b \\
+  \Exp{a_1 x_1 + a_2 x_2 + b} &= a_1 m_1 + a_2 m_2 + b \\
+  \Exp{\prod_{i=1}^N x_i} &= \prod_{1 \le i \le N} m_i + \sum_{1 \le i < j \le N} s_{ij} \\
+  \Exp{x_1x_2} &= m_1m_2 + s_{12} \\
+  \Exp{x^2} &= m^2 + s
+\end{align*}
+
+\subsection{Random vector}
+\begin{align*}
+  \Exp{\bs{x}} &= \int p(\bs{x}) \bs{x} \: d\bs{x} \\
+  \Exp{A \bs{x} + \bs{b}} &= A \bs{m} + \bs{b} \\
+  \Exp{A_1 \bs{x}_1 + A_2 \bs{x}_2 + \bs{b}} &= A_1 \bs{m}_1 + A_2 \bs{m}_2 + \bs{b} \\
+  \Exp{(\bs{x}_1 - \bs{b}_1)^T A (\bs{x}_2 - \bs{b}_2)} &= (\bs{m}_1 - \bs{b}_1)^T A (\bs{m}_2 - \bs{b}_2) + \Tr{A^T S_{12}} \\
+  \Exp{\bs{x}_1^T A \bs{x}_2} &= \bs{m}_1^T A \bs{m}_2 + \Tr{A^T S_{12}} \\
+  \Exp{\bs{x}_1^T \bs{x}_2} &= \bs{m}_1^T \bs{m}_2 + \Tr{S_{12}} \\
+  \Exp{X_1^T A X_2}_{ij} &= \Exp{{X_1}_{:i}}^T A \Exp{{X_2}_{:j}} + \Tr{A^T \Cov{{X_1}_{:i}, {X_2}_{:j}}} \\
+  \Exp{(\bs{x}_1 - \bs{b}_1) (\bs{x}_2 - \bs{b}_2)^T} &= (\bs{m}_1 - \bs{b}_1) (\bs{m}_2 - \bs{b}_2)^T + S_{12} \\
+  \Exp{\bs{x}_1 \bs{x}_2^T} &= \bs{m}_1 \bs{m}_2^T + S_{12} \\
+\end{align*}
+\newpage
+
+\section{Variance}
+\subsection{Random variable}
+\begin{align*}
+  \Var{x} &= \int p(x) (x-\Exp{x})^2 \: dx = \Exp{(x-\Exp{x})^2} \\
+  \Var{ax + b} &= a^2 s \\
+  \Var{a_1 x_1 + a_2 x_2 + b} &= a_1^2 s_1 + a_2^2 s_2 + 2 s_{12} \\
+  \Var{a_1 x_1 - a_2 x_2 + b} &= a_1^2 s_1 + a_2^2 s_2 - 2 s_{12} \\
+\end{align*}
+If $x_1$ and $x_2$ and independent:
+\begin{align*}
+  \Var{x_1 x_2} &= \Exp{x_1^2} \Exp{x_2^2} - \Exp{x_1}^2 \Exp{x_2}^2
+\end{align*}
+
+\subsection{Random vector}
+\begin{align*}
+  \Var{\bs{x}} &= \int p(\bs{x}) (\bs{x}-\Exp{\bs{x}})^2 \: dx \\
+               &= \Exp{(\bs{x}-\Exp{\bs{x}})^2} \\
+  \Var{A \bs{x} + \bs{b}} &= A \Var{x} A^T \\
+  \Var{A_1 \bs{x}_1 + A_2 \bs{x}_2 + \bs{b}} &= A_1 \Var{x_1} A_1^T + A_2 \Var{x_2} A_2^T + 2 A_1 S_{12} A_2^T \\
+\end{align*}
+Variance of quadratic form:
+\begin{align*}
+  \Var{\bs{x}^T A \bs{x}} &= 4 \bs{m}^T A' S A' \bs{m} + 2 \Tr{A' S A' S} \\
+  A' &= \frac{1}{2} (A + A^T) \\
+  \Var{\bs{x}^T \bs{x}} &= 4 \bs{m}^T S \bs{m} + 2 \Tr{S S} \\
+\end{align*}
+
+If $\bs{x}_1$ and $\bs{x}_2$ are independent:
+\begin{align*}
+  \Var{\bs{x}_1^T \bs{x}_2} &= \sum_i \Exp{{{x_1}_i}^2} \Exp{{{x_2}_i}^2} + \Exp{{x_1}_i}^2 \Exp{{x_2}_i}^2 \\
+                            &= \sum_i \Exp{{x_1}_i}^2 \Var{{x_2}_i} + \Exp{{x_2}_i}^2 \Var{{x_1}_i} + \Var{{x_1}_i} \Var{{x_2}_i}
+\end{align*}
+
+\newpage
+\section{Covariance}
+\subsection{Random variable}
+\begin{align*}
+  \Cov{x_1, x_2} &= \int p(x_1, x_2) (x_1-\Exp{x_1}) (x_2-\Exp{x_2}) \: dx \\
+                 &= \Exp{(x_1-\Exp{x_1})(x_2-\Exp{x_2})} \\
+  \Cov{a_1 x_1 + b_1, a_2 x_2 + b_2} &= a_1 a_2 s_{12} \\
+\end{align*}
+
+\subsection{Random vector}
+\begin{align*}
+  \Cov{\bs{x}_1, \bs{x}_2} &= \int p(\bs{x}_1, \bs{x}_2) (\bs{x}_1-\Exp{\bs{x}_1}) (\bs{x}_2-\Exp{\bs{x}_2})^T \: dx \\
+                           &= \Exp{(\bs{x}_1-\Exp{\bs{x}_1})(\bs{x}_2-\Exp{\bs{x}_2})^T} \\
+  \Cov{A_1 \bs{x}_1 + \bs{b}_1, A_2 \bs{x}_2 + \bs{b}_2} &= A_1 s_{12} A_2^T \\
+\end{align*}
+
+\end{document}
