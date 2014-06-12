@@ -55,6 +55,8 @@ c-s-t // new tab with existing kernel
 
 # magics
 %magic  // show magic help
+%magic $var // expand variable name
+%magic {expression} // expand expression
 
 %pdoc // show python doc of object
 %pdef // show function (class) definition 

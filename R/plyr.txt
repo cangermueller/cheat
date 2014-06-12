@@ -19,7 +19,8 @@
 * transform(df, a=a+1, new=a+2)  # does not work, since not iterative!
 * round_any(121, 3) # round to next multiple of number
 
-* join(a, b)  # join data.frames by common columns
+* join(a, b, by=, type='left')  # join data.frames by common columns
+  left: all rows of b, matching columns from b
 * join_all(df.list) # join list of data.frame
 * match_df(a, b)  # select rows a which are matched in b
 * rbind.fill(a, b)  # rbind columns and fill missing columns with NA  
