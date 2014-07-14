@@ -18,9 +18,9 @@ A.compress([1, 2], axis=0)  // select slices along axis
 np.apply_along_axis(fun, axis, array) 0 == columns! // returns numpy array
 r = [fun(row) for row in array] // returns list
 
-# Comparing values
-import numpy.testing as nt
-nt.assert_almost_equal(A, B)
+# testing
+assert_allclose(actual, desired, rtol=1e-7, atol=0)
+assert_equalt(A, A)
 
 # Data type, dtype
 int16 'i2'
@@ -64,14 +64,15 @@ np.seterr(all=, divide=, under=, over=, divide=, invalid=)  // errors, warnings,
   ['ignore', 'warn', 'print', 'raise']
 np.geterr()
 
-# array: array of specific type
-array([1, 2, 3])
-array([1, 2.0, 3])
-array([1, 2, 3], dtype=complex)
-array([1, 2, 3], ndim=2)
-array([1, 2, 3], dtype='f')
-array([(1, 'a'), (2, 'b')]) // data frame
-
+# ndarray
+array class
+ndarray(shape, dtype, ...)
+ndarray((3, 4))
+## constructors
+  array()
+  empty()
+  ones()
+  zeros()
 ## attributes
 a.size  // # elements
 a.ndim  // # dimensions
@@ -86,6 +87,7 @@ logspace(start, stop, num)
 linspace(0, 10, 16).reshape((2, 8))
 ones(5) // init vector
 ones_like(M)  // the shape as M
+repeat(5, n)  // repeat 5 n times
 a = empty(5); a.fill(v) // fast way to fill with same value
 ones((2, 8))
 zeros((2, 8))
@@ -107,6 +109,10 @@ concatenate((a, b))
 ## operations
 a1 * a2 // pairwise multiplication
 multiply(a1, a2)  // pairwise multiplication
+  multiply(1, 2) = 2
+  multiply([1, 2], [3, 4])  = [3, 8]
+  multiply(A, rowvector)  // scale columns
+  multiply(A, columnvector) // scale rows
 dot(a1, a2) // dot product
 dot(m, a) // matrix vector product
 m.dot(a)  // matrix vector product
@@ -115,7 +121,8 @@ sum, mean, var, std(a, 0) // over all rows
 sum(a, 0) // sum vertically (over rows)
 sum(a, 1) // sum horizontally (over columns)
 max, min
-argmax, argmin  // index minimum/maximum
+argmax(array, axis=), argmin  // maximum/minimum (along axis)
+
 maximum(a, b) // pairwise maximum of two arrays
 unique(a)
 
@@ -172,7 +179,9 @@ linalg.eig
 linalg.det
 linalg.inv
 linalg.svd
-linalg.norm(m)  // compute Frobenius norm of matrix
+linalg.norm(m, ord='norm')  // compute Frobenius norm of matrix
+  sqrt(trace(m.transpose().dot(m)))
+  sqrt(sum(sum(m**2)))
 linalg.norm(v)  // Euclidean norm of vector
 linalg.norm(m, axis=0) // Euclidean norm of all column vectors
 

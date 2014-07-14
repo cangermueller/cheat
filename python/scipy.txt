@@ -1,0 +1,39 @@
+# linalg
+import scipy.linalg
+solve(A, b)
+eigvals, eigvecs = eig(A)
+eigvals = eigvals(A)
+svd(A)
+cholesky(A)
+LU(A)
+norm(A, ord='fro')
+
+# Sparse matrices
+import scipy.sparse
+coo_matrix  // coordinate form
+lil_matrix  // list of lists; allows changes
+csr_matrix  // compressed sparse row; constant
+csc_matrix  // compressed sparse column; constant
+A = lil_matrix((nrow, ncol))
+  A[1, 1] = 10
+A = csr_matrix(array)
+A.todense()
+A.dot(v)  // allows matrix operations; returns sparse matrix
+
+# Optimization
+import scipy.optimize
+fmin_bfgs(fun, x0, fprime=fun_dev, ...)
+  fun // function to be minimized
+  x0  // starting point
+  fprime  // derivative
+  args  // arguments as tuple passed to fun and fun_dev
+  disp=False  // suppress output
+  full_output=True  // return [xmin, ymin, grad, ...]
+brent(f)  // minimize scalar function
+fminbound(f, x1, x2)  // minimize scalar function
+
+# Interpolation
+import scipy.interpolate
+interp1d(x, y, kind='linear')
+  kind='quadratic': spline^2
+  kind='cubic': spline^3

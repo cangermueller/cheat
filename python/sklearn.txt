@@ -1,0 +1,21 @@
+# Data
+import sklearn.datasets
+load_iris
+load_digits
+fetch_mldata  // download digits from ML repository
+.data // design matrix
+.target // classes as integers
+.target_names
+
+# PCA
+import sklearn.decomposition
+pca = PCA(n_components=2, white=False)
+pca.fit(Y) 
+  Y = X W // n x p
+  X = [-] // samples in rows; n x q
+  W = [-] // eigenvectors in rows; q x p
+X = pca.fit_transform(Y)
+pca.components_  // W
+pca.transform(Y)  // X; n x q
+pca.inverse_transform(X)  // Y
+pca.explained_variance_
