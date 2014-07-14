@@ -1,0 +1,23 @@
+# h5ls
+# h5ls
+h5ls file
+h5ls -v file  // verbose
+h5ls -d // data
+
+# h5dump
+-n  // structure; like h5ls
+-H  // only header
+-A  // only attributes; no content
+## Selection
+-d /dataset
+-g /group
+-N  /foo/bar  // any path
+-s index  // start block
+-c count  // number of blocks
+-S stride // stride = step size
+
+# h5copy
+h5copy -i infile.h5 -o outfile.h5 -s /Source -d /Dest
+
+# h5diff
+h5diff file1 file2 /object1 /object2

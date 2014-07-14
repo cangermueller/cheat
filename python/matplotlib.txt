@@ -1,36 +1,30 @@
- references
-* overview: http://matplotlib.org/contents.html
-* pyplot: http://matplotlib.org/api/pyplot_api.html
-* screenshots: http://matplotlib.org/users/screenshots.html
+# Magics
+%pylab  // start pylab mode
 
-# matplotlib.pyplot
-* stateful: remembers which operations were performed!
-* import matplotlib.pyplot as plt
-fig = figure()  // creates figures; optional
-show(), savefig()
-ax1 = subplot(211)  // create first subplot == axis; optional
-ax2 = subplot(212)  // create second subplot == axis
-fig, axes = subplots(nrows=, ncols=, figsize=(w,h))  // create figure and axes in one step
-add_axes([left, bottom, width, height]) // create additional axes; [0;1] relative to figure
-## GridSpec
-import matplotlib.gridspec as gridspec
-gs = gridspec.GridSpec(nrows=2, ncols=1, width_ratios=[1, 1], height_ratios=[2, 1])
-plt.subplot(gs[0])
-plt.subplot(gs[1])
+# Global functions
+show()  // open plot
+close() // close plot
+draw()  // update plot
+gca() // get current axis
+gcf() // get current figure
+switch_backend('macosx|Qt4Agg|GTK')
+ion() // interactive on
+ioff()  // interactive off
 
-## setting properties
-title()
+# Options
+figure(figsize=(width, height)) // new figure
+subplot(nrow, ncol. index)  // switch to subplot
+title
+xticks(()), yticks(())  // no ticks
 xlabel(), ylabel()
 xlim(), ylim(), axis([xmin, xmax, ymin, ymax])
-setp(line, linewidth=2, color='r')  // set property of line object
 grid()
+tight_layout()  // reduce space between subplots
+show(), savefig()
+ax = add_axes([left, bottom, width, height]) // create additional axes; [0;1] relative to figure
 
-## plotting functions
-plot(), scatter(), hist(), bar(), ...
-text(), annotate()
-
-# axes
-line, = plot(x, y, ...)
+# plotting functions
+plot(x, y, ...)
   linewidth=1
   linestyle=[-,--,:,-.] // solid, dashed, dotted, dashdot
   color='red'
@@ -40,17 +34,23 @@ line, = plot(x, y, ...)
   markeredgecolor
   markeredgewidth
   fontsize=18
-scatter(x, y) // scatter plot
-bar(x, y, width)  // barplot
+scatter(x, y, color='black', s=20, marker=matplotlib.markers?)
+bar(x, y, width)
 boxplot(data) // data is 2d numpy array with distributions in columns
 imshow(image) // plot image (mxn array) values/heatmap
-contour(x, y, z, color=, cmap=)  // contour plot
+contour(x, y, z, color=, cmap=)
+  x, y are vectors defining range
+  z is function value
 plot_surface(x, y, z, cmap=)  // from mpl_toolkits.mplot3d.axes3d import Axes3D
 hist(x, bins=n, normed=False, cumulative=False)
 vlines(x, vmin, vmax)
 text(x, y, text, fontsize=12, ha='center', va='center', rotation=45, bbox=)
+  x, y scalars, not array!
+annotate('text', xy=(x, y), xytext=(x, y), bbox=, arrowprops=, coords=)
 
 
+# axis
+cla() // clear axis
 set_title('title')
 set_xlabel('x')
 set_ylabel('y')
@@ -58,10 +58,6 @@ set_xlim([start, end])
 axis([xmin, xmax, ymin, ymax])
 set_axis_off()  // turn axis off
 grid()
-legend(loc=0)
-
-# axis properties
-set_xlim
 set_xscale('log')
 set_xticks([1, 2, 3])
 set_xticklabels(['A', 'B', 'C'])
@@ -69,22 +65,20 @@ xaxis.ticks_bottom()
 ax.axis('off')  // remove all axis
 ax.spines['top'].set_visible(False) // hide line
 
-# text annotations
-http://matplotlib.org/users/annotations_guide.html
-text(x, y, text, size=, va='center', ha='center', rotation=45, bbox=)
-annotate('text', xy=(x, y), xytext=(x, y), bbox=, arrowprops=, coords=)
-  * coords=data|figure points|figure fraction|axes points|axes fraction|offset points
+# legend
+plot(x, y, label='curve1')
+plot(x, y, label='curve2')
+legend(loc='best,center right,lower right')
+
 
 # coordinate transformations
 * fig.transFigure // [0;1] of figure
 * axis.transData  // [xlim, ylim] of data
 * axis.transAxes  // [0;1] of axis
 * text(x, y, transform=axis.transAxes)
-
 ## bbox
 bbox=dict(boxstyle=, fc='cyan', ec='black', alpha=0.5, lw=2)
 boxstyle=square|round|rarrow|larrow
-
 ## arrowprops
 arrowstyle=->, -|>
 linewidth
@@ -101,35 +95,33 @@ linewidth
 ## color maps
 import matplotlib.cm as cm
 cmap = cm.rainbow  // color map class
-cmap(1) // return color for value 1
-cmap([1, 2, 3]) // returns colors for difference values
-cm.get_cmap(rainbow)  == cm.rainbow // get color map class
-cm.datad.keys() // all colormaps, _r: reverse
-### Normalize
-norm = colors.Normalize(vmin, vmax) // Maps [vmin; vmax] -> [0.0, 1.0]
-plot(cmap=cmap, norm=norm) // use colors cmap and normalize with norm
-### Getting colors for specific range
+cmap([0.0, 0.5, 1.0]) 
+  * return colors for different values
+  * default range: [0;1]
+cm.rainbow(linspace(0, 1, n)) // return n colors from rainbow palette
+
+## Normalize
 cmap = cm.rainbow
 norm = colors.Normalize(vmin=, vmax=)
 mapper = cm.ScalarMappale(cmap=cmap, norm=norm)
 colors = mapper.to_rgba(values)
 
 
-# imshow: heatmap
+# imshow / matshow
 * plot 2d matrix in the way it is in memory (X[0,0] top/left)
-* http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.imshow
-imshow(M, interpolation='nearest,none', cmap=cm.RuBu, norm=norm,aspect='auto')
+matshow(M, ...) // simple; no interpolation
+imshow(M, ...)  // complex; interpolation
+  interpolation='nearest,none'
+  cmap=cm.RuBu,'binary'
 aspect='auto' // adjust width/height
-## Adjusting scale
-import matplotlib.colors as col
-import matplotlib.cm as cm
-norm = col.Normalize(vmin, vmax)
-cmap = cm.jet
-im = imshow(cmap=cmap, norm=norm)
-## color bar
 fig.colorbar(im, orientation='horizontal')
-Don't know how to do specific for each axis
+  * Don't know how to do specific for each axis
 
-
-
-
+# Animation
+import matplotlib.animation
+ani = animation.FuncAnimation(fig, fun, frame=n, init_fun=None)
+  fig // reference to figure which is plotted
+  fun(i) // function for updating fig; i = frame
+  init_fun  // function for initializing plot; optional
+writer = animation.FFmpegWriter(fps=n)
+ani.save('file.mp4', writer=writer)

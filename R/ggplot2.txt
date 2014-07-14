@@ -2,6 +2,13 @@
 aes_string(fill='mean') // aes variable
 round_any(var, 0.1) // discretize/round continuous information
 
+# Theme
+theme_classic()
+theme_light()
+theme_minimal()
+theme_grey()
+theme(panel.backgroud=element_rect(fill='transparent'))
+
 # ggdendro
 plot_hclust <- function(hc) {
   p <- ggdendrogram(hc) #+ theme(plot.background=element_rect(fill='transparent', color=NA)))

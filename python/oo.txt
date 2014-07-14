@@ -20,8 +20,13 @@ dir(o)  // list attributes
 
 # overriding
 class Child(Parent):
+  def __init__(self, a, **kwargs):
+    self.a = a
+    super(Child, self).__init__(*kwargs)  // call parent constructor
+
   def method(self):
-    super(Parent, self).method()
+    super(Child, self).method() // call parent method
+
 
 # decorators
 @staticmethod

@@ -6,6 +6,18 @@ help()
 string.split?
 command history: c-p, c-n, c-r
 
+# Arguments
+--pdb // start ipdb on exception
+--pylab // import numpy, matplotlib
+
+# pylab
+%pylab gui
+--pylab gui
+* gui: inline, osx, gtk, q4
+* import matplotlib.pylab
+* import numpy
+* interactive plotting
+
 # Customizing ipython
 http://ipython.org/ipython-doc/dev/config/
 ipython locate

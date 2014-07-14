@@ -1,9 +1,11 @@
 # Naming convention
 variable_name
 function_name
-_one_slash_to_avoid_name_collisions
+_single_underscore  // do not use variable; not imported by import * from module
 __private_instance_variable
 __private_instance_method
+__never_use_leading_training__
+lambda_ // trailing to avoid collisions
 CONSTANT_NAME
 ClassName
 

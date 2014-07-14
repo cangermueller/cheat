@@ -1,3 +1,10 @@
+# Encryption
+:X  // enter key
+:w  // write + encrypt
+:set key= // disable encryption
+:setlocal cm=zip  // weak, default
+:setlocal cm=blowfish // strong
+
 # Spell correction
 ]s  // next
 z+  // correct

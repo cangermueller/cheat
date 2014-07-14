@@ -1,0 +1,15 @@
+# Modules
+pickle  // slow; subclassing
+cPickle // fast; no subclassing
+
+# Functions
+dump(object, file)
+object = load(file)
+dump((o1, o2, o3), file('file.pk1', 'w'))
+o1, o2 o3 = load(file('file.pk2', 'r'))
+
+# Classes
+p = Pickler(file)
+p.dump(object)
+u = Unpicker(file)
+object = u.load()

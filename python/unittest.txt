@@ -1,3 +1,6 @@
+assertEqual(result, expected)
+assertEqual() instead of assertEquals()!!!
+
 import unittest
 class TestFunction(unittest.TestCase):
   def test_fun(self):
@@ -6,4 +9,16 @@ if __name__ == '__main__':
     unittest.main()
 
 @unittest.skip('reason')
+
+# numpy array
+np.allclose(a, 1.0)
+np.alltrue(a == 1.0)
+-> return True/False: assertTrue(np.allclose(a, 1.0))
+-> better: numpy.testing
+import numpy.testing as npt
+npt.assert_ // throw exception which is recognized by unittest
+assert_array_equal(a, b)  // exact
+assert_array_less(a, b)
+assert_allclose(a, 1.9) // approx
+assert_allclose(a, b) // approx
 
