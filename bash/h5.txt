@@ -1,8 +1,9 @@
 # h5ls
 # h5ls
 h5ls file
-h5ls -v file  // verbose
+h5ls -rd  // data recursive by groups
 h5ls -d // data
+h5ls -v file  // verbose
 
 # h5dump
 -n  // structure; like h5ls

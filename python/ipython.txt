@@ -1,3 +1,21 @@
+# ipycache
+%load_ext ipycache
+%%cache [options] data.pk1 var1, var2, var3
+-f  // force execution, overwrite existing file
+-d dir // directory for cache files
+-s  // silent
+
+# profiles
+ipython locate  // ~/.ipython
+ipython locate profile  // ~/.ipython/profile_default
+ipython profile create NAME // create new profile
+profile_default/startup/FILE.py // scripts executed at startup in alphnum order
+
+# ipdb output redirect
+/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/ipdb/__main__.py
+comment out update_stdout()
+
+
 # ipython
 %quickref
 ?
@@ -17,13 +35,6 @@ command history: c-p, c-n, c-r
 * import matplotlib.pylab
 * import numpy
 * interactive plotting
-
-# Customizing ipython
-http://ipython.org/ipython-doc/dev/config/
-ipython locate
-IPYTHONDIR  // for changing default directory
-ipython profile [profile name]  // create profile
-ipython/profile_<name>/ipython_<frontent>_config.py // config files
 
 # system commands
 !ls
@@ -76,6 +87,7 @@ c-s-t // new tab with existing kernel
 %pysave file.py 1-10  // save lines 1-10 to file.py
 %edit file  // edit file in editor
 %%file file.py -a // write/append code to file
+%%bash cmd  // execute shell command
 %who  // defined objects
 %whos // information about all objects
 %timeit command // benchmark command

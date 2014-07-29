@@ -46,7 +46,9 @@ hist(x, bins=n, normed=False, cumulative=False)
 vlines(x, vmin, vmax)
 text(x, y, text, fontsize=12, ha='center', va='center', rotation=45, bbox=)
   x, y scalars, not array!
-annotate('text', xy=(x, y), xytext=(x, y), bbox=, arrowprops=, coords=)
+annotate('text', xy=(x, y), xytext=(x, y), bbox=, arrowprops=, coords=) // x, y are scalars!
+for x, y, label in zip(all_x, all_y, all_labels):
+  annotate(label, xy=(x, y), ha='left', va='bottom')
 
 
 # axis
@@ -113,7 +115,7 @@ matshow(M, ...) // simple; no interpolation
 imshow(M, ...)  // complex; interpolation
   interpolation='nearest,none'
   cmap=cm.RuBu,'binary'
-aspect='auto' // adjust width/height
+aspect='auto', 10, 100 // adjust width/height
 fig.colorbar(im, orientation='horizontal')
   * Don't know how to do specific for each axis
 

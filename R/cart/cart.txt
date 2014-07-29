@@ -78,7 +78,7 @@
     * Recalculate OOB error
     * Importance variable j: OOB before - OOB after permutation
   * Mean decrease node impurity (gini index, entropy)
-+ High classification accurarcy
++ High classification accuracy
 + Non-linear decision boundaries
 + Can handle a high number of variables
 + Gives an impression of which variables are important

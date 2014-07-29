@@ -1,3 +1,40 @@
+# Resizing arrays
+a.resize((3, 5))  // changes shape a inplace; fills with zero
+np.resize(a, (3, 5)) // returns copy; fills with values/copies of a
+
+# keep dimension after slicing
+atleast_1d(a[0, 0])
+atleat_2d(a[0, :])
+
+# Masked array
+import numpy.ma as ma
+n = np.array
+m = ma.masked_array([1, 2, 3], [0, 0, 1]) // 3 is masked
+m = ma.masked_values(n, 3)  // mask value 3 in numpy array
+m[i, j] = ma.masked // mask value
+m.data  // original data
+m.mask  // mask
+m[~m.mask]  // return view on existing values
+m.compressed()  // return new numpy array only with existing values
+m[i, j] = ma.masked // mask value
+m[i, j] is ma.masked
+np.mean(m)  // only for existing values
+np.log(m) // return masked array
+
+# nan/inf
+nan // not a number
+inf // infinite
+a = array([1, nan, inf])
+a.dtype // float64
+ianan(a)
+isinf(a)
+
+
+
+
+
+
+
 # Efficiency
 C-order: matrix stored row by row in memory // default numpy
 F-oder: matrix stored column by column  // fortran
@@ -18,23 +55,18 @@ A.compress([1, 2], axis=0)  // select slices along axis
 np.apply_along_axis(fun, axis, array) 0 == columns! // returns numpy array
 r = [fun(row) for row in array] // returns list
 
-# testing
-assert_allclose(actual, desired, rtol=1e-7, atol=0)
-assert_equalt(A, A)
-
 # Data type, dtype
 int16 'i2'
 float8  'f8'
-str 'S'
+str 'S10' == 'a10'  // str length 10
 x.astype(np.float16)  // change dtype
 x.view(np.float16)  // change view on dtype
 
 # Structure array
-np.empty((3, 2), np.dtype([('name', 'S16'), ('value', 'f32')]))
-np.empty((3, 2), np.dtype([('name', np.str, 16), ('value', np.float32)]))
-dt = np.dtype({'names':['name', 'value'], 'formats':['S16', np.float32]})
-t = np.empty((3, 2), dt)
-t[0] = ('Hans', 123)
+a = np.empty((3, ), dtype=('i4, f4, a10'))  // unlabeled
+a[0] = (1, 1.2, 'name')
+a = np.empty((3, ), dtype=np.dtype([('id', 'i4'), ('name', 'a10')])) // labeled
+np.empty((3, ), np.dtype([('name', 'S16'), ('value', 'f32')]))
 
 # Conversion to matlab
 import scipi.io as io
@@ -96,7 +128,7 @@ identity(3)
 eye(3)
 diag([1, 2, 3]) // create diagonal matrix
 diagonal(matrix)  // extract diagonal from matrix
-a.copy()
+b = a.copy(), b = np.copy(a)  // copy array
 
 ## functions
 insert(a, index, value)
@@ -129,7 +161,9 @@ unique(a)
 ## io
 save('data.npy', data)  // binary npy format
 data = load('data.npy')
-savez('data.npz', data) // compressed
+savez('data.npz', d1=d1, d2=d2) // save several objects in file
+data = load('data.npz')
+data['d1']; data['d2']
 savetxt('data.csv', data, sep=',')
 loadtxt('data.csv', sep=',')
 
