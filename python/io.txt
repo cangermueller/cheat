@@ -7,3 +7,10 @@ for line in f:
 # Checking eof
 f.readline() == ''
 f.tell() = tell_previous
+
+# File names
+os.path
+splitext('/d/f.ext') -> ['/d/f', 'ext']
+splitexit(path)[0]  // remove extension
+basename(path)
+dirname(path)

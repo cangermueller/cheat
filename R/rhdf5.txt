@@ -1,11 +1,5 @@
 h5... // high level functions
 H5... // low level functions
 f = h5createFile('file.h5')
-H5Fclose(f)
-h5write(object, '/foo', index=list(rows, columns))
-h5read(file, '/foo', index=list(rows, columns), start=c(start, end))
-  index=list(1:3, NULL, 3)  // NULL = all; start with 1
-  start=c(1, 2, 1)  // start index of hypergrid
-  count=c(5, 5, 5)  // elements to be read from start
-h5dump(file)  // return all objects as list
-h5save(A, B, file=file) // append to file; create if not exist
+h5read(file, group)
+h5write(object, file, group)

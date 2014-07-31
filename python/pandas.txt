@@ -5,6 +5,18 @@ fillna(0)
 dropna(axis=) // drop axis with missing values
 interpolate() // fill missing values by interpolation
 
+# Selection, filtering
+s = df.pos  // selection based on series
+s > 0 // returns boolean vector
+(s > 0) & (s < 5) // boolean operator: brackets; &, |, ~ instead of and, or, not
+s[(s > 0) & (s < 5)]  // section series
+df[(df.pos > 0) & (df.pos < 5)] // selection data frame
+s.isin([3, 5, 5]) // select single values
+s.where(s > 5)  // sets entries s <= 5 to NaN
+s.where(s < 5, 10)  // sets entries s <= 5 to 10
+s.mask(s > 5) // sets entries s > 5 to Nan
+
+
 # pandas printoptions
 pd.set_option('display.width', 150) 
 pd.set_option('display.height', 150)
@@ -22,11 +34,12 @@ t = df.to_records() //structured
 
 # Iterating
 for row in df.iterrows():
-  row['x']
-# Plotting
-p = df.plot(x=, y=, kind='bar')
-p.set_xlabel()
-
+  print row[colindex]
+for col in df.iteritems():
+  print col[rowindex]
+df.iterrows() // iterate over rows
+df.iteritems()  // iterator over columns
+-> return tuple iterator
 
 # R datasets
 import numpy.rpy.common as com
@@ -71,10 +84,12 @@ df = psql.read_sql('SELECT * ', con, index_col=)
 
 
 # DataFrame
-DataFrame({'id':np.arange(3), 'value':np.linspace(3)}, columns=['id', 'value'])
-DataFrame(np.ones((n, m)), columns=)
-DataFrame(index=['r1', 'r2'], columns=['c1', 'c2'])
-DataFrame.from_dict
+DataFrame(columns=['c1', 'c2'], index=['r1', 'r2'], dtype=bool)
+  columns=  // column labels
+  index=  // row labels
+DataFrame({'id':[0, 1, 2], 'value':[1, 2, 3]})  // from dict
+DataFrame.from_dict(dict) // same as before
+DataFrame(np.ones((n, m)), columns=)  // from numpy array
 DataFrame.from_csv
 
 ## Misc

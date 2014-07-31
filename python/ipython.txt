@@ -1,3 +1,12 @@
+# parallel
+ipcluster start -n 4  // start cluster with 4 engines
+ipcluster start --profile -n 4 // use profile mp
+from IPython.parallel import Client
+client = Client(profile='default')  // connect to local server
+client = Client(profile_dir='SSH/.ipython/profile_mp', sshserver=, password=) // connect to remote controller
+client.close()
+
+
 # ipython
 %quickref
 ?
@@ -103,10 +112,11 @@ mymagic(1, 2) // a == 1 and b == 2
 
 # running file/module
 %run file.py arg1 arg2
+%run -d // debug mode: stop on first line
+%run -d -b 10 // debug mode, breakpoint line 10
 %run -m module
 %run -t // time command
 %run -p // profiler
-%run -d -b10 // debug mode, breakpoint line 10
 
 # browsing command history
 %hist

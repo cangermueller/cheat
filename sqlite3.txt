@@ -1,3 +1,4 @@
+.tables // show tables
 .schema // show databases
 .quit
 .help
