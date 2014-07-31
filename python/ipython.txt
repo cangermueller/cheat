@@ -50,7 +50,7 @@ ipython qtconsole|console|notebook  // start kernel with frontent
 ipython qtconsole|console --existing file.json  // connect to existing kernel
 %connect_info // connection info -> file.json
 %qtconsole  // start qtconsole connected to current kernel
-ipython console --ssh host --existing file.json
+ipython console --ssh host --existing file.json // file.json must be copied from server to client machine
 quit() == exit()  // exit frontend and kernel
 quit(True) == exit(True)  // exit frontend and keep kernel alive
 

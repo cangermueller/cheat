@@ -36,7 +36,6 @@ plot(x, y, ...)
   fontsize=18
 scatter(x, y, color='black', s=20, marker=matplotlib.markers?)
 bar(x, y, width)
-boxplot(data) // data is 2d numpy array with distributions in columns
 imshow(image) // plot image (mxn array) values/heatmap
 contour(x, y, z, color=, cmap=)
   x, y are vectors defining range
@@ -116,6 +115,7 @@ imshow(M, ...)  // complex; interpolation
   interpolation='nearest,none'
   cmap=cm.RuBu,'binary'
 aspect='auto', 10, 100 // adjust width/height
+im = ax.colorbar(...)
 fig.colorbar(im, orientation='horizontal')
   * Don't know how to do specific for each axis
 
@@ -127,3 +127,12 @@ ani = animation.FuncAnimation(fig, fun, frame=n, init_fun=None)
   init_fun  // function for initializing plot; optional
 writer = animation.FFmpegWriter(fps=n)
 ani.save('file.mp4', writer=writer)
+
+# Boxplot
+bp = boxplot(data, ...) // data is 2d numpy array with distributions in columns; or list lists
+  vert=False  // horizontal
+  patch_artist=False
+for box in bp['boxes']:
+  box.set_color(color)
+
+

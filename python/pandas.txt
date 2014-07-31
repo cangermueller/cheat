@@ -1,3 +1,35 @@
+# IO
+read_hdf('file', 'groupname')
+read_csv(file, ...)
+  nrows // max number of rows to be read
+  sep // delimiter
+  usecols // select columns by name
+
+# Index
+columns // column index
+index // row index
+set_index(column) // use column as index
+reset_index() // convert index to columns
+index.values[0] = 'new_label' // rename index; rename column/row
+df.columns = ['c1', 'c2'] // rename columns
+
+## Indexing
+df.loc[(r1, r2), c] // row by levels (r1, r2), column c
+df.loc[r1, c] // only first level
+df.loc[r1].loc[r2] == df.loc[(r1, r2)]
+
+## Creating index
+i = Index(array, dtype=)
+i = MultiIndex.from_tuples([array1, array2], names=[name1, name2])
+df = DataFrame(array, index=i)
+df.index = i
+
+## Multiindex
+i = df.columns  // multiindex for columns
+i.get_level_values(k) // get column labels level k
+i.droplevel(k) // remove level k
+df.columns = df.columns.droplevel(k)
+
 # Missing values
 count() // # non-missing
 isnull()
@@ -92,13 +124,6 @@ df.values.nbytes  // memory usage
 .iat[rowindex, colindex]  // scalar index based
 df[a & b | c & ~d]  // boolean indexing by rows
 df.ix[:, a & b] // boolean indexing by columns
-
-## Hierarchical indexing
-df.ix['level1', 'level2', 'level3']
-df.xs('value', level='level')
-df.index
-df.set_index()
-df.reset_index()
 
 ## hdf5
 df.to_hdf('file', 'groupname')
