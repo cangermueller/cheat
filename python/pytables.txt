@@ -1,32 +1,40 @@
+Use h5py if possible!
+Advantage: SQL like queries via where()
 http://pytables.github.io/usersguide/tutorials.html#
 
+# Open
 f = File('filename')
 f = open_file('filename', 'rwar+')
-f.create_group('/', 'g1')
- 
-# Appending row
-t = f.root.g1.t1
-r = t.row
-r['id'] = 1
-r['value'] = 1.2
-r.append()
-t.append([(1, 12), (2, 13)])
 
-f.create_table('/g1', 't1', description)
-## description
+# Naviation
+f.root.<tab>
+f.list_nodes('/') 
+for n in f.iter_nodes():
+  print n
+
+# Read
+t = f.get_node('/x1')
+t[i], t[i, j], t[:, j]  // like numpy slicing operations
+np.array(t) // convert to numpy array
+t.shape, t.nrows, t.columnnames
+
+# Queries
+t = f.get_node('/t1')
+for r in t.where('(chromo == "X") & (start < 10)'):
+  print r[:]
+
+# Create group
+f.create_group('/', 'g1')
+
+# Create table
+t = f.create_table('/', 't1', np.dtype('i4, f4, a10'))
+t.append([(1, 1.0, 'a1'), (2, 2.0, 'a2')])
+## Descriptor
 class Person(IsDescriptor):
   id = Int16Col()
   value = Float16Col()
-Person
-np.dtype([('id', np.int8), ('value', np.float16)])
-{'id':Int8Col(), 'value':Float16Col}
-
-for x in t
-for x in t.iterrows
-t.iterrows(start=, end=, step=)
-t.itersequence([0, 1, 1])
-
-# Show file content
-f.list_nodes('/')
-for x in f.iter_nodes('/')
-group = [x._v_name for x in file.iter_nodes('/')]
+t = f.create_table('/', 't2', Person)
+r = t.row
+r['id'] = 1
+r['value'] = 10
+r.append()

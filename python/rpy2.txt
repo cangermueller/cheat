@@ -1,4 +1,6 @@
-%load_ext rmagic
+# rmagic
+%load_ext rpy2.ipython // new
+%load_ext rmagic // old
 
 %R a=1; b=2 // execute expr and return last assignment
 %Rpush a  // push a from py ns to R ns
@@ -6,3 +8,19 @@
 %Rpull a  // pull a from R ns to py ns
 %R -o a // == %Rpull a
 %%R // start of multiline section -> alone in cell!
+
+# library
+from rpy2.robjects import r
+r('CMD')  // execute R command
+r.assign('target_name', object) // object -> R
+
+## numpy
+import rpy2.robject.numpy2ri // active conversion numpy arrays
+r.assign('object', object)
+r('save("object", file=)')
+
+## pandas
+import pandas.rpy2.common as com
+com.load_data('object') // R object -> pandas object
+df_r = com.convert_to_r_dataframe(df) // first convert df
+r.assign('df', df_r) // then write it to R

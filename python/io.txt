@@ -1,8 +1,11 @@
+# Reading content
 f = open(filename, 'rwa')
 f.read()  // read everything
 f.readline()
 f.readlines()
 for line in f:
+lines = open(filename).read().splitlines() // read lines in array
+lines = [l.rstrip() for l in open(filename, 'r')]
 
 # Checking eof
 f.readline() == ''
@@ -10,6 +13,7 @@ f.tell() = tell_previous
 
 # File names
 os.path
+join(path, file)
 splitext('/d/f.ext') -> ['/d/f', 'ext']
 splitexit(path)[0]  // remove extension
 basename(path)

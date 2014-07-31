@@ -1,15 +1,45 @@
-f = File('filename.hdf5', [r w r+ a]
-g = f.create_group('g1')
-d = [fg].create_dataset('d1', (n,m), dtype='i')
-d = [fg].create_dataset('d1', data=np.arange(3))
-d = f['g1/d1']
-d.attrs['a1'] = 'value'
-del f['/object/']
-enable_ipython_completer()
+# General
+http://docs.h5py.org/en/latest/quick.html
+Optimized for numpy
+pytables is more abstract (complicated)
+
+
+# Write numpy array
+f = File('file.h5', 'w')  // use 'a' to append, else overwrite
+f.create_dataset(['/group/dataset'], data=array)
+f.close()
+
+# Read array
+f = File('file.h5', 'r')
+array = f['/group/dataset'].value
+f.close()
+
+# Explore file
+f = File('file.h5', 'r')
+f.keys()  // item names on top levels
+g = f['g1']
+g.items() // item names in group
+
+# open attributes
+* r: read-only
+* w: overwrite existing
+* r+ : read/write; file must exist
+* a : read/write; file does not have to exist
+
+# edit file
+f = File('file.h5', 'r+')
+d = f['dataset']
+d[0, 0] = 10
+f.close()
+
+# delete dataset
+del f['dataset']
 
 # create_dataset
 d = [fg].create_dataset('d1', (n,m), dtype='i')
 d = [fg].create_dataset('d1', data=np.arange(3))
+d = f.create_dataset('d1', (10,), dtype=('i4, f4, a10'))  // structured array
+d[0] = (1, 1.2, 'Christof')
 create_dataset((1e5, 1e5), chunks=(100, 100))
 * split dataset into chunks of size (100, 100)
 * access by B-tree instead of linear access
@@ -17,14 +47,3 @@ create_dataset((1e5, 1e5), chunks=(100, 100))
 * not everything is loaded into memory
 compression='gzip'
 maxshape=(None, 100)  // resizeable dataset
-
-# Access
-for name in f:
-    print name
-f.keys(), f.values()
-'g1' in f
-f.visit(callable_function)  // callable_function(name)
-f['name'] = ExternalLink('filename', '/group/object')
-d[...]
-d[:]
-d[i, :]

@@ -3,24 +3,33 @@ import pdb; pdb.set_trace() // at location in file.py where debug should start
 python file.py
 
 # ipython
-%debug  // start pdb after exception occurred
+ipython --pdb file.py // start pdb on exception
+%debug  // start pdb on exception
 
-# Commands
+# General
 h // show help
 n, s  // next, step
+
+# Breakpoints
 b // list all breakpoints
 b 23  // set breakpoint
 b 23, x>0 // conditional breakpoint
+b file:24
 condition 1, x>0  // add condition to existing breakpoint
 tbreak  23 // temporary breakpoint; deleted after first hit
 cl 23 // clear breakpoint
+
+# Navigation
+n // next list
 c // continue
+j[ump] 10 // jump to line 10 (back jumps possible)
+r[eturn] // until return
+until // until end of frame -> after function
 l // show current line
 where // stack trace
-a = 1 // assign value
-fun() // execute function
+up  // move current frame one layer up, execution point stays the same
 
-# Numpy seterr
-http://docs.scipy.org/doc/numpy/reference/generated/numpy.seterr.html
-np.seterr(all=, divide=, underflow=, overflow=, invalid=)
-ignore, print, warn, raise
+# Advances
+pfile file.py // show file content
+pfile object  // show source of object
+pdef fun // show definition function

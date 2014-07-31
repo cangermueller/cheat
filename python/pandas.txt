@@ -4,6 +4,7 @@ isnull()
 fillna(0)
 dropna(axis=) // drop axis with missing values
 interpolate() // fill missing values by interpolation
+count(axis=)  // count # non-null elements
 
 # Selection, filtering
 s = df.pos  // selection based on series
@@ -31,6 +32,8 @@ pd.melt(matrix, ids_vars=, value_vars=, var_name) // matrix -> list
 # Convert to numpy array / structured array
 t = df.values // unstructured
 t = df.to_records() //structured
+  * encodes str as 'O', i.e. numpy object
+  * not supported by hdf5
 
 # Iterating
 for row in df.iterrows():
@@ -102,7 +105,8 @@ df.values.nbytes  // memory usage
 .ix[rowlabel, colindex] // mixed label index
 .at[rowlabel, collabel] // scalar label based
 .iat[rowindex, colindex]  // scalar index based
-df[a & b | c & ~d]  // boolean access
+df[a & b | c & ~d]  // boolean indexing by rows
+df.ix[:, a & b] // boolean indexing by columns
 
 ## Hierarchical indexing
 df.ix['level1', 'level2', 'level3']

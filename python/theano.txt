@@ -1,0 +1,15 @@
+# Tensor
+import theano.tensor as T
+A = T.dmatrix('A')
+x = T.dvector('x')
+b = A.dot(x)
+f = function([A, x], b)
+f(rand(3, 4), rand(4))
+
+# data type
+dscalar, dvector, dmatrix // double
+bX  // int8
+iX  // int32
+lX  // int64
+fX  // float32
+dX  // double64

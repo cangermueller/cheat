@@ -8,17 +8,47 @@ cholesky(A)
 LU(A)
 norm(A, ord='fro')
 
+
 # Sparse matrices
 import scipy.sparse
-coo_matrix  // coordinate form
+efficient storage
+fast matrix operations
+## basics
 lil_matrix  // list of lists; allows changes
 csr_matrix  // compressed sparse row; constant
 csc_matrix  // compressed sparse column; constant
-A = lil_matrix((nrow, ncol))
-  A[1, 1] = 10
-A = csr_matrix(array)
-A.todense()
-A.dot(v)  // allows matrix operations; returns sparse matrix
+coo_matrix  // coordinate form
+s = X_matrix((nrow, ncol), dtype=)
+s = X_matrix(np.array)  // from numpy array; 0 is interpreted as missing value
+s[a != 10] = a[a != 10] // 10 is missing value
+s.todense(), s.toarray()  // return dense numpy array
+s.dot(s)  // sparse matrix operation
+s.nnz, s.getnnz()  // number of stored (non zero) values
+s.sorted_indices()  // indices of stored elements as sparse matrix
+
+## lil_matrix: list of lists
++ fast modifications
+- slow slicing
+- slow operations
+-> use for construction and convert to csr or csc afterwards
+
+## csr_matrix: compressed sparse row
++ fast operations
++ fast row a[0, :] slicing
+- slow modifications
+- slow column splicing
+
+## csc_matrix: compressed sparse column
++ fast column splicing
+
+## coo_matrix: coordinate form
++ fast conversion to csr/csc
+- no operations
+- no slicing
+
+
+
+
 
 # Optimization
 import scipy.optimize
