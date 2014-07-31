@@ -2,6 +2,7 @@
 \w  // line
 \d  // line down
 \q  // line new one
+\r<left>  // right part of line
 
 # Global
 \rl // ls()

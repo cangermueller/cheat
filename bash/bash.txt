@@ -1,3 +1,7 @@
+# ssh
+ssh-genkey
+ssh-copy-id host
+
 # ftp
 ftp ftp://ftpusr43:0afwmRLv@ftp2.babraham.ac.uk
 ls

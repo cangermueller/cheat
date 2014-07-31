@@ -11,6 +11,10 @@ lines = [l.rstrip() for l in open(filename, 'r')]
 f.readline() == ''
 f.tell() = tell_previous
 
-# os.path
-splitext('/path/file.txt') // '..file', 'txt'
+# File names
+os.path
 join(path, file)
+splitext('/d/f.ext') -> ['/d/f', 'ext']
+splitexit(path)[0]  // remove extension
+basename(path)
+dirname(path)
