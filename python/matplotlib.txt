@@ -116,8 +116,13 @@ imshow(M, ...)  // complex; interpolation
   cmap=cm.RuBu,'binary'
 aspect='auto', 10, 100 // adjust width/height
 im = ax.colorbar(...)
-fig.colorbar(im, orientation='horizontal')
+fig.colorbar(im, ...)
   * Don't know how to do specific for each axis
+  orientation='horizontal'
+  shrink=0.5  // half of axis
+  fraction=0.15 // 15% of axis area used for colorbar
+  aspect=20 // width x height ratio
+
 
 # Animation
 import matplotlib.animation
