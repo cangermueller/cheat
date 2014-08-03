@@ -18,3 +18,4 @@ splitext('/d/f.ext') -> ['/d/f', 'ext']
 splitexit(path)[0]  // remove extension
 basename(path)
 dirname(path)
+abspath(__file__)

@@ -1,0 +1,6 @@
+list  // list installed packages
+freeze // list installed packages
+search name
+install name
+uninstall name
+show name // show information

@@ -24,12 +24,18 @@ cmd-shift-4 // select region
 cmd-shift-4-space // current window
 ctrl - ...  // copy to clipboard instead of desktop
 
+
 # port
 selfupdate  // update ports
 upgrade outdated  // upgrade all ports
+
 ## selecting default group
-select --list python  // list options
-select --set python27 // make default
+* changes links to bins/lib, e.g. python is linked to python2.7 or python3.4
+* install py27-ipython version still required
+select --summary  // show all groups and their options
+select --list python  // list options python group
+select --set python27 // set default python option
+
 ## variants
 port info vim
 port install vim +python27
