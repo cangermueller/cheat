@@ -26,6 +26,7 @@ add_argument('--verbose') // only long options; -v does not work; --v works
 * nargs='1' // NUM, ?, *, +
 * choices=['red', 'green', 'blue']
 * dest='variable_name'  // use different variable name in namespace
+  * use metavar='shown' for renaming positional arguments
 
 ## add_mutually_exclusive_group
 g = add_mutually_exlusive_group()

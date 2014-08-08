@@ -16,6 +16,7 @@ figure(figsize=(width, height)) // new figure
 subplot(nrow, ncol. index)  // switch to subplot
 title
 xticks(()), yticks(())  // no ticks
+plt.xticks(rotation=90) // rotate xticks;
 xlabel(), ylabel()
 xlim(), ylim(), axis([xmin, xmax, ymin, ymax])
 grid()
@@ -96,7 +97,7 @@ linewidth
 ## color maps
 import matplotlib.cm as cm
 cmap = cm.rainbow  // color map class
-cmap([0.0, 0.5, 1.0]) 
+cmap([0.0, 0.5, 1.0])
   * return colors for different values
   * default range: [0;1]
 cm.rainbow(linspace(0, 1, n)) // return n colors from rainbow palette
@@ -115,7 +116,7 @@ imshow(M, ...)  // complex; interpolation
   interpolation='nearest,none'
   cmap=cm.RuBu,'binary'
 aspect='auto', 10, 100 // adjust width/height
-im = ax.colorbar(...)
+im = ax.imshow(...)
 fig.colorbar(im, orientation='horizontal')
   * Don't know how to do specific for each axis
 
