@@ -1,7 +1,15 @@
 sudo R CMD INSTALL ./Rserve_1.8-0.tar.gz  // sudo!
-R CMD Rserve  // start server
-import pyRserve
 
+# Starting server
+R CMD Rserve  // start server
+in R: run.Rserve()  // start from R
+
+# library(Rserve)
+run.Rserve()  // start new server in R
+Rserve()  // connect to serve from R
+
+
+import pyRserve
 con = pyRserve.connect()
 s.host
 s.port
