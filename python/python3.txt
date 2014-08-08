@@ -1,31 +1,73 @@
+# Conversion
+2to3
+3to2
+
 # print is function, no statement
 print x // does no longer work
 print(x, end=' ', file=sys.stderr)
-
-# Function that return iterator instead of list
-range()
-map(), filter(), zip()
-d.keys(), d.values()
-
-# Integers
-* long -> int // int has variable length; long does no longer exist
-* 1 / 2 = 0.5 // integer division returns float
-* 1 // 2 = 0  // floor division
-
-# Unicode strings
-* str() for string
-* bytes() for binary data
-* s = str('Hello world')
-* b = b'binary data'
-* b = s.encode()
-* s = b.decode()
 
 # Extended unpacking
 a, b = range(2)
 a, b, *rest = range(10)
 *rest, a, b = range(10)
+first, *t, last = open(file).read().splitlines()
+def keyword_only(*many_values, sum=True)
+def keyword_only(two, values, *, sum=True)
 
 # Dictionary comprehensives
 t = {('a', 1), ('b', 2)}
 d = dict(t)
 d = {k:v for k,v in t}
+
+# Function that return iterator instead of list
+range()
+map(), filter(), zip()
+d.keys(), d.values()
+list(iterator)  // iterator -> list
+
+# Creating own iterator
+def get_numbers(n):
+  for i in range(n):
+    yield i * 2
+def get_numbers(n):
+  yield from range(n)
+
+# Integers
+long -> int // int has variable length; long does no longer exist
+1 / 2 = 0.5 // integer division returns float
+1 // 2 = 0  // floor division
+
+# Enum
+from enum import Enum
+class Colors(Enum):
+  red = 1
+  blue = 1  // values may not be unique
+  green = 3 
+Colors.red
+Colors.red.name
+Colors.red.value
+Colors['green'] -> green
+Colors(3) -> green
+for color in Colors:
+  print(color.name)
+
+# Unicode strings
+* unicode: code points 
+  'h' -> 68
+  'r' -> 72
+  'hr' -> 6872
+  * code points can be stored in differnt byte formats
+* bytes: bytes as stored on disk
+* bytes / str completely separated in python3
+* bytes / str can be mixed in python2
+'Hello' = str('Hello')  => unicode in python3
+'Hello' = str('Hello')  => bytes in python2
+bytes() for binary data
+s = str('Hello world')
+b = b'binary data'
+b = s.encode()  // unicode -> bytes
+s = b.decode()  // bytes -> unicode
+'123' + b'123'  // exception; mixing unicode and bytes not allowed in python3
+'123' + b'123'.decode()  // works
+open(file)  // returns unicode/str in python3; bytes in python2
+open(file, 'b') // returns bytes

@@ -1,0 +1,20 @@
+http://wiki.gentoo.org/wiki/A_simple_backup_scheme_using_rsnapshot
+http://www.rsnapshot.org/rsnapshot.html
+
+# commands
+hourly, ... // apply backup level
+configtest  // test config
+du  // show disk usage
+diff hourly.0 hourly.1
+-c file.conf  // alternative config file
+
+
+# Backup levels
+retain	hourly	5 <- lowest level
+retain	daily	3
+retain	weekly	10 <- highest level
+
+hourly  // creates hourly.0; rest is pushed
+hourly.0  // newest
+hourly.4  // oldest
+daily // creates daily.0 from hourly.5 (must exist!)

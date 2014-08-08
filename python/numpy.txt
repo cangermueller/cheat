@@ -188,7 +188,7 @@ b.sum()
 b.any()
 b.all()
 b.nonzero()
-where(b > 0)
+where(b > 0)  // like R which(b > 0)
 
 ## vectorize function
 vectorize(func)(a)  // calls func with each element of a

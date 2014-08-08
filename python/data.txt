@@ -28,6 +28,8 @@ index, value = min(enumerate(list), key=lambda x: x[1]) // which.min
 
 # dict
 d = {'a':1, 'b':2}
+d = dict(a=1, b=2)
+d = dict(zip(['a', 'b'], [1, 2]))
 for key, value in d.iteritems():
 for key, value in d.items():
 for key in d.iterkeys():

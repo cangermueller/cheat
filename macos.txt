@@ -28,6 +28,7 @@ ctrl - ...  // copy to clipboard instead of desktop
 # port
 selfupdate  // update ports
 upgrade outdated  // upgrade all ports
+uninstall --follow-dependents x // uninstall x and all packaged that depend on x
 
 ## selecting default group
 * changes links to bins/lib, e.g. python is linked to python2.7 or python3.4

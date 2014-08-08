@@ -75,6 +75,8 @@ from IPython.lib.deepreload import reload; reload(module)
 # Packages
 * For structuring modules; avoiding name collisions
 * Require __init__.py for being recognized as packages!
+* package: contains modules
+* modules: contains classes, functions
 pkg/__init__.py
   spkg1/
     __init__.py

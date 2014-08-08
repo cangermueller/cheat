@@ -1,0 +1,31 @@
+* setuptools = distutils + additional features
+* pyscaffold automatizes configuring setup.py
+
+# Comamnds
+build
+install
+develop // like install, but link files -> changes source are seen directly
+sdist // source distribution
+bdist // binary distribution
+docs  // build shpinx docs -> need extra configurations
+test  // run -> need extra configurations
+
+
+#!/usr/bin/env python
+
+from setuptools import setup
+import os
+
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+setup(name='mf',
+      version='1.0',
+      description='Matrix Factorization toolbox',
+      long_description=read('README.md'),
+      author='Christof Angermueller',
+      author_email='cangermueller@gmail.com',
+      license = "BSD",
+      url='http://cangermueller.com',
+      packages=['mf'],
+      )

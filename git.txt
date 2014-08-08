@@ -41,3 +41,7 @@ Fix bug at line 88 caused by division of zero.
 ## Addding checked out submodule: exactly the same as before!
 * git submodule add git://github.com... [PATH]
 * git commit
+
+# tag
+tag -a -m 'First version' v0.1  // create annotated tag with message -m
+-l -n [1] // show first line of annotation

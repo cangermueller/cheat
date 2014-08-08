@@ -9,6 +9,7 @@ sphinx-quickstart
 
 .. autoclass: ClassName
   :members:
+  :special-members: // __init__
 
 # config.py
 sys.path.insert(0, os.path.abspath('../../mf')) // relative to /source folder
@@ -28,7 +29,8 @@ sys.path.insert(0, os.path.abspath('../../mf')) // relative to /source folder
 
     .. note::
         Sometimes the function :func:`sum_ab` in the module :mod:`numpy`, or class :class:`ndarray` is better.
-        Use the **intersphinx** extension for references modules like :mod:`numpy` or `pickle`
+        Use the **intersphinx** extension for references modules like :mod:`numpy` or `pickle`.
+        Include equations by :math:`\\gamma`
 
     .. warning::
         Severe warning!
