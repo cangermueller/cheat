@@ -1,0 +1,23 @@
+py.test // run test_*.py / *_test.py
+py.test file.py
+-k name // only tests named *name*
+-m 'not slow' // only tests not marked as slow
+-s  // disable capturing; -> print
+-v  // verbose output
+
+@pytest.skipif(True, reason='') // always skip
+@pytest.skipif(sys.platform == 'darwin', reason='reason')
+@pytest.mark.slow // mark as slow (or anything else)
+@pytest.xfail // do not report error
+
+@pytest.mark.parametrize('a, b', [(1, 2), (3, 4)])
+def test_fun(a, b)
+
+# Fixtures
+@pytest.fixture(scope='module', params=[a, b]) // scope: created only once
+def database(request):
+  request.param // access current parameter
+  return database
+
+def test_requires(databases):
+  test something that requires database

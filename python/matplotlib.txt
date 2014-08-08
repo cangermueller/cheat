@@ -119,6 +119,11 @@ aspect='auto', 10, 100 // adjust width/height
 im = ax.imshow(...)
 fig.colorbar(im, orientation='horizontal')
   * Don't know how to do specific for each axis
+  orientation='horizontal'
+  shrink=0.5  // half of axis
+  fraction=0.15 // 15% of axis area used for colorbar
+  aspect=20 // width x height ratio
+
 
 # Animation
 import matplotlib.animation
