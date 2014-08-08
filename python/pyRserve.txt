@@ -1,0 +1,53 @@
+sudo R CMD INSTALL ./Rserve_1.8-0.tar.gz  // sudo!
+R CMD Rserve  // start server
+import pyRserve
+
+con = pyRserve.connect()
+s.host
+s.port
+s.isClosed
+s.eval('c(1, 2, 3)') // return numpy array
+s.voidEval('a <- rnorm(100)')  // do not return result
+s.voidEval('''
+square <- function(x) {
+  return (x**2)
+}''')
+s.r  // namespace
+s.r.a // read a from namespace
+s.r.b = np.array() // assign new variable
+s.r.function(x)  // call R function
+s.r.rnorm(x, mean=10) // call native R function
+s.r.sapply(array([1, 2, 3]), .r.square)
+s.ref  // reference namespace
+s.r.sapply(.r.data, .r.fun)  // inefficient: .r.data is transferred back and forth
+s.r.sapply(.ref.data, .r.fun)  // efficient
+
+# TaggedList
+* list(), data.frame
+tl = s.r.eval('list(a=10, b=rnorm(100))')
+iris = s.r.iris
+iris.keys
+iris.values
+iris['Sepal.Width']
+tl = TaggedList([('a', 10), ('b', 100)])  // create tagged list
+tt = c.eval('t.test(a, b)')
+
+# AttrArray
+* numpy array + attr
+c.voidEval('m = matrix(1:10, nrow=2); attributes(m) = list(a1="First Attribute")')
+c.r.m.attr  // dict of attributes
+c.r.m.attr['a1']
+
+# TaggedArray
+* 1d numpy array with keys
+ta = c.eval('c(a=10, b=20)')
+ta['a']
+ta.keys()
+
+# Plotting
+c.r.plot(x, y)
+c.r.hist(np.random.normal(0, 1, 100), col='blue')
+c.voidEval('p = ggplot(iris, aes(x=Sepal.Width, y=Sepal.Length, color=Species)) + geom_point()')
+
+
+

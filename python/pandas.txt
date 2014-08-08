@@ -1,3 +1,10 @@
+# Excluding / selecting columns
+df = pd.DataFrame(np.arange(15).reshape(5, 3), columns=list('ABC'))
+sel = list('AC')
+df_sel = df[sel]
+df_unsel = df[[c for c in df.columns if c not in sel]]
+* Alternative: df.set_index()
+
 # IO
 read_hdf('file', 'groupname')
 read_csv(file, ...)
@@ -8,8 +15,8 @@ read_csv(file, ...)
 # Index
 columns // column index
 index // row index
-set_index(column) // use column as index
-reset_index() // convert index to columns
+set_index(column, inplace=False) // use column as index
+reset_index(inplace=False) // convert index to columns
 index.values[0] = 'new_label' // rename index; rename column/row
 df.columns = ['c1', 'c2'] // rename columns
 
