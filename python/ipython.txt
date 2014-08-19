@@ -1,3 +1,27 @@
+# nbconvert
+ipython nbconvert nb.ipynb
+--to html, latex, markdown
+--template basic, article
+--post PDF, server
+ipython nbconvert --to latex --template article --post PDF nb.ipynb
+## slideshow
+* http://www.slideviper.oquanta.info/tutorial/slideshow_tutorial_slides.html
+* select 'slideshow' in 'cell toolbar'
+ipython nbconvert --to slides --post serve nb.ipynb
+
+# Shell commands
+!ls
+a = !ls -l  // SList
+len(a)
+a[0]
+a.s // concat spaces
+a.n // concat newlines
+a.grep(regex) // grep lines matching regex
+a.fields()  // split lines by spaces
+!echo {1/3} // any python expression in {}
+!echo $a  // print variable
+
+
 # parallel
 ipcluster start -n 4  // start cluster with 4 engines
 ipcluster start --profile -n 4 // use profile mp
@@ -61,15 +85,7 @@ ipython console --ssh host --existing file.json // file.json must be copied from
 quit() == exit()  // exit frontend and kernel
 quit(True) == exit(True)  // exit frontend and keep kernel alive
 
-## notebook converter
-ipython nbconvert nb.ipynb
---to html, latex, markdown
---template basic, article
---post PDF, server
-ipython nbconvert --to latex --template article --post PDF nb.ipynb
-ipython nbconvert --to slides --post server nb.ipynb
-
-## qtconsole
+# qtconsole
 %guiref
 %load file.py // load and edit file
 c-return  // multiline editings

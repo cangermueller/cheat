@@ -1,3 +1,10 @@
+# Mean with nan
+## scipy
+scipy.stats.nanman(a, axis=1)
+## masked_array
+ma = np.ma.masked_array(a, mask=np.isnan(a))
+np.mean(ma, axis=1)
+
 # Resizing arrays
 a.resize((3, 5))  // changes shape a inplace; fills with zero
 np.resize(a, (3, 5)) // returns copy; fills with values/copies of a

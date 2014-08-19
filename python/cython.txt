@@ -1,0 +1,30 @@
+# General
+* Cython: Python -> C
+* Jython: Python -> Java
+* PyPy: Python -> Python
+* IronPython: Python -> C#
+
+# Files
+module.py // python code with @cython.locals(i=int, s=str, c=char*)
+module.pyx // cython code with cdef int i
+
+# Compilation
+from distutils.core import setup
+from Cython.Build import cythonize
+
+setup(
+    ext_modules = cythonize('utils.pyx')
+    )
+python setup.py build_ext --inplace
+
+# Type declarations
+## pyx
+cdef int i, str unicode, char* unicode
+## py
+import cython
+@cython.locals(i=int, s=str)
+
+# IPython
+%%load_ext cythonmagic
+%%cython
+%%cython -a // browser c code
