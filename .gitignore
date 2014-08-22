@@ -23,3 +23,7 @@
 *latexmk
 *.fls
 .ipynb_checkpoints
+*.so
+*.pyx
+*.o
+/python/nb/*.c

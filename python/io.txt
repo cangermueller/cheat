@@ -1,3 +1,8 @@
+# Checking streams
+not sys.stdout.isatty() // file.py | cmd; file.py > out
+not sys.stderr.isatty() // file.py 2> err
+not sys.stdin.isatty()  // cmd | file.py
+
 # Reading content
 f = open(filename, 'rwa')
 f.read()  // read everything

@@ -45,6 +45,8 @@ profile_default/startup/FILE.py // scripts executed at startup in alphnum order
 
 # ipdb output redirect
 /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/ipdb/__main__.py
+comment out update_stdout()
+https://github.com/ipython/ipython/issues/5306
 
 
 # ipython
