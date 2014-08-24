@@ -1,7 +1,7 @@
 # virtualenv
 virtualenv venv // creates ./venv
   --python python3.4  // specify version
-source venv/bin/actiavate // activate virutalenv
+source venv/bin/activate // activate virutalenv
 deactivate  // deactivate virtualenv
 
 # virtualenvwrapper

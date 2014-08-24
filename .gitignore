@@ -20,6 +20,8 @@
 *.mtc
 *.mtc1
 *.out
+*.ini
+*.tpl
 *latexmk
 *.fls
 .ipynb_checkpoints

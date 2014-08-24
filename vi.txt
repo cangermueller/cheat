@@ -1,3 +1,9 @@
+# Wrap text
+set textwidth=80
+gq
+set colorcolumn=80  // 80
+set cc=+1 // +1 after textwidth
+
 # Encryption
 :X  // enter key
 :w  // write + encrypt

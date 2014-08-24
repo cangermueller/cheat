@@ -24,3 +24,4 @@ splitexit(path)[0]  // remove extension
 basename(path)
 dirname(path)
 abspath(__file__)
+expanduser('~')

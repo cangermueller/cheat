@@ -1,0 +1,52 @@
+# References
+https://pythonhosted.org/an_example_pypi_project/sphinx.html
+
+# Initialization
+sphinx-quickstart
+
+# source/conf.py
+sys.path.insert(0, os.path.abspath('../../mf'))
+
+# source/code.py
+Source code documentation
+=========================
+
+.. automodule:: exact_vbmf
+
+.. autoclass:: VbMf
+  :members:
+
+.. automodule:: utils
+  :members:
+
+
+# rst
+def add_ab(a, b):
+    """
+    Return the sum :math:`a + b` of two numbers.
+
+    :math::
+        \\text{sum} = 2 * \\frac{a + b}{2}
+
+    :param a: The first number
+    :type a: int
+    :param b: The second number
+    :type b: int
+    :returns: The sum of a and b
+    :rtype: int
+    :raises: nothing
+
+    .. note::
+        Sometimes the function :func:`sum_ab` in the module :mod:`numpy`, or class :class:`ndarray` is better.
+        Use the **intersphinx** extension for references modules like :mod:`numpy` or `pickle`
+
+    .. warning::
+        Severe warning!
+
+    Doctest - automatically tested!
+    >>> add_ab(1, 2)
+    3
+    >>> add_ab(3, 4)
+    7
+
+    """

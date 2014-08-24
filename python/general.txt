@@ -77,7 +77,9 @@ from IPython.lib.deepreload import reload; reload(module)
 * Require __init__.py for being recognized as packages!
 * package: contains modules
 * modules: contains classes, functions
-pkg/__init__.py
+pkg/
+  __init__.py // must exist, but can be empty
+  __main__.py // optional, run by 'python pkg'
   spkg1/
     __init__.py
     module.py

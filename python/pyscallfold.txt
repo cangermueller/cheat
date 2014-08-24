@@ -1,3 +1,8 @@
+# Installation
+virtualenv venv
+pip install pyscaffold
+putup myproject
+
 # Features
 * versioneer package: updated version after git -a -m v0.1
 * pytest support  // setup.py test

@@ -28,4 +28,5 @@ setup(name='mf',
       license = "BSD",
       url='http://cangermueller.com',
       packages=['mf'],
+      classifiers['x', 'y'] # https://pypi.python.org/pypi?%3Aaction=list_classifiers
       )

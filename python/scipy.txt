@@ -1,3 +1,10 @@
+# random variables
+dist = scipy.stats.{norm,bernoulli,binom,gamma}
+.pdf(x)
+.cdf(x)
+.rvs(10)  // 10 samples
+.entropy()
+
 # linalg
 import scipy.linalg
 solve(A, b)
@@ -45,9 +52,6 @@ s.sorted_indices()  // indices of stored elements as sparse matrix
 + fast conversion to csr/csc
 - no operations
 - no slicing
-
-
-
 
 
 # Optimization
