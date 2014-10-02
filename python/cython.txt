@@ -1,0 +1,49 @@
+# General
+* Cython: Python -> C
+* Jython: Python -> Java
+* PyPy: Python -> Python
+* IronPython: Python -> C#
+
+# Files
+module.py // python code with @cython.locals(i=int, s=str, c=char*)
+module.pyx // cython code with cdef int i
+
+# Compilation
+from distutils.core import setup
+from Cython.Build import cythonize
+
+setup(
+    ext_modules = cythonize('utils.pyx')
+    )
+python setup.py build_ext --inplace
+
+# Type declarations
+## pyx
+cdef int i, str unicode, char* unicode
+## py
+import cython
+@cython.locals(i=int, s=str)
+
+# IPython
+%%load_ext cythonmagic
+%%cython
+%%cython -a // browser c code
+
+% structs
+cdef struct Point:
+  double a
+  double b
+p = Point(a=1.0, b=2.0)
+p.a, p.b
+
+# arrays / numpy arrays
+def sum_array(double[:, :] data):
+  for i in data.shape[0]:
+    for j in data.shape[1]:
+      data[i, j]
+
+# parallelization
+from cython.parallel import prange
+for i in prange(10, nogil=True, num_threads=10): // parallel
+  for j in range(10): // seriell
+

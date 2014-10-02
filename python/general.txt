@@ -54,8 +54,8 @@ a is b  // compare references
 # Functions
 def fun(a, b=1, *args, **kwargs):
   fun2(*args, **kwargs) // not fun2(args, kwargs)!
-*args // list of unnamed args
-**kwargs  // dict of names args
+*args // tuple of unnamed args; args[1]
+**kwargs  // dict of names args; kwargs.keys()
 
 
 # Modules
@@ -75,7 +75,11 @@ from IPython.lib.deepreload import reload; reload(module)
 # Packages
 * For structuring modules; avoiding name collisions
 * Require __init__.py for being recognized as packages!
-pkg/__init__.py
+* package: contains modules
+* modules: contains classes, functions
+pkg/
+  __init__.py // must exist, but can be empty
+  __main__.py // optional, run by 'python pkg'
   spkg1/
     __init__.py
     module.py

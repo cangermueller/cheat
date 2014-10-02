@@ -1,0 +1,37 @@
+# packages
+virutalenv  // create virtualenv
+virtualenvwrapper // manage several virtualenvs
+tox // run tests in different virtualenv
+versioneer  // automizes update version numbers
+sphinx  // documentation
+
+# links
+ReadTheDocs // hosting documentation
+travis-ci.org // automatic testing on commit
+
+# License
+* see $CS/license.txt
+
+# Structure
+code/ // source code
+  __init__.py
+docs/
+tests/
+README.rst
+MANIFEST.in
+setup.py
+
+# Semantic versioning
+semver.org
+X.Y.Z
+X // breaking changes; not compatible
+Y // feature addition; compatible
+Z // bug-fixes
+
+# CHANGES.rst
+* document feature changes from X.Y -> X.Y(+1)
+CHANGES
+=======
+2.0.1 (14-08-01)
+----------------
+* add new feature2.0.1 (14-08-01)

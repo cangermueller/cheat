@@ -1,0 +1,48 @@
+* setuptools = distutils + additional features
+* pyscaffold automatizes configuring setup.py
+
+# Comamnds
+build
+install
+develop // like install, but link files -> changes source are seen directly
+sdist // source distribution
+bdist // binary distribution
+docs  // build shpinx docs -> need extra configurations
+test  // run -> need extra configurations
+
+
+# setup.py
+#!/usr/bin/env python
+
+from setuptools import setup
+import os
+
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+setup(name='mf',
+      version='1.0',
+      description='Matrix Factorization toolbox',
+      long_description=read('README.md'),
+      author='Christof Angermueller',
+      author_email='cangermueller@gmail.com',
+      license = "BSD",
+      url='https://github.com/cangermueller/vbmfa',
+      packages=['mf'],
+      classifiers = ['x', 'y'],
+      install_requires=['numpy>1.8.2', 'scipy>=1.8']
+      )
+
+classifiers
+  * not used by pip; meta-information for deriving statistics
+  * https://pypi.python.org/pypi?%3Aaction=list_classifiers
+
+# MANIFEST.in
+* read by setup.py sdist
+* instructions to generate MANIFEST
+* MANIFEST: list of files included by sdist
+include versioneer.py
+include *.txt
+include *.rst
+recursive-include vbmfa *.py *.c *.h *.pxd *.pyx
+recursive-include docs *.rst *.py

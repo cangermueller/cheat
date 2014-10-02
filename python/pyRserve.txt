@@ -1,7 +1,15 @@
 sudo R CMD INSTALL ./Rserve_1.8-0.tar.gz  // sudo!
-R CMD Rserve  // start server
-import pyRserve
 
+# Starting server
+R CMD Rserve  // start server
+in R: run.Rserve()  // start from R
+
+# library(Rserve)
+run.Rserve()  // start new server in R
+Rserve()  // connect to serve from R
+
+
+import pyRserve
 con = pyRserve.connect()
 s.host
 s.port
@@ -49,5 +57,13 @@ c.r.plot(x, y)
 c.r.hist(np.random.normal(0, 1, 100), col='blue')
 c.voidEval('p = ggplot(iris, aes(x=Sepal.Width, y=Sepal.Length, color=Species)) + geom_point()')
 
-
+# Callback messages
+* Create oob.conf
+> oob enable
+> eval library(Rserve)
+R CMD Rserve --RS-conf oob.conf
+def print_msg(msg, msg_code):
+  print(msg, msg_code)
+c.oobCallBack = print_msg
+c.voidEval('self.oobSend("msg", 11)')
 

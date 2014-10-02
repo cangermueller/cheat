@@ -141,4 +141,10 @@ bp = boxplot(data, ...) // data is 2d numpy array with distributions in columns;
 for box in bp['boxes']:
   box.set_color(color)
 
+# Density
+from scipy.stats import gaussian_kde
+fun = gaussian_kde(samples)
+x = np.linspace(0, 1, 100)
+y = fun(x)
+
 

@@ -1,3 +1,8 @@
+# Checking streams
+not sys.stdout.isatty() // file.py | cmd; file.py > out
+not sys.stderr.isatty() // file.py 2> err
+not sys.stdin.isatty()  // cmd | file.py
+
 # Reading content
 f = open(filename, 'rwa')
 f.read()  // read everything
@@ -6,6 +11,9 @@ f.readlines()
 for line in f:
 lines = open(filename).read().splitlines() // read lines in array
 lines = [l.rstrip() for l in open(filename, 'r')]
+
+# Writing content
+f.write('line\n')
 
 # Checking eof
 f.readline() == ''
@@ -19,3 +27,4 @@ splitexit(path)[0]  // remove extension
 basename(path)
 dirname(path)
 abspath(__file__)
+expanduser('~')

@@ -1,15 +1,38 @@
 ^ = ctrl
+^ + shift + 2: euro
+
+# iterm
+cmd - t // new tab
+cmd - [123] // switch between tabs
+cmd - ^ - [123] // switch between windows
+cmd - return // toggle fullscreen
+cmd - d // split vertically
+cmd - shift - d // split horizontally
+cmd - opt - arrows // navigate between panes
+cmd - shift - return // toggle fullscreen pane
+cmd - f // find
+drop down menu // regular expression search
+cmd - g // find next
+cmd - shift - g // find previous
+cmd - {+,-,0} // text {bigger, smaller, normal}
+cmd - shift - h // paste history
+middle button // paste from clipboard
+^ - space // hotkey to switch to terminal
+ctrl-k  // clear screen
+cmd-^-b // open instant replay
+
+## tmux integration
+tmux -CC  // start new session
+tmux -CC attach // attach to session
 
 # Keyboard shortcuts
-cmd - h // hide all others
+cmd - n // new
 cmd - m // minimise
-cmd - n // new window
-cmd-shift-. // open hidden file
+cmd - h // hide
 
 # Switch application
-cmd - tab ~ // back menu
-cmd - ~ // next window
-cmd - shift - ~ // previous window
+cmd - tab // next
+cmd - ~ // previous
 
 # Mission control
 ctrl - up // switch workspaces
@@ -17,17 +40,16 @@ ctrl - down // switch windows
 F11 // show desktop
 F12 // show dashboard
 ^-[12] // switch to desktop
-click window + ^-left // move window between spaces
 
 # Screenshots
 cmd-shift-4 // select region
 cmd-shift-4-space // current window
 ctrl - ...  // copy to clipboard instead of desktop
 
-
 # port
 selfupdate  // update ports
 upgrade outdated  // upgrade all ports
+uninstall --follow-dependents x // uninstall x and all packaged that depend on x
 
 ## selecting default group
 * changes links to bins/lib, e.g. python is linked to python2.7 or python3.4

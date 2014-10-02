@@ -1,0 +1,7 @@
+# Style guide
+* no established convection
+* http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Baaaath.pdf
+
+function_name
+variable_name
+file_name.R

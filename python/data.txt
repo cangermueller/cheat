@@ -28,6 +28,8 @@ index, value = min(enumerate(list), key=lambda x: x[1]) // which.min
 
 # dict
 d = {'a':1, 'b':2}
+d = dict(a=1, b=2)
+d = dict(zip(['a', 'b'], [1, 2]))
 for key, value in d.iteritems():
 for key, value in d.items():
 for key in d.iterkeys():
@@ -59,13 +61,19 @@ s = {t} // no error
 # Strings
 '%d %.2f' % (10, 12.2)
 '{1} {0} {a2} {a1:d}'.format(1, 2, a1=10, a2=9) // more complex than %
-'123'.isdigit() // check if str is numeric
+'{0} {1}'.format(*tuple)  // unpack from tuple
+'{a}, {b}'.format(**dict) // unpack from dict
+'123'.isnumeric() // check if str is numeric
 ## Quotes
 s = "backslash \n is interpreted"
 s = 'backslash \n is interpreted'
 s = r'backslash not interpreted in raw strings'
 s = '''hello 'world'!'''
 s = """multiline string that can contain "quotes" """
+## strings module
+import string
+string.ascii_letters
+string.ascii_uppercase
 
 # array
 * like list, but restricts type
