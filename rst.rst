@@ -63,6 +63,8 @@ Here is the internally referenced text
 
 Heading1_ is an implicit reference
 
+Downloadable file :download:`here <rst.rst>`
+
 Lists
 =====
 - Enum1
@@ -94,6 +96,10 @@ Id  Name  Value
 Source code
 ===========
 
+Simple code example in Python::
+
+  print('Hello world')
+
 Inline :code:`a = 10`
 
 .. code:: python
@@ -117,3 +123,9 @@ Inline :math:`a=\frac{b}{c}`
 .. math::
 
   \alpha = e^{\frac{\beta}{\gamma}}
+
+Comments
+========
+.. This line
+  and the following lines 
+  will not be shown

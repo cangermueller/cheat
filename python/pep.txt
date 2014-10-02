@@ -30,3 +30,23 @@ fun(b=2*3)  // no whitespace for function arguments
   * import numpy as np
   * import scipy as sp
   * import matplotlib.pyplot as plt
+
+# docstring
+http://legacy.python.org/dev/peps/pep-0008/#comments
+"""Fit model parameters by updating factors for several iterations
+and return number of update iterations.
+
+Parameters
+----------
+maxit : int
+    maximum number of update iterations
+eps : float
+    stop if change in MSE is below eps
+verbose : bool
+    print statistics
+
+Returns
+-------
+int
+    number of iterations
+"""

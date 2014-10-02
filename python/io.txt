@@ -12,6 +12,9 @@ for line in f:
 lines = open(filename).read().splitlines() // read lines in array
 lines = [l.rstrip() for l in open(filename, 'r')]
 
+# Writing content
+f.write('line\n')
+
 # Checking eof
 f.readline() == ''
 f.tell() = tell_previous

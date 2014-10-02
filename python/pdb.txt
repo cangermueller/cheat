@@ -1,6 +1,12 @@
 # Start
 import pdb; pdb.set_trace() // at location in file.py where debug should start
-python file.py
+python -m pdb file.py // stop at first line
+python -m pdb file.py; c  // breaks at error position
+  * post-moterm debugging // debugging after program crashed
+~/.pdbrc; ./.pdbrc  // config read at the beginning: for aliases or breakpoints
+
+pdb.runcall(fun, args)  // call function with args
+pdb.run('fun(args)')  // evaluate strings; stops before evaluation
 
 # ipython
 ipython --pdb file.py // start pdb on exception
@@ -9,15 +15,22 @@ ipython --pdb file.py // start pdb on exception
 # General
 h // show help
 n, s  // next, step
+!expr // execute expression
+interact  // start interactive command; ! not necessary
+alias my_cmd !a + b // define alias
 
 # Breakpoints
 b // list all breakpoints
 b 23  // set breakpoint
 b 23, x>0 // conditional breakpoint
 b file:24
+b fun // break at first line of function
 condition 1, x>0  // add condition to existing breakpoint
 tbreak  23 // temporary breakpoint; deleted after first hit
 cl 23 // clear breakpoint
+disable 1
+enable 1
+ignore 1 n  // ignore bp 1 n times
 
 # Navigation
 n // next list
@@ -28,8 +41,12 @@ until // until end of frame -> after function
 l // show current line
 where // stack trace
 up  // move current frame one layer up, execution point stays the same
+restart // restart from beginning using updated script; breakpoints are kept
 
 # Advances
 pfile file.py // show file content
 pfile object  // show source of object
 pdef fun // show definition function
+
+# Info
+a, args // show arguments

@@ -61,6 +61,8 @@ s = {t} // no error
 # Strings
 '%d %.2f' % (10, 12.2)
 '{1} {0} {a2} {a1:d}'.format(1, 2, a1=10, a2=9) // more complex than %
+'{0} {1}'.format(*tuple)  // unpack from tuple
+'{a}, {b}'.format(**dict) // unpack from dict
 '123'.isnumeric() // check if str is numeric
 ## Quotes
 s = "backslash \n is interpreted"

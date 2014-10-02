@@ -7,6 +7,18 @@ sphinx-quickstart
 # source/conf.py
 sys.path.insert(0, os.path.abspath('../../mf'))
 
+# source/index.py
+Table of contents
+=================
+
+.. toctree::
+   :maxdepth: 2
+
+   code
+   page2
+   page3
+
+
 # source/code.py
 Source code documentation
 =========================
@@ -19,6 +31,23 @@ Source code documentation
 .. automodule:: utils
   :members:
 
+# Comamnds
+.. toctree::  // generate table of contents
+  :maxdepth: 2
+
+  file  // file.rst
+.. include:: abs_path.rst // include rst file
+
+
+# autodoc
+sphinx extension to import docstrings into rst files
+.. automodule:: vbfa // import module docstring (at top of module file)
+.. autoclass: vbfa.VbFa // import class docstring (after class VbFa)
+  :members: // show all members
+  :members: a, b  // show only a() and b()
+  :private_members: // _private
+  :special_members: // __init__
+
 
 # rst
 def add_ab(a, b):
@@ -28,10 +57,10 @@ def add_ab(a, b):
     :math::
         \\text{sum} = 2 * \\frac{a + b}{2}
 
-    :param a: The first number
-    :type a: int
-    :param b: The second number
-    :type b: int
+    :param int a: The first number
+    :param int b: The second number
+    :param noise: Noise matrix
+    :type noise: :py.class:`np.ndarray`
     :returns: The sum of a and b
     :rtype: int
     :raises: nothing
@@ -50,3 +79,24 @@ def add_ab(a, b):
     7
 
     """
+
+# Documenting constructor
+Add following line to conf.py:
+  autoclass_content = 'both'
+
+# Intersphinx
+intersphinx_mapping = {
+    'python': ('http://docs.python.org/', None),
+    'numpy': ('http://docs.scipy.org/doc/numpy/', None),
+    'scipy': ('http://docs.scipy.org/doc/scipy/reference/', None),
+}
+:py:class:`numpy.ndarray`
+:py:mod:`numpy`
+:py:func:`numpy.sum`
+:py:meth:`numpy.ndarray.sum`
+
+# numpydoc
+http://codeandchaos.wordpress.com/2012/08/09/sphinx-and-numpydoc/
+https://github.com/numpy/numpydoc
+http://sphinxcontrib-napoleon.readthedocs.org/en/latest/example_numpy.html
+

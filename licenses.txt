@@ -1,0 +1,50 @@
+# No license
+* Copyright (see below)
+
+MIT < BSD < LGPL < GPL
+
+# MIT license
+* Do what ever you want
+* New product can be under any license
+* New product must mention the original license
+  * Author name
+* Author can not be claimed for anything
+
+# BSD license
+* MIT license +
+* Name author may not be mentioned in promotion (advertisement)
+
+# GPL
+* New product must under GPL as well
+
+# Lesser GPL
+* Library can be used in unmodified form by software of any license
+* If modified, user must be able to view/modify source
+
+# Copyright
+* Static: not allowed not changes
+* Looking possible
+* If software has no license file!
+
+# Copyleft
+* License that gives away copyright
+* MIT, BSD, LGPL, GPL, Apache, Mozilla
+
+# Free Software
+Freedom to
+* Look and study
+* Change
+* Use / distribute it for whatever you want
+
+# Open source
+* Source code can be viewed
+* But not necessarily changed!
+* Example: windows kernel code
+  * Publicly accessible
+  * Hard to understand ;-)
+  * Not allowed to changes
+
+# Open Source Definition
+* Almost same as Free Software
+* Most OSD licenses are Free Software
+* OSD not what people often mean by 'open source' (see above)

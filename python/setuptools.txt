@@ -11,6 +11,7 @@ docs  // build shpinx docs -> need extra configurations
 test  // run -> need extra configurations
 
 
+# setup.py
 #!/usr/bin/env python
 
 from setuptools import setup
@@ -26,7 +27,22 @@ setup(name='mf',
       author='Christof Angermueller',
       author_email='cangermueller@gmail.com',
       license = "BSD",
-      url='http://cangermueller.com',
+      url='https://github.com/cangermueller/vbmfa',
       packages=['mf'],
-      classifiers['x', 'y'] # https://pypi.python.org/pypi?%3Aaction=list_classifiers
+      classifiers = ['x', 'y'],
+      install_requires=['numpy>1.8.2', 'scipy>=1.8']
       )
+
+classifiers
+  * not used by pip; meta-information for deriving statistics
+  * https://pypi.python.org/pypi?%3Aaction=list_classifiers
+
+# MANIFEST.in
+* read by setup.py sdist
+* instructions to generate MANIFEST
+* MANIFEST: list of files included by sdist
+include versioneer.py
+include *.txt
+include *.rst
+recursive-include vbmfa *.py *.c *.h *.pxd *.pyx
+recursive-include docs *.rst *.py

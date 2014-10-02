@@ -1,5 +1,10 @@
-# Contingency/pivot table
-pandas.crosstab(y, x)
+# Misc
+pd.crosstab(y, x) // contingency table
+pd.concat((a, b), axis=1) // concat by columns
+  keys=['a', 'b'] // create multiindex
+pd.merge(a, b)  // merge dataframes by common columns
+  on=['c1', 'c2'] // columns to be used for merging
+  how='left'  // left join -> fill with np.NaN
 
 # Excluding / selecting columns
 df = pd.DataFrame(np.arange(15).reshape(5, 3), columns=list('ABC'))
@@ -10,18 +15,33 @@ df_unsel = df[[c for c in df.columns if c not in sel]]
 
 # IO
 read_hdf('file', 'groupname')
-read_csv(file, ...)
+read_csv(file, ...) / read_table(file, ...)
   nrows // max number of rows to be read
-  sep // delimiter
+  sep=',' // field separator
+  sep='\s+' // separate by spaces
   usecols // select columns by name
+
 
 # Index
 columns // column index
+  d['c1']
 index // row index
-set_index(column, inplace=False) // use column as index
+  d.loc['r1']
+## Rows
+set_index(columns, inplace=False) // use column as index
 reset_index(inplace=False) // convert index to columns
+sort_index(ascending=True, inplace=False)
+reindex(range(1990, 2000))  // adjust to new index
+  * drop rows that are not indexed by new index
+  * fill with np.NaN for newly indexed rows
+  * columns=  // reindex columns
+  * index=  // reindex index
+  * fill_value=
 index.values[0] = 'new_label' // rename index; rename column/row
+## Columns
 df.columns = ['c1', 'c2'] // rename columns
+df.rename(columns={'old':'new'}, inplace=True)  // rename columns
+del df['col'] // delete column
 
 ## Indexing
 df.loc[(r1, r2), c] // row by levels (r1, r2), column c
@@ -30,21 +50,29 @@ df.loc[r1].loc[r2] == df.loc[(r1, r2)]
 
 ## Creating index
 i = Index(array, dtype=)
-i = MultiIndex.from_tuples([array1, array2], names=[name1, name2])
 df = DataFrame(array, index=i)
 df.index = i
 
-## Multiindex
+## Multiindex / Hierarchical index
+m = MultiIndex.from_arrays([array1, array2], names=[name1, name2])
+m = MultiIndex.from_tuples([('chr1', 1), ('chr1', 2), ])
+m = MultiIndex.from_arrays([df.c1, df.c2], names=df.columns[1, 2])  // from DataFrame
+df.index = m  // set index
+pd.concat((a, b), axis=1, keys=['a', 'b'])  // concat columns of a and b
 i = df.columns  // multiindex for columns
 i.get_level_values(k) // get column labels level k
 i.droplevel(k) // remove level k
 df.columns = df.columns.droplevel(k)
 
 # Missing values
-count() // # non-missing
+np.nan, np.NAN, np.NaN  // pandas compatible
+pd.NaT  // Not a Time, for time series
+isnull(np.nan) == True
 isnull()
+notnull()
+count() // # non-missing
 fillna(0)
-dropna(axis=) // drop axis with missing values
+dropna(axis=) // drop axis with at least one missing value
 interpolate() // fill missing values by interpolation
 count(axis=)  // count # non-null elements
 
@@ -95,15 +123,17 @@ com.load_data('mtcars')
 g = df.groupby(['c1', 'c2'])
 g.groups  // groups as dictionary
 g.groups.keys() // group names
-g.get_group((g1, g2)) // query group by tuple
+g.get_group('g1') // get group by name
 g.ngroups // number of groups
 for name, value in g: // iterate over groups
-g.count()
-g.describe()
-g.fist()  // first element of each group
-g.last()  // last element of each group
-g.size()  // # group members
-g['c1', 'c2'] // select columns
+g['c1', 'c2'] // select columns; return new grouped object
+g
+  count(), size() // # elements
+  mean()
+  median()
+  describe()  // summary statistics
+  first()
+  last()
 g.aggregate([fun1, fun2]) // summarize functions as single value
 g.aggregate({label:fun})
 g.transform(lambda x: np.mean(x)) // group specific modification; same size as group
@@ -140,6 +170,10 @@ DataFrame.from_csv
 ## Misc
 df.values // numpy array used internally
 df.values.nbytes  // memory usage
+df.sort('column', ascending=True, inplace=False)  // sort by column
+df.sort_index(axis=0, inplace=False)  // sort by row index
+df.sort_index(axis=1) // sort columns by names
+df.sort_index(by='column')  // sort by column -> like sort
 
 ## selection
 .loc[rowlabel, collabel]  // purely label based

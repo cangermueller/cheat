@@ -1,2 +1,6 @@
+# cite
+\citep{x} // [1]
+\citet{x} // Author name
+
 \newcommand{Cmd}[2]{cmd#1cmd#s}
 

@@ -1,3 +1,6 @@
+# Windows newline carriage return
+%s/<ctrl-v><ctrl-m>/\r\g
+
 # Wrap text
 set textwidth=80
 gq

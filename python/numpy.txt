@@ -139,6 +139,7 @@ eye(3)
 diag([1, 2, 3]) // create diagonal matrix
 diagonal(matrix)  // extract diagonal from matrix
 b = a.copy(), b = np.copy(a)  // copy array
+asarray([[1, 2, 3], [4, 4, 5]]))  // list -> nparray
 
 ## functions
 insert(a, index, value)

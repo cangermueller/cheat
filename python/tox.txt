@@ -1,0 +1,12 @@
+* automatically tests code in different environments
+
+tox-2.7 // create .tox and run tests
+
+## toxs.ini
+[tox]
+envlist = py27, py34
+
+[testenv]
+changedir=tests
+deps = pytest
+commands = py.test -sv --basetemp={envtmpdir}

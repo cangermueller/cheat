@@ -11,4 +11,3 @@ putup myproject
 MANIFEST.in // included for sdist/bdist
 requirements.txt  // dependent packages
 git tag -a -m 'First version' v0.1  // create annotated version
-

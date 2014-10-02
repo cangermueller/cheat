@@ -54,8 +54,8 @@ a is b  // compare references
 # Functions
 def fun(a, b=1, *args, **kwargs):
   fun2(*args, **kwargs) // not fun2(args, kwargs)!
-*args // list of unnamed args
-**kwargs  // dict of names args
+*args // tuple of unnamed args; args[1]
+**kwargs  // dict of names args; kwargs.keys()
 
 
 # Modules

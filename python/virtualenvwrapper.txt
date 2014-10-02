@@ -1,0 +1,8 @@
+# virtualenvwrapper
+export WORKON_HOME=$HOME/venv // workspace
+source virtualenvwrapper.sh // source all scripts
+mkvirtualenv new
+workon NAME
+lsvirtualenv
+cdvirtualenv
+rmvirtualenv NAME

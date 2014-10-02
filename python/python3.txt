@@ -1,6 +1,7 @@
 # Conversion
 2to3
 3to2
+http://python-future.org // write python3 with back compatibility
 
 # print is function, no statement
 print x // does no longer work
@@ -13,6 +14,15 @@ a, b, *rest = range(10)
 first, *t, last = open(file).read().splitlines()
 def keyword_only(*many_values, sum=True)
 def keyword_only(two, values, *, sum=True)
+## interpretation
+*list // unpack values of list
+  l = [1, 2]
+  print(*l) // == print(l[0], l[1])
+  a, *l, b = values // == a, l[0], l[1], b = values
+  string.format(*l) // ==string.format(l[0], l[1])
+**dict  // unpack values of dict
+  d = {'a':1, 'b':2}
+  '{b} {a}'.format(**d) // == '{b} {a}'.format(a=d['a'], b=d['b'])
 
 # Dictionary comprehensives
 t = {('a', 1), ('b', 2)}
@@ -42,7 +52,7 @@ from enum import Enum
 class Colors(Enum):
   red = 1
   blue = 1  // values may not be unique
-  green = 3 
+  green = 3
 Colors.red
 Colors.red.name
 Colors.red.value
@@ -52,7 +62,7 @@ for color in Colors:
   print(color.name)
 
 # Unicode strings
-* unicode: code points 
+* unicode: code points
   'h' -> 68
   'r' -> 72
   'hr' -> 6872
