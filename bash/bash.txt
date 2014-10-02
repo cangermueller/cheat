@@ -1,3 +1,11 @@
+# Removing first / last line
+head -n -1  // all but last
+tail -n +2 // all but first
+
+# Debugging
+set -e  // exit on error
+bash -x file.sh // print executed command
+
 # ssh
 ssh-genkey
 ssh-copy-id host

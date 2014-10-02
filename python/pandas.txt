@@ -1,3 +1,7 @@
+# dtypes
+df.dtypes // list dtypes
+df['c1'] = df['c1'].astype(str) // convert dtype
+
 # Excluding / selecting columns
 df = pd.DataFrame(np.arange(15).reshape(5, 3), columns=list('ABC'))
 sel = list('AC')
@@ -7,10 +11,12 @@ df_unsel = df[[c for c in df.columns if c not in sel]]
 
 # IO
 read_hdf('file', 'groupname')
-read_csv(file, ...)
+read_table(file, ...)
   nrows // max number of rows to be read
   sep // delimiter
   usecols // select columns by name
+  header=None // no header
+  names=['a', 'b', 'c'] // column names
 
 # Index
 columns // column index
@@ -66,6 +72,11 @@ pd.set_option('display.max_rows', 150)
 # Melting and reshaping
 df.pivot_table(rows=, cols=, values=) // list -> matrix
 pd.melt(matrix, ids_vars=, value_vars=, var_name) // matrix -> list
+pd.concat([d1, d2])
+  * concat DataFrames (Series)
+  * column order can be different
+  * columns can be missing: filled by NaN
+
 
 
 # Convert to numpy array / structured array
@@ -75,7 +86,7 @@ t = df.to_records() //structured
   * not supported by hdf5
 
 # Iterating
-for row in df.iterrows():
+for index, row in df.iterrows():
   print row[colindex]
 for col in df.iteritems():
   print col[rowindex]
