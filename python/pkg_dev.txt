@@ -4,6 +4,7 @@ virtualenvwrapper // manage several virtualenvs
 tox // run tests in different virtualenv
 versioneer  // automizes update version numbers
 sphinx  // documentation
+pyscaffold  // automatically creates package structure
 
 # links
 ReadTheDocs // hosting documentation
@@ -12,7 +13,7 @@ travis-ci.org // automatic testing on commit
 # License
 * see $CS/license.txt
 
-# Structure
+# Hierarchy
 code/ // source code
   __init__.py
 docs/
@@ -20,6 +21,7 @@ tests/
 README.rst
 MANIFEST.in
 setup.py
+
 
 # Semantic versioning
 semver.org

@@ -6,6 +6,12 @@ sphinx-quickstart
 
 # source/conf.py
 sys.path.insert(0, os.path.abspath('../../mf'))
+* NOTE: mf is now not a package, but a directory with modules
+  * relative imports don't work
+    import .module
+    from pkg import module
+  * solution?
+  
 
 # source/index.py
 Table of contents
