@@ -1,0 +1,18 @@
+Gene name: Fbxo15
+  * Approved by HGNC
+  * http://www.genenames.org/guidelines
+Ensemble gene: ENSMUSG00000034391
+  * EN: Ensembl
+  * MUS:  Mus musculous
+  * G: gene (T: transcript)
+CCDS: CCDS37877.X
+  * Consensus Coding Sequence
+  * .X: version; changes if genome sequences changes
+  * Effort to combine NCBI, EBI, Sanger, UCSC id
+RefSeq: NM_015798.X
+  * NG: gene
+  * NM: mRNA
+  * NR: ncRNA
+  * NP: protein
+  * .X: version number
+  * http://en.wikipedia.org/wiki/RefSeq
