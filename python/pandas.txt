@@ -32,6 +32,7 @@ columns // column index
   d['c1']
 index // row index
   d.loc['r1']
+
 ## Rows
 set_index(columns, inplace=False) // use column as index
 reset_index(inplace=False) // convert index to columns
@@ -43,6 +44,7 @@ reindex(range(1990, 2000))  // adjust to new index
   * index=  // reindex index
   * fill_value=
 index.values[0] = 'new_label' // rename index; rename column/row
+
 ## Columns
 df.columns = ['c1', 'c2'] // rename columns
 df.rename(columns={'old':'new'}, inplace=True)  // rename columns
@@ -68,6 +70,15 @@ i = df.columns  // multiindex for columns
 i.get_level_values(k) // get column labels level k
 i.droplevel(k) // remove level k
 df.columns = df.columns.droplevel(k)
+
+## Check if index contains value
+value in df.index
+'a' in df.index // single-index
+'a' in df.index // multi-index first level
+('a', 1) in df.index  // mutli-index both levels
+
+
+
 
 # Missing values
 np.nan, np.NAN, np.NaN  // pandas compatible
