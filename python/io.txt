@@ -21,7 +21,7 @@ f.tell() = tell_previous
 
 # File names
 os.path
-join(path, file)
+join(a, b, c)
 splitext('/d/f.ext') -> ['/d/f', 'ext']
 splitexit(path)[0]  // remove extension
 basename(path)

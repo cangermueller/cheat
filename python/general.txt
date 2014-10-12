@@ -1,3 +1,9 @@
+# Environment variables
+os.getenv('HOME'[, default])
+os.environ['HOME']
+os.environ.get('HOME')
+os.environ['FOO'] = 'bar'
+
 # Array letters, characters
 import string
 list(string.letters[:10])

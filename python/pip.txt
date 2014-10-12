@@ -3,6 +3,7 @@ freeze // list installed packages
 search name
 install name
 install -r requirements.txt // install from requirements file
+install -U name // update package
 freeze > requirements.txt // create requirements file
 uninstall name
 show name // show information

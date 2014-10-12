@@ -1,6 +1,8 @@
 import argparse
 
-p = argparse.ArgumentParser('Description')
+p = argparse.ArgumentParser(...)
+  prog=sys.argv[0]  // program name
+  description=''
 # Attributes
 * prog  // program name
 * epilog  // long description
@@ -16,8 +18,9 @@ p = argparse.ArgumentParser('Description')
 
 ## add_argument('--file', ...=
 add_argument('files', help='input filename', nargs='+') // positional argument
-add_argument('-v', '--verbose', action='store_true')  // optional argument
-add_argument('--verbose') // only long options; -v does not work; --v works
+add_argument('--arg') // only long options; -a does not work; --args works
+add_argument('--verbose', action='store_true')
+add_argument('--no-verbose', action='store_false', dest='verbose')
 * type=int  // filetype
 * type=fun  // fun is function that converts argument
 * default='file.txt'  // default value
@@ -28,6 +31,7 @@ add_argument('--verbose') // only long options; -v does not work; --v works
 * choices=['red', 'green', 'blue']
 * dest='variable_name'  // use different variable name in namespace
   * use metavar='shown' for renaming positional arguments
+set_default(verbose=False)
 
 ## add_mutually_exclusive_group
 g = add_mutually_exlusive_group()

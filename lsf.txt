@@ -11,6 +11,7 @@ Load Sharing Facility
 -cwd dir  // change to dir before executing command, logs in dir
 -q research-rh6  // research queue (default)
 -q production-rh6 // production jobs run with higher priority
+-q dungeon  // long runnning (>7 days) jobs
 -XF // X11 forwarding
 
 ## Interactive job
