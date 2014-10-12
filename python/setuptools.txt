@@ -5,6 +5,7 @@
 build
 install
 develop // like install, but link files -> changes source are seen directly
+install -e // similar to develop; only links files
 sdist // source distribution
 bdist // binary distribution
 docs  // build shpinx docs -> need extra configurations

@@ -45,6 +45,7 @@ Fix bug at line 88 caused by division of zero.
 # tag
 tag -a -m 'First version' v0.1  // create annotated tag with message -m
 -l -n [1] // show first line of annotation
+git push --tags
 
 # describe
 describe  // show description of current tag

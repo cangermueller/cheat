@@ -11,6 +11,10 @@ __add__   // a + b
 __sub__   // a - b
 __cmp__   // a == b
 
+# Special variables
+__dir__, dir(object)  // all object names
+__dict__, vars(object)  // all variables
+
 # Getting, setting attributes
 o = Class()
 hasattr(o, 'a')

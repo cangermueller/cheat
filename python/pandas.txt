@@ -1,6 +1,7 @@
 # dtypes
 df.dtypes // list dtypes
-df['c1'] = df['c1'].astype(str) // convert dtype
+df = df.astype(np.int32)  // convert dtype of DataFrame
+df['c1'] = df['c1'].astype(str) // convert dtype column
 
 # Misc
 pd.crosstab(y, x) // contingency table
@@ -23,9 +24,12 @@ read_csv(file, ...) / read_table(file, ...)
   nrows // max number of rows to be read
   sep=',' // field separator
   sep='\s+' // separate by spaces
-  usecols // select columns by name
+  usecols=['a', 'b'] // select columns by name
+  usecols=[0, 1, 2] // select columns by index
   header=None // no header
-  names=['a', 'b', 'c'] // column names
+to_csv(file, ...)
+  sep=','
+  index=True  // write index
 
 # Index
 columns // column index
@@ -46,8 +50,9 @@ reindex(range(1990, 2000))  // adjust to new index
 index.values[0] = 'new_label' // rename index; rename column/row
 
 ## Columns
-df.columns = ['c1', 'c2'] // rename columns
-df.rename(columns={'old':'new'}, inplace=True)  // rename columns
+df.columns = ['c1', 'c2'] // rename all columns
+df.rename(columns={'old':'new'}, inplace=True)  // rename selected columns
+df.rename(columns=lambda x: x[1:])  // apply function for renaming
 del df['col'] // delete column
 
 ## Indexing
@@ -155,11 +160,15 @@ g
   describe()  // summary statistics
   first()
   last()
-g.aggregate([fun1, fun2]) // summarize functions as single value
-g.aggregate({label:fun})
+g.apply(lambda df: pd.DataFrame({...})  // apply arbitrary function to groups
+  .apply(lambda df: df.field.iloc[0]) // return value of field of first row
+  .apply(lambda df: pd.DataFrame({'f1':[df.f1.min()]}) // return min of f1
 g.transform(lambda x: np.mean(x)) // group specific modification; same size as group
 g.filter(lambda x: np.mean(x) > 0.5)  // return only members of groups that satisfy constraint
-g.apply(lambda df: pd.DataFrame({...})  // apply arbitrary function to groups
+g.aggregate(fun)  // apply fun to each columns; return same columns (<> apply)
+  .agg(fun) // same as aggregate
+  .agg(np.min)  // min of each column
+  .agg(lambda x: x.iloc[0]) // first entry of each column
 
 # Summary
 df.head() / df.tail()
