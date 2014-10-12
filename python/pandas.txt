@@ -27,6 +27,44 @@ read_csv(file, ...) / read_table(file, ...)
   header=None // no header
   names=['a', 'b', 'c'] // column names
 
+## hdf
+store = HDFStore(filename)
+store.keys()
+store.groups()
+store['df'], store.df // read DataFrame
+store['df'] = df  // write DataFrame in fixed format
+store.put('df', df, ...)
+  format='f'  // fixed format: fast write, no query/append/delete
+  format='t'  // table format: slower write, read still fast
+  data_columnns=True  // for queries where('c1 > 0.2'); see below
+store.select('df', columns=['c1', 'c2'])
+store.select('df', where="index=['A', 'B']")
+store.select_column('df', 'c1') // if data_columns=True
+store.remove('df', ...) // remove table
+  where='index="A"'
+  where='c1 > 10'
+store.close()
+store.is_open
+df.to_hdf('file.h5', 'name', ...)
+  format='f'  // fixed format
+  format='t'  // table format
+pd.read_hdf('file.h5', 'name', ...)
+  columns=['c1', 'c2']
+  where=["columns=['c1', 'c2'] & index>10]
+### Query table
+~, & , ~  // not, and, or
+=, >, >=  // operators
+columns=['c1', 'c2']
+~(columns=['c1', 'c2'])
+index=['A', 'B']
+chromo='chr1' // select by hierarchical index
+c1 > 0.2  // if store.put('df', df, data_columns=True)
+### rhdf5
+store.put('df', df, format='t', data_columns=True)
+df <- h5read('file.h5', '/df/table')
+df <- h5read('file.h5', 'df')$table
+
+
 # Index
 columns // column index
   d['c1']
@@ -184,6 +222,8 @@ df.sort('column', ascending=True, inplace=False)  // sort by column
 df.sort_index(axis=0, inplace=False)  // sort by row index
 df.sort_index(axis=1) // sort columns by names
 df.sort_index(by='column')  // sort by column -> like sort
+df.drop(['r1', 'r2'], axis=0) // delete rows
+df.drop(['c1', 'c2'], axis=1) // delete columns
 
 ## selection
 .loc[rowlabel, collabel]  // purely label based
