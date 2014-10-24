@@ -1,8 +1,7 @@
 # General
 http://docs.h5py.org/en/latest/quick.html
 Optimized for numpy
-pytables is more abstract (complicated)
-
+pytables (tables) is more abstract (complicated)
 
 # Write numpy array
 f = File('file.h5', 'w')  // use 'a' to append, else overwrite

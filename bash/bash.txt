@@ -12,6 +12,8 @@ ssh-copy-id host
 
 # ftp
 ftp ftp://ftpusr43:0afwmRLv@ftp2.babraham.ac.uk
+ftp ftp://user:pass@host
+ftp host  // starts prompt for user and pass
 ls
 put local_file  // upload local file
 get remote_file // download remove file

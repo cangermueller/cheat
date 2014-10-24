@@ -1,6 +1,13 @@
+# General
 Use h5py if possible!
 Advantage: SQL like queries via where()
 http://pytables.github.io/usersguide/tutorials.html#
+
+# Installing tables
+HDF5_DIR=~/apps/hdf5
+(LIBS="hdf5-1.8.12 nsl")  // optional
+pip install --upgrade git+git://github.com/cython/cython@master
+pip install --upgrade tables
 
 # Open
 f = File('filename')
