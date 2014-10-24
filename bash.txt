@@ -1,6 +1,7 @@
 # Removing first / last line
-head -n -1  // all but last
-tail -n +2 // all but first
+head -n x   // first x lines
+tail -n x   // first x lines
+tail -n +x  // everything from line x
 
 # Debugging
 set -e  // exit on error
@@ -89,6 +90,7 @@ grep -e pattern1 -e pattern2  // pattern1 or pattern2
   * tr -s SET // sequence set of consecutive characters
 * readlink -f FILE  // get absolute path
 * ldd [binary]  // prints shared libraries [binary] depends on
+* uniq -c // count # unique words
 
 
 

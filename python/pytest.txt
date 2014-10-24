@@ -1,11 +1,16 @@
 py.test // run test_*.py / *_test.py
 py.test file.py
+py.test file.py::test_fun // only run test_fun in file.py
 py.test dir // run all files in directory dir
+
 -k name // only tests named *name*
 -m 'not slow' // only tests not marked as slow
 -s  // disable capturing; -> print
 -v  // verbose output
 --pdb // start pdb on error
+
+# Misc
+pytest.set_trace()  // set tracepoint
 
 # pytest.ini; tox.ini; setup.cfg
 [pytest]

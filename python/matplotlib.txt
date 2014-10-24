@@ -36,7 +36,8 @@ plot(x, y, ...)
   markeredgewidth
   fontsize=18
 scatter(x, y, color='black', s=20, marker=matplotlib.markers?)
-bar(x, y, width)
+bar(x, y, width=barwidth) // vertical bars
+barh(x, y, height=barheight)  // horizontal bars
 imshow(image) // plot image (mxn array) values/heatmap
 contour(x, y, z, color=, cmap=)
   x, y are vectors defining range

@@ -4,10 +4,27 @@ ipython nbconvert nb.ipynb
 --template basic, article
 --post PDF, server
 ipython nbconvert --to latex --template article --post PDF nb.ipynb
-## slideshow
+
+# slideshow
 * http://www.slideviper.oquanta.info/tutorial/slideshow_tutorial_slides.html
 * select 'slideshow' in 'cell toolbar'
 ipython nbconvert --to slides --post serve nb.ipynb
+
+## HTML
+from IPython.display import HTML
+HTML(url)
+HTML('<iframe src=www.google.com width=1000 height=700/>')
+
+## Images
+<img src='file' style='float:left; width=30%'/>
+from IPython.display import Image
+Image(url=)
+Image(filename=)
+
+## Videos
+from IPython.display import YouTubeVideo
+YouTubeVideo('ucJ2-5a2CAA', width=, height=)
+
 
 # Shell commands
 !ls

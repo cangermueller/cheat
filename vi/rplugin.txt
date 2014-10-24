@@ -29,6 +29,7 @@ c-x c-u // complete arguments and chunk options
 \ss // visual selection
 
 # Knitr
+\kp // compile pdf
 \cc // send chunk
 \op // open pdf
 gn, gN  // next, previous chunk

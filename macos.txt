@@ -29,6 +29,7 @@ tmux -CC attach // attach to session
 cmd - n // new
 cmd - m // minimise
 cmd - h // hide
+cmd - space // spotlight
 
 # Switch application
 cmd - tab // next
@@ -61,3 +62,8 @@ select --set python27 // set default python option
 ## variants
 port info vim
 port install vim +python27
+
+# Zotero
+highlight collection: select + hold opt
+Advanced search: Attachment content
+Move items between collections: cmd + drag

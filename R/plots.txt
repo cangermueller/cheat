@@ -143,7 +143,7 @@
   - margins=c(0,0)  // avoid margins at right site and bottom
   - revC=F  // reverse order of ROWS; if Rowv=NA, plot 1:nrow instead nrow:1
 * heatmap.2(matrix, ...)
-  - library(gplot), allows different ratio width/height
+  - library(gplots), allows different ratio width/height
   - key=T // show color key
   - density.info='density'  // show density information in color key
   - trace='none'  // do not draw trace lines in heatmap
