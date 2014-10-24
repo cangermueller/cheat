@@ -1,16 +1,20 @@
 # keybindings
+https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly
 F6  // next frame
 shift-F6  // previous frame
 cmd-shift-f // toggle fullscreen
 cmd - arrows  // back, forward, top page
 space // fast scroll
-cmd-shift-t // undo close tab
-cmd-shift-e // tab group view
 cmd-l // url bar
 cmd-k // search bar
 cmd-b // bookmark sidebar
 cmd-shift-b // bookmark window
 cmd-j // downloads
+
+# Tabs
+opt-cmd-left/right  // navigate tabs
+cmd-shift-t // undo close tab
+cmd-shift-e // tab group view
 
 ## search
 cmd-f // find

@@ -178,4 +178,9 @@ grid.arrange(plot1, plot2)  // vertical alignment
   * ggplot(Oxboys, aes(age, height, group=Subject)) + geom_line() + geom_smooth(aes(group=1), lwd=2)
   * ggplot(data=dia, aes(x=cut)) + geom_histogram(aes(y=..density.., group=1))
 
-
+# geom_bar
+aes(x=ptpn22, fill=t1d) // count number of TRUE / FALSE
+position=
+  'stack' // default: on top
+  'dodge' // side-by-side
+  'fill'  // stretched for relative comparison

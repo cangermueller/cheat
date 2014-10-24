@@ -44,6 +44,9 @@
 * split=T // split code out of *.tex file -> figures/chunk.name.tex
 * cache=T // only evaluate code chunk once; update cache if code changes; output is shown
 * engine='python' // use different languages; variables can not be stored
+* size=("normalsize", "tiny", "scriptsize", 
+       "footnotesize", "small", "large", "Large", "LARGE", "huge", 
+       "Huge")  // font size; see highlight package
 
 === Plot options
 * fig.width, fig.height
@@ -100,7 +103,7 @@
 * chunk tags must be unique among all childs
 
 === Compiling child document
-* \Sexpr{set_parent('../main.Rnw')}
+* \Sexpr{set_parent('../main.Rnw')} // path relative to main.Rnw
 * Includes preamble and evaluates chunks in preamble
 * All files are created in child directory
 
@@ -133,3 +136,8 @@ code that is replaced by code in chunk_other
   * .rdx  // index
   * .rdb  // database
   * lazyLoad('hash')  // load database
+
+== Beamer
+illegal number parameter in definition of \beamer@doifinframe
+\begin{frame}[fragile]  // use fragile!
+\end{frame}
