@@ -3,6 +3,17 @@
 * python inferface: https://pypi.python.org/pypi/bsub/0.3.3
 
 
+# lsmake
+* run make targets in parallel
+* default: run on local host with 1 cpu
+lsmake [makeoptions] [target] // 
+-j n  // use n cpus
+-c m  // run m jobs per cpu
+-R resources
+-m hostname
+-V  // verbose, print hosts
+-y  // print summary at the end
+
 # bsub
 -R "rusage[mem=100]" -M 100 // request 100 MB
 -n ncpu // tell LSF number of cpus, memory x ncpu
@@ -41,3 +52,12 @@ lsid  // show current cluster
 lsload -E // show current load
 lshosts // show spec of nodes
 bqueues // show all queues
+
+# EBI file exchange
+http://www.ebi.ac.uk/systems-srv/mp/file-exchange/
+* 500 MB single files
+* 2.5 GB total
+* Alternative: EBI Google Drive
+
+# EBI backups
+* cd ~/.snapshot // invisible by ls -a

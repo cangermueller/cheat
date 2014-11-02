@@ -55,6 +55,9 @@ df.to_hdf('file.h5', 'name', ...)
 pd.read_hdf('file.h5', 'name', ...)
   columns=['c1', 'c2']
   where=["columns=['c1', 'c2'] & index>10]
+  start=first_row
+  stop=last_row
+
 ### Query table
 ~, & , ~  // not, and, or
 =, >, >=  // operators
@@ -63,6 +66,7 @@ columns=['c1', 'c2']
 index=['A', 'B']
 chromo='chr1' // select by hierarchical index
 c1 > 0.2  // if store.put('df', df, data_columns=True)
+
 ### rhdf5
 store.put('df', df, format='t', data_columns=True)
 df <- h5read('file.h5', '/df/table')

@@ -7,6 +7,12 @@ head -n x   // first x lines
 tail -n x   // first x lines
 tail -n +x  // everything from line x
 
+# cut
+cut file
+-d  \t // delimiter
+-f a-b  // range
+-f a-
+
 # Debugging
 set -e  // exit on error
 bash -x file.sh // print executed command
@@ -17,6 +23,8 @@ ssh-copy-id host
 
 # ftp
 ftp ftp://ftpusr43:0afwmRLv@ftp2.babraham.ac.uk
+ftp ftp://user:pass@host
+ftp host  // starts prompt for user and pass
 ls
 put local_file  // upload local file
 get remote_file // download remove file
@@ -44,7 +52,7 @@ diskutil info /Volumns/hdd
 * --prune // do not show empty dirs
 * -P pattern  // only files matching pattern
 * -s, -h  // size (human readable)
-* -p  // ls -l 
+* -p  // ls -l
 
 
 # find
@@ -103,7 +111,7 @@ grep -e pattern1 -e pattern2  // pattern1 or pattern2
 
 
 
-# convert 
+# convert
 * convert IN OUT
 * -density 300 // 300 dpi
 * -resize 50%

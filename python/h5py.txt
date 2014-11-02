@@ -1,8 +1,7 @@
 # General
 http://docs.h5py.org/en/latest/quick.html
 Optimized for numpy
-pytables is more abstract (complicated)
-
+pytables (tables) is more abstract (complicated)
 
 # Write numpy array
 f = File('file.h5', 'w')  // use 'a' to append, else overwrite
@@ -16,9 +15,9 @@ f.close()
 
 # Explore file
 f = File('file.h5', 'r')
-f.keys()  // item names on top levels
-g = f['g1']
-g.items() // item names in group
+f.items() // list items
+f.keys()  // list keys
+f['/group'].items()/keys()  // list items/keys of group
 
 # open attributes
 * r: read-only

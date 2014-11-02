@@ -1,4 +1,6 @@
 # file operations
+* getwd() // pwd
+* setwd(path)
 * dir() // show directory content
 * file.show(file) // open file with vi
 * file.choose()
