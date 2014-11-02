@@ -2,7 +2,6 @@
 :pwd  // show current working director
 :cd // change working directory
 
-
 # Windows newline carriage return
 %s/<ctrl-v><ctrl-m>/\r\g
 
@@ -112,6 +111,9 @@ vim-variable       v:     Global, predefined by Vim.
 set rtp+=~/.vim/bundle/plugin # extend runtime path
 
 # Windows
+## Opening
+* s: split horizontally
+* v: split vertically
 ## Navigation
 * j k: down, up
 * h l: left right

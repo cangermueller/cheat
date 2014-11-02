@@ -1,0 +1,94 @@
+# boot2docker
+init  // init VM
+up|start  // start VM
+export X=
+stop  // stop VM
+ip  // show ip of VM
+
+# Misc
+docker-py // python package for calling Docker commands
+
+# id
+ubuntu  // base image
+user/image:tag  // user-derived image
+
+# Commands
+
+## general
+version
+
+## images
+* immutable; change data -> commit new image
+images  // list images
+rmi image // remove image
+search name // search repository for images
+login // login to server
+logout
+pull image // pull image from repository
+push image // push image to repository
+tag image image:tag // tag image
+save -o image.tar image // save as tar
+export image > image.tar  // save image as tar
+load -i image.tar // load tar
+
+## containers
+ps  // show running containers
+ps -l // show lastest (non-) running containers
+ps -a // all (non-) running containers
+start cont  // start container again
+stop cont // stop container
+kill cont // kill container
+CTRL-P CTRL-Q // detach
+attach cont // attach to detached container
+inspect cont  // show details about container
+rm cont // remove container
+port cont // show port mappings of container
+top cont  // show running processes of container
+logs cont // show stdout of container
+logs -l // follow output
+commit -m 'msg' -a 'Author' cont image
+diff cont // create diff container - image
+history image // show change history of image
+
+# run
+run [options] image command
+-it // interactive terminal
+-d  // daemon; run in background
+--name name // set name of container
+-P  // expose all ports to host
+-p hostport:contport  // forward ports
+-p ip:hostport:contport  // forward ports of ip
+--link source // link source container to new target container
+  * update /etc/hosts
+  * update environment variables
+-v /dir // create new volume
+-v /hostdir_or_file:/host_dir_or_file:ro  // mount host file (read-only)
+--volumes-from container  // mount on volumes of running container
+-w dir  // set working directory
+-e HOME=$pwd  // set environment variable
+-u username
+
+# Dockerfile
+* https://docs.docker.com/articles/dockerfile_best-practices/
+FROM debian:wheezy  // use debian (85 MB) instead of ubuntu:14.04 (190 MB)
+MAINTAINER Christof Angermueller <cangermueller@gmail.com>
+RUN apt-get update \  // concat commands to reduce disk usage
+    apt-get install -y \
+      pkg1=1.0.0 \  // specify version for reproducibility
+      pkg2=2.0.0 \
+   && rm -rf /var/lib/apt/lists/* // clean-up at the end
+RUN apt-get install -y ipython
+ADD hostfile containerfile
+ADD /home/* /root
+EXPOSE 8888 // expose this port
+CMD ['/bin/bash', '-c', 'python /dir/script.py']  // run this command
+ENTRYPOINT ['/bin/bash', '-c', 'python /dir/script.py']  // run this command
+  * like CMD, but allows to pass arguments by run
+  * run <image> <args_for_entrypoint_cmd>
+CMD ["/usr/bin/supervisord"]  // use supervisored to run several daemons
+ENV path '/root/data' // specifiy environment variable $path
+  // CMD mycommand $path
+
+
+# build image from Dockerfile
+build -t 'cangermueller/base:0.0.1' dir // dir containes Dockerfile

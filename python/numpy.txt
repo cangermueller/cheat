@@ -146,6 +146,9 @@ insert(a, index, value)
 delete(a, index)
 append(a, value)
 concatenate((a, b))
+hstack((a, b))
+vstack((a, b))
+dstack((a, b))
 .sort() // sort inplace
 np.sort(a)  // sort outplace
 np.sort(a)[::-1]  // sort reverse

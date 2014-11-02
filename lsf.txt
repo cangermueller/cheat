@@ -1,5 +1,7 @@
 # LSF
-Load Sharing Facility
+* Load Sharing Facility
+* python inferface: https://pypi.python.org/pypi/bsub/0.3.3
+
 
 # bsub
 -R "rusage[mem=100]" -M 100 // request 100 MB

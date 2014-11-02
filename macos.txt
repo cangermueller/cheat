@@ -1,3 +1,6 @@
+# open application
+open -a 'preview'
+
 ^ = ctrl
 ^ + shift + 2: euro
 
@@ -64,6 +67,11 @@ port info vim
 port install vim +python27
 
 # Zotero
-highlight collection: select + hold opt
-Advanced search: Attachment content
-Move items between collections: cmd + drag
+hold opt  // highlight collection
+cmd+drag  // move items between collections
+cmd+shift+c // copy long
+cmd+shift+a // copy short
+shift+enter // insert next author
+## Advanced search
+Attachment content
+Creator // Author
