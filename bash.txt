@@ -3,6 +3,12 @@ head -n x   // first x lines
 tail -n x   // first x lines
 tail -n +x  // everything from line x
 
+# cut
+cut file
+-d  \t // delimiter
+-f a-b  // range
+-f a-
+
 # Debugging
 set -e  // exit on error
 bash -x file.sh // print executed command
@@ -42,7 +48,7 @@ diskutil info /Volumns/hdd
 * --prune // do not show empty dirs
 * -P pattern  // only files matching pattern
 * -s, -h  // size (human readable)
-* -p  // ls -l 
+* -p  // ls -l
 
 
 # find
@@ -101,7 +107,7 @@ grep -e pattern1 -e pattern2  // pattern1 or pattern2
 
 
 
-# convert 
+# convert
 * convert IN OUT
 * -density 300 // 300 dpi
 * -resize 50%
