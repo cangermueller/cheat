@@ -1,0 +1,17 @@
+* Dynamic code compilation
+* Bases on LLVM: Low Level Virtual Machine
+  * Language-independent compile infrastructure
+  * Compilation / Just-In-Time compilation
+* JIT: Just-In-Time Compilation
+  * Compilation before/during runtime
+  * Compilation whole program or parts
+  * Example: compilation of regular expression that depends on input data
+* NumbaPro
+  * CPU + GPU compilation
+  * Commercial
+
+from numba import jit
+
+@jit
+def function():
+

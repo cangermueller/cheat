@@ -1,0 +1,19 @@
+FHS: File system Hierarchy Standard
+
+1. Root hierarchy
+/bin
+/sbin
+/lib
+/share  // platform independent, man pages
+/local  // local hierarchy
+
+2. /usr hierarchy
+* platform independent: can be run by all hosts
+* read-only
+/usr/bin
+/usr/lib
+/usr/local  // software installed locally on single host
+
+3. /opt
+* optional add-on software packages
+* E.g. used by macports

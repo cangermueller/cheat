@@ -1,0 +1,21 @@
+# rmarkdown header
+title: title
+output: html_document
+output:
+  html_document:
+    toc: yes
+    fig_caption: yes
+
+render(input_file, output_format='html_document', output_file, ...)
+  output_format =
+    html_document
+    pdf_document
+    word_document
+    slidy_presentation
+    beamer_presentation
+
+run('file.Rmd', ...)
+  shiny_args=list(port=1234)  // passed to shiny::runApp
+  render_args=list(...) // passed to render
+
+

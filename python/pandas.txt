@@ -10,6 +10,7 @@ pd.concat((a, b), axis=1) // concat by columns
 pd.merge(a, b)  // merge dataframes by common columns
   on=['c1', 'c2'] // columns to be used for merging
   how='left'  // left join -> fill with np.NaN
+df.drop_duplicates()  // remove duplicate rows -> unique rows
 
 # Excluding / selecting columns
 df = pd.DataFrame(np.arange(15).reshape(5, 3), columns=list('ABC'))
@@ -19,6 +20,8 @@ df_unsel = df[[c for c in df.columns if c not in sel]]
 * Alternative: df.set_index()
 
 # IO
+to_pickle('file.pkl')
+from_pickle('file.pkl')
 read_hdf('file', 'groupname')
 read_csv(file, ...) / read_table(file, ...)
   nrows // max number of rows to be read
@@ -90,6 +93,7 @@ reindex(range(1990, 2000))  // adjust to new index
   * index=  // reindex index
   * fill_value=
 index.values[0] = 'new_label' // rename index; rename column/row
+index.names // names
 
 ## Columns
 df.columns = ['c1', 'c2'] // rename all columns
@@ -114,7 +118,7 @@ m = MultiIndex.from_arrays([df.c1, df.c2], names=df.columns[1, 2])  // from Data
 df.index = m  // set index
 pd.concat((a, b), axis=1, keys=['a', 'b'])  // concat columns of a and b
 i = df.columns  // multiindex for columns
-i.get_level_values(k) // get column labels level k
+i.get_level_values(k) // get column labels level k (int or str)
 i.droplevel(k) // remove level k
 df.columns = df.columns.droplevel(k)
 

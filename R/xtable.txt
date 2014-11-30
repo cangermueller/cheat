@@ -1,3 +1,5 @@
+options(xtable.type='html') // change output from 'latex' to 'html'
+
 xtable(tab, caption=, label='tab:x', digits=c(0, 2))
 print(xtable, table.position='!h', ...)
   * ?print.xtable

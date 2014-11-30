@@ -1,0 +1,18 @@
+.git/annex/objects
+
+init .
+add file
+whereis file
+get file
+drop file
+  --from origin
+move file --from origin --to origin
+copy file --from origin --to origin
+  --auto  // only if not yet annex.numcopies copies
+numcopies 3  // min # copies
+unused  // show unused files
+
+unlock file // unlock for edit; un-symlink file
+add file
+commit
+push

@@ -10,6 +10,7 @@ cmd-k // search bar
 cmd-b // bookmark sidebar
 cmd-shift-b // bookmark window
 cmd-j // downloads
+cmd-shift-z // toggle zotero
 
 # Tabs
 opt-cmd-left/right  // navigate tabs

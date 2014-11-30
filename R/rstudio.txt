@@ -1,0 +1,33 @@
+opt - - // <-
+^ - 1 // source
+^ - 2 // console
+^ - 3 // help
+^ - 5 // files
+^ - 6 // plots
+F1  // show help of command under cursor
+cmd - up // browse command history
+
+# Running code
+cmd - return // execute line, selection
+cmd - shift - p // run previous
+cmd - shift - return // source file
+cmd - opt - r // run document
+cmd - opt - [pcn] // run previous, current, next chunk
+shift - cmd - k // knit
+
+# Code
+cmd - i // reindent code
+opt - cmd - i // insert chunk
+shift - opt - cmd j // jump to
+opt - up  // move selection up (down)
+cmd - shift - c // (un)comment lines
+
+# Debugging
+F10 // next
+shift - F5  // continue
+shift - F9  // toggle breakpoint
+shift - F8  // stop debugging
+
+# Console
+cmd - up  // list previous command
+^ - l // clean

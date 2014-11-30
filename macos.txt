@@ -33,6 +33,7 @@ cmd - n // new
 cmd - m // minimise
 cmd - h // hide
 cmd - space // spotlight
+shift-cmd-c // open finder
 
 # Switch application
 cmd - tab // next
@@ -51,6 +52,7 @@ cmd-shift-4-space // current window
 ctrl - ...  // copy to clipboard instead of desktop
 
 # port
+* /opt
 selfupdate  // update ports
 upgrade outdated  // upgrade all ports
 uninstall --follow-dependents x // uninstall x and all packaged that depend on x

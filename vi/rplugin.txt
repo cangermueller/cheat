@@ -9,6 +9,8 @@
 \rr // clear console
 \rm // rm(list=ls())
 c-x c-u // complete arguments and chunk options
+\c  // command completion
+\a  // argument completion
 
 # Status variable
 \rp // print
@@ -27,6 +29,7 @@ c-x c-u // complete arguments and chunk options
 \pa // block, echo, down
 \cc // knitr chunk
 \ss // visual selection
+\aa // file
 
 # Knitr
 \kp // compile pdf

@@ -79,6 +79,7 @@
 * opts_knit // knitr options
 * opts_chunk  // global chunk options
 * opts_chunk$set(fig.path='myfigs/', cache.path='mycache/')
+* opts_knit$get("rmarkdown.pandoc.to")  // get type of output document
 
 == hooks
 * Two types of hooks

@@ -1,6 +1,7 @@
 swap-windows -t 0 // rearrange windows
 ? // show keybings
 s //  switch between sessions
+t // show clock
 
 # Windows bindings
 j, k  // previous, next window
@@ -11,6 +12,14 @@ p // laste window
 # Panes
 ; // last pane
 space // next pane layout
+alt+[1234]  // select pane layout
+o (long)  // swap with other
 {}  // swap panes
 ! // break pane
 x // kill pane
+z // zoom pane
+
+# Key binding
+man page: KEY BINDINGS
+bind -r key command // must be repeated
+list-keys // show key bindings

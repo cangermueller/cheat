@@ -35,6 +35,7 @@ solve([x+y, x-y], [x, y])
 # Matrix algebra
 M <- Matrix([[m11, m12], [m21, m22]])
 M.inv()
+M.T
 M.transpose()
 M.det()
 

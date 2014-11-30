@@ -1,0 +1,214 @@
+# Strings
+vec1 %in% vec2 // test if elements in vec1 are in vec2
+match(vec1, vec2) // return index or NA for each vec1 in vec2
+
+== Classes
+* Everything is an object of a class
+* Basic classes
+  - character
+  - numeric: a <- 1
+  - integer: a <- 1L: a <- 1 
+  - complex
+  - logical
+  - formula
+  - expression
+  - environment
+* Attributes
+  - attributes(o)
+  - attr(o, "name")
+  - attr(o, "name") = 
+* Class attributes determines which function is calles
+  - class(o)
+  - class(o) = "newclass"
+  - unclass(o)  // remove class attribute
+  - print.class, plot.class
+  - method(print) // print.foo
+  - methods(class="foot") // print.foo, bar.foo
+* names
+  * names(vector), names(list), names(data.frame)
+  * as.name("A") == as.symbol("A")    // create name object
+  * list(as.name("A"), as.name("B"))  // create empty named list
+
+== Subsetting objects
+* [1], [3:5]  // return one or more elements of the same class
+* [[1]] // return a single element as the stored class (e.g. column of data.frame)
+* $name // return a single element by its name (e.g. column of data.frame)
+* matrix[i, j, drop=F]  // always return matrix
+* partial matching
+  - df$va // instead of df$value
+  - df[["va", exact=F]]
+
+== General
+* ls(): list all data object
+* rm(x): remove object x
+* data(): predefined data structures
+  - data(): show predefined data structures
+  - data(faithful): load data into environment
+
+== Print data
+* head(d), tail(d)
+* page(d, method="print") 
+* fix(d), edit(d), vi(d) // edit data
+* summary(object) // output depends on class
+* str(object) // compact representation of an object)
+
+== Common function
+* class(d)
+  - reads the class attributes
+  - class attributes defines how an object is interpreted
+  - df is interpreted differently from unclass(df)
+  - attr(df, "class") = NULL changes the class
+* str(d)
+* attributes(d) // show attributes
+* attr(d, "colnames") = c("a", "b") // change attributes
+* names(d), colnames(d), rownames(d)
+  - names(d): names attribute; l = list(a=1, b=1:10) -> names(l) = a, b
+  - names(data.frame) = colnames(data.frame): column names
+  - names(matrix): not defines; only colnames, rownames
+* nrow(d), ncol(d)
+* dim(d) [nrow(d) ncol(d)]
+* sapply(M, fun), sapply(v, fun)  // apply function on each element of a matrix or vector
+* lapply(M, fun)  // like sapply, but return list
+* apply(M, 1, fun)  // apply fun on each row/column of a matrix
+* tapply(v, f, fun) // apply fun on all groups in v that are determined by factor f
+
+* is.vector, is.numeric, is.data.frame, is.matrix
+* as.vector, as.numeric, as.data.frame, as.matrix
+
+== NULL, NA
+* NULL
+  - Represents an empty object (NULL ptr)
+  - is.null(c(1, NA, 3)) == FALSE
+  - class: NULL
+* NA
+  - Represents a missing data element
+  - is.na(c(1, NA, 3)) == [FALSE TRUE FALSE]
+  - class: logical
+* NaN 
+  - Not a number
+  - 0 / 0
+  - class: numeric
+* Inf: 1 / 0
+
+== Common access methods
+* v[i], v[c(i,j,k)], v[-i] (exclude i)
+* v[v < 0.4], df[df$conc < 0.1,]
+
+== Vector
+* Stores a specific data type: numeric, character
+* v = c(1, 2, 3)
+* v = vector("numeric", length=10)
+* classes
+  - class(c(1,2,3)): integer
+  - class(c(1.0,2.0)): numeric
+  - class(c(LETTERS[1:3])): character
+* v <- c(1,2,3), v <- 1:3, v <- c(a=1, b=2, c=3)
+* v[length(v)]: last element
+* length(v)
+* v+w, v*w, v+i, v*i // element wise operation! vector product: a%*%b
+* v == 3, v > 3: returns logical vector
+* v[v > 3]: v[T, F, T] - selects T elements
+* which(c(T,F,T))->(1, 3): returns indices of T elements
+* sort(v)
+* sapply(v, f): apply f on each element of v
+* rep(x, times)
+* seq(from, to, by=step)
+* sum(x), mean(x), median(x), sd(x), var(x), summary(x)
+
+== Factor
+* Stores elements belong to a certain category (level)
+* f <- factor(c("a", "b", "a", "a"))
+* f <- ordered(c(3, 4, 1, 2)); f <- factor(c(3, 2, 1, 2), ordered=T)  // levels are ordered
+* f <- factor(c("b", "a", "a"), levels=c("a", "b")) // state level order
+* levels(f), levels(f) <- c()
+* droplevels(f) // drop unused levels
+* table(f)
+* as.vector, as.numeric // convert factor into vector
+* gl(2, 3, 9) 
+  - generate factor with 2 classes, 3 repetitions and total length 6
+  - 0 0 0 1 1 1 0 0 0
+* Chaning order factor levels
+  * factor(data, levels=c('low', 'medium', 'high'))  // Specify order directly
+  * relevel(f, 'low') // make 'low' as the first level
+  * NOTE: levels(f) will change the labels of f, but not the order!
+
+== Table
+* Contigency table
+* f <- factor(c(1  , 1  , 1  , 2  , 3  , 3 ))  // first variable 
+  e <- factor(c("A", "B", "B", "C", "C", "D))  // second variable
+  table(f, e)
+* table(airquality$month, airquality$day)
+
+== Matrix
+* Stores a specific data type as matrix
+* m <- matrix(c(1,2,3,4), nrow=2, ncol=2, byrow=T)
+* matrix(0, 3, 4) // create 3x4 matrix filled with 0
+* diag(n): diagonal matrix of dimension n
+* diag(v, n): v*diag(n)
+* diag(v, nrow, ncol) // diagonal matrix with value v, nrows, ncols
+* as.vector(m) // matrix -> vector flattening
+* dim(v) = c(2, 5)  // convert vector into matrix
+* rownames(m) <- c(), colnames(m) <- c()
+* m[i,j], m[c(1,3),], m[,j]
+* m[i, j, drop=F]  // always return matrix
+* m[m[,i] > x, ]: all rows, whose column i has a value > x
+* m[order(m[,i]),]: sort by column i
+* apply(m, 1, f): apply function f on each row
+* apply(m, 2, f): apply function f on each column
+* cbind(x, y), rbind(x, y)
+* cbind.data.frame // creates data.frame instead of matrix
+* Algebra
+  - A+B, c*A
+  - A*B: pairwise multiplication
+  - A%*%B: matrix multiplication
+  - t(A): transpose
+  - solve(A): inverse
+  - solve(A, B): solve system of equation
+  - eigen(M)
+
+== List
+* Stores components which might be of different data type
+* l <- list(name="P1", values=c(1:3), matrix=matrix(c(1:4), nrow=2))
+* l[i], l["key"]: returns list with a single component
+* l[[i]], l[["key"]], l$key: returns a component
+* unlist(l): convert to vector
+* c(list1, list2) // combine two lists
+
+== Data.frame
+* List whose components have the same length
+* d <- data.frame(name=c("N1","N2"), value=c(1,2))
+* d[i,], d[c(i, j), ] // select rows
+* d[,j], d[,c(j,k)], d$col, d[,"col"], d[,c("col1", "col2"] // select columns
+* d[,-j], d[, -(i, j)]  // exclude columns
+* subset(airquality, Temp < 80, select=-Temp) // select subset of rows or columns
+* d[d$age==2,]: conditional
+* d[order(d$age),]: sorting
+* rownames(d) <- c(), colnames(d) <- c()
+* attach(d): name <-> d$name
+* df = df[complete.cases(df), ] // remove entries with NA in a column
+
+== Array
+* Like matrix, but n instead of 2 dimensions
+* a <- array(rnorm(3*4*2), dim=c(3, 4, 2))
+* dim(a)
+* apply(a, 3, sum)
+
+=== Transforming data.frames
+* merge(d1, d2, by="id")  // merge data frames by common columns
+* list <- split(airquality, f) // split data.frame by factor f
+  - split(airquality, airquality$Month)
+  - split(airquality, airquality$Month < 7)
+* transform(data.frame, newcolumn=f(column))  // adds, modifies columns of data.frame
+  * df <- data.frame(x=1:5)
+  * transform(df, y=2*x, name="Test")
+* library(reshape)
+  * melt.list() // creates data.frame with new factor that corresponds to the list names
+    * l <- list(a=rnorm(5), b=rnorm(3))
+    * melt(l)
+    * l <- list(a=data.frame(x=sample(c(0,1), size=5, rep=T), y=rnorm(5)), b=data.frame(x=sample(c(0,1), size=5, rep=T), y=rnorm(5))) 
+    * melt(l, id.vars=c("x", "y"))
+* reshape(df) // convert several records of the same sample into a single records with additional columns
+  - df <- data.frame(id=1, time=1:5, value=LETTERS[1:5])
+  - wide <- reshape(df, v.names="value", timevar="time", idvar="id", direction="wide")
+  - long <- reshape(wide, direction="long")
+

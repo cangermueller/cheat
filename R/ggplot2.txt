@@ -1,6 +1,7 @@
 # Misc
 aes_string(fill='mean') // aes variable
 round_any(var, 0.1) // discretize/round continuous information
+geom_abline(slope=1)  // diagonal line
 
 # Theme
 theme_classic()
@@ -35,7 +36,9 @@ theme(plot.background=element_rect(fill='transparent', color=NA))
 
 # Text
 geom_text(aes(label=sprintf('%f', value)), hjust=, vjust=, size=, angle=)
-vjust // offset, jitter, shift text
+vjust=-.2, hjust=0  // align top right
+position=position_jitter(h=1, w=1) // jitter with height and width
+position=position_dodge(h=1, w=1) // avoid overplotting
 
 
 # Title
@@ -154,7 +157,7 @@ grid.arrange(plot1, plot2)  // vertical alignment
 * Visualizing different subgroups
   * by aesthetics: color, shape, size, ...
   * by subplots -> facets
-* facet_warp(~var)
+* facet_wrap(~var)
 * facet_grid(xvar~.)
 * facet_grid(xvar~yvar)
 * facets are applied to all data objects -> must contain the same factors

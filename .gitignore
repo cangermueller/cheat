@@ -29,3 +29,4 @@
 *.pyx
 *.o
 /python/nb/*.c
+/R/shiny

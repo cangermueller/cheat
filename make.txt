@@ -11,6 +11,8 @@ $(dir /dir/file.txt)  // /dir
 $(notdir /dir/file.txt) // file.txt
 $(suffix /dir/file.txt) // .txt
 $(basename /dir/file.txt)  // /dir/file; not suffix
+$(addprefix prefix, list) // a b, .txt -> a.txt b.txt
+$(addsuffix suffix, list)
 $(shell ls) // shell command
 
 # static pattern rule

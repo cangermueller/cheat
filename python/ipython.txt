@@ -135,7 +135,7 @@ c-s-t // new tab with existing kernel
 %who  // defined objects
 %whos // information about all objects
 %time commmand  // execute command once and measure time
-%timeit coomand // execute command several times and measure time
+%timeit command // execute command several times and measure time
   -r  3 // number of loops: best is taken
     -n fitted // number of executions per loop
 %cd dir // change directory

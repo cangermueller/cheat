@@ -16,8 +16,8 @@ pytest.set_trace()  // set tracepoint
 [pytest]
 addopts = -sv
 
-@pytest.skipif(True, reason='') // always skip
-@pytest.skipif(sys.platform == 'darwin', reason='reason')
+@pytest.mark.skipif(True, reason='') // always skip
+@pytest.mark.skipif(sys.platform == 'darwin', reason='reason')
 @pytest.mark.slow // mark as slow (or anything else)
 @pytest.xfail // do not report error
 

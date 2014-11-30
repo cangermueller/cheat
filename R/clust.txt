@@ -26,7 +26,9 @@ use=
 * hc = hclust(dist(data, method=))
   - method=single/complete/average
   - hc$order  // order or rows
-* plot(hc)
+* plot(hc, ...)
+  xlab=NA, ylab=NA, main=NA, sub=NA
+  
 * members = cutree(hc, k=, h=)
   - return cluster assignment for hierachical clustering
   - k: number of clusters

@@ -1,0 +1,25 @@
+# Misc
+rmarkdown::run('file.Rmd')  // run server; see rmarkdown.txt
+
+
+# Reactive expression
+ra <- reactive({
+  expr(a, b, c)
+})
+ra()  // evaluate expression
+* like functions
+* evaluated at the beginning -> results cached
+* evaluated again only if variable changes (e.g. a, b, c)
+
+
+# server.R
+library(ggplot) // execute once at start
+data = read.table(file)
+
+shinyServer(function(input, output) {
+  x = expr()  // executed if UI changes
+  output$plot = renderPlot(...) // reactive -> executed if dependencies change
+}
+
+# Error messages
+* Missing argument  // extra ','?

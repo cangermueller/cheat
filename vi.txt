@@ -1,3 +1,37 @@
+# key-codes
+:tab help key-codes
+<C->  control
+<S->  shift
+<M-> alt or meta key
+
+# Insert mode key bindings
+<c-x> fnplo // extension
+      s // spelling extension
+<c-o> CMD   // command mode
+<c-w> // delete last word
+<c-h> // delete single character
+<c-u> // delete until beginning of line
+<c-j> // wrap line
+<c-m> // wrap line
+<c-d> // left indent <
+<c-t> // right indent >
+<c-r> i: insert from buffer 0 to command line
+
+# Normal mode key bindings
+<c-d> // scroll down block
+<c-u> // scroll up block
+<c-y> // scoll up single
+<c-e> // scoll down single
+<c-r> // redo change
+
+# Scrolling
+z.  // to middle
+zt  // to top
+zb  // to bottom
+zh, zH, zl, zL, zs  // horizontally
+
+
+
 # Working directory
 :pwd  // show current working director
 :cd // change working directory
@@ -40,39 +74,6 @@ gqap  // format current paragraph
 [p  // paste and reformat
 
 
-# Insert mode
-<c-x> fnplo // extension
-<c-o> CMD   // command mode
-
-# Misc
-* ,;  // redo last find command
-* <C-r> 0: insert from buffer 0 to command line 
-* <C-r> <c-w>: paste word under cursor
-* <C-m>: insert empty line in insert mode
-* <C-u>, <C-D>: scroll
-* J,gJ  // join lines with/without removing spaces
-* u, <c-r>  // undo, redo changes
-* <c-h> // delete character
-* <c-j> // wrap line
-* gu, gU, g~  // lower case, upper case, switch case
-
-# Indent
-* <c-d> // <
-* <c-t> // >
-* <c-f> // <<<
-
-
-# Scrolling
-z.  // to middle
-zt  // to top
-zb  // to bottom
-zh, zH, zl, zL, zs  // horizontally
-
-# key-codes
-:tab help key-codes
-<C->  control
-<S->  shift
-<M->  alt or meta key
 
 # Delete characters
 * dl, dh, dj, dk

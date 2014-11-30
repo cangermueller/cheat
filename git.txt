@@ -6,6 +6,17 @@ add -f *.pdf  // add .gitignore files
 .gitignore  // shared
 .git/info/exclude // not shared
 
+# Remote repository
+remote  // show remote branches
+remote add name url
+fetch name  // update local branches -> see branch -r
+push name src_branch:dst_branch
+push name master:child/master // push master to name/child/master
+push name master:refs/remotes/X/master  // push to remote branch X/master on name
+pull name master  // pull master from name
+
+
+
 # Commit messages
 file.h: fix bug at line 88
 

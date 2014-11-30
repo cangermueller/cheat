@@ -1,15 +1,49 @@
-# Tensor
-import theano.tensor as T
-A = T.dmatrix('A')
-x = T.dvector('x')
-b = A.dot(x)
-f = function([A, x], b)
-f(rand(3, 4), rand(4))
+# Tensor operations
+exp, log, transpose
+T.dot(matrix, vector) -> vector // no difference row/column vector
+T.dot(matrix, col_matrix) -> col_matrix
+T.dot(row_matrix, matrix) -> row_matrix
 
-# data type
-dscalar, dvector, dmatrix // double
+# Data type
+* http://deeplearning.net/software/theano/library/tensor/basic.html
+dscalar, dvector, dmatrix, drow, dcol
+dscalar() // double no name
+dscalar('a')  // double named a
+a, b = dscalars('a', 'b') // multiple scalars
+scalar()  // float64
+scalar('a', dtype='float32')  // a float32
 bX  // int8
+wX  // int16
 iX  // int32
 lX  // int64
 fX  // float32
 dX  // double64
+
+# Tensor variables
+T.scalar(), T.matrix(), T.dmatrix(), T.dscalars()
+x.type  // scalar, matrix, ...
+type(x) // TensorVariable
+
+# Shared variables
+s = theano.shared(value=init_value, name=, dtype=)
+s.get_value()
+s.set_value()
+s.type  // scalar, matrix, ... -> inferred from value
+shared(1).type // scalar
+shared(ones(3)).type // vector
+shared(ones((3, 1))).type // matrix
+shared(ones((1, 3))).type // matrix
+function(updates=[(s, s + 1)])  // update s after returning y
+
+# Functions
+f = theano.function([input1, input2], output)
+f(input1, input2) // evaluate function
+function([x], [y1, y2, y3]) // multiple output arguments
+function([x1, theano.Param(x2, default=1)], y)  // default argument
+
+# Random numbers
+* http://deeplearning.net/software/theano/library/tensor/raw_random.html#libdoc-tensor-raw-random
+from theano.tensor.shared_randomstreams import RandomStreams
+rs = RandomStreams(seed=0)
+n = rs.normal(size=(nrow, ncol), avg=0.0, std=1.0)
+b = rs.binomial(size=(nrow, ncol), n=1, p=0.5)
