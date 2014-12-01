@@ -273,3 +273,9 @@ dropna(...)  // drop columns with nan
   inplace=F
 isnull(), notnull()
 
+
+# Series
+s = Series([1, 2, 3], index=['a', 'b', 'c'])
+s['a'], s.a
+s.index = [0.1, 0.2, 0.3] // index does not need to be str
+s[0.1]  // 1

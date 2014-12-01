@@ -4,6 +4,11 @@
 <S->  shift
 <M-> alt or meta key
 
+# Mouse
+set mouse=a // activate mouse in all modes
+opt/alt + selection // terminal selection
+middle mouse  // insert
+
 # Insert mode key bindings
 <c-x> fnplo // extension
       s // spelling extension

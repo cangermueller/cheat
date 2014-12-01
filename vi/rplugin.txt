@@ -5,6 +5,8 @@
 \r<left>  // right part of line
 
 # Global
+\rq // close no save
+\rw // close save
 \rl // ls()
 \rr // clear console
 \rm // rm(list=ls())
