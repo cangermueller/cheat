@@ -24,9 +24,13 @@ add_argument('--no-verbose', action='store_false', dest='verbose')
 * type=int  // filetype
 * type=fun  // fun is function that converts argument
 * default='file.txt'  // default value
+  * NOTE: does not work for parse_args(args, class)!!
+  * set default by class.arg = default
 * help='input filename' // help text
 * metavar='FILE'  // show --file FILE in help text
 * action='store_true'
+    store, store_true, store_false
+    https://docs.python.org/3/library/argparse.html#action
 * nargs='1' // NUM, ?, *, +
 * choices=['red', 'green', 'blue']
 * dest='variable_name'  // use different variable name in namespace
