@@ -74,6 +74,7 @@ cmd+drag  // move items between collections
 cmd+shift+c // copy long
 cmd+shift+a // copy short
 shift+enter // insert next author
+
 ## Advanced search
 Attachment content
 Creator // Author

@@ -121,7 +121,7 @@ match(vec1, vec2) // return index or NA for each vec1 in vec2
 * f <- ordered(c(3, 4, 1, 2)); f <- factor(c(3, 2, 1, 2), ordered=T)  // levels are ordered
 * f <- factor(c("b", "a", "a"), levels=c("a", "b")) // state level order
 * levels(f), levels(f) <- c()
-* droplevels(f) // drop unused levels
+* droplevels(x) // drop unused levels in factor or all factors of data.frame
 * table(f)
 * as.vector, as.numeric // convert factor into vector
 * gl(2, 3, 9) 

@@ -28,6 +28,7 @@ basename(path)
 dirname(path)
 abspath(__file__)
 expanduser('~')
+isfile(file)  // check if file exists
 
 # Misc
 os.listdir('.') // list all files in directory

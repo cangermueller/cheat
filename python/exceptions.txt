@@ -1,4 +1,15 @@
 # Base exceptions
 https://docs.python.org/2/library/exceptions.html
+BaseException // base for build-in errors
+Exception // base for non-build-in errors
 RuntimeError
 NotImplementedError
+
+try:
+  raise error
+except RuntimeError:
+  handle runtime error
+else:
+  handle other error
+finally:
+  executed if error or no error

@@ -42,7 +42,7 @@ zh, zH, zl, zL, zs  // horizontally
 :cd // change working directory
 
 # Windows newline carriage return
-%s/<ctrl-v><ctrl-m>/\r\g
+%s/<ctrl-v><ctrl-m>/\r/g
 
 # Wrap text
 set textwidth=80

@@ -1,0 +1,17 @@
+* Inherits from data.frame -> same methods
+* large tables (100 GB)
+* features
+  * fast subsetting: df[i, .I(which.max(column))]
+  * fast update: df[i, col:=value]
+  * fast group: df[i, sum(col), by=col_group]
+  * fast join
+
+
+tables()  // show all data.tables
+DT[c1 == x, ]
+DT[, columnname]
+DT[rowname, ]
+DT[rowname, mult=first,last]
+setkey(DF, c1, c2)
+DF[list(r1, r2)]
+
