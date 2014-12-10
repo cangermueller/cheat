@@ -10,8 +10,6 @@
 \rl // ls()
 \rr // clear console
 \rm // rm(list=ls())
-c-x c-u // complete arguments and chunk options
-\c  // command completion
 \a  // argument completion
 
 # Status variable
@@ -46,6 +44,8 @@ c-x c-u // complete arguments and chunk options
 \kh // knit html
 \kl // knit beamer presentation
 \ko // knit odt
+\kz // render rmd
+\kx // run shiny
 \cc // send chunk
 \cd // chunk down
 \ch // from beginning script until current line

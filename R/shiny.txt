@@ -2,6 +2,97 @@
 rmarkdown::run('file.Rmd')  // run server; see rmarkdown.txt
 
 
+# ui.R
+library(shiny)
+shinyUI(
+  fluidPage(...)
+)
+
+# server.R
+library(shiny)
+data = read.table(file)  // executed only at startup
+
+shinyServer(function(input, output) {
+  x = expr()  // executed if UI changes
+  output$plot = renderPlot(...) // reactive -> executed if dependencies change
+})
+
+# Error messages
+* Missing argument  // extra ','?
+
+# Rmarkdown - internal
+```{r}
+shinyApp(
+  ui = fluidPage(),
+  server = function(input, output),
+  options = list(width='100%', height=500)
+)
+```
+run('main.Rnw')
+
+# Rmarkdown - external
+```{r}
+shinyAppDir('app/', options=list(width=, height=))
+```
+
+# fluidPage
+fluidPage(
+  headerPanel('header'),
+  titlePanel('title'),
+  fluidRow(
+    column(width, ...),
+      * offset = 0
+    column(width, ...)
+  )
+)
+* fluid layout
+* width is adjusted dependent on output format
+* total width: 12
+* recommended
+
+# fixedPage
+fixedPage(
+  fixedRow(
+    column(...)
+  )
+)
+* non-fluid layout
+* not recommended
+
+# pageWithSidebar
+pageWithSidebar(
+  headerPanel(),
+  sidebarPanel(),
+  mainPanel()
+)
+
+# sidebarLayout
+sidebarLayout(
+  sidebarPanel(...),
+  mainPanel(...),
+  position='left'
+)
+
+# Input
+numericInput(id, label, value, min, max, step)
+selectInput(id, label, choices, selected = NULL, multiple = FALSE)
+checkboxInput(id, label, value)
+checkboxGroupInput(id, label, choices, selected)
+dateInput(id, label, value)
+submitButton('Submit')  // only update on submit
+
+# Output
+renderPlot({...}) / plotOutput(height = 400)
+renderTable / tableOutput
+renderDataTable({df}) / dataTableOutput()
+renderPrint({...}) / textOutput(), verbatimTextOutput()
+
+# HTML elements
+h1('Header 1'), h2, h3, ...
+code('a <- 2**2')
+p()
+a('<img src>')
+
 # Reactive expression
 ra <- reactive({
   expr(a, b, c)
@@ -10,16 +101,3 @@ ra()  // evaluate expression
 * like functions
 * evaluated at the beginning -> results cached
 * evaluated again only if variable changes (e.g. a, b, c)
-
-
-# server.R
-library(ggplot) // execute once at start
-data = read.table(file)
-
-shinyServer(function(input, output) {
-  x = expr()  // executed if UI changes
-  output$plot = renderPlot(...) // reactive -> executed if dependencies change
-}
-
-# Error messages
-* Missing argument  // extra ','?

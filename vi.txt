@@ -1,8 +1,35 @@
+# Range, positioning
+x, y // absolute line numbers
+. // current line
+.+1 // add 1 to current line
+.-1 // add -1 to current line
+$ // end of file
+% // the entire file
+?pattern? // from pattern
+/pattern/ // to pattern
+?pattern?,. // copy from pattern to current line
+:x  // go to line x
+:/pat // go to first line containing pat
+:x;/pat // go to x and search for pat afterwards
+
+
+# Changes
+:changes  // show last changes
+g;  // go back
+g,  // go forward
+
 # key-codes
 :tab help key-codes
 <C->  control
 <S->  shift
 <M-> alt or meta key
+
+# Put
+p // after cursor
+P // before cursor
+10p // 10 times
+Middle mouse; "*p // put c-c clipboard
+]p  // put and indent
 
 # Mouse
 set mouse=a // activate mouse in all modes

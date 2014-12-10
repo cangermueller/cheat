@@ -1,0 +1,8 @@
+SDIRS=~/.sdirs  // storage
+
+
+s name  // save current directory
+g name  // goto
+p name  // print destination
+d name  // delete
+l // list all
