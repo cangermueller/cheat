@@ -30,3 +30,4 @@
 *.o
 /python/nb/*.c
 /R/shiny
+/R/dplyr

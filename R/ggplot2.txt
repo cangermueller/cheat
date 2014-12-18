@@ -59,10 +59,18 @@ fill=, color=
 NA  // transparent
 aes(...), fill='red'
 aes(..., fill=I('red'))
+scale_fill_hue(), scale_fill_brewer() // default colors
+scale_color_brewer(palette='Set1')
 scale_color_manual(values=c('g1'='red', 'g2'='blue'))
-scale_fill_hue(), scale_fill_brewer(), scale_fill_X()
 scale_fill_gradient2(min='blue', mid='white', hight='red', midpoint=0.5)
 scale_fill_gradientn(colors=brewer.pal(7, 'Spectral')) // see brewer.txt
+
+## default color palette
+scale_fill_hue(), scale_fill_brewer() // default colors
+gg_color_hue <- function(n) {
+    hues = seq(15, 375, length=n+1)
+  hcl(h=hues, l=65, c=100)[1:n]
+}
 
 # Legend
 theme(legend.position='bottom', legend.direction='horizontal')  // global legend settings

@@ -39,7 +39,7 @@
 \ss // visual selection
 \aa // file
 
-# Knita
+# Knitr
 \kp // knit pdf
 \kh // knit html
 \kl // knit beamer presentation

@@ -18,6 +18,7 @@ o (long)  // swap with other
 ! // break pane
 x // kill pane
 z // zoom pane
+arrows  // resize
 
 # Key binding
 man page: KEY BINDINGS

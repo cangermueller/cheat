@@ -1,7 +1,18 @@
+# make
+-f  Makefile
+-B  // always rebuild target
+
+# variables
 $@  // target
 $<  // first prerequisite
 $+, $^  // all prerequisites
+$$HOME  // escape shell variable
 
+<<<<<<< HEAD
+=======
+
+# functions
+>>>>>>> f0c449f188594a61118aa73ef9732c4d8362e0fc
 $(patsubst, RSC_%, cell_%, RSC_1 RSC_2) // cell_1 cell_2
 $(RSC_1 RSC_2:RSC_%=cell_%) // same as before; no space around ':'!
 

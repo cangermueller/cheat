@@ -5,6 +5,8 @@ not sys.stdin.isatty()  // cmd | file.py
 
 # Reading content
 f = open(filename, 'rwa')
+with open(filename) as f: // will be closed at the end
+  f.read()
 f.read()  // read everything
 f.readline()
 f.readlines()

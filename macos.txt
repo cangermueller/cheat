@@ -78,3 +78,9 @@ shift+enter // insert next author
 ## Advanced search
 Attachment content
 Creator // Author
+
+# brewer
+update  // update brewer
+list  // list all installed packages
+search name // search package
+install name  // install package

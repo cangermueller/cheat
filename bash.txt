@@ -1,8 +1,58 @@
-# apt
-apt-cache search name
+# File operations
+dirname $file
+basename $file
+readlink -f $file // absolute path; resolve symbolic links
+realpath $file  // on MAC; external program
+
+# Arrays
+a = (one two three)
+${a[*]}
+${a[0]}
+${#a[*]}  // length
 
 # Parameter Expansion
 man bash -> Parameter Expansion
+${!v*}  // expand variable name
+${v:-value} // assign value if undefined
+${v:?msg}  // print msg if unset
+${file.tar.gz%.*} // file.tar
+${file.tar.gz%%.*} // file
+${file.tar.gz#*.} // tar.gz
+${file.tar.gz##*.} // gz
+${#s} // length
+${s:from:length}  // substr
+${s/pattern/replace}
+sadasd  
+
+
+# History expansion
+* man bash -> HISTORY EXPANSION
+history // last last commands
+
+## Event designator
+!id // execute command with id
+!!  // last command
+!-1 // last command
+!-n // n last command
+!str  // last command starting with string
+# apt
+apt-cache search name
+
+<<<<<<< HEAD
+# Parameter Expansion
+man bash -> Parameter Expansion
+=======
+## Word designator
+EVENT:WORD  // !!:WORD
+!!^ // first argument last command
+!!$ // last argument last command
+!!:n  // nth word
+!!:n-$  // nth - end
+!!:n*  // nth - end
+
+
+
+>>>>>>> f0c449f188594a61118aa73ef9732c4d8362e0fc
 
 # Removing first / last line
 head -n x   // first x lines

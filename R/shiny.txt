@@ -88,9 +88,16 @@ renderDataTable({df}) / dataTableOutput()
 renderPrint({...}) / textOutput(), verbatimTextOutput()
 
 # HTML elements
+* tags$h1('Header 1') = h1('Header 1') -> <h1>Header 1<h1/>
+* http://shiny.rstudio.com/articles/tag-glossary.html
+
 h1('Header 1'), h2, h3, ...
 code('a <- 2**2')
 p()
+p('normal and ', b('bold'), ' and ', em('italic'), ' text')
+source()
+br()  // line break
+hr()  // horizontal rule
 a('<img src>')
 
 # Reactive expression
