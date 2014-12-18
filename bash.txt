@@ -1,6 +1,8 @@
 # apt
 apt-cache search name
 
+# Parameter Expansion
+man bash -> Parameter Expansion
 
 # Removing first / last line
 head -n x   // first x lines
