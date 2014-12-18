@@ -1,0 +1,11 @@
+import re
+
+m = re.match(pattern, string, flags)
+m.group() // everything
+m.group(0)  // everything
+m.group(1)  // group 1
+
+# Flags
+re.I  // insensitive
+re.M  // multi line; ^ is beginning of line, not string
+re.S  // single line; . matches \n
