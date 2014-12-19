@@ -1,0 +1,197 @@
+---
+title: Shiny layouts
+output: html_document
+runtime: shiny
+---
+
+```{r}
+library(shiny)
+library(rmarkdown)
+```
+
+## Sidebarlayout
+
+```{r, echo=F, eval=T}
+shinyApp(
+  ui = fluidPage(
+    headerPanel('headerPanel'),
+    titlePanel('titlePanel'),
+    sidebarLayout(
+      sidebarPanel(
+        selectInput('color',
+          'Color',
+          c('red', 'green', 'blue')
+          )
+        ),
+      mainPanel(
+        plotOutput('plot')
+        )
+      )
+    ),
+  server = function(input, output) {
+    x = 1:10
+    y = rnorm(length(x), x, 1)
+    output$plot = renderPlot(plot(x, y, col=input$color, pch=19))
+  }
+  , options = list(width='100%', height=550)
+  )
+```
+
+## pageWidthSidebar
+
+```{r, echo=F, eval=T}
+shinyApp(
+  ui = pageWithSidebar(
+    headerPanel('pageWithSidebar'),
+    sidebarPanel(
+      numericInput(
+        inputId = 'num',
+        label = 'Numeric input',
+        value = 10, min = 0, max = 20, step = 5
+        ),
+      checkboxInput(
+        'chk',
+        'checkboxInput',
+        TRUE
+        ),
+      checkboxGroupInput(
+        'chkGroup',
+        'checkboxGroupInput',
+        choices = c('c1', 'c2', 'c3'),
+        selected = 'c2'
+        ),
+      dateInput(
+        'date',
+        'dataInput'
+        ),
+      submitButton('Submit')
+
+      ),
+
+    mainPanel(
+      h4('numericInput'),
+      verbatimTextOutput('num'),
+      h3('checkboxInput'),
+      verbatimTextOutput('chk'),
+      h3('checkboxGroupInput'),
+      verbatimTextOutput('chkGroup'),
+      h3('dateInput'),
+      textOutput('date'),
+      p(),
+      h3('Code output'),
+      code('a <- sapply(x, mean)')
+      )
+    ),
+
+  server = function(input, output) {
+    output$num = renderPrint({input$num})
+    output$chk = renderPrint({input$chk})
+    output$chkGroup = renderPrint({input$chkGroup})
+    output$date = renderPrint({input$date})
+  },
+  options = list(height = 600)
+  )
+```
+
+## fluidRow, column
+
+```{r, echo=F, eval=T}
+shinyApp(
+  fluidPage(
+    h2('Demonstration of a simple fluidPage'),
+    fluidRow(
+      column(6,
+        numericInput('num_points', 'Number of samples', 10, min=1, max=100)
+        ),
+      column(6,
+        selectInput('color', 'Color', c('Red'='red', 'Blue'='blue',
+            'green'='Green'), selected='red')
+        )
+      ),
+    fluidRow(
+      plotOutput('plot', height=500)
+      )
+    ),
+  function(input, output) {
+    data = reactive({
+      x = 1:input$num_points
+      data.frame(
+        x = x,
+        y = rnorm(length(x), 2 * x)
+        )
+    })
+    output$plot = renderPlot({
+      plot(data()$x, data()$y, col=input$color, pch=19)
+      })
+  },
+  options = list(width='100%', height=700)
+  )
+```
+
+## navbarPage
+
+```{r, echo=F}
+shinyApp(
+  navbarPage(
+    'The navbarPage',
+    tabPanel('Plot',
+      fluidRow(
+        column(6,
+          numericInput('num_points', 'Number of samples', 10, min=1, max=100)
+          ),
+        column(6,
+          selectInput('color', 'Color', c('Red'='red', 'Blue'='blue',
+              'green'='Green'), selected='red')
+          )
+        ),
+      fluidRow(
+        plotOutput('plot', height=500)
+        )
+      ),
+    tabPanel('Data',
+      dataTableOutput('data')
+      )
+    ),
+
+  function(input, output) {
+    data = reactive({
+      x = 1:input$num_points
+      data.frame(
+        x = x,
+        y = rnorm(length(x), 2 * x)
+        )
+    })
+    output$plot = renderPlot({
+      plot(data()$x, data()$y, col=input$color, pch=19)
+      })
+    output$data = renderDataTable(data())
+  },
+  options=list(width='100%', height=700)
+  )
+```
+
+## Embedded application
+
+```{r}
+shinyAppDir('../simple')
+```
+
+
+## HTML elements
+```{r}
+shinyApp(
+  fluidPage(
+    fluidRow(
+      tags$p('Paragraph1'),
+      tags$p('Paragraph with', tags$em('italic'), ' and ', tags$b('bold'), '
+        text'),
+      tags$b('bold'),
+      tags$br(),
+      tags$hr(),
+      tags$code('a <- source_code')
+      )
+    ),
+  function(input, output) {
+  }
+  )
+```

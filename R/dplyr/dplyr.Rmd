@@ -1,0 +1,144 @@
+---
+title: dplyr
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(hflights)
+data(hflights)
+```
+
+## tbl_df
+* Nicer print functions
+
+```{r}
+flights <- tbl_df(hflights)
+print(flights)
+print(flights, n = 10)
+```
+
+## filter
+* select rows
+
+```{r}
+filter(flights, Month == 1, DayofMonth == 7)
+filter(flights, Month == 1, DayofMonth == 1 | DayofMonth == 2)
+```
+
+## select
+* select columns
+
+```{r}
+select(flights, DayofMonth)
+select(flights, DayofMonth, Month)
+select(flights, Year:DayofMonth)
+select(flights, contains('Time'))
+select(flights, starts_with('A'))
+select(flights, ends_with('e'))
+select(flights, matches('^A.+e$'))
+```
+
+## piping
+* %>% == then
+* `library(magrittr)`
+
+```{r}
+flights %>%
+  select(Year:DayofMonth) %>%
+  filter(Year == 2011, DayofMonth == 1)
+  
+```
+
+```{r}
+x1 <- rnorm(10)
+x2 <- rnorm(10)
+sqrt(sum((x1 - x2)**2))
+(x1 - x2)**2 %>% sum() %>% sqrt()
+```
+
+## arrange
+* order by multiple columns
+
+```{r}
+flights %>%
+  select(Year, DayofMonth) %>%
+  arrange(Year, desc(DayofMonth))
+```
+
+
+## mutate
+* add new columns
+
+```{r}
+mflights <- flights %>% select(Year, DayofMonth) %>% mutate(DayofMonth2 =
+  DayofMonth**2)
+mflights
+mflights %>% select(DayofMonth2) %>% mutate(DayofMonth2 = DayofMonth2**2)
+```
+
+## summarise
+* aggregate columns
+
+```{r}
+flights
+flights %>% select(Dest, ArrDelay)
+flights %>% group_by(Dest) %>% summarise(MeanArrDelay = mean(ArrDelay, na.rm=T))
+
+flights %>% group_by(Year) %>% summarise(num=n(), num_Month=n_distinct(Month), num_DayOfWeek=n_distinct(DayOfWeek))
+flights %>% group_by(Year, DayOfWeek) %>% summarise(n=n())
+flights %>% group_by(Year, DayOfWeek) %>% tally()
+t <- flights %>% group_by(Dest) %>% select(Cancelled)
+t %>% table %>% head
+```
+
+## summarise_each
+* apply same function(s) to set of columns
+
+```{r}
+flights %>% group_by(UniqueCarrier) %>% summarise_each(funs(mean(., na.rm=T)), ArrTime, ArrDelay)
+flights %>% group_by(UniqueCarrier) %>% summarise_each(funs(mean(., na.rm=T), sd(., na.rm=T)), ArrTime, ArrDelay)
+flights %>% group_by(UniqueCarrier) %>% summarise_each(funs(mean(., na.rm=T)), starts_with('Arr'))
+flights %>% group_by(UniqueCarrier) %>% summarise_each(funs(min(., na.rm=T), max(., na.rm=T)), matches('Delay'))
+```
+
+### selecting top n records for groups
+
+```{r}
+# Select for each UniqueCarrier the two flights with the lowest DepDelay
+flights %>% select(UniqueCarrier, DepDelay)
+flights %>% select(UniqueCarrier, DepDelay) %>% group_by(UniqueCarrier)
+flights %>% select(UniqueCarrier, DepDelay) %>% group_by(UniqueCarrier) %>% filter(min_rank(DepDelay) < 3) %>% arrange(UniqueCarrier)
+```
+
+```{r}
+flights %>% group_by(UniqueCarrier) %>% select(UniqueCarrier, DayOfWeek, DepDelay) %>% 
+  top_n(2, wt = DepDelay) %>% arrange(UniqueCarrier, desc(DepDelay))
+```
+
+## lag and lead
+
+```{r}
+t <- c(3, 4, 2)
+lag(t) # move values to right
+lag(t, 2) # move values two positions to right
+lead(t)
+lead(t, 2)
+t - lag(t)  # difference to previous
+```
+
+```{r}
+flights %>% group_by(Month) %>% summarise(nflights = n()) %>%
+  mutate(change = nflights - lag(nflights))
+```
+
+```{r}
+sample_n(flights, 3)
+sample_frac(flights, 0.1)
+sample_n(flights, 3, replace = T)
+```
+
+```{r}
+str(flights)
+glimpse(flights)
+```
