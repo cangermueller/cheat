@@ -1,0 +1,2 @@
+ttyrec [file] // record to file = ttyrecord
+ttyplay file

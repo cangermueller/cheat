@@ -1,3 +1,4 @@
+# general
 * Inherits from data.frame -> same methods
 * large tables (100 GB)
 * features
@@ -6,12 +7,59 @@
   * fast group: df[i, sum(col), by=col_group]
   * fast join
 
-
+# misc
 tables()  // show all data.tables
-DT[c1 == x, ]
-DT[, columnname]
-DT[rowname, ]
-DT[rowname, mult=first,last]
-setkey(DF, c1, c2)
-DF[list(r1, r2)]
+dt[order(c1, -c2)]  // -c1 for descending order
 
+# select
+dt[, 1] // does not work
+dt[i:j, k:l, with = FALSE]  // select by index
+dt[i:j, c1] // select by column
+dt[i:j, .(col, col)] // .() is same as list()
+
+# filter
+dt[c1 > x & c2 < x | c3 == 4]
+
+# group
+dt[, fun(col), by = col)
+dt[, .(name = fun(col)), by = col)
+dt[, .(name = fun1(col1), name = fun2(col)), by = .(col, col)]
+dt[, .N, by = col]  // # elements in each group
+dt[1:5, .N, by = col] // first subset, then group!
+
+# mutate
+dt[, name := fun(col)]
+dt[, ':=' .(col = fun(col), col = fun(col))]
+dt[, c('c1', 'c2') := list(fun1(col), fun2(col))]
+dt[, col := NULL]  // remove columns
+dt[, c('col', 'col') := NULL] // remove columns
+
+# keys
+setkey(dt, col)
+setkey(dt, NULL)  // remove key
+dt[k]
+dt[!k]  // not key k
+dt[c(k, k)]
+dt[c(k, k), sum=sum(col), by=.EACHI]
+dt[k, mult = 'first|last']
+setkey(dt, col, col)
+dt[.(k, k), ] // .() not c()!
+dt[.(c(k1, k2), k)]
+
+# special functions
+dt[.N]  // # rows
+dt[(.N-1):.N] // last two rows
+dt[, .SD, by = col] // .SD stored data.table but columns col
+dt[, .SD, .SDcols = c(col, col)]  // .SDcols selects columns of .SD
+dt[, lapply(.SD, sum), by = col]
+
+# chaining
+dt[...][...]
+dt[, col = fun(col)][order(col)]
+dt[, col = fun(col)][col > i]
+
+# join
+a[b]  // right join a <- b
+b[a]  // left join a -> b
+a[b, nomatch = T] // inner join a <-> b
+a[b, roll = T]  // fill missing values in a with last key of b

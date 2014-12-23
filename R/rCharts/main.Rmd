@@ -1,0 +1,33 @@
+---
+title: rCharts
+output: html_document
+---
+
+
+```{r}
+library(rCharts)
+library(dplyr)
+```
+
+```{r}
+he <- as.data.frame(HairEyeColor)
+he <- tbl_df(he)
+he
+```
+
+```{r}
+rc <- nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',  data = he)
+rc$save('fig1.html')
+```
+
+<iframe src='fig1.html', width='100%' height=500/>
+
+
+```{r}
+data(iris)
+names(iris) = gsub("\\.", "", names(iris))
+rc <- rPlot(SepalWidth ~ SepalLength | Species, color = 'Species', type = 'point', data = iris)
+rc$save('fig2.html')
+```
+
+<iframe src='fig2.html', width='100%' height=500/>

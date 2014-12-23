@@ -1,0 +1,48 @@
+---
+title: googleVis
+output: html_output
+---
+
+```{r}
+library(googleVis)
+```
+
+```{r}
+head(Fruits)
+```
+
+```{r}
+p <- gvisMotionChart(Fruits, 'Fruit', 'Year', xvar='Expenses', yvar='Sales', options=list(width=600, height=400))
+```
+
+```{r}
+head(Exports)
+```
+
+```{r}
+p <- gvisGeoChart(Exports, locationvar = 'Country', colorvar = 'Profit', options=list(width=600, height=400))
+plot(p)
+```
+
+```{r}
+str(Fruits)
+```
+
+```{r}
+set.seed(0)
+x <- 1:100
+y1 <- rnorm(100)
+y2 <- rnorm(100)
+data <- data.frame(x=x, y1=y1, y2=y2)
+p <- gvisLineChart(data, xvar='x', yvar=c('y1', 'y2'))
+plot(p)
+```
+
+```{r}
+map <- gvisGeoChart(Exports, locationvar = 'Country', colorvar = 'Profit', options=list(width=600, height=400))
+tab <- gvisTable(Exports)
+motion <- gvisMotionChart(Fruits, 'Fruit', 'Year', xvar='Expenses', yvar='Sales', options=list(width=600, height=400))
+map_tab <- gvisMerge(map, tab, horizontal = F)
+map_tab_motion <- gvisMerge(map_tab, motion, horizontal = T)
+plot(map_tab_motion)
+```
