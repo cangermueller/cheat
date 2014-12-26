@@ -28,6 +28,7 @@
 aes_string(fill='mean') // aes variable
 round_any(var, 0.1) // discretize/round continuous information
 geom_abline(slope=1)  // diagonal line
+  intercept=
 
 # stat_summary
 stat_summary(...)

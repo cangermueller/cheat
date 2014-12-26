@@ -1,0 +1,40 @@
+ggvis(data, ...)
+data %>% ggvis(...)
+  x =~ col  // variable from data, scaling
+  x := var  // variable from data, no scaling
+  x := 'red'  // raw data
+  x = input_X()
+
+layer_histograms()
+layer_points()
+layer_lines(x, y)
+layer_points(x, y)
+layer_bars(x, ...)
+  y=NULq
+    * NULL: counts # x
+    * else: use y as weights for counts
+layer_boxplots(x, y)
+
+input_slider(min, max, value, ...)
+input_select(choices, ...)
+  selected=NULL
+  map = as.name // map string to name -> select variable on axis
+
+add_tooltip(html, on)
+  html=function(x)
+    * x: list(x=, y=) // list selected data point
+    * return formated values as html
+  on = c('click', 'hover')
+
+add_axis('x', ...)
+  title='x-axis'
+add_legend(names. ...)
+  names=c('fill', 'size')
+  title=NULL
+  orient=c('right', 'left')
+
+# Exporting figures
+* requires vegas: vg2png, vg2svg
+export_png(plot, filename)
+export_pdf(plot, filename)
+

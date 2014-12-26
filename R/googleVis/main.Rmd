@@ -1,48 +1,63 @@
 ---
 title: googleVis
-output: html_output
+output: html_document
 ---
 
-```{r}
+```{r, warning=F}
 library(googleVis)
+library(dplyr)
+library(data.table)
+library(hflights)
 ```
 
 ```{r}
-head(Fruits)
+# options(gvis.plot.tag='chart')
+```
+
+[Motion chart](https://code.google.com/p/google-motion-charts-with-r/)
+
+```{r, results='asis'}
+plot(gvisMotionChart(Fruits, 'Fruit', 'Year', xvar='Expenses', yvar='Sales', options=list(width=600, height=400)))
+```
+
+[Annotated timeline](https://google-developers.appspot.com/chart/interactive/docs/gallery/annotatedtimeline)
+
+```{r}
+plot(gvisAnnotatedTimeLine(Fruits, 'Date', 'Sales', idvar = 'Fruit'))
 ```
 
 ```{r}
-p <- gvisMotionChart(Fruits, 'Fruit', 'Year', xvar='Expenses', yvar='Sales', options=list(width=600, height=400))
+d <- Fruits %>% select(Sales, Expenses)
+plot(gvisScatterChart(d, options=list(vAxes="[{title:'Expenses'}]", haxis="[{title:'Sales'}]")))
 ```
 
 ```{r}
-head(Exports)
+plot(gvisBarChart(Fruits, 'Fruit', c('Profit', 'Sales')))
 ```
 
 ```{r}
-p <- gvisGeoChart(Exports, locationvar = 'Country', colorvar = 'Profit', options=list(width=600, height=400))
+f <- tbl_df(hflights)
+f <- hflights %>% mutate(DayOfMonth = DayofMonth) %>% select(DayOfMonth, DepTime, ArrTime) %>% select(DayOfMonth, DepTime, ArrTime) %>% group_by(DayOfMonth) %>% summarise(DepTime=mean(DepTime, na.rm=T), ArrTime=mean(ArrTime, na.rm=T))
+```
+
+```{r}
+plot(gvisLineChart(f, 'DayOfMonth', c('ArrTime', 'DepTime'), options=list(vAxis='{title: "ArrTime"}', hAxis='{title: "DayOfMonth"}')))
+```
+
+```{r}
+plot(gvisTable(f, options=list(width=400, height=300)))
+```
+
+```{r}
+t <- gvisTable(f, options=list(width=400, height=300))
+l <- gvisLineChart(f, 'DayOfMonth', c('ArrTime', 'DepTime'), options=list(height=300))
+b <- gvisBarChart(f, 'DayOfMonth', c('ArrTime', 'DepTime'), options=list(height=300))
+p <- gvisMerge(l, b)
+p <- gvisMerge(t, p, horizontal=T)
 plot(p)
 ```
 
 ```{r}
-str(Fruits)
-```
-
-```{r}
-set.seed(0)
-x <- 1:100
-y1 <- rnorm(100)
-y2 <- rnorm(100)
-data <- data.frame(x=x, y1=y1, y2=y2)
-p <- gvisLineChart(data, xvar='x', yvar=c('y1', 'y2'))
-plot(p)
-```
-
-```{r}
-map <- gvisGeoChart(Exports, locationvar = 'Country', colorvar = 'Profit', options=list(width=600, height=400))
-tab <- gvisTable(Exports)
-motion <- gvisMotionChart(Fruits, 'Fruit', 'Year', xvar='Expenses', yvar='Sales', options=list(width=600, height=400))
-map_tab <- gvisMerge(map, tab, horizontal = F)
-map_tab_motion <- gvisMerge(map_tab, motion, horizontal = T)
-plot(map_tab_motion)
+f <- hflights %>% sample_n(1000) %>% select(DepDelay, ArrDelay)
+plot(gvisHistogram(f))
 ```

@@ -1,23 +1,46 @@
-plot(p)
+* Requires internet connection!
+* https://google-developers.appspot.com/chart/interactive/docs/gallery
+
+gvisMotionChart(data, idvar, timevar, ...)
+  idvar=  // group records with same id
+  timevar=  // time variable
+  xvar=NULL // value on x-axis
+  yvar=NULL // value on y-axis
+
+gvisAnnotatedTimeLine(data, timevar, yvar, ...)
+  timevar // x-axis
+  yvar  // y-axis
+  idvar=NULL  // grouping
+
+gvisScatterChart(data, ...)
+  data  // first two columns are x and y
+  options=NULL
+
+gvisBarChart(data, xvar, yvar, ...)
+  xvar= // x-axis
+  yvar=c('y1', 'y2')  // one or multiple values for y-axis
+  options=NULL
+
+gvisLineChart(data, xvar, yvar, ...)
+  xvar= // x-axis
+  yvar=c('y1', 'y2')  // one or multiple values for y-axis
+  options=NULL
+
+gvisTable(data, ...)
+
+gvisHistogram(data, ...)
+  data  // each column is histogram
+
+gvisMerge(p1, p2, horizontal=F) // merge plots
+
+
+
+options=list(vAxis="", hAxis="", ...)
+  hAxis="{title: 'x-axis'}"
+  vAxis="{title: 'y-axis'}"
+  width=400
+  height=200
+
 print(p, file='file.html', tag=)
   tag=caption
   tag=chart
-
-
-gvisMotionChart
-gvisAnnotatedTimeLine
-gvisBarChart
-gvisLineChart
-gvisAreaChart
-gvisStackedAreaChart
-gvisScatterChart
-gvisGeoChart
-
-gvisTable
-p12 = gvisMerge(p1, p2, horizontal=F)
-
-# Legend
-title
-legend
-width, height
-gvis.editor='Edit me!'

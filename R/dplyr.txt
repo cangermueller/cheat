@@ -8,6 +8,7 @@ print(tbl, n=10)
 filter(df, c1=v1, c2=v2|v3, c3 %in% c(v1, v2))  // select rows
 select(df, c1, c2)  // select columns
   c1:c10  // between
+  -(c1:c10) // except
   starts_with('prefix')
   ends_with('suffix')
   contains('substr')

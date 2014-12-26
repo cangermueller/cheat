@@ -1,0 +1,74 @@
+http://nbviewer.ipython.org/github/koldunovn/py_klimacampus/blob/master/meeting_004/Seaborn.ipynb
+
+load_dataset(name)
+  iris
+  flights // time series
+  titanic
+  exercise
+
+set_style(...)  // grid style
+  'whitegrid'
+  'darkgrid'
+  'ticks'
+set_context(...)  // size, colors
+  'notebook'  // default
+  'paper'
+  'talk'
+  'poster'
+  font_scale=1.0
+set(...)
+  context='notebook'
+  style='darkgrid'
+  palette='hls'
+  font_scale=1.0
+
+
+# colors
+cols = color_palette(name, length)
+set_palette(name)
+with sns.set_palette(...): // change locally
+  ...
+palplot()
+choose_colorbrewer_palette(...)
+
+## Default palettes
+hls
+muted
+pastel
+bright
+dark
+
+## Brewer palettes
+choose_colorbrewer_palette(...)
+  'sequential', 'divergent', 'qualitative'
+Set1
+Set2
+
+## Sequential colors
+Reds, Greens, Blues, ...
+GnBu, RdBu
+X_r // reverse
+X_d // dark
+
+# histogram / density plot
+hist(x) // only histogram
+kdeplot(x, shade=T, bw=)  // only kde
+distplot(x, ...)  // hist + kde
+  hist=True
+  kde=True
+  kde_kw={'shade', True}
+jointplot(x, y, kind='kde')  // 2d distribution
+
+lmplot(x, y, data, ...)
+  col='col_var' // facet by column
+  row='row_var' // facet by row
+  hue='color_var'
+  logistic=False  // logistic regression
+
+# facetting
+g = FacetGrid(data, col='col_var', row='row_var', ...)
+  col_wrap=None // # columns
+  hue='color_var'
+
+g.map(plt.scatter, xvar, yvar)
+
