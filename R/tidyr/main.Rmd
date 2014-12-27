@@ -1,0 +1,73 @@
+---
+title: tidyr
+output: html_document
+---
+
+```{r}
+library(tidyr)
+library(dplyr)
+```
+
+## gather
+* matrix -> list
+
+```{r}
+messy <- data.frame(
+    name = c("Wilbur", "Petunia", "Gregory"),
+    a = c(67, 80, 64),
+    b = c(56, 90, 50)
+    )
+messy
+```
+
+```{r}
+messy %>% gather(drug, heartrate, a:b)
+```
+
+## spread
+* matrix -> list
+
+```{r}
+d <- data.frame(
+  id=1:10,
+  cell1=rnorm(10),
+  cell2=rnorm(10),
+  cell3=rnorm(10)
+  )
+d
+dg <- d %>% gather(cell, counts, cell1:cell3)
+dg
+dg %>% spread(cell, counts)
+```
+
+## separate
+* column -> multiple columns
+
+```{r}
+d <- data.frame(
+  name=paste(letters[1:10], 1:10, sep='.'),
+  value=rnorm(20)
+  )
+d
+ds <- d %>% separate(name, into=c('n1', 'n2'), sep='\\.',
+  remove=F, convert=F)
+ds
+```
+
+
+## unite
+* multiple columns -> column
+
+```{r}
+ds %>% unite(name2, n1, n2, sep='.')
+```
+
+## seq_range
+* select n evenly spaced values from numeric vector
+
+```{r}
+seq_range(1:10, 5)
+seq_range(mtcars$cyl, 3)
+```
+
+
