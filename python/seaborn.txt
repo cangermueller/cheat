@@ -1,11 +1,20 @@
+# misc
 http://nbviewer.ipython.org/github/koldunovn/py_klimacampus/blob/master/meeting_004/Seaborn.ipynb
-
 load_dataset(name)
   iris
   flights // time series
   titanic
   exercise
+  tips  // y=tip; x=mixed
 
+# size
+plt.figure(figsize=(w, h))
+sns.plot()
+f, a = plt.subplots(figsize=(w, h))
+sns.plot(ax=x)
+
+
+# style
 set_style(...)  // grid style
   'whitegrid'
   'darkgrid'
@@ -21,6 +30,96 @@ set(...)
   style='darkgrid'
   palette='hls'
   font_scale=1.0
+
+
+# plot types
+
+boxplot(data, ...)
+  data  // 2d numpy array or data.frame; columns == boxes
+barplot(x, y, ...)
+  data=
+  hue=  // color
+lineplot(x, y, ...)
+  data=
+  hue=  // color
+corrplot(data, ...)
+  method='pearson'
+heatmap(data, ...)
+  annot=False // print values in cells
+  fmt='d|f' // annotation format
+  cmap='RdBu_r'
+clustermap(data, ...) // heatmap + dendrogram
+  cmap='RdBu_r'
+  col_cluster=True  // cluster columns
+  row_cluster=True  // cluster rows
+  col_colors= // column colors
+  row_colors= // row colors
+
+
+## histogram / density plot
+hist(x) // only histogram
+kdeplot(x, shade=T, bw=)  // only kde
+distplot(x, ...)  // hist + kde
+  hist=True
+  kde=True
+  kde_kw={'shade', True}
+jointplot(x, y, kind='kde')  // 2d distribution
+
+## regression
+regplot(x, y, ...)
+  * plotting linear regression
+  * no hue=, cols=   <-> lmplot / factorplot
+  data=None
+  logistic=False
+lmplot(x, y, data, ...) // x continuous
+  col='col_var' // facet by column
+  row='row_var' // facet by row
+  hue='color_var'
+  logistic=False  // logistic regression
+  loess=False // loess fit
+factorplot(x, y, ...) // x categorical
+  data= // DataFrame
+  col='col_var' // facet by column
+  row='row_var' // facet by row
+  hue='color_var'
+
+
+
+# grids
+## FacetGrid: facetting
+g = FacetGrid(data, col='col_var', row='row_var', ...)
+  col_wrap=None // # columns
+  hue='color_var'
+g.map(plt.scatter, xvar, yvar)
+
+
+## PairGrid: trellis plot
+* one cell for every pair of variables x,y
+* fun(x, y, ...)
+g = PairGrid(data, ...)
+  hue='color_var'
+  vars=[selected variables]
+  y_vars=[selected y variables]
+  x_vars=[selected x variables]
+  size=None
+g.map(fun)
+g.map_diag(fun)
+g.map_offdiag(fun)
+g.map_upper(fun)
+g.map_lower(fun)
+g.add_legend()
+
+## JointGrid: two variables + marginals
+g = JointGrid(x, y, ...)
+  x // x variable
+  y // y variable
+  data=None // DataFrame
+  size=None
+g.plot(fun_joint, fun_marginals)
+g.plot_joint(fun_joint, ...)
+g.plot_marginals(fun_marginals, ...)
+
+
 
 
 # colors
@@ -41,34 +140,11 @@ dark
 ## Brewer palettes
 choose_colorbrewer_palette(...)
   'sequential', 'divergent', 'qualitative'
-Set1
-Set2
+Set1, Set2
+RdBu, RdYlBu, RdYlGn
 
 ## Sequential colors
 Reds, Greens, Blues, ...
 GnBu, RdBu
 X_r // reverse
 X_d // dark
-
-# histogram / density plot
-hist(x) // only histogram
-kdeplot(x, shade=T, bw=)  // only kde
-distplot(x, ...)  // hist + kde
-  hist=True
-  kde=True
-  kde_kw={'shade', True}
-jointplot(x, y, kind='kde')  // 2d distribution
-
-lmplot(x, y, data, ...)
-  col='col_var' // facet by column
-  row='row_var' // facet by row
-  hue='color_var'
-  logistic=False  // logistic regression
-
-# facetting
-g = FacetGrid(data, col='col_var', row='row_var', ...)
-  col_wrap=None // # columns
-  hue='color_var'
-
-g.map(plt.scatter, xvar, yvar)
-

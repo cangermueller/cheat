@@ -1,3 +1,7 @@
+# sample DataFrame
+df.iloc[np.random.sample(df.index, n), :]
+  np.random.sample(list, n) // sample n elements without replacement
+
 # dtypes
 df.dtypes // list dtypes
 df = df.astype(np.int32)  // convert dtype of DataFrame
@@ -161,9 +165,12 @@ pd.set_option('display.height', 150)
 pd.set_option('display.max_columns', 150)
 pd.set_option('display.max_rows', 150)
 
-# Melting and reshaping
-df.pivot_table(rows=, cols=, values=) // list -> matrix
-pd.melt(matrix, ids_vars=, value_vars=, var_name) // matrix -> list
+# reshaping
+df.pivot(index=, columns=, values=) // list -> matrix
+pd.melt(matrix, ...)  // matrix -> list
+  id_vars=  // column name to be used as identifier; rownames: reset_index()
+  var_name= // name of variable column
+  value_name= // name of value column
 pd.concat([d1, d2])
   * concat DataFrames (Series)
   * column order can be different
