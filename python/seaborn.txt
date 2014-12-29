@@ -54,6 +54,19 @@ clustermap(data, ...) // heatmap + dendrogram
   row_cluster=True  // cluster rows
   col_colors= // column colors
   row_colors= // row colors
+tsplot(data, ...) // plot time series with confidence (sample units)
+  data
+    data[units, timesteps, conditions]
+      * 3d array
+      * columns are time stamps
+      * rows are sample units (variance line)
+      * third dimension are conditions (different lines)
+    data.columns[time, value, unit, condition] // tidy DataFrame
+  time= // time column name if data is DataFrame
+  value= // value column name if data is DataFrame
+  unit= // unit column name if data is DataFrame
+  condition= // condition column name if data is DataFrame
+  color='hls' // colormap
 
 
 ## histogram / density plot
