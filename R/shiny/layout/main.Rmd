@@ -172,7 +172,7 @@ shinyApp(
 
 ## Embedded application
 
-```{r}
+```{r, eval=F}
 shinyAppDir('../simple')
 ```
 

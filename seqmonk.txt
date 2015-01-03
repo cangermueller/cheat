@@ -1,0 +1,23 @@
+# Groups
+* Data Groups: technical replicates (same cell)
+* Replicates sets: biological replicates (same tissue)
+
+# Strands
+* Red strand: left -> right (top) +
+* Blue strand: right -> left (bottom) -
+
+# Quantification pipelines
+* Read count quantifications: How many reads overlap with probe
+* Base pair quantifications: How many base pairs of read overlap with probe
+* Enrichment quantifications: How many more reads overlap with probe than
+  expected by chance
+* Difference quantification: Difference strands
+* Coverage quantification: Which % of the probe is covered
+* Coverage depth quantification: Overlap of reads within probe
+
+# Plots
+* Probe value histogram
+* Box Whiskerplot
+* Scatterplot
+* Probe trend plot: distribution quantification within all probes
+* Aligned probes plot: distribution quantification within individual probes

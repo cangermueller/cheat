@@ -1,0 +1,11 @@
+# misc
+* right click: tap and hold until square appears; release
+
+# swiping
+* swipe right: charm bar
+* swipe left: switch apps
+* mouse upper left: choose app
+
+# app
+* go to top: menu with quit button
+
