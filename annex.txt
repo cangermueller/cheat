@@ -1,10 +1,10 @@
 .git/annex/objects
 
 init .
-add file
+add file  // git commit symlink
 whereis file
-get file
-drop file
+get file  // symlink -> content
+drop file // content -> symlink
   --from origin
 move file --from origin --to origin
 copy file --from origin --to origin
@@ -12,7 +12,31 @@ copy file --from origin --to origin
 numcopies 3  // min # copies
 unused  // show unused files
 
+# change file
 unlock file // unlock for edit; un-symlink file
 add file
 commit
 push
+
+
+# undirectional client -> server
+## client
+git remote add server server:~/path
+git push server master:sync/master  // creates branch sync/master on server
+## server
+git merge sync/master
+## client
+gita copy --to server file  // copies file to server
+
+
+# direct mode
+* allows direct editing of files
+* for sync two repositories
+* no file history
+* most git commands do not work anymore
+direct  // activate
+indirect  // deactivate
+add file  // add changed files with git-annex
+sync  // sync from source with remote repositories; git remote add still works
+sync  // sync in target rep
+get file  // get files in target rep

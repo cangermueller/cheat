@@ -21,3 +21,23 @@
 * Scatterplot
 * Probe trend plot: distribution quantification within all probes
 * Aligned probes plot: distribution quantification within individual probes
+
+
+# Filters
+* Does not depend
+
+* Filter on values -> Individual probes: >= 0 // remove NA
+* Statistical tests -> BoxWisker: outliers Boxplot
+* Statistical tests -> Windowed Replicate (probes overlapping feature)
+  * 1 probe: do probes in window deviate from value?
+  * 2 probes: t-test
+  * >2 probes: ANOVA
+* Statistical tests -> Replicate set: Like windowed for replicates (>3 required)
+* Filter by position: (Current) position
+* Filter by probe length: if probes haves different length, e.g. genes
+* Filter by features: probes must be (in) feature
+* Combine existing list: combine different filters
+* Right click ->
+  View list: export as txt
+
+

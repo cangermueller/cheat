@@ -47,6 +47,7 @@ bundle/vim-ipython/ftplugin/python/ipy.vim
 
 ## Keybindings
 -> defined in ipy.vim
+-> ~/.vim/ftplugin/python.vim
 c-s // send selection of current line
 c-x c-u // ipython completion
 <F5>  // run file

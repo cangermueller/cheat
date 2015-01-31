@@ -7,7 +7,7 @@ load_dataset(name)
   exercise
   tips  // y=tip; x=mixed
 
-# size
+# size, width, height
 plt.figure(figsize=(w, h))
 sns.plot()
 f, a = plt.subplots(figsize=(w, h))
@@ -19,6 +19,7 @@ set_style(...)  // grid style
   'whitegrid'
   'darkgrid'
   'ticks'
+with axes_style('whitegrid'): // change settings locally
 set_context(...)  // size, colors
   'notebook'  // default
   'paper'
@@ -40,6 +41,9 @@ barplot(x, y, ...)
   data=
   hue=  // color
 lineplot(x, y, ...)
+  data=
+  hue=  // color
+pointplot(x, y, ...)
   data=
   hue=  // color
 corrplot(data, ...)
@@ -103,6 +107,7 @@ factorplot(x, y, ...) // x categorical
 g = FacetGrid(data, col='col_var', row='row_var', ...)
   col_wrap=None // # columns
   hue='color_var'
+  size=3  // height of each grid in inches
 g.map(plt.scatter, xvar, yvar)
 
 

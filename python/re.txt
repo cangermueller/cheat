@@ -1,9 +1,25 @@
 import re
 
+r"string" // raw string
+
 m = re.match(pattern, string, flags)
+m is None // no match
 m.group() // everything
 m.group(0)  // everything
 m.group(1)  // group 1
+m.start()
+m.end()
+
+
+re.match(pattern, string, flags)  // match at beginning of string
+re.search(pattern, string, flags)  // find pattern anywhere
+for m in re.finditer(pattern, string)  // like search, but iter of all hits
+re.findall(pattern, string) // all matches as array
+re.split(p, s)  // split by p; s.split(p) does not support re
+re.sub(p, r, s) // subst all p in s by r
+re.subn() // like sub, but return number of replacements
+
+
 
 # Flags
 re.I  // insensitive

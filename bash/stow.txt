@@ -1,0 +1,27 @@
+# general
+http://www.gnu.org/software/stow/manual/stow.html
+
+# example
+cd ~/opt/stow
+stow tmux-1.9a  // installs tmux to ../bin
+stow -D tmux-1.9a // remove package
+
+# terminology
+/usr/local/stow // stow directory
+/usr/local/stow/tmux  // package directory
+/usr/local  // target directory
+
+
+# command
+stow [options] [action-flags] pkgname
+
+[options]
+-d  // stow directory; default: ./
+-t  // target directory: default: ../
+
+[action-flags]
+-S  // stow package -> default
+-D  // delete package
+
+
+

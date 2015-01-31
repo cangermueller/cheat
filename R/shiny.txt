@@ -1,5 +1,12 @@
 # Misc
 rmarkdown::run('file.Rmd')  // run server; see rmarkdown.txt
+shiny::runApp(folder, ...)
+  shiny_args=list(port=8888, host='0.0.0.0')
+
+# shiny-server
+start shiny-server
+stop shiny-server
+restart shiny-server
 
 
 # ui.R

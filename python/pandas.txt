@@ -200,7 +200,7 @@ com.load_data('mtcars')
 
 # Grouping
 g = df.groupby(['c1', 'c2'])
-g.groups  // groups as dictionary
+g.groups  // groups as dictionary; values() are indices!
 g.groups.keys() // group names
 g.get_group('g1') // get group by name
 g.ngroups // number of groups

@@ -8,6 +8,7 @@ del l[i]      // delete by index
 l.pop(i)      // remove and return by index
 l.remove(v)   // delete by value
 l.index(v)    // index first v
+(v == w).index  // which(v == w); which index
 v in l  // True if v is in l
 l.sort()      // modifying
 sorted(l)     // non-modifying

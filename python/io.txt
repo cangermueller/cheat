@@ -26,12 +26,30 @@ os.path
 join(a, b, c)
 splitext('/d/f.ext') -> ['/d/f', 'ext']
 splitexit(path)[0]  // remove extension
+extsep == '.' // character extension separator
+f.split(extsep)[0]  // split ext with multiple '.'
 basename(path)
 dirname(path)
 abspath(__file__)
 expanduser('~')
 isfile(file)  // check if file exists
 
+
 # Misc
 os.listdir('.') // list all files in directory
+os.getcwd()  // current working directory
+os.chdir(dir) // change working directory
 glob.glob('dir/*.py')
+
+# execute system/shell command
+import subprocess as sp
+sp.call(['ls', '-l'])
+## deprecated
+os.system(cmd)
+
+
+# check if exsits
+os.path.
+exists(f) // file or directory
+isfile(f) // is file
+isdir(f)  // is directory

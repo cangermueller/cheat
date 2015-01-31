@@ -1,0 +1,7 @@
+-F field separator
+
+
+$1  // first variable
+$0  // whole line
+print a b // concatenate strings (without space)
+print a,b // separate by output delimiter (space)

@@ -10,7 +10,7 @@ fetch_mldata  // download digits from ML repository
 # PCA
 import sklearn.decomposition
 pca = PCA(n_components=2, white=False)
-pca.fit(Y) 
+pca.fit(Y)
   Y = X W // n x p
   X = [-] // samples in rows; n x q
   W = [-] // eigenvectors in rows; q x p
@@ -19,3 +19,21 @@ pca.components_  // W
 pca.transform(Y)  // X; n x q
 pca.inverse_transform(X)  // Y
 pca.explained_variance_
+
+# metrices
+import sklearn.metrices
+accuracy_score(true, pred)  // accuracy
+precision_score(true, pred) // precision
+recall_score(true, pred)  // TPR
+roc_auc_score(true, pred)
+classification_report(true, pred)
+
+## curves
+fpr, tpr, thr = roc_auc_curve(true, score)
+pre, recall, thr = precision_recall_curve(true, score)
+
+
+## confusion matrix
+confusion_matrix(true, pred)
+* rows: true
+* columns: predicted

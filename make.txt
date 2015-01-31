@@ -6,13 +6,17 @@
 $@  // target
 $<  // first prerequisite
 $+, $^  // all prerequisites
-$$HOME  // escape shell variable
+$$HOME  // escape/mask shell variable
 
-<<<<<<< HEAD
-=======
+# multiple commands per line
+seqmonk: txt
+	mkdir -p seqmonk && \
+	for infile in $$(ls txt/*txt); do \
+		outfile=seqmonk/$$(basename $$infile); \
+		./txt_to_seqmonk.py $$infile > $$outfile; \
+	done
 
 # functions
->>>>>>> f0c449f188594a61118aa73ef9732c4d8362e0fc
 $(patsubst, RSC_%, cell_%, RSC_1 RSC_2) // cell_1 cell_2
 $(RSC_1 RSC_2:RSC_%=cell_%) // same as before; no space around ':'!
 
@@ -38,3 +42,10 @@ x = value
 x ?= value  // only if not defined
 x := value  // overwrite
 target: x = value // target specific variable
+
+# order-only prerequisites
+* are always executed before all other prerequisites
+target: pre | order-only
+
+
+

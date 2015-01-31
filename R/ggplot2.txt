@@ -92,12 +92,15 @@ ggtitle(title)
 
 # Axis
 coord_cartesian(xlim=c(min, max), ylim=c(min, max)) // zoom, do not discard points
-scale_x_continuous(xlim=, breaks=, labels=) // xlim (points discarded), breaks, labels axis
+scale_x_continuous(limis=c(min, max), breaks=, labels=) // xlim (points discarded), breaks, labels axis
 xlim(min, max)  // discard points
 xlab('x'), ylab('y')
 theme(axis.title=element_blank()) // no axis labels
 scale_x_discrete(title='xlab')
-theme(axis.text.x=element_test(angle=-90))  // rotate axis ticks labels
+theme(axis.text.x=element_text(angle=-90))  // rotate axis ticks labels
+element_text(...)
+  angle=
+  vjust=0, hjust=0
 
 # Colors
 fill=, color=
@@ -214,6 +217,7 @@ grid.arrange(plot1, plot2)  // vertical alignment
 
 # geom_bar
 aes(x=ptpn22, fill=t1d) // count number of TRUE / FALSE
+stat='identity'
 position=
   'stack' // default: on top
   'dodge' // side-by-side

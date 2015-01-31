@@ -1,21 +1,15 @@
-# if condition
-## test command
-* help: CONDITIONAL EXPRESSIONS
-test -e file == [ -e file ] // $? == 0 if file exists
--z "$v" // zero?
--n "$v" // non-zero?
--e  // file exists
--f  // file exists
--d  // directory exists
--r  // readable
--w  // writeable
--x  // executable
-s1 == s2 // strings equal
-s1 != s2 // strings unequal
-!expr  // not
-expr -a expr  // and
-expr -o expr  // or
+# loop over stdin
+cmd | while read line; do
 
+# services / demons
+service NAME COMMAND
+--status-all
+stop
+start
+--full-restart  // stop + start
+
+# open ports
+sudo netstat -tulpn
 
 # File operations
 dirname $file
@@ -41,7 +35,7 @@ ${file.tar.gz##*.} // gz
 ${#s} // length
 ${s:from:length}  // substr
 ${s/pattern/replace}
-sadasd  
+sadasd
 
 
 # History expansion

@@ -1,0 +1,33 @@
+from IPython.html.widgets import interactive
+import IPython.widgets as widgets
+from IPython.display import display
+
+def fun(x):
+  print(x)
+interact(fun, x=(0, 10))  // IntSliderWidget
+interact(fun, x=widgets.IntSliderWidget(min=0, max=10))
+
+@interact(x=(0, 10))  // IntSliderWidget
+def fun(x):
+  print(x)
+
+# widgets
+IntSliderWidget(min, max, value) <-> x=(min, max)
+FloatSliderWidget(min, max, value) <-> x=(0.0, 10.0)
+DropdownWidget(values={k:v}, value) <-> x={k:v}
+RadioButtonsWidget(values={k:v}, value) <-> x={k:v}
+CheckboxWidget(value=False) // bool
+ToggleButtonWidget(value=False) // bool
+LatexWidget('$\\frac{1}{2}')
+TextWidget('string')  // text box
+TextareaWidget('string')  // text box
+ButtonWidget(description) // on_click(fun)
+ContainerWidget(children=[w1, w2])  // for grouping widgets
+
+## attributes
+value=  
+description=  // requires **kwargs in function!
+
+## methods
+w = Widget()
+display(w)

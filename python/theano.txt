@@ -1,3 +1,8 @@
+# Compilation failure error on MacOS
+add to ~/.theanorc:
+[gcc]
+cxxflags=-march=corei7
+
 # Tensor operations
 exp, log, transpose
 T.dot(matrix, vector) -> vector // no difference row/column vector

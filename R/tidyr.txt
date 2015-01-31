@@ -2,11 +2,12 @@
 * matrix -> list
 * multiple columns -> key:value pairs
 data %>% gather(key, value, selection)
-  key // name of key column
-  value // name of value column
-  selection // column selection
+  key // name of new key column (without quotes)
+  value // name of new value column (without quotes)
+  selection // column selection (all other columns are ignores)
     col_start:col_end
     -c1, -c2
+data %>% gather(key, value, -c(chromo, start, end))
 
 # spread
 * list -> matrix

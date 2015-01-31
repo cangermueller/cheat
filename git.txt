@@ -60,3 +60,10 @@ git push --tags
 
 # describe
 describe  // show description of current tag
+
+# checkout branches and files
+log // show last commits
+checkout ID // checkout branch in tmp branch
+checkout -B tmp ID  // checkout branch in new branch tmp
+checkout ID -- file // checkout single file into current branch
+

@@ -4,6 +4,9 @@ os.environ['HOME']
 os.environ.get('HOME')
 os.environ['FOO'] = 'bar'
 
+# execute system/shell command
+os.system(cmd)
+
 # Array letters, characters
 import string
 list(string.letters[:10])

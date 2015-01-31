@@ -1,6 +1,19 @@
 # Magics
 %pylab  // start pylab mode
 
+# python script / console
+## within ipython session
+%pylab
+%run script.py
+## as stand-alone script
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.hist(np.random.randn(100), color='green')
+plt.show()  // REQUIRED!
+
+
+fig.savefig()
+fig.show()  // only in python shell with %pylab
+
 # Global functions
 show()  // open plot
 close() // close plot
