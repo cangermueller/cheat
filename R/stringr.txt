@@ -1,0 +1,25 @@
+* common string function
+
+str_length(s)
+str_split(s, p) // split every s by pattern
+str_c == str_join(s1, s2, sep='') // concat
+str_dup(s, times) // duplicate strings
+str_pad(s, length, ...) // extend length
+  side='left' // right, both
+str_sub(s, start, end)  // substring or ''
+str_sub(s, start, end) <- r // replace substring inplace
+str_trim(s, side='both')  // remove spaces
+str_wrap(s, length) // wrap strings
+
+# matching
+* match p against every element in s
+* NA if not match
+str_extract(s, p) //  value (first) - grep(value=T)
+str_extract_all(s, p) //  value (all) - grep(value=T)
+str_locate(s, p)  // position - grep(value=T)
+str_detect(s, p)  // logical - grepl()
+str_count(s, p) // count
+str_replace(s, p, r) // replace first
+str_replace_all(s, p, r) // replace all
+str_split(s, p, n=1)  // split s by p return at most n parts
+

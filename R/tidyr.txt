@@ -1,0 +1,36 @@
+# gather
+* matrix -> list
+* multiple columns -> key:value pairs
+data %>% gather(key, value, selection)
+  key // name of key column
+  value // name of value column
+  selection // column selection
+    col_start:col_end
+    -c1, -c2
+
+# spread
+* list -> matrix
+data %>% spread(key, value, ...)
+  key // name key column
+  value // name value column
+
+# separate
+* splits column
+data %>% separate(col, into, sep)
+  col // name of column to be split
+  into=c('c1', 'c2')  // name of new columns
+  sep='\\.' // regex or split position
+  remove=T  // remove old column
+
+# unite
+* unites columns
+data %>% unite(col, ..., sep='_')
+  col // name of new column
+  ... // selection columns to be united
+  sep='_' // column separator
+
+# seq_range
+* takes n equally spaced values from numeric vector vec
+seq_range(vec, n)
+  vec // numeric vector
+  n // number of values to be extracted

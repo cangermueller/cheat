@@ -1,0 +1,84 @@
+---
+title: ggvis
+output: html_document
+runtime: shiny
+---
+
+
+```{r}
+library(ggvis)
+library(hflights)
+library(dplyr)
+```
+
+## Data
+
+```{r}
+flights <- hflights
+f <- tbl_df(flights)
+f <- flights %>% sample_n(1000)
+```
+
+## Plots
+
+```{r, eval=T}
+f %>% ggvis(x=~DepTime, y=~DepDelay, fill=~DayOfWeek) %>%
+  layer_points() %>% layer_smooths()
+f %>% ggvis(x=~DepTime) %>% layer_histograms()
+dat <- data.frame(x=1:3, y=1:3, color=c('red', 'green', 'blue'))
+dat %>% ggvis(x=~x, y=~y, fill=~color) %>% layer_points()
+dat %>% ggvis(x=~x, y=~y, fill:=~color) %>% layer_points()
+dat %>% ggvis(x=~x, y=~y, fill:='red', size:=200) %>% layer_points()
+```
+
+```{r}
+d <- f %>% select(Month, ArrTime) %>% group_by(Month) %>%
+  summarise(ArrTime = mean(ArrTime, na.rm = T)) %>%
+  arrange(Month)
+d %>% ggvis(~Month, ~ArrTime) %>% layer_lines() %>%
+  layer_points(fill =~ Month, size := 200)
+```
+
+```{r}
+f %>% filter(!is.na(DepTime)) %>% mutate(Month = factor(Month)) %>%
+  ggvis(~Month, ~DepTime) %>% layer_boxplots(fill=~Month)
+```
+
+## Interactivity
+
+```{r, eval=T}
+html <- function(x) {
+  if (is.null(x)) {
+    return (NULL)
+  } else {
+    x <-
+    return (paste0(names(x), ': ', format(x), collapse = '<br/>'))
+  }
+}
+
+size <- input_slider(1, 100, 50, label = 'Size')
+opacity <- input_slider(0, 1, 1, label = 'Opacity')
+xvar <- input_select(c('DepTime', 'ArrTime'), map = as.name, selected = 'DepTime')
+yvar <- input_select(c('DepTime', 'ArrTime'), map = as.name, selected = 'ArrTime')
+f %>% ggvis(x=xvar,  y=yvar) %>%
+  layer_points(fill=~Origin, size:=size, opacity:=opacity) %>%
+  add_tooltip(html, on = 'click') %>%
+  add_axis('x', title = 'x-axis') %>%
+  add_axis('y', title = 'y-axis')
+```
+
+## Legend
+
+```{r}
+mtcars %>% mutate(cyl=as.factor(cyl)) %>%
+  ggvis(~disp, ~mpg, size =~ hp, fill =~ cyl) %>%
+  layer_points() %>%
+  add_legend(c('fill', 'size'), title='size+fill', orient='left')
+```
+
+## Exporting figures
+
+```{r, eval=F}
+t <- ggvis(f, x=~ArrDelay, y=~DepDelay) %>% layer_points()
+export_svg(t, 'fig.svg')
+```

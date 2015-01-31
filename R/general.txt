@@ -49,7 +49,7 @@ Sys.setenv(env)
   - require: warning if package does not exist
 * library(): show all available libraries
 * search(): show all loaded libraries
-* detach(package:name): unload library
+* detach(package:vimcom, unload=T): unload library
 * system.file("name", package="package")  // Find file in package directory
 * R.version // version VARIABLE
 * sessionInfo() // show R and packages versions

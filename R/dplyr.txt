@@ -8,6 +8,7 @@ print(tbl, n=10)
 filter(df, c1=v1, c2=v2|v3, c3 %in% c(v1, v2))  // select rows
 select(df, c1, c2)  // select columns
   c1:c10  // between
+  -(c1:c10) // except
   starts_with('prefix')
   ends_with('suffix')
   contains('substr')
@@ -15,6 +16,41 @@ select(df, c1, c2)  // select columns
 arrange(df, c1, desc(c2)) // sort by multiple columns
 mutate(df, c = f(c1, c2)) // add or mutate columns
 
+# group_by / summarise
+group_by(columns) %>%
+  summarise(c=f(c), ...)  // aggregate columns
+group_by(columns) %>%
+  summarise_each(funs(f1, f2), columns) // apply same function(s) on column(s)
+group_by(columns) %>%
+  summarise(n=n(), n_val=n_distinct(c))  // counts # records
+group_by(columns) %>% // count # records
+  tally()
+group_by(columns) %>%
+  summarise_each(funs(mean(., na.rm=T)), matches('pattern'))
+group_by(columns) %>%
+  top_n(2, wt = column) // select top n records from group by column
+
+
 # piping
 * library(magrittr)
 df %>% filter() %>% select()
+
+
+# helper functions
+n_distinct(v) // count unique values in vector
+min_rank(v) // minimum rank of values
+lag(v, n = 1), lead(v, n = 1)
+  * shift values n positions to the right (left)
+  * compare with nth value in the past
+  * v - lag(v)  // change to previous value
+sample_n(v, n, replace = F, weights = NULL) // sample n rows
+sample_frac(v, frac, ...) // sample frac % of rows
+
+
+# Database support
+* Supports SQlite, MySQL, BigQuery
+* Same syntax
+* Read only -> mutate not supported
+my_db = src_sqlite('my_db.sqlite3')
+table = tbl(my_db, 'table')
+

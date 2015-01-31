@@ -28,6 +28,11 @@
 *.so
 *.pyx
 *.o
+*.html
+
 /python/nb/*.c
-/R/shiny
-/R/dplyr
+
+.Rproj*
+.Rhistory
+.RData
+

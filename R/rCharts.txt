@@ -1,0 +1,6 @@
+nPlot(Freq ~ Hair, group = 'Eye', data = HairEyeColor, type = 'multiBarChart')
+p$save('fig.html')
+<iframe src='fig.html' width='100%', height=500/>
+
+rPlot(SepalWidth ~ SepalLength | Species, col='Species', data=iris, type='point')
+

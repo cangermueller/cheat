@@ -1,7 +1,52 @@
+# qplot
+* qplot(x, y, data=data, geom="point", ...)
+* qplot(mpg, hp, data=mtcars, geom="point")
+* geom=c("point") // can not be appreviated
+  * point
+  * line
+  * boxplot
+  * jitter
+  * smooth
+  * density
+  * histogram
+  * bar
+* color=
+  * fieldnames
+  * I("red")
+  * I("red"), alpha=I([0;1])
+* pch=, shape=
+* size= // point size
+* main="title"
+* xlim, ylim
+* log="x", log="y", log="xy"
+
+# geom_XXX == stat_XXX
+* some functions begin with geom_, some with stat_
+* geom(stat='identity') // overwrite default statistic
+
 # Misc
 aes_string(fill='mean') // aes variable
 round_any(var, 0.1) // discretize/round continuous information
 geom_abline(slope=1)  // diagonal line
+  intercept=
+
+# stat_summary
+stat_summary(...)
+  fun.y=fun
+  fun.ymin=fun
+  fun.ymax=fun
+  fun.data=fun
+  geom=''
+ggplot(aes(x, y)) + 
+  stat_summary(fun.y=mean, geom='point')  // plot mean
+  stat_summary(fun.ymin=min, fun.ymax=max, geom='ribbon') // shade area
+  stat_summary(fun.data='mean_cl_boot', geom='errorbar')
+    * mean_cl_boot(x) // y=mean, ymin=ci_low, ymax=ci_up)
+    * mean_cl_boot(x) == smean.cl.boot
+    * mean_cl_norm(x)
+
+
+
 
 # Theme
 theme_classic()
@@ -120,28 +165,6 @@ grid.arrange(plot1, plot2)  // vertical alignment
   * saves last_plot()
   * size depends on dev() size
   * format = file extension
-
-== qplot
-* qplot(x, y, data=data, geom="point", ...)
-* qplot(mpg, hp, data=mtcars, geom="point")
-* geom=c("point") // can not be appreviated
-  * point
-  * line
-  * boxplot
-  * jitter
-  * smooth
-  * density
-  * histogram
-  * bar
-* color=
-  * fieldnames
-  * I("red")
-  * I("red"), alpha=I([0;1])
-* pch=, shape=
-* size= // point size
-* main="title"
-* xlim, ylim
-* log="x", log="y", log="xy"
 
 = geom="smooth"
 * method="loess", span=0.1

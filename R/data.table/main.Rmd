@@ -1,0 +1,159 @@
+---
+title: data.table
+output: html_document
+---
+
+
+```{r}
+library(data.table)
+library(dplyr)
+library(hflights)
+```
+
+```{r}
+data(mtcars)
+df <- mtcars
+dt <- as.data.table(mtcars)
+head(dt)
+```
+
+## select columns
+
+```{r}
+df[, 1]
+dt[, 1, with = FALSE]
+dt[1, ]
+dt[1:2, ]
+dt[1:2, 3:4, with = FALSE]
+dt[1:2, hp]
+dt[1:2, .(disp, hp)]
+```
+
+## select rows
+
+```{r}
+head(dt)
+dt[1,]
+dt[2:1, ]
+dt[order(cyl, disp)]
+dt[order(cyl, disp)]
+dt[order(cyl, -disp)]
+```
+
+## filter
+
+```{r}
+dt[cyl > 4]
+dt[cyl > 4 & wt > 2]
+dt[cyl > 6 | wt < 2]
+```
+
+## group
+
+```{r}
+dt[, .(sum(cyl), mean(disp))]
+dt[, .(cyl_sum = sum(cyl), disp_mean = mean(disp))]
+dt[, .(mean_mpg = mean(mpg)), by=cyl]
+dt[, mean(mpg), by=cyl]
+dt[, .(mean_mpg = mean(mpg)), by = cyl]
+dt[, .N, by = cyl]
+dt[, .(mean_mpg = mean(mpg)), by = cyl]
+dt[1:5, .N, by = cyl]
+```
+
+## mutate
+
+```{r}
+dt[, cyl2 := cyl**2]
+dt[, c('cyl2', 'carb2') := list(cyl**2, carb**2)]
+# dt[, .(cyl2, carb2) := list(cyl**2, carb**2)]
+dt[, ':=' (cyl2 = cyl**2, carb2 = carb**2)]
+dt[, ':=' (cyl2 = NULL, carb2 = NULL)]
+```
+
+## keys
+
+```{r}
+head(dt)
+dt[, id := LETTERS[1:4]]
+head(dt)
+setkey(dt, id)
+dt['A']
+dt[!'A']
+dt['B']
+dt['A', sum(mpg)]
+dt[c('A', 'B'),]
+dt[c('A', 'B'), sum(mpg)]
+dt[c('A', 'B'), sum(mpg), by=.EACHI]
+dt['A', carb2 := carb**2]
+head(dt)
+dt['B', carb2]
+dt['A', carb2]
+dt[, carb2 := NULL]
+setkey(dt, id, cyl)
+dt['A']
+dt[.('A', 4)]
+dt['A']
+dt['A', mult = 'first']
+dt['A', mult = 'last']
+head(dt)
+dt['A']
+dt[.(c('A', 'B'), 4)]
+```
+
+## special functions
+
+```{r}
+dt[.N]
+dt[nrow(dt)]
+tail(dt)
+dt[(.N-2):.N]
+dt[, list(mpg, id)]
+dt[, .(mpg, id)]
+dt[, mean(mpg)]
+dt[, mean(mpg), by = cyl]
+dt[, .SD[c(1, .N)], by = cyl]
+dt[, lapply(.SD, mean), by = id]
+t <- dt %>% select(-id)
+t[, lapply(t, sum)]
+sum(dt$mpg)
+dt[, lapply(.SD, sum), .SDcols = c('mpg', 'cyl')]
+```
+
+## chaining
+
+```{r}
+head(dt)
+dt[, .(sum_mpg = sum(mpg), mean_hp = mean(hp)), by = cyl][order(mean_hp, sum_mpg)]
+dt[, .(sum_mpg = sum(mpg), mean_hp = mean(hp)), by = cyl][sum_mpg > 140]
+```
+
+```{r}
+library(hflights)
+f <- hflights
+f <- data.table(f)
+f[, .(Year, DayofMonth)]
+```
+
+```{r}
+set.seed(0)
+a <- data.table(id = 1:10, rnorm = rnorm(10))
+setkey(a, id)
+b <- data.table(id = rep(5:15, each = 3))
+b[, value := rnorm(.N)]
+setkey(b, id)
+
+a[b]  # right join a <- b
+b[a]  # left join a -> 
+a[b, nomatch = 0] # inner join a <-> b
+a[b]
+a[b, roll = T]
+```
+
+```{r}
+a <- data.table(id = 1:10, value = rnorm(10))
+b <- data.table(id = 1:5, rnorm = rnorm(5))
+setkey(a, id)
+setkey(b, id)
+merge(a, b)
+```

@@ -1,0 +1,63 @@
+---
+title: googleVis
+output: html_document
+---
+
+```{r, warning=F}
+library(googleVis)
+library(dplyr)
+library(data.table)
+library(hflights)
+```
+
+```{r}
+# options(gvis.plot.tag='chart')
+```
+
+[Motion chart](https://code.google.com/p/google-motion-charts-with-r/)
+
+```{r, results='asis'}
+plot(gvisMotionChart(Fruits, 'Fruit', 'Year', xvar='Expenses', yvar='Sales', options=list(width=600, height=400)))
+```
+
+[Annotated timeline](https://google-developers.appspot.com/chart/interactive/docs/gallery/annotatedtimeline)
+
+```{r}
+plot(gvisAnnotatedTimeLine(Fruits, 'Date', 'Sales', idvar = 'Fruit'))
+```
+
+```{r}
+d <- Fruits %>% select(Sales, Expenses)
+plot(gvisScatterChart(d, options=list(vAxes="[{title:'Expenses'}]", haxis="[{title:'Sales'}]")))
+```
+
+```{r}
+plot(gvisBarChart(Fruits, 'Fruit', c('Profit', 'Sales')))
+```
+
+```{r}
+f <- tbl_df(hflights)
+f <- hflights %>% mutate(DayOfMonth = DayofMonth) %>% select(DayOfMonth, DepTime, ArrTime) %>% select(DayOfMonth, DepTime, ArrTime) %>% group_by(DayOfMonth) %>% summarise(DepTime=mean(DepTime, na.rm=T), ArrTime=mean(ArrTime, na.rm=T))
+```
+
+```{r}
+plot(gvisLineChart(f, 'DayOfMonth', c('ArrTime', 'DepTime'), options=list(vAxis='{title: "ArrTime"}', hAxis='{title: "DayOfMonth"}')))
+```
+
+```{r}
+plot(gvisTable(f, options=list(width=400, height=300)))
+```
+
+```{r}
+t <- gvisTable(f, options=list(width=400, height=300))
+l <- gvisLineChart(f, 'DayOfMonth', c('ArrTime', 'DepTime'), options=list(height=300))
+b <- gvisBarChart(f, 'DayOfMonth', c('ArrTime', 'DepTime'), options=list(height=300))
+p <- gvisMerge(l, b)
+p <- gvisMerge(t, p, horizontal=T)
+plot(p)
+```
+
+```{r}
+f <- hflights %>% sample_n(1000) %>% select(DepDelay, ArrDelay)
+plot(gvisHistogram(f))
+```

@@ -1,3 +1,22 @@
+# if condition
+## test command
+* help: CONDITIONAL EXPRESSIONS
+test -e file == [ -e file ] // $? == 0 if file exists
+-z "$v" // zero?
+-n "$v" // non-zero?
+-e  // file exists
+-f  // file exists
+-d  // directory exists
+-r  // readable
+-w  // writeable
+-x  // executable
+s1 == s2 // strings equal
+s1 != s2 // strings unequal
+!expr  // not
+expr -a expr  // and
+expr -o expr  // or
+
+
 # File operations
 dirname $file
 basename $file
@@ -161,6 +180,7 @@ grep -e pattern1 -e pattern2  // pattern1 or pattern2
 * $0: script name
 * $$: process id
 * $!: id of last process ran in background
+* $?: return value
 
 
 

@@ -1,3 +1,7 @@
+# sample DataFrame
+df.iloc[np.random.sample(df.index, n), :]
+  np.random.sample(list, n) // sample n elements without replacement
+
 # dtypes
 df.dtypes // list dtypes
 df = df.astype(np.int32)  // convert dtype of DataFrame
