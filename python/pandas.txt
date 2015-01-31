@@ -165,12 +165,13 @@ pd.set_option('display.height', 150)
 pd.set_option('display.max_columns', 150)
 pd.set_option('display.max_rows', 150)
 
-# reshaping
-df.pivot(index=, columns=, values=) // list -> matrix
-pd.melt(matrix, ...)  // matrix -> list
-  id_vars=  // column name to be used as identifier; rownames: reset_index()
-  var_name= // name of variable column
-  value_name= // name of value column
+# Melting and reshaping
+df.pivot_table(rows=, cols=, values=) // list -> matrix
+pd.melt(matrix, ...) // matrix -> list
+  ids_vars= // key columns  (kept)
+  value_vars= // value columns
+  var_name= // name of new key columns
+  value_name= // name of new value column
 pd.concat([d1, d2])
   * concat DataFrames (Series)
   * column order can be different
