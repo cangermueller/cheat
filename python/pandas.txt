@@ -163,7 +163,11 @@ pd.set_option('display.max_rows', 150)
 
 # Melting and reshaping
 df.pivot_table(rows=, cols=, values=) // list -> matrix
-pd.melt(matrix, ids_vars=, value_vars=, var_name) // matrix -> list
+pd.melt(matrix, ...) // matrix -> list
+  ids_vars= // key columns  (kept)
+  value_vars= // value columns
+  var_name= // name of new key columns
+  value_name= // name of new value column
 pd.concat([d1, d2])
   * concat DataFrames (Series)
   * column order can be different
