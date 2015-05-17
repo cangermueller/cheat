@@ -1,5 +1,19 @@
-# open application
-open -a 'preview'
+# file system, df
+diskutil list // overview devices
+diskutil info /dev/disk1  // show information
+diskutil mount /dev/disk1s1
+diskutil umount /Volumes/hdd
+Disk Utility  // for formatting devices
+
+
+# Open application
+open -a preview
+open -a firefox index.html
+
+# Create application
+dir="/Applications/X.app/Contents/MacOS"
+sudo mkdir -p $dir
+sudo cp bin $dir
 
 ^ = ctrl
 
@@ -54,39 +68,3 @@ F12 // show dashboard
 cmd-shift-4 // select region
 cmd-shift-4-space // current window
 ctrl - ...  // copy to clipboard instead of desktop
-
-# port
-selfupdate  // update ports
-upgrade outdated  // upgrade all ports
-uninstall --follow-dependents x // uninstall x and all packaged that depend on x
-list installed  // all installed
-list vim  // only vim
-info vim  // additional infos
-
-## selecting default group
-* changes links to bins/lib, e.g. python is linked to python2.7 or python3.4
-* install py27-ipython version still required
-select --summary  // show all groups and their options
-select --list python  // list options python group
-select --set python27 // set default python option
-
-## variants
-port info vim
-port install vim +python27
-
-# Zotero
-hold opt  // highlight collection
-cmd+drag  // move items between collections
-cmd+shift+c // copy long
-cmd+shift+a // copy short
-shift+enter // insert next author
-
-## Advanced search
-Attachment content
-Creator // Author
-
-# brewer
-update  // update brewer
-list  // list all installed packages
-search name // search package
-install name  // install package

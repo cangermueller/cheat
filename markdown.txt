@@ -1,0 +1,14 @@
+# Links
+[Link](http://...)
+
+# Equations
+This in $\log(x + 1)$ inline
+This is display: $$\frac{1}{2}$$
+
+# Code
+Inline `code(x)`
+```python
+def code(c):
+  ...
+```
+

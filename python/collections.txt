@@ -1,0 +1,7 @@
+import collections
+
+# OrderedDict
+d = OrderedDict([('a', 1'), ('b', 2)])
+for k, v in d.items()
+k = list(d.keys())
+v = list(d.values())

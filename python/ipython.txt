@@ -1,3 +1,28 @@
+# notebook extension
+ipython install-nbextensions url/path
+  --user  // install to ~/.ipython/nbextensions
+## loading
+### custom.js
+~/.ipython/profile_default/static/custom/custom.js
+IPython.load_extensions('calico-spell-check', 'calico-document-tools', 'calico-cell-tools');
+### within notebook
+%%javascript
+IPython.load_extensions('calico-spell-check', 'calico-document-tools', 'calico-cell-tools');
+
+
+# selected magics
+%run -d b10 ./script.py
+%pycat file.txt
+%less // faster than %pycat
+%reset  // reset workspace
+
+
+# autoreload modules; import
+%load_ext autoreload
+%autoreload 2
+c = MyClass() // MyClass automatically reimport; import my_class not required
+
+
 # nbconvert
 ipython nbconvert nb.ipynb
 --to html, latex, markdown
@@ -18,8 +43,9 @@ HTML('<iframe src=www.google.com width=1000 height=700/>')
 ## Images
 <img src='file' style='float:left; width=30%'/>
 from IPython.display import Image
-Image(url=)
-Image(filename=)
+Image(path, ...)
+  path  // url or filename
+  width='100%', height= // size in html
 
 ## Videos
 from IPython.display import YouTubeVideo
@@ -151,6 +177,7 @@ c-s-t // new tab with existing kernel
 
 
 # defining magics
+from IPython.core.magic import register_line_magic
 @register_line_magic
 def mymagic(a, b):
   ...

@@ -1,0 +1,16 @@
+library(biomaRt)
+
+mart <- useMart('ensembl')
+mart <- useDataset('mmusculus_gene_ensembl', mart=mart)
+attr <- c('ensembl_gene_id', 'mgi_id', 'mgi_symbol')
+q <- getBM(attr=attr, mart=mart)
+
+getBM(attr=, mart=)
+  attr=c('ensembl_gene_id')  // retrieved fields
+  filter=c('ensembl_gene_id') // filter fields
+  value=c('ENSMUSG00000064336') // filter ensembl_gene_id == ENSMUSG00000064336
+
+listMarts()
+listDatasets()
+listAttributes()
+listFilters()

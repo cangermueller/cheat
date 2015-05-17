@@ -1,10 +1,11 @@
 :Git cmd  // execute git command
 :Gstatus
+  \gs
   <CR>  // open file for edit
   <C-N> // next file
   <C-P> // previous file
   - // stage file
-  d // vim-diff
+  D // vim-diff
   cc  // commit changes
 :Gwrite // write and stage
 :Gedit, :Gsplit, :Gvsplit, :Gtabedit <revision>  // open revision for editing
@@ -29,5 +30,3 @@ under cursor
   O // HEAD tab
   S // HEAD vsplit
   ~ // previous commit
-
-

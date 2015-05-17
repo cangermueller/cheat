@@ -2,6 +2,10 @@
 options('name') // get
 options(name=value) // set
 
+# Exception handling
+results <- tryCatch(f(), error = function(x) return (y))
+  * return f(), or y if f() fails
+
 
 # Representing missing values
 * NA
@@ -39,9 +43,9 @@ Sys.setenv(env)
 * installed.packages()
 * available.packages()
 * remove.packages('pkg')  // uninstall package
-* update.packages() // update all packages in library
+* update.packages(ask=F, checkBuilt=T) // update all packages in library
   * ask=F // do not ask
-  * checkBuild=T // built with R 2.15; but now R 3.0 -> check
+  * checkBuilt=T // built with R 2.15; but now R 3.0 -> check
 * chooseCRANmirror()
 * R CMD INSTALL <pkg directory> // install source package manually
 * library, require(name): load packages

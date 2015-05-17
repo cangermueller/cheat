@@ -1,0 +1,4 @@
+See also python/sphinx.txt
+
+``inline_code``
+:func:`module.function` // cross-reference with intersphinx

@@ -1,11 +1,11 @@
 swap-windows -t 0 // rearrange windows
-? // show keybings
+? // show keybindings
 s //  switch between sessions
 t // show clock
 
 # Windows bindings
 j, k  // previous, next window
-p // laste window
+p // previous window
 & // kill window
 . // change index of window
 
@@ -14,8 +14,9 @@ p // laste window
 space // next pane layout
 alt+[1234]  // select pane layout
 o (long)  // swap with other
-{}  // swap panes
+{}  // rotate panes; { counter clock
 ! // break pane
+join-pane -t 1  // join pane
 x // kill pane
 z // zoom pane
 arrows  // resize

@@ -1,0 +1,9 @@
+grid.arrange(...)
+  nrow, ncol
+  widths, heights=c(0.3, 0.5, 0.2)
+  main=, sub= // titles
+grid.arrange(p1, p2)  // two rows
+grid.arrange(p1, p2, ncol=2)  // two columns
+list_plots <- list(p1, p2)
+  list_plots[['ncol']] = 2
+  do.call(grid.arrange, list_plot

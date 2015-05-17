@@ -1,16 +1,24 @@
 py.test // run test_*.py / *_test.py
 py.test file.py
 py.test file.py::test_fun // only run test_fun in file.py
+py.test file.py::Class:method // only run method in class
 py.test dir // run all files in directory dir
 
 -k name // only tests named *name*
 -m 'not slow' // only tests not marked as slow
 -s  // disable capturing; -> print
 -v  // verbose output
---pdb // start pdb on error
+--pdb // start pdb on error/exception !!!
+--cov // coverage test; pip install pytest-cov
+--fixtures  // show available fixtures
+
+
+# name convention
+class TestClass:  // not ClassTest
 
 # Misc
 pytest.set_trace()  // set tracepoint
+object._CLASSNAME__MEMBER // test private member __MEMBER
 
 # pytest.ini; tox.ini; setup.cfg
 [pytest]
@@ -24,11 +32,49 @@ addopts = -sv
 @pytest.mark.parametrize('a, b', [(1, 2), (3, 4)])
 def test_fun(a, b)
 
-# Fixtures
-@pytest.fixture(scope='module', params=[a, b]) // scope: created only once
-def database(request):
-  request.param // access current parameter
-  return database
 
-def test_requires(databases):
-  test something that requires database
+# Fixtures
+pdb --fixtures  // show all available fixtures
+
+@pytest.fixture
+def my_fixture():
+  return object
+def test_fun(my_fixture)
+
+@pytest.fixture(scope='function')
+  module, session (same for all tests)
+
+@pytest.fixture(params=[2, 2, 3])
+def my_fixture(request):
+  request.param // access parameter -> 2
+
+@pytest.fixture
+def my_fixture(request):
+  def tear_down():
+    clean_up
+  request.addfinalizer(tear_down)
+
+## Default fixtures
+request // request.param, request.addfinalizer, ...
+tmpdir  // str(tmpdir.join('tmpfile'))  // py.path.local object
+
+## Examples
+@pytest.fixture()
+def cleandir(): // execute test tmp dor
+    newpath = tempfile.mkdtemp()
+    os.chdir(newpath)
+
+
+
+
+
+
+
+# setup, teardown
+class TestClass():
+  def setup_class(self):
+    self.config =
+
+  def teardown_class(self):
+    print('Bye')
+

@@ -7,6 +7,7 @@ shiny::runApp(folder, ...)
 start shiny-server
 stop shiny-server
 restart shiny-server
+/etc/shiny/shiny-server.conf
 
 
 # ui.R
@@ -83,6 +84,7 @@ sidebarLayout(
 # Input
 numericInput(id, label, value, min, max, step)
 selectInput(id, label, choices, selected = NULL, multiple = FALSE)
+  choices=c('Standard Deviation'='sd')  // 'label'='id'
 checkboxInput(id, label, value)
 checkboxGroupInput(id, label, choices, selected)
 dateInput(id, label, value)
@@ -108,10 +110,13 @@ hr()  // horizontal rule
 a('<img src>')
 
 # Reactive expression
-ra <- reactive({
-  expr(a, b, c)
-})
-ra()  // evaluate expression
-* like functions
+* like function that returns value
 * evaluated at the beginning -> results cached
 * evaluated again only if variable changes (e.g. a, b, c)
+ra <- reactive({
+  return (inputs$x)
+  return (list(x=f(inputs$x),
+               y=f(inputs$y)))
+})
+ra()  // evaluate expression
+ra()$x  // access result (e.g. list) for reactive

@@ -1,0 +1,16 @@
+# start/stop
+sudo service apache2 CMD
+  start
+  stop
+  restart
+
+# /etc/apache2/apache2.conf
+<Directory /home/ubuntu/public_html/html>
+▸-Options FollowSymLinks
+▸-AllowOverride None
+▸-Require all granted
+</Directory>
+
+# /etc/apache2/sites-available/000-default.conf
+▸-ServerAdmin webmaster@localhost
+▸-DocumentRoot /home/ubuntu/public_html/html

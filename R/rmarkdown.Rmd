@@ -1,4 +1,0 @@
----
-title: project
-output: html_document
----

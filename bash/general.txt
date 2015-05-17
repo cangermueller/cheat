@@ -1,12 +1,14 @@
+# date
+date '+%y%m%d_%H%M%S'
+
 # loop over stdin
 cmd | while read line; do
 
 # services / demons
 service NAME COMMAND
---status-all
-stop
-start
---full-restart  // stop + start
+  stop
+  start
+  restart
 
 # open ports
 sudo netstat -tulpn
@@ -89,9 +91,10 @@ ssh-copy-id host
 # ftp
 ftp ftp://ftpusr43:0afwmRLv@ftp2.babraham.ac.uk
 ftp ftp://user:pass@host
-ftp host  // starts prompt for user and pass
+ftp host  // starts prompt for user and pass (on EBI)
 ls
 put local_file  // upload local file
+mput *.txt  // upload multiple files
 get remote_file // download remove file
 delete remote_file
 quit
@@ -131,29 +134,6 @@ diskutil info /Volumns/hdd
 -delete
 -ls
 
-
-
-
-
-# grep
-grep pattern file1 file2  // print files containing pattern
-grep pattern dir1 dir2 -R // all files in dir1 or dir2
-grep -e pattern1 -e pattern2  // pattern1 or pattern2
--i  // ignore case
--c  // count matches
--v  // invert matches
---include PATTERN // include files
---exclude PATTERN // exclude files
---exclude-dir PATTERN // exclude dir
-
-## pattern
--G  // basic; default; does not support ranges
--E  // extended -> egrep
--P  // perl
-. // any character
-^,$
-[ab], [^ab], [[:alpha:]]
-?, *, +, {min,max}
 
 
 

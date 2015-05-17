@@ -6,7 +6,7 @@
 %pylab
 %run script.py
 ## as stand-alone script
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(10, 6)) // figsize is total size (not subplots)
 ax.hist(np.random.randn(100), color='green')
 plt.show()  // REQUIRED!
 
@@ -80,6 +80,7 @@ set_xticklabels(['A', 'B', 'C'])
 xaxis.ticks_bottom()
 ax.axis('off')  // remove all axis
 ax.spines['top'].set_visible(False) // hide line
+ax.plot(ax.get_xlim(), ax.get_ylim(), ls='--', c='0.3') // diagonal line
 
 # legend
 plot(x, y, label='curve1')

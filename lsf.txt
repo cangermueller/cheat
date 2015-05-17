@@ -33,8 +33,11 @@ bsub -Ip ipython console  // interactive console
 bsub -Ip -XF ipython console  // interactive job with X11 forwarding
 
 
-# Managing jobs
-bjobs -l ID
+# bjobs
+bjobs -l ID  // detailed information
+bjobs -a  // show all (including finished jobs)
+
+# bkill
 bkill 0 // kill all jobs
 bkill -h /groupname 0 // kill all jobs of group
 

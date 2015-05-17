@@ -16,8 +16,11 @@ f.close()
 # Explore file
 f = File('file.h5', 'r')
 f.items() // list items
-f.keys()  // list keys
-f['/group'].items()/keys()  // list items/keys of group
+list(f.keys())  // list keys
+g = f['/group']
+g.name  // path
+g.keys()  // children
+g.get('child')
 
 # open attributes
 * r: read-only
@@ -31,9 +34,6 @@ d = f['dataset']
 d[0, 0] = 10
 f.close()
 
-# delete dataset
-del f['dataset']
-
 # create_dataset
 d = [fg].create_dataset('d1', (n,m), dtype='i')
 d = [fg].create_dataset('d1', data=np.arange(3))
@@ -46,3 +46,14 @@ create_dataset((1e5, 1e5), chunks=(100, 100))
 * not everything is loaded into memory
 compression='gzip'
 maxshape=(None, 100)  // resizeable dataset
+
+# delete dataset
+del f['dataset']
+
+# modify dataset
+d = f['/data']
+d[...] = new_value
+
+# check if dataset exists
+f = File(...)
+'/data' in f  // True or False

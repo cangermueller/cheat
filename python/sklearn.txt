@@ -37,3 +37,53 @@ pre, recall, thr = precision_recall_curve(true, score)
 confusion_matrix(true, pred)
 * rows: true
 * columns: predicted
+
+
+# preprocessing
+import sklearn.preprocesing as pp
+
+scale(X)  // mean-normalize columns; returns array
+
+## pp.LabelBinarizer
+* labels -> binary
+fit(['a', 'a', 'b'])
+transform(['a', 'b', 'b']) -> [[0], [1], [1]]
+
+## pp.LabelEncoder
+* labels -> integer
+fit(['a', 'a', 'b'])
+transform(['a', 'b', 'b']) -> [0, 1, 1]
+
+## pp.OneHotEncoder
+* integers -> binary
+enc = OneHotEncoder(...)
+  n_values='auto'  // # values per features -> # bits
+  sparse=True // return sparse matrix
+fit([[1, 2], [2, 3], [2, 4]]) // rows = samples, columns = features
+transform([[1, 2]]) // transform features of single sample to sparse binary mat
+  .todense()  // dense matrix
+feature_indices_[i] // start col of bits in binary matrix; fi[i]:fi[i+1] is code
+### Encoding
+0 -> 1 0 0
+1 -> 0 1 0
+2 -> 0 0 1
+
+
+
+## cross_validation
+import sklearn.cross_validation
+StratifiedShuffleSplit(labels, n_iter, test_size=0.5) // stratified bootstrapping
+Bootstrap(num_samples, test_size=0.5) // unstratified bootstrapping
+
+
+# decision tree
+import sklearn.tree.DecisionTreeClassifier
+import sklearn.tree
+tree.export_graphviz(dt, 'file.dot')  // export as *.dot -> viz with graphviz
+
+# contributing
+* https://github.com/scikit-learn/scikit-learn/pull/4566#issuecomment-93368443
+git checkout master
+git pull upstream master
+git checkout feature-branch
+git rebase master

@@ -1,0 +1,21 @@
+grep pattern file1 file2  // print files containing pattern
+grep pattern dir1 dir2 -R // all files in dir1 or dir2
+grep -e pattern1 -e pattern2  // multiple pattern
+-i  // ignore case
+-c  // count matches
+-v  // invert matches
+-n  // show line number
+-H  // show filename
+-m x  // stop after x matches
+--include PATTERN // include files
+--exclude PATTERN // exclude files
+--exclude-dir PATTERN // exclude dir
+
+## pattern
+-G  // basic; default; does not support ranges
+-E  // extended -> egrep
+-P  // perl
+. // any character
+^,$
+[ab], [^ab], [[:alpha:]]
+?, *, +, {min,max}

@@ -20,6 +20,10 @@ push
 
 
 # undirectional client -> server
+## server
+mkdir repo; cd repo
+git init .
+git-annex init .
 ## client
 git remote add server server:~/path
 git push server master:sync/master  // creates branch sync/master on server

@@ -1,12 +1,13 @@
 import pytest
 import sys
+import ipdb
 
 # Simple fixture
 class Container(object):
     def __init__(self):
         self.a = None
         self.b = None
-        print 'Container created'
+        print('Container created')
 
 @pytest.fixture(scope='module')
 def mycontainer():
@@ -52,3 +53,20 @@ def test_add_numbers2(num_a, num_b):
     actual = add_numbers(num_a, num_b)
     expected = num_a + num_b
     assert actual == expected
+
+
+def test_write(tmpdir):
+    f = tmpdir.join('file.txt')
+    f.write('Hello world')
+    print(f)
+    ipdb.set_trace()
+
+
+# temporary file that will be removed
+@pytest.fixture
+def tmp_file(request, tmpdir):
+    f = str(tmpdir.join('file.h5'))
+    def tear_down():
+        os.remove(f)
+    request.addfinalizer(tear_down)
+    return f

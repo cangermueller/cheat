@@ -1,42 +1,106 @@
+# misc
 plyr: only data.frames
 library(plyr) // load plyr first
 library(dplyr)
+options(...)
+  dplyr.width=200  // output width tbl_df in pixels
+  dplyr.print_min=10  // minimum # records to print; default=10
 
+# tbl_df
+* removes rownames -> use add_rownames('name')
 tbl = tbl_df(df)  // convert to tbl_df; nicer print
-print(tbl, n=10)
+tbl_df %>% print(n=10)  // print first 10 rows
 
-filter(df, c1=v1, c2=v2|v3, c3 %in% c(v1, v2))  // select rows
+# data_frame
+* creates tbl_df
+* no rownames
+* special column names
+data_frame(a=1:10, b=a*2, 'a+b'=a+b) %>% glimpse
+
+# printing / inspecting
+print(...)
+  n=10  // 10 lines
+  width=400 // 400px width
+  width=Inf // all columns
+glimpse // similar to str
+
+
+# select
 select(df, c1, c2)  // select columns
-  c1:c10  // between
-  -(c1:c10) // except
-  starts_with('prefix')
-  ends_with('suffix')
-  contains('substr')
-  matches('pattern')
-arrange(df, c1, desc(c2)) // sort by multiple columns
+c1:c10  // between
+-(c1:c10) // except
+c1=mpg, c2=drat // select and rename
+starts_with('prefix')
+ends_with('suffix')
+contains('substr')
+matches('pattern')
+one_of(c('c1', 'c2')) // select by vector
+
+# filter
+filter(c1=1, c2>2)
+between(c1, min, max)
+!is.na(c1)
+
+# mutate, transmutate
 mutate(df, c = f(c1, c2)) // add or mutate columns
+transmutate(c=f(c1))  // like mutate, but only keeps new columns
+
+# misc
+filter(df, c1=v1, c2=v2|v3, c3 %in% c(v1, v2))  // select rows
+arrange(df, c1, desc(c2)) // sort by multiple columns
+  * df most be data.frame, not tbl_df!!
 rename(df, new=old) // rename columns; unquoted
+slice(start:end, c(i, j, k))  // select rows by index
+add_rownames('c_rownames')  // rownames -> column 'c_rownames'
 
 # joins
-left_join(df, by=)
-right_join()
-inner_join()
-outer_join()
+left_join(df, ...)  // in a; fill NA
+  by=c('c1', 'c2')
+  by=c('left_c1'='right_c1')  // different column names
+right_join()  // in b; fill NA
+inner_join()  // in a AND b
+## filtering
+* filter records in a; do not add additional columns
+semi_join() // only show records from a that match b
+anti_join() // only show records from a that do NOT match b
 
 
 # group_by / summarise
 group_by(columns) %>%
-  summarise(c=f(c), ...)  // aggregate columns
-group_by(columns) %>%
-  summarise_each(funs(f1, f2), columns) // apply same function(s) on column(s)
-group_by(columns) %>%
-  summarise(n=n(), n_val=n_distinct(c))  // counts # records
-group_by(columns) %>% // count # records
-  tally()
-group_by(columns) %>%
-  summarise_each(funs(mean(., na.rm=T)), matches('pattern'))
-group_by(columns) %>%
-  top_n(2, wt = column) // select top n records from group by column
+summarise(c=f(c), ...)  // aggregate columns
+summarise_each(funs(f1, f2), columns) // apply same function(s) on column(s)
+summarise_each(funs(mean(., na.rm=T)), matches('pattern'))
+summarise(n=n(), n_val=n_distinct(c))  // counts # records
+
+## functions
+group_by(id) %>% n_groups()  // # groups
+group_by(id) %>% summarise(n=n()) // # records in group
+group_by(.) %>% mutate(c=f(c))  // group-specific modifications
+count(id) // # records in group
+tally(var, ...) // == summarise(n=sum(var))
+  sort=T  // sort by n
+  wt=col  // weight records by col; summarize(n=sum(col))
+count(...)  // group_by(col) %>% tally
+slice(start:end, c(i, j))  // select by index
+slice(1)  // select single group member
+  head(3) // first 3 record (does not always work!)
+top_n(3, id) // select top n ordered by id in DESCENDING order
+  * returns MULTIPLE records, if id not unique!
+sample_n(3) // sample three records of each group
+distinct  // unique members; more efficient than unique
+
+## sorting
+d %>% group_by(k) %>% arrange(...)  // sort within groups
+d %>% group_by(k) %>% summarize %>% ungroup %>% arrange(...)  // sort globally
+d %>% group_by(k1, k2) %>% summarize(cs=f(c)) %>% arrange(cs)
+  * summarize removes one group level(g2)
+  * sort by cs for each group in k1
+
+## do
+group_by(...) %>% do(f(.))
+  f is function that returns data.frame
+  . is current group as data.frame
+data %>$ group_by(id) %>% do(data.frame(c1=sd(.$c1), c2=sd(.$c2)))
 
 
 # piping
@@ -53,6 +117,7 @@ lag(v, n = 1), lead(v, n = 1)
   * v - lag(v)  // change to previous value
 sample_n(v, n, replace = F, weights = NULL) // sample n rows
 sample_frac(v, frac, ...) // sample frac % of rows
+ntile(v, n) // assign each v to one of n bins; same #points in each bin
 
 
 # Database support
@@ -61,4 +126,15 @@ sample_frac(v, frac, ...) // sample frac % of rows
 * Read only -> mutate not supported
 my_db = src_sqlite('my_db.sqlite3')
 table = tbl(my_db, 'table')
+
+# Standard evaluation function
+function()  // non-standard evaluation
+function_() // standard evaluation
+
+# Strings/character in function
+fun_()
+filter_('c1 > 10')
+rename_('new'='old')
+arrange_('c1', 'desc(c2)')
+
 

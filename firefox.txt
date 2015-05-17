@@ -30,3 +30,10 @@ cmd-opt-p // presentation mode
 cmd-alt-g // page number
 ctrl-0  // automatic zoom, choose zoom
 
+
+# Locations
+~/Library/Application Support/Firefox // profile directory
+PROFILE/searchplugins // search plugin
+
+# Show page source
+Right click -> View Page Source

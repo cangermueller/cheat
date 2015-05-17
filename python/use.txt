@@ -1,0 +1,9 @@
+sorted(tuples, key=lambda x: x[1])  // sort by 2nd entry
+
+def is_int(d):
+    return d == round(d)
+
+
+# supressing warnings
+with warnings.catch_warnings():
+    warnings.simplefilter('ignore')

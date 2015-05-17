@@ -33,9 +33,9 @@
 * tidy=T  // reformat R-code
 * eval=F  // do not evaluate R-code -> only print code
 * echo=F  // do not print code -> only evaluate code
-* message=F // suppress output
 * include=F // do not generate any output put evaluate code 
 * warning=F  // do not show warnings
+* message=F // do not show messages from message(); similar warning
 * error=F  // do not show errors
 * results='markup'  // R output is displayed
   * markup  // as markup
@@ -50,6 +50,9 @@
 
 === Plot options
 * fig.width, fig.height
+  for (i in 1:10) { // every plot will have size defined by fig.X
+    plot(...)
+  }
 * out.width='.5\linewidth'
 * fig.pos='!h'
 * fig.align='center'
@@ -93,6 +96,7 @@
 == Documents with childs
 === Compiling main document
 * Including child document as chunk:
+```{r child='child.Rmd'}
 <<include_child, child='child/child.Rnw'>>
 @
 * Including child document inline:
@@ -124,8 +128,8 @@ code that is replaced by code in chunk_other
 * http://yihui.name/knitr/demo/cache/
 * options
   * cache=T // activate caching
-  * dependson='chunk' // dependencies
-  * dependson=c('a', 'b')
+  * cache=T, dependson='c1'  // depends on c1; c1 must be cached as well!
+    dependson=c('c1', 'c2') // multiple chunks
 * Invalided if
   * chunk option except 'include' is changed
   * code is changed (even space)
@@ -142,3 +146,13 @@ code that is replaced by code in chunk_other
 illegal number parameter in definition of \beamer@doifinframe
 \begin{frame}[fragile]  // use fragile!
 \end{frame}
+
+=== printing progress
+test_fun <- function() {
+  message(debug_message)
+}
+
+```{r message=F}  // will redirect message to console instead of output doc
+test_fun()
+```
+

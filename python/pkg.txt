@@ -8,6 +8,10 @@
   - sys.path
 * dir(module) // list names defined by module
 
+# Relative import
+sys.insert(0, path.join(path.dirname(path.abspath(__file__)), '../biseq'))
+
+
 # Package hierarchy
 * For structuring modules; avoiding name collisions
 * Require __init__.py for being recognized as packages!

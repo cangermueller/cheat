@@ -1,16 +1,27 @@
+# corrplot
 corrplot(matrix, method=, ...)
-# methods
-color
-
-# parameters
-is.corr=FALSE
-order=c('origional|hclust') // hclust correct?
+method=color, num
+is.corr=FALSE // if matrix is not correlation matrix (e.g. distance)
+order='original'
+  hclust: hclust(as.dist(matrix)) // which is WRONG if matrix is correlation matrix
 addrect=5 // rectangles, only if order='hclust'
 tl.col='black'  // color labels
 col=color_palette // c(col, col) do obtain full range
 cl.lim=c(0, 1)
 
+# correplot.mixed
+corrplot.mixed(matrix, lower='number', upper='circle')
+square, circle, ellipse, shade, color, number
+
 # colors
 col1 = colorRampPalette(c('white', 'blue'))
 col=col1(200)
+
+# If m is correlation matrix
+corrplot(m)
+plot(hclust(as.dist(1 - m)))
+
+# if m is distance matrix
+corrplot(m, is.corr=F)
+plot(hclust(as.dist(m)))
 

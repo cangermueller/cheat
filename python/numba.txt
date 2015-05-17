@@ -10,6 +10,11 @@
   * CPU + GPU compilation
   * Commercial
 
+# install
+requires llvm-3.5
+sudo port select --set mp-llvm-3.5
+
+
 from numba import jit
 
 @jit

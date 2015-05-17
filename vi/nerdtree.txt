@@ -1,0 +1,14 @@
+? // toogle help
+p // go to parent
+P // go to root
+r // refresh cursor dir
+C // set root to selected item
+cd  // change pwd to selected dir
+m // show menu
+I // show hidden files
+
+# Bookmarks
+B // show bookmarks
+D // delete bookmark
+:Bookmark // bookmark selected item
+$HOME/.NERDTreeBookmarks  // bookmarks file

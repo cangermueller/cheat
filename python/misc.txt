@@ -1,0 +1,2 @@
+# order
+[x[0] for x in sorted(enumerate(data), key=lambda x: x[1])]

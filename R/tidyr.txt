@@ -4,16 +4,19 @@
 data %>% gather(key, value, selection)
   key // name of new key column (without quotes)
   value // name of new value column (without quotes)
-  selection // column selection (all other columns are ignores)
-    col_start:col_end
-    -c1, -c2
+  selection
+    * other columns are not removed, but not gathererd
+    col_start:col_end // include
+    -c1, -c2, -c(c1, c2) // exclude 
 data %>% gather(key, value, -c(chromo, start, end))
 
-# spread
-* list -> matrix
+# spread -> inverse gather
+* list -> matrix / data.frame
 data %>% spread(key, value, ...)
-  key // name key column
-  value // name value column
+  * no selection columns!
+  key // name key column (-> columns name)
+  value // name value column (-> values)
+  fill=NA // fill value for missing data
 
 # separate
 * splits column
@@ -33,5 +36,5 @@ data %>% unite(col, ..., sep='_')
 # seq_range
 * takes n equally spaced values from numeric vector vec
 seq_range(vec, n)
-  vec // numeric vector
+  vec // (unsorted) vector of values
   n // number of values to be extracted
