@@ -52,6 +52,7 @@ cmd - h // hide
 cmd - space // spotlight
 shift-cmd-c // open finder
 cmd - shift . // show hidden files in finder (not in list mode)
+cmd - f5  // toggle voiceover
 
 # Switch application
 cmd - tab // next
@@ -68,3 +69,33 @@ F12 // show dashboard
 cmd-shift-4 // select region
 cmd-shift-4-space // current window
 ctrl - ...  // copy to clipboard instead of desktop
+
+# Zotero
+hold opt  // highlight collection
+cmd+drag  // move items between collections
+cmd+shift+c // copy long
+cmd+shift+a // copy short
+shift+enter // insert next author
+
+## Advanced search
+Attachment content
+Creator // Author
+
+# brewer
+update  // update brewer
+list  // list all installed packages
+search name // search package
+install name  // install package
+
+
+
+
+
+# issues
+sudo port install vim @7.4.729_1+gtk2+huge+perl+python27+x11
+  +python34 // causes segfault
+
+Bundle 'jalvesaq/R-Vim-runtime'
+Bundle 'vim-scripts/Vim-R-plugin'
+
+

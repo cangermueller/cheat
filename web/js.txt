@@ -1,0 +1,67 @@
+# brower console
+console.FUN()
+log()
+
+
+# style
+fill, 'red'
+border, '1px solid black'
+
+# rect
+
+
+# functions
+function fun(a, b) { return a; }
+function fun(a, optional) {
+  if (typeof(optional) == 'undefined') {
+    opional = 10;
+  }
+}
+
+
+# list
+var l = [1, 2, 3]
+l.push(x)
+l.pop()
+l.concat(l2)  // not inplace
+l.length
+l.forEach(function(d, i) {
+  d = 10  // won't change value!
+  l[i] = 10 // will change value!
+})
+l.map(function(x) x+2)
+for (index in list) {
+  console.log(list[index])
+}
+
+
+# dict, hash, Object initializer
+d = {'key': value, 'key2': value2}
+d.key
+Object.keys(d)  // get keys
+for (key in dict) {
+  console.log(dict[key])
+}
+
+
+# Math
+random()  // rnd [0; 1]
+round()
+sin(), cos()
+
+is_true ? yes : no  // ternary operator
+
+
+# type
+typeof(var) // object
+typeof(var) == 'undefined'  // check if undefined
+var instanceof class // true, false
+
+# switch, case
+switch (value) {
+  case 1:
+    code;
+    break
+ default:
+  code;
+}

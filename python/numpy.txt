@@ -1,13 +1,6 @@
 # Contingency/pivot table
 pandas.crosstab(y, x)
 
-# Mean with nan
-## scipy
-scipy.stats.nanman(a, axis=1)
-## masked_array
-ma = np.ma.masked_array(a, mask=np.isnan(a))
-np.mean(ma, axis=1)
-
 # Resizing arrays
 a.resize((3, 5))  // changes shape a inplace; fills with zero
 np.resize(a, (3, 5)) // returns copy; fills with values/copies of a
@@ -40,6 +33,8 @@ isnan(a)
 isinf(a)
 def complete_cases(a):
     return np.all(~np.isnan(a), axis=1)
+## functions
+nanmin, nanmax, nanmean, ...
 
 
 
@@ -66,7 +61,7 @@ r = [fun(row) for row in array] // returns list
 int16 'i2'
 float8  'f8'
 str 'S10' == 'a10'  // str length 10
-x = x.astype(np.float16)  // change dtype
+x = x.astype(np.float16)  // change dtype, return copy
 x.view(np.float16)  // change view on dtype
 
 # Structure array
@@ -85,6 +80,8 @@ cell[i, j] = np.ones((3, 4))
 # Indexing arrays
 a[a > b]  // logical numpy array; not supported by default arrays
 a[::2]  // every second element
+a[[0, 1], [4, 5]] // select at (0, 4) and (1,5)
+(a > 1).nonzero() // return indices of values > 1
 A.take([1, 2], axis=0)  // select slices along axis; return copy!
 ## keep dimension after slicing
 atleast_1d(a[0, 0])
@@ -252,4 +249,5 @@ np.random.choice(array, size, replace=False)  // sample (without) replacement fr
 rng = np.random.RandomState(0)
 rng.rand(5, 10)
 rng.norm(0, 1, 10)
+rng.get_state()[1][0] // returns seed
 

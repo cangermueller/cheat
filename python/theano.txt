@@ -52,6 +52,7 @@ vector()  // 1d: [1, 2, 3]; not 2d [[1, 2, 3]], [[1], [2], [3]]
 matrix()  // 2d: [[1, 2], [3, 4]]
 col() // 2d column vector: [[1], [2], [3]]
 row() // 2d row vector: [[1, 2, 3]]
+* bool not supported!
 bX  // int8
 wX  // int16
 iX  // int32
@@ -75,9 +76,12 @@ arange(scalar)  // create vector of length scalar
 sum, prod, min, max, maximum, argmax
 exp, log, transpose
 eq, neq, gt, lt // ==, !=, >, <
-nnet.softmax
-nnet.binary_entropy(y, x) // -x log(y) - (1-x)log(1-y); x,y vector
-nnet.categorical_entropy(y, x) // -sum_i x_i * log(y_i);  // not mean!
+nnet.softmax  // softwax row-wise (columns are classes)
+nnet.binary_crossentropy(z, y) // -y log(z) - (1-y)log(1-z)
+  * y=[0, 1], z=[0.1, 0.9]
+  * returns vector, if y and z are vectors
+  * returns inf if z=0
+nnet.categorical_crossentropy(y, z) // -sum_i y_i * log(z_i);  // not mean!
   * x matrix; each row prob distribution
   * y matrix: each row prob distribution
   * y vector: y[i] is true class
@@ -160,5 +164,11 @@ results, updates = th.scan(fun, ...)
   output_info=  // initial value
   n_steps=  // # interactions
 results = [result0, result1, ...] // result of all iterations
+
+# missing values
+* http://deeplearning.net/software/theano/library/tensor/basic.html#indexing
+Y has missing values
+M is 1/0 integer matrix (theano supports not bool and boolean indexing)
+Y[M.nonzero()]
   
 

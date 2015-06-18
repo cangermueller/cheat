@@ -34,7 +34,9 @@ unison profile_name
 
 ## Roots of the synchronization
 root = /home/bcpierce
-root = ssh://saul//home/bcpierce
+root = ssh://Ebi//homes/angermue/research/bs/dev/150515_predict
+  * two //
+  * ~ does not work!
 
 ## Paths to synchronize 
 path = current

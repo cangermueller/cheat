@@ -1,11 +1,11 @@
+install -U pip  // update pip
 list  // list installed packages
 freeze // list installed packages
 search name
 install name
-  --upgrade
+  --upgrade, -U // update package
   --user  // as current user into ~/Library/Python
 install -r requirements.txt // install from requirements file
-install -U name // update package
 freeze > requirements.txt // create requirements file
 uninstall name
 pip freeze | grep -v "^-e" | xargs pip uninstall -y // uninstall all packages

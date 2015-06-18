@@ -9,7 +9,7 @@ __dir = pt.dirname(pt.realpath(__file__))
 # sys.path.insert(0, pt.join(__dir, '../module'))
 
 
-class Script(object):
+class App(object):
 
     def run(self, args):
         name = pt.basename(args[0])
@@ -51,5 +51,5 @@ class Script(object):
 
 
 if __name__ == '__main__':
-    app = Script()
+    app = App()
     app.run(sys.argv)

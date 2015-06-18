@@ -1,8 +1,26 @@
-# virtualenvwrapper
-export WORKON_HOME=$HOME/venv // workspace
+
+export WORKON_HOME=$HOME/projects // project directory
 source virtualenvwrapper.sh // source all scripts
+
+# commands
+virtualwrapper  // show all commands
 mkvirtualenv new
+  --python python2.7
+  -t temp // use temp venv as template
 workon NAME
+  -c change to directory
+  -n do not change directory
 lsvirtualenv
-cdvirtualenv
+cdvirtualenv NAME // go to $WORKON_HOME/NAME
 rmvirtualenv NAME
+cpvirtualenv from to
+allvirtualenv pip install -U pip  // apply command to all VE
+add2virtualenv $RS/pkg  // add package to site-packages
+
+
+# projects
+* does not set PYTHONPATH to project_directory
+* only directory
+mkproject name  // create in $PROJECT_HOME
+setvirtualenvproject  // set current path as project folder
+cdproject

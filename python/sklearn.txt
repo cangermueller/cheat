@@ -38,6 +38,16 @@ confusion_matrix(true, pred)
 * rows: true
 * columns: predicted
 
+# parameter grid
+from sklearn.grid_search import ParameterGrid
+p = ParameterGrid({'a': [...], 'b': [...]})
+for pp in p:
+  model.set_params(**pp)
+
+
+
+
+
 
 # preprocessing
 import sklearn.preprocesing as pp
@@ -68,12 +78,14 @@ feature_indices_[i] // start col of bits in binary matrix; fi[i]:fi[i+1] is code
 1 -> 0 1 0
 2 -> 0 0 1
 
-
-
 ## cross_validation
 import sklearn.cross_validation
 StratifiedShuffleSplit(labels, n_iter, test_size=0.5) // stratified bootstrapping
 Bootstrap(num_samples, test_size=0.5) // unstratified bootstrapping
+
+
+
+
 
 
 # decision tree
@@ -87,3 +99,7 @@ git checkout master
 git pull upstream master
 git checkout feature-branch
 git rebase master
+
+# copy / clone model
+clone = sklearn.base.clone(model)
+

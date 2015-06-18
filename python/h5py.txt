@@ -18,6 +18,7 @@ f = File('file.h5', 'r')
 f.items() // list items
 list(f.keys())  // list keys
 g = f['/group']
+v = g['/item'].value  // read data
 g.name  // path
 g.keys()  // children
 g.get('child')

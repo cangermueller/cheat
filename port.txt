@@ -1,36 +1,25 @@
+# basics
 selfupdate  // update ports
 upgrade outdated  // upgrade all ports
+install vim +python27
 uninstall --follow-dependents x // uninstall x and all packaged that depend on x
+
+# info
 list installed  // all installed
 list vim  // only vim
 info vim  // additional infos
 
-## selecting default group
+# groups
 * changes links to bins/lib, e.g. python is linked to python2.7 or python3.4
 * install py27-ipython version still required
 select --summary  // show all groups and their options
 select --list python  // list options python group
 select --set python27 // set default python option
 
-## variants
+# variants
 port info vim
 port install vim +python27
 
-
-# Zotero
-hold opt  // highlight collection
-cmd+drag  // move items between collections
-cmd+shift+c // copy long
-cmd+shift+a // copy short
-shift+enter // insert next author
-
-## Advanced search
-Attachment content
-Creator // Author
-
-# brewer
-update  // update brewer
-list  // list all installed packages
-search name // search package
-install name  // install package
-
+## vim
++gtk2+huge+perl+python27+x11
+gtk-doc @1.20_4+python27

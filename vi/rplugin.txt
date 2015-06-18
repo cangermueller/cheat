@@ -12,7 +12,8 @@
 \rm // rm(list=ls())
 \r. // list.files() (c)
 
-\a  // argument completion
+ctrl-o  // complete function
+\a  // complete function argument
 
 # Status variable
 \rp // print

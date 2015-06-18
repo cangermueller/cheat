@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <script type='txt/javascript' src='http://d3js.org/d3.v3.min.js'/>
+  </head>
+  <body>
+  </body>
+</html>
+
+# selection
+select('body')
+select('#id')
+select('body svg rect') // select within
+selection.each(function(d, i)) {
+  // s is current element, e.g. rect
+  // d is data of current element
+  s = d3.select(this) 
+}
+sel.data()  // get data of selection
+
+# setting attributes
+attr(name, value)
+attr('width', 100)
+attr('class', class)
+style('cursor', 'pointer')  // add to style
+attr('style', 'cursor: pointer')  // overwrite style
+
+
+s = d3.select('body').append('svg').attr('width', 100).attr('height', 100)
+s.append('circle').attr('cx', 50).attr('cy', 50).attr('r', 10)
+  .style('red')
+s.append(namespace:element)
+s.append('namespace:svg') 
+s.append('svg') == s.append('svg:svg')
+
+var d = [1, 2, 3]
+d3.selectAll('p').data(d).enter().append('p').text('Hello')
+d3.selectAll('p').data([1, 2, 3]) // bind 1 to p1, 2 to p2, 3 to p3
+
+vs = d3.selectAll('p3').data([1, 2, 3]  // data returns virtual selection
+vs.enter()  // non-existing
+vs.update() // existing elements bound to data
+vs.exit() // all others
+
+
+# groups
+g1.append('circle').attr('cx', 50).attr('cy', 50).attr('r', 25).style('fill', 'red');
+g1.append('circle').attr('cx', 100).attr('cy', 50).attr('r', 25).style('fill', 'blue');
+g1.attr('transform', 'translate(200, 0)');
+
+# call
+function f(selection) {...}
+selection.call(f) == f(selection) // call function with selections as param
+
+
+# scales
+scale = d3.scale.linear().range([0, width]).domain([0, maxval])
+scale(0) // 0
+scale(maxval) // width
+ordinal().domain(['a', 'b', 'c'])
+  .range([10, 20, 30])  // b -> 20
+  .rangeBands([0, width]) // b -> width / 3
+    rangeBand() // return width of band
+  .rangeRoundBands([0, width], padding) // b -> width / 3 + padding
+
+
+
+
+# axis
+var scale_y = d3.scale.linear();
+scale_y.range([0, height]).domain([max_y, 0]);
+var axis_y = d3.svg.axis();
+axis_y.scale(scale_y).orient('left');
+  orient('left', 'top', 'bottom') // position ticks wrt. line
+plot.append('g').attr('transform', 'translate(0 0)').call(axis_y);
+
+# IO / loading data
+* loads data async
+* function called once read everything
+* data contains all rows
+* data[i].column  // access column row i
+var gdata;
+d3.tsv('data.tsv', function(error, data) {gdata = data});
+d3.csv(...)
+var dsv = d3.dsv(' ') // any delimiter; only single character, no '\s+'!!
+dsv(path, function(error, data) {})
+d3.text(path, function(error, data) {});
+
+# Random numbers
+* return single number
+Math.random() // uniform [0, 1]
+f = d3.random.normal(mean=0, std=1.0) // return function
+f() // get number
+
+
+# Misc
+sel.classed(css_class, true)  // set CSS class
+sel.classed(css_class, false)  // unset CSS class
+
+# Getting size of selection
+http://bl.ocks.org/mbostock/1160929
+sel = svg.select('text')
+bbox = sel.node().getBBox()
+bbox.width; bbox.height
+
+# force layout
+layout.force()
+.start()
+.stop()
+Initializes parameters: x, y, fixed=False, px=x, py=y
+.size([width, height])
+
+
+d3.event.stopPropagation()
+  * event not propagated to parent
+  * http://bl.ocks.org/jasondavies/3186840
+
+.on('mouseover', function(d) {})  // child and parent
+.on('mouseout', function(d) {})  // child and parent
+.on('mouseenter', function(d) {})  // only child;
+  https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter
+.on('mouseleave', function(d) {})  // child and parent

@@ -1,0 +1,25 @@
+# sort
+## sort by 2nd entry
+sorted(tuples, key=lambda x: x[1])
+## order
+[y[0] for y in sorted(enumerate(t), key=lambda x: x[1])]
+## order numpy array
+x.argsort()
+
+
+# check if string is integer
+'15'.isdigit() // True -> only positive
+'-15'.isdigit() // False
+
+# check if number is integer
+def is_int(d):
+    return d == round(d)
+
+
+# supressing warnings
+with warnings.catch_warnings():
+    warnings.simplefilter('ignore')
+
+# minimum / maximum (integer) value
+max = sys.maxsize
+min = -sys.maxsize

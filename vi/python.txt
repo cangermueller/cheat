@@ -16,8 +16,11 @@ gq  // reindent line
 
 ## PyLint
 \ll // check code
-\lj, \lk  // navigate
-\lc // close quickfix
+\mm  // open localation list
+\mn // close ll
+\mj // next entry
+\mk // previous entry
+
 :PymodeLint // check code
 :PymodeLintToggle // switch PyLint on/off
 :PymodeLintAuto // autocorrect changes
@@ -58,3 +61,5 @@ bundle/vim-ipython/ftplugin/python/ipy.vim
 \w  // send line
 \q  // send line down
 \d  // send line down
+<Leader>D // add docstring
+<Leader>F // removl docstring

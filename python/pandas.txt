@@ -11,6 +11,7 @@ pad(length, fillchar=' ') // extend length
 startswith(string)  // starts with string (not re!)
 contains(re)  // contained regular expression
 find(str, start=0, end=len) // -1 if not find; start else
+Series(['a', 'b', 'c']).cat(['1', '2', '3'])  // concat; same lenght!
 
 # assign
 d.assign(
@@ -182,8 +183,10 @@ i = i.set_names('name', ...) // change name; returns new index
 u = MultiIndex.from_arrays([array1, array2], names=[name1, name2])  // must have same length
 i = MultiIndex.from_tuples([('chr1', 1), ('chr1', 2), ]) // must have same length
 i = MultiIndex.from_arrays(...) // same as from_tuples
-i = MultiIndex.from_products('X', np.arange(10), names=['chromo', 'pos'])
-i.get_level_values(k) // get column labels level k (int or str)
+i = MultiIndex.from_product([[o1, o2], ['i1', 'i2', 'i3']], names=['chromo', 'pos'])
+  * Make index of Cartesian product of two iterators
+i.levels[k] // unique index values at level k
+i.get_level_values(k) // index values (not unique) at level k
 i.droplevel(k) // remove level k
 
 # Index options
@@ -268,6 +271,8 @@ replace('\w+', '', regex=True)
 set_option('display.width', 150)
   display.width=80 // line width
   display.precision=7
+  display.max_rows=60
+  display.max_columns=60
 get_option('display.width')
 
 # Reshaping
@@ -320,16 +325,27 @@ dlist = pd.melt(dmatrix.reset_index(), id_vars=['chromo', 'pos'], var_name='samp
 df.stack() // columns become Mutliindex ~ melt
 df.unstack() // last level becomes column ~ pivot_table
 
-# Concatenating DataFrame
+# Concatenating DataFrame / Joining multiple DataFrames on indices
 pd.concat([d1, d2], axis=0, ...) // join data.frames on indices
   axis=1  // concat columns
   join='outer'  // 'inner'
   ignore_index=True // create new index 0:nrows
   keys=['d1', 'd2'] // create Multiindex with these outer level values
   names=['outer', 'inner']  // names of levels in Multiindex
-pd.concat([d1, d2], axis=1)
-  * concats columns if d1 and d2 have same index
-  * d2.index = d1.index before to make sure that they have same index!
+
+# Joining 2 DataFrames on COLUMNS
+pd.merge(a, b, ...) // join on common columns
+  on=['c1', 'c2'] // set columns explicitly; overlap otherwise
+  how='left'  // right, outer, inner
+  rsuffix, lsuffix  // if overlapping columns names
+  left_index=True, right_index=True // join on indices instead of columns -> like a.join(b)
+
+# Joining 2 DataFrames on indices
+a.join(b, ...)  // join on indices
+  how='left'  // right, outer, inner
+  rsuffix, lsuffix  // if overlapping columns names
+
+# Appending rows
 df.append([d1, d2], ...)
  * add rows
  * same as pd.concat([df, d1, d2], axis=0)
@@ -337,17 +353,6 @@ df.append([d1, d2], ...)
  ignore_index=True  // create new index 0:nrows
 df.append({'c1': 1, 'c2':2}, ignore_index=True) // append single
 df.append(Series([1, 2], index=df.columns), ignore_index=True) // append single row
-
-# Joining DataFrames (like database join)
-pd.merge(a, b, ...) // join on common columns
-  on=['c1', 'c2'] // set columns explicitly; overlap otherwise
-  how='left'  // right, outer, inner
-  rsuffix, lsuffix  // if overlapping columns names
-  left_index=True, right_index=True // join on indices instead of columns -> like a.join(b)
-a.join(b, ...)  // join on indices
-  how='left'  // right, outer, inner
-  rsuffix, lsuffix  // if overlapping columns names
-
 
 # Dummy coding
 pd.get_dummies(series, prefix='', prefix_sep='_')
@@ -380,8 +385,8 @@ com.load_data('mtcars')
 g = df.groupby(['c1', 'c2'], ...)
   level=0 // group by level instead of column name
   sort=True // sort groups
-  as_index=False  // do not set group keys to index
-  group_keys=False  // do not add group keys to index if apply() is called
+  as_index=False  // use integers instead of group keys as index
+  group_keys=False  // only when calling apply: no not set index of concatenated output frame
 for name, group in groups:  // iterate over groups
 g.groups  // dictionary
   .keys() // group keys
@@ -408,7 +413,7 @@ nth(0, dropna='any')  // take first record without any nan
 agg == aggregate
 agg(np.mean)  // apply function to each column
 agg([np.mean, np.std]) // apply multiple functions to columns
-agg({'my_mean': np.mean}) // name output columns
+agg({'c1': fun1, 'c2': fun2}) // apply different functions to columns
 
 ## Transform: perform group specific modifications
 * return df must have same shape
@@ -424,7 +429,6 @@ fun(d)
   * d has same columns than format than ungrouped data, only filtered by group
   * can return any DataFrame with different columns
 apply(lambda df: pd.DataFrame({'f1':df.f1.min()}) // return min of f1
-group_by(..., group_keys=False).apply(...)  // do not add group keys to index
 
 
 
@@ -591,3 +595,42 @@ com.load_data('object') // R object -> pandas object
 df_r = com.convert_to_r_dataframe(df) // first convert df
 r.assign('df', df_r) // then write it to R
 r('saveRDS(df, file="file.rds")')
+
+# binning values
+pd.cut(values, bins, ...) // equally spaced bins
+pd.qcut(values, bins, ...)  // same #obs in bins
+bins=3  // # bins / quantiles
+bins=[0, 0.5, 1.0]  // (0;0.5), (0.5, 1.0)
+labels=['a', 'b'] // define labels of bins
+retbins=True  // return also (tuple) bins -> [0, 0.5, 1.0]
+
+
+
+
+
+
+# plotting
+matplotlib.style.use('ggplot')
+df.plot(...)
+kind=line, bar, barh, hist, scatter, pie, kde, hexbin (2d density)
+figsize=(width, height)
+legend=False  // not legend
+logy=True
+ax=axis
+subplots=True // create subplots
+layout=[nrows, ncols] // layout for subplots
+sharex=False  // subplot have different x-axis
+set_title(plot_title)
+table=True, df  // add table to bottom; df = data.describe()
+colormap='Greens', 'cubehelix'
+
+
+## boxplot
+df.boxplot(..)
+vert=False  // horizontal
+color = dict(boxes='DarkGreen', whiskers ,medians, caps)
+by= // different categories become bars; subplots are columns
+  columns=['c1', 'c2']  // create subplots for these columns
+  df.groupby(by).boxplot()  == df.boxplot(by=by)
+
+

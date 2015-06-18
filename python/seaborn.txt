@@ -37,6 +37,17 @@ set(...)
 
 boxplot(data, ...)
   data  // 2d numpy array or data.frame; columns == boxes
+  (data.auc, data.group, ...) // x=data.group, y=data.auc
+  vert=False  // horizontal
+  order=  // order of boxes
+  join_rm=True  // connect dots by lines
+violinplot(data, ...)
+  data  // 2d numpy array or data.frame; columns == boxes
+  (data.auc, data.group, ...) // x=data.group, y=data.auc
+  vert=False  // horizontal
+  order=  // order of boxes
+  inner=points,sticks,box // plot sample values
+  join_rm=True  // connect dots by lines
 barplot(x, y, ...)
   data=
   hue=  // color
@@ -108,7 +119,7 @@ g = FacetGrid(data, col='col_var', row='row_var', ...)
   col_wrap=None // # columns
   hue='color_var'
   size=3  // height of each grid in inches
-g.map(plt.scatter, xvar, yvar)
+g.map(plt.scatter, xvar, yvar, linewidth=3, marker='o', ms=6) // lineplot
 
 
 ## PairGrid: trellis plot

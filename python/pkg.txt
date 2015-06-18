@@ -8,6 +8,12 @@
   - sys.path
 * dir(module) // list names defined by module
 
+
+# Adding pkg to site path
+~/research/name/name
+                tests
+export PYTHONPATH=~/research/name:$PYTHONPATH
+
 # Relative import
 sys.insert(0, path.join(path.dirname(path.abspath(__file__)), '../biseq'))
 
