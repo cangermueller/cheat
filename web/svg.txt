@@ -32,6 +32,7 @@ slice  // preserve aspect ratio and remove parts of viewBox that does not fit in
 <rect x='100' y='25' width='50' height='50' style='fill: blue'></rect>
   rx, ry  // rounded corners
 <line x1='50' y1='50' x2='100' y2='50' stroke='green' stroke-width='2'> </line>
+  stroke-dasharray='5,5'
 <polyline points='0,0 10,0 10,10 20,10 20,20' stroke='grey' stroke-width='2' fill='none'></polyline>
 <polygon points='0,400 50,400 25,450' stroke='black' stroke-width='2' fill='blue'></polygon>  
 <text x='100' y='100' font-size='20px' font-family='sans serif' fill='blue' text-anchor='middle'>Hello world!</text>
@@ -40,13 +41,28 @@ slice  // preserve aspect ratio and remove parts of viewBox that does not fit in
   text-anchor: start, middle, end
 
 
-
+# path
+http://tutorials.jenkov.com/svg/path-element.html
 <path d='M 10 600 L 100 600 L 50 650 Z' stroke='red' stroke-width='3px' fill='none'></path>
 <path d='M 120 600 l 100 0 l -50 50 Z' stroke='blue' stroke-width='3px' fill='none'></path>
   * M: go to start position
   * L: draw solid line
   * Z: draw solid line for current to initial point
   * M/m: absolute, relative position
+<path d='M400,400 S600,200 800,400' stroke='blue' stroke-width='3px' fill='none'></path>
+  Mstart_x,start_y Smid_x,mid_y end_x,end_y
+
+<path d='M00,600 C300,600 400,400 800,600' stroke='green' stroke-width='3px' fill='none'></path>
+<path d='M400,400 q200,-400 400,0' stroke='red' stroke-width='3px' fill='none'></path>
+  * Quadrativ curve
+  * Q mid_x,mid_y,end_y,end_y
+<path d='M00,600 c0,0 400,200 800,0' stroke='red' stroke-width='3px' fill='none'></path>
+  * Cubic curve
+  * C start_x,start_y mid_x,mid_y end_x,end_y // curve
+  * c // relative from M
+<path d='M400,400 A200,100 0 0,1 800,400' stroke='green' stroke-width='3px' fill='none'></path>
+  * arc
+  * Arx,ry 0 a,b end_x,end_y  // a,b are 1 or 0, depending of up/or down
 
 # Markers
 marker-start  // at beginning

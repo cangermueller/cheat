@@ -39,6 +39,17 @@ setattr(o, 'a', v)
 dir(o)  // list attributes
 
 # overriding
+class Parent(object):
+  def __init__(self, a):
+    self.a = a
+
+class Child(Parent):
+
+c = Child(1)
+  * Inherits constructor of parent!
+  * Requires a argument!
+
+## overriding constructor and methods
 class Child(Parent):
   def __init__(self, a, **kwargs):
     self.a = a

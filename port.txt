@@ -5,7 +5,9 @@ install vim +python27
 uninstall --follow-dependents x // uninstall x and all packaged that depend on x
 
 # info
-list installed  // all installed
+installed // show version all installed ports
+installed vim // only show installed version of vim
+list installed  // list current (not installed!) version of available ports
 list vim  // only vim
 info vim  // additional infos
 

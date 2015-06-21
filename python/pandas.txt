@@ -205,12 +205,14 @@ set_index([columns], ...) // set row index
 reset_index(...)  // row index -> columns
   level=
   drop=True // do not add columns
-sort_index(...) // sort df by index
+sort_index(...) // sort df by non-hierarchical index
   axis=0
   ascending=True
   inplace=False
 sortlevels(...) // sort hierarchical index
   level=0
+  inplace=False
+  ascending=True
 swaplevel(0, 1, ...)  // swap levels
   inplace=False
 reorder_levels([1, 0], ...) // change order levels
@@ -485,12 +487,13 @@ isnull(), notnull()
 
 
 # Series
-s = Series([1, 2, 3], index=['a', 'b', 'c'])
+s = Series([1, 2, 3], index=['a', 'b', 'c'], name='name')
 s['a'], s.a
 s.index = [0.1, 0.2, 0.3] // index does not need to be str
 s[0.1]  // 1
 for key, value in s.items():
   print(key, value)
+s.to_frame(col_name)
 
 # Categorical
 Categorical(list('bbbcc'), categories=['a', 'b', 'c', 'f'], ordered=False)
@@ -529,6 +532,7 @@ columns.isin(['a', 'b'])  // works on indices
 index.isin([3, 4])
 ## query
 query('col1 < col2 & col3 == "a")
+query('col < @local_var') // reference local variable
 query('col in [1, 2, 3]') // isin
 query('col == [1, 2, 3]') // same as isin
 query('col1 in col2') // same as isin
@@ -558,6 +562,12 @@ rolling_corr(...)
 rolling_apply(df, window, fun)  // apply any function
 ewma(s, span=)  // exponentially weighted moving average
 ewmcorr(s, span=) // exponentially weighted moving correlation
+
+# numba
+import numba
+@numba.jit
+def fun_with_loops_on_large_frame(df):
+  ...
 
 # Eval
 * performance improvement for large DataFrames)
@@ -632,5 +642,17 @@ color = dict(boxes='DarkGreen', whiskers ,medians, caps)
 by= // different categories become bars; subplots are columns
   columns=['c1', 'c2']  // create subplots for these columns
   df.groupby(by).boxplot()  == df.boxplot(by=by)
+
+
+# subtract
+a - b // subtract b from rows of a by matching indices!
+a.sub(b, axis=) // same as a - b
+a.subtract(b, ...)  // same as sub
+a.values - b.values // broadcast numpy
+
+# piping
+* better readability
+f(g(df, arg_g=1), arg_f=2)
+df.pipe(g, arg_g=1).pipe(f, arg_f=2)
 
 

@@ -38,4 +38,18 @@ pointer // hand
 help  // questionmark
 wait  // waiting
 
+# div
+div {
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 10px;
+  min-height: 10px;
+  padding: 5px;
+  background: lightsteelblue;
+  border: 1px solid black;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
 

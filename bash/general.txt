@@ -1,3 +1,6 @@
+# chmod, chown
+-R  // recursively
+
 # date
 date '+%y%m%d_%H%M%S'
 

@@ -109,7 +109,7 @@ layout.force()
 Initializes parameters: x, y, fixed=False, px=x, py=y
 .size([width, height])
 
-
+# Events
 d3.event.stopPropagation()
   * event not propagated to parent
   * http://bl.ocks.org/jasondavies/3186840
@@ -119,3 +119,8 @@ d3.event.stopPropagation()
 .on('mouseenter', function(d) {})  // only child;
   https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter
 .on('mouseleave', function(d) {})  // child and parent
+
+# Transitions
+sel.transition()
+  .duration(100)
+  .style('opacity', 1.0)

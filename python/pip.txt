@@ -6,6 +6,7 @@ install name
   --upgrade, -U // update package
   --user  // as current user into ~/Library/Python
 install -r requirements.txt // install from requirements file
+install git+https://github.com/PyTables/PyTables.git@develop#egg=tables
 freeze > requirements.txt // create requirements file
 uninstall name
 pip freeze | grep -v "^-e" | xargs pip uninstall -y // uninstall all packages

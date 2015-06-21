@@ -18,12 +18,17 @@ function fun(a, optional) {
   }
 }
 
+# var
+var a = 1;  // local
+a = 1;  // global
+
 
 # list
 var l = [1, 2, 3]
 l.push(x)
 l.pop()
 l.concat(l2)  // not inplace
+l.join(',') // join elements by separator
 l.length
 l.forEach(function(d, i) {
   d = 10  // won't change value!
