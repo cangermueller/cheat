@@ -1,5 +1,6 @@
 # LSF
 * Load Sharing Facility
+* http://www.ebi.ac.uk/systems-srv/public-wiki/index.php/EBI_Good_Computing_Guide
 * python inferface: https://pypi.python.org/pypi/bsub/0.3.3
 
 
@@ -16,19 +17,24 @@ lsmake [makeoptions] [target] //
 
 # bsub
 -R "rusage[mem=100]" -M 100 // request 100 MB
+-R 'select[panfs_nobackup_research]'  // select filesystem
+-R "select[model=XeonE52670]" // cpu model
 -n ncpu // tell LSF number of cpus, memory x ncpu
 -o  file  // append stdout to file
     file%J  // substitute %J by job id
 -e  file  // append stderr to file
 -oo, -ee  // overwrite instead of append
 -cwd dir  // change to dir before executing command, logs in dir
+-XF // X11 forwarding
+
+# queues
 -q research-rh6  // research queue (default)
 -q production-rh6 // production jobs run with higher priority
 -q dungeon  // long runnning (>7 days) jobs
--XF // X11 forwarding
 
 ## Interactive job
-bsub -Is tmux // interactive shell
+bsub -Is bash // interactive tmux
+bsub -Is tmux // interactive tmux
 bsub -Ip ipython console  // interactive console
 bsub -Ip -XF ipython console  // interactive job with X11 forwarding
 
