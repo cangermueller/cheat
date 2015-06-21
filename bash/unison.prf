@@ -1,0 +1,23 @@
+root = /home/bcpierce
+root = ssh://saul//home/bcpierce
+
+# path = current
+# path = common
+
+ignore = Name temp.*
+ignore = Name *~
+ignore = Name .*~
+ignore = Name *.o
+ignore = Name *.tmp
+ignore = Name __pycache__
+ignore = Name *.pyc
+ignore = Path .git*
+ignore = Name *.h5
+ignore = Name *.csv
+ignore = Name .ipynb_checkpoints
+
+ignore = Name unison.prf
+ignore = Path configs.sh
+ignore = Name index_*
+ignore = Name *.pkl
+# ignorenot = Path runs/150512

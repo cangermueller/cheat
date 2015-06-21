@@ -1,4 +1,5 @@
-  == pROC
+== pROC
+* Slower than pROC, but easier to use
 * Visualization, confidence interval, hypothesis test
 * roc <- roc(p, y)
   * roc@sens
@@ -27,6 +28,7 @@
   * alternative="two.sided, less, greater"
 
 == ROCR
+* Faster than pROC!
 * Different curves: TPR/FPR, Sens/Spec
 * ROC threshold can colored
 * Statistics: AUC, MCC, ...
@@ -43,6 +45,13 @@
 * Find optimal cut-off
   * t <- which.max(perf@x.values[[1]] + perf@y.values[[1]])
   * perf@alpha.values[[1]][t]
+
+## auc_score
+auc_score <- function(y, yp) {
+  pred <- ROCR::prediction(yp, y)
+  h <- unlist(ROCR::performance(pred, 'auc')@y.values)
+  return (h)
+}
 
 == OptimalCutpoints
 * library(OptimalCutpoints)

@@ -1,0 +1,55 @@
+# syntax
+.class { }
+  <div class='class'/>
+  <div class='class1 class2'/>
+    * inherit from multiple classes
+    * classes can not inherit from each other
+div { }
+#id {}  // global id
+p,div,#id,.class  // or
+div.class // div in class; not .class div!
+svg div // div in svg element
+
+width: 100px  // px unit required!
+height: 100px  // px unit required!
+border-width: 3px
+border-style: solid, dashed, dotted
+border-color: black
+border: width style color // 3px solid black
+fill: color
+fill-opacity: [0;1]
+
+color: font color
+font-family: "Times New Roman", times, arial, courier, serif, sans-serif
+font-size: 120%, small, medium, large, larger
+text-align: left, right, justify
+
+# colors
+* http://www.december.com/html/spec/colorsvg.html
+steelblue
+skyblue
+forestgreen
+
+
+# cursors
+* http://www.w3schools.com/cssref/pr_class_cursor.asp
+cursor: pointer
+pointer // hand
+help  // questionmark
+wait  // waiting
+
+# div
+div {
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  min-width: 10px;
+  min-height: 10px;
+  padding: 5px;
+  background: lightsteelblue;
+  border: 1px solid black;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+

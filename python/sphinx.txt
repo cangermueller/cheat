@@ -1,3 +1,12 @@
+# doctests
+import doctest
+doctest.testfile('file.rst')
+
+# flags
+>>> code # doctest: +FLAG
+>>> print(a) # doctest: +NORMALIZE_WHITESPACE // whitespace can have different different length; linebreaks
+# doctest: +SKIP  // skip test
+
 # References
 https://pythonhosted.org/an_example_pypi_project/sphinx.html
 
@@ -90,7 +99,8 @@ def add_ab(a, b):
 Add following line to conf.py:
   autoclass_content = 'both'
 
-# Intersphinx
+# Intersphinx / cross-references
+http://sphinx-doc.org/domains.html#cross-referencing-python-objects
 intersphinx_mapping = {
     'python': ('http://docs.python.org/', None),
     'numpy': ('http://docs.scipy.org/doc/numpy/', None),
@@ -100,6 +110,7 @@ intersphinx_mapping = {
 :py:mod:`numpy`
 :py:func:`numpy.sum`
 :py:meth:`numpy.ndarray.sum`
+:py:attr:`numpy.ndarray.__attribute`
 
 # numpydoc
 http://codeandchaos.wordpress.com/2012/08/09/sphinx-and-numpydoc/

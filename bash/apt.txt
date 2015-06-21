@@ -1,0 +1,10 @@
+# apt-get
+update  // update index
+upgrade // upgrade ALL packages
+install name  // install or upgrade newest version of pkg
+remove name
+purge name  // remove also configs
+
+# apt-cache
+search name
+showpkg name  // pkg version

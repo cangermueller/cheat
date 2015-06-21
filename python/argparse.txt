@@ -23,6 +23,7 @@ add_argument('--verbose', action='store_true')
 add_argument('--no-verbose', action='store_false', dest='verbose')
 * type=int  // filetype
 * type=fun  // fun is function that converts argument
+* type=argparse.FileType('r') // readable file
 * default='file.txt'  // default value
   * NOTE: does not work for parse_args(args, class)!!
   * set default by class.arg = default
@@ -30,8 +31,10 @@ add_argument('--no-verbose', action='store_false', dest='verbose')
 * metavar='FILE'  // show --file FILE in help text
 * action='store_true'
     store, store_true, store_false
+    'const', const=10, nargs='?' // --head -> store 10 if not arg
     https://docs.python.org/3/library/argparse.html#action
 * nargs='1' // NUM, ?, *, +
+  nargs='+', opts.files is None // if not files given
 * choices=['red', 'green', 'blue']
 * dest='variable_name'  // use different variable name in namespace
   * use metavar='shown' for renaming positional arguments
@@ -43,10 +46,16 @@ g.add_argument('--verbose')
 g.add_argument('-q', '--quiet')
 
 # Accessing arguments
-opts = p.parse_args()
-opts = p.parse_args(namespace=x)  // add to existing namespace (class) x
+opts = p.parse_args(...)  // argparse.Namespace type
+  args=my_args[1:]  // use own args (without program name) instead of sys.argv
+  namespace=x  // add to existing namespace (class) x
 opts.infile
 for name, value in vars(opts):  // namespace -> dict
+
+## argparse.Namespace
+ns = argparse.Namespace(a=1, b=2)
+ns.a; ns.b
+ns.c = 10
 
 # Sub-commands
 ap = argparse.ArgumentParser('Print content of file')
@@ -58,3 +67,8 @@ ap2 = sp.add_parser('cmd2')
 ap2.add_argument('--cmd2-opt1')
 ap.add_argument('file')
 opts = ap.parse_args()
+
+# Read input optionally from stdin
+add_argument('filenames', help='Input files', nargs='*')
+if len(filenames) == 0 and not sys.stdin.isatty:
+  filenames = sys.stdin.readlines()

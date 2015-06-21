@@ -10,15 +10,19 @@
 \rl // ls()
 \rr // clear console
 \rm // rm(list=ls())
-\a  // argument completion
+\r. // list.files() (c)
+
+ctrl-o  // complete function
+\a  // complete function argument
 
 # Status variable
 \rp // print
-\rj // head
 \rs // summary
 \rt // str
 \rn // names (colnames)
-\rg //plot
+\rg //plot (c)
+\rj // head (c)
+\rk // dim (c)
 
 # Help
 \rh // show help
@@ -44,13 +48,18 @@
 \kh // knit html
 \kl // knit beamer presentation
 \ko // knit odt
-\kz // render rmd
-\kx // run shiny
+\kz // render rmd (c)
+\kx // run shiny (c)
+\kc // clear cache (c)
 \cc // send chunk
 \cd // chunk down
 \ch // from beginning script until current line
 \op // open pdf
-gn, gN  // next, previous chunk
+\oh // open html (c)
+\gn, \gN  // next, previous chunk
+\cn, \cN  // next, previous chunk (c)
+\sic  // select inner chunk (c)
+\sac  // select outer chunk (c)
 
 # Object browser
 \ro // show

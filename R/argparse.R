@@ -2,11 +2,10 @@
 
 library(argparse)
 
-ap <- ArgumentParser(description='Concatenates several files')
-ap$add_argument('files', metavar='FILE', nargs='+', help='Input files to be concatenated')
-ap$add_argument('--output-file', dest='outfile', metavar='FILE', help='Output file')
-ap$add_argument('--verbose', action='store_true', help='Be verbose')
-ap$add_argument('--level', dtype='integer', default='100', help='Some number')
+p <- ArgumentParser(description='Description')
+p$add_argument('in_file', help='Input file')
+p$add_argument('-o', '--out_file', help='Output file')
+p$add_argument('--verbose', action='store_true', help='More detailed log messages')
 
-args <- ap$parse_args(commandArgs(TRUE))
+args <- p$parse_args(commandArgs(TRUE))
 print(args)

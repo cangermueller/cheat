@@ -4,6 +4,11 @@ Advantage: SQL like queries via where()
 http://pytables.github.io/usersguide/tutorials.html#
 
 # Installing tables
+## libhdf not found on OSX
+* install develop version
+pip install git+https://github.com/PyTables/PyTables.git@develop#egg=tables
+
+## cluster?
 HDF5_DIR=~/apps/hdf5
 (LIBS="hdf5-1.8.12 nsl")  // optional
 pip install --upgrade git+git://github.com/cython/cython@master

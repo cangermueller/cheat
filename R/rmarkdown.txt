@@ -7,6 +7,8 @@ output:
     fig_caption: yes
 
 render(input_file, output_format='html_document', output_file, ...)
+  * setwd(dirname(input_file))  // changes to directory of input_file
+  * output file must be relative to dirname(input_file)
   output_format =
     html_document
     pdf_document
@@ -18,4 +20,40 @@ run('file.Rmd', ...)
   shiny_args=list(port=1234)  // passed to shiny::runApp
   render_args=list(...) // passed to render
 
+{r out.width='80%'} // figure output width
+
+
+`r code`  // inline code
+
+
+# ignoring rest of document
+
+```{r}
+opts_chunk$set(eval=F, include=F)
+```
+
+
+## Wrapper
+#!/usr/bin/env Rscript
+
+library(argparse)
+library(rmarkdown)
+
+# Parse file names
+args <- commandArgs()
+this_file <- grep('--file=', args, value=T)
+this_file <- sub('^--file=', '', this_file)
+rmd_file <- paste0(sub('\\.R$', '', this_file), '.Rmd')
+
+p <- ArgumentParser(description='Runs basic scBS-QC pipeline')
+p$add_argument('in_file', help='Input Seqmonk annotated report')
+p$add_argument('-o', '--out_file', help='Output filename', default='main.html')
+p$add_argument('--out_format', help='Output format', default='html_document')
+p$add_argument('--exclude', help='Samples to be excluded', nargs='+')
+args <- p$parse_args(commandArgs(T))
+args$in_file <- file.path(getwd(), args$in_file)
+args$out_file <- file.path(getwd(), args$out_file)
+print(args)
+
+render(rmd_file, output_file=args$out_file, output_format=args$out_format)
 

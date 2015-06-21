@@ -16,3 +16,30 @@
 'RdYlGn'
 colorRampPalette(pal)(200)  // interpolate color palette to 200 colors
 
+
+
+brewer_cols <- function(pal='Spectral', rev=F) {
+  ncol <- brewer.pal.info[pal, 'maxcolors']
+  col <- colorRampPalette(brewer.pal(ncol, pal))(50)
+  if (rev) {
+    col <- rev(col)
+  }
+  return (col)
+}
+
+## Sequential
+cols <- list()
+cols[[length(cols)+1]] <- brewer_cols('YlGnBu')
+cols[[length(cols)+1]] <- brewer_cols('YlGn')
+cols[[length(cols)+1]] <- brewer_cols('Reds')
+cols[[length(cols)+1]] <- brewer_cols('RdPu')
+cols[[length(cols)+1]] <- brewer_cols('Purples')
+cols[[length(cols)+1]] <- brewer_cols('PuBuGn')
+cols[[length(cols)+1]] <- brewer_cols('PuBu')
+cols[[length(cols)+1]] <- brewer_cols('OrRd')
+cols[[length(cols)+1]] <- brewer_cols('Greens')
+cols[[length(cols)+1]] <- brewer_cols('GnBu')
+cols[[length(cols)+1]] <- brewer_cols('BuPu')
+cols[[length(cols)+1]] <- brewer_cols('BuGn')
+cols[[length(cols)+1]] <- brewer_cols('Blues')
+cols[[length(cols)+1]] <- brewer_cols('Spectral', rev=T)

@@ -1,0 +1,3 @@
+import gzip
+f = gzip.open(filename)
+f.read(), f.readlines(), ...

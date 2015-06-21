@@ -1,0 +1,53 @@
+directory: ~/Library/Application Support/Unison
+
+# interface
+unison [options] root1 root2 [options]
+unison profile
+  * profile in directory
+  * default.prf is ignored
+
+
+# options
+-ignore pathspec
+-ignorenot pathspec
+-force newer  // unidirectional
+-path path  // synchronize only specific directory
+
+# shortcuts
+f // follow unison recommendations
+> // left right
+< // right left
+/ // ignore
+d // show diff
+
+# pathspec
+-ignore 'Regex|Name|Path regex'
+Name *.h5 // ignore file extension anywhere
+Name dir/*.h5 // ignore *h5 in directory
+
+
+
+
+# profiles
+~/Library/Application Support/Unison/profile_name.prf
+unison profile_name
+
+## Roots of the synchronization
+root = /home/bcpierce
+root = ssh://Ebi//homes/angermue/research/bs/dev/150515_predict
+  * two //
+  * ~ does not work!
+
+## Paths to synchronize 
+path = current
+path = common
+path = .netscape/bookmarks.html
+
+## Some regexps specifying names and paths to ignore
+ignore = Name temp.*
+ignore = Name *~
+ignore = Name .*~
+ignore = Path */pilot/backup/Archive_*
+ignore = Name *.o
+ignore = Name *.tmp
+

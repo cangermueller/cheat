@@ -1,3 +1,7 @@
+# Misc
+:python cmd // execute python command and get results
+
+
 # python-mode
 * pylint  // syntax checking
 * rope  // code refactoring
@@ -8,11 +12,15 @@
 [M, ]M  // previous, next class or function
 iM, aM  // select inner/a method
 iC, aC  // select inner/a class
+gq  // reindent line
 
 ## PyLint
 \ll // check code
-\ln, \lp  // navigate
-\lc // close quickfix
+\mm  // open localation list
+\mn // close ll
+\mj // next entry
+\mk // previous entry
+
 :PymodeLint // check code
 :PymodeLintToggle // switch PyLint on/off
 :PymodeLintAuto // autocorrect changes
@@ -46,8 +54,12 @@ bundle/vim-ipython/ftplugin/python/ipy.vim
 :IPythonClipboard // paste connection string from clipboard
 
 ## Keybindings
--> defined in ipy.vim
-c-s // send selection of current line
-c-x c-u // ipython completion
-<F5>  // run file
-%run file.py  // run entire file in console to load variables
+-> ~/.vim/ftplugin/python.vim
+\rf // connect
+\rh // show doc
+\aa // send all
+\w  // send line
+\q  // send line down
+\d  // send line down
+<Leader>D // add docstring
+<Leader>F // removl docstring

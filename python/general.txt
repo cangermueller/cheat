@@ -1,8 +1,14 @@
+# Maximum recursion depth
+sys.setrecursionlimit(x)
+
 # Environment variables
 os.getenv('HOME'[, default])
 os.environ['HOME']
 os.environ.get('HOME')
 os.environ['FOO'] = 'bar'
+
+# execute system/shell command
+os.system(cmd)
 
 # Array letters, characters
 import string

@@ -24,3 +24,41 @@ import pandas.rpy2.common as com
 com.load_data('object') // R object -> pandas object
 df_r = com.convert_to_r_dataframe(df) // first convert df
 r.assign('df', df_r) // then write it to R
+r('saveRDS(df, file="file.rds")')
+
+
+
+
+from rpy2.robjects import r
+import pandas.rpy.common as com
+
+def join_index(index, sep='_'):
+    return [sep.join(x) for x in index.values]
+
+def to_r(d):
+    if d.columns.nlevels > 1:
+        d = d.copy()
+        d.columns = join_index(d.columns)
+    d = d.reset_index()
+    d = com.convert_to_r_dataframe(d)
+    convert = r("""
+    function(df) {
+        data.frame(lapply(df, function(X) {
+            if ("AsIs" %in% class(X))
+                class(X) <- class(X)[-match("AsIs", class(X))]
+            X
+        }))
+    }
+""")
+    d = convert(d)
+    return d
+
+def to_rds(d, filename):
+    if type(d) is dict:
+        r('d <- list()')
+        for k, v in d.items():
+            r.assign('dd', to_r(v))
+            r('d$%s <- dd' % (k))
+    else:
+        r.assign('d', to_r(d))
+    r("saveRDS(d, '%s')" % (filename))

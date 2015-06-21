@@ -1,0 +1,22 @@
+cor(M, method=, use=, ...)
+  * between columns of M
+  method=pearson, spearman, kendall
+  use=
+    * everything: NA produce column with NA
+    * all: NA throws error
+    * complete.obs: remove rows that contain >0 NA (all samples)
+    * pairwise.complete.obs: remove only rows for pairwise comparison (different rows for different pairs)
+
+# cor to dist
+dist = 0.5 * (1 - abs(r))
+
+# cor.test
+cor.test(x, y, ...)
+  alternative=two.sided (default), less, greater
+
+# weighted
+library(weights)
+weighted.mean(x)  // default stats package
+wtd.var(x, w=NULL)
+wtd.cor(x, y, w=NULL)
+

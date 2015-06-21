@@ -1,0 +1,40 @@
+# Options
+trace='none'
+density.info='none'
+ColSideColors=c(col1='green', col2='blue', ...)
+  * Named vector with column colors
+col=rev(heat.colors(50))
+dendrogram='column'  // draw only column dendrogram
+Rowv=, Colv=
+  FALSE // do not cluster
+  TRUE  // do cluster
+  dendro  // use existing dendrogram; as.dendrogram(hclust), rv$rowDendrogram
+labCol=NA  // no labels
+srtCol=45 // rotate column labels by 45
+lhei=c(1, 3)  // make first row (col dendro) smaller
+lwid=c(1, 3)  // make first column (row dendro) smaller
+margin=c(col, row)  // margin for column and row labels 
+distfun=dist
+hclustfun=hclust
+
+# Color key
+keysize=1.0
+key.title='title'
+key.xlab='xlab'
+key.ylab='ylab'
+  
+# Return value
+rowDendrogram
+colDendrogram
+
+# Misc
+par(oma=c(bottom, left, top, right))  // outer margins if labels to long
+
+# Positioning elements
+lmar=rbind(c(4, 3), c(2, 1))  // position matrix
+  * first row: color key / col dendro
+  * sec row: row dendo / heatmap
+lhei=c(row1, row2)  // height of rows
+lwid=c(col1, col2)  // width of columns
+
+

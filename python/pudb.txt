@@ -1,0 +1,34 @@
+pudb3 script.py
+python -m pudb.run script.py
+
+# preferences
+~/.config/pudb
+ctrl-p
+
+# shortcuts
+q // quit
+n, c, s // next, continue, step into
+r // until return
+b // toggle breakpoint
+t // run until cursor
+/ // search
+m // browse modules
+o // show output
+
+V, S, M // focus variable, stack, modules windows
+
+
+# console
+c-x // open small
+! // open large
+c-d // quit
+c-p, c-n  // previous, next command
+## Issue with key mapping
+* open full-screen ! first
+* http://fredericiana.com/2006/10/16/fixing-backspace-and-delete-for-ssh-in-os-xs-terminalapp/
+* http://stackoverflow.com/questions/26677154/lost-in-pudb-command-line-area
+
+
+# TODO
+pbpython
+ipyton: quit without save

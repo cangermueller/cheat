@@ -6,6 +6,10 @@ import time
 """
 pip install progressbar2
 writes to stderr
+
+pb = Progressbar()
+update(i)
+finish()
 """
 
 widgets=['Loading ', pb.AnimatedMarker(), ': ', pb.Percentage(), ' ', pb.Bar(), ' ', pb.ETA(), ' ', pb.FileTransferSpeed()]

@@ -12,8 +12,24 @@ __sub__   // a - b
 __cmp__   // a == b
 
 # Special variables
-__dir__, dir(object)  // all object names
-__dict__, vars(object)  // all variables
+__dir__
+  * all object names: __init__, method(), __str__(), ...
+  * dir(Class)
+  * list()
+__dict__
+  * class variables: __doc__ (not methods)
+  * vars(Class)
+  * type(__dict__) == mappingproxy
+  * type(dict(__dict)) == dict
+
+# Private: double underscore
+__private_constant
+__private_method
+
+# Copying instances
+import copy
+copy.copy(x)
+copy.deepcopy(x)
 
 # Getting, setting attributes
 o = Class()
@@ -23,6 +39,17 @@ setattr(o, 'a', v)
 dir(o)  // list attributes
 
 # overriding
+class Parent(object):
+  def __init__(self, a):
+    self.a = a
+
+class Child(Parent):
+
+c = Child(1)
+  * Inherits constructor of parent!
+  * Requires a argument!
+
+## overriding constructor and methods
 class Child(Parent):
   def __init__(self, a, **kwargs):
     self.a = a

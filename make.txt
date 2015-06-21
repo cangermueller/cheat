@@ -1,40 +1,108 @@
 # make
 -f  Makefile
 -B  // always rebuild target
+-j  n // number of jobs to be run in parallel
 
 # variables
 $@  // target
+$*  // match pattern in pattern rule
+target-%:
+  echo $* // target-X prints X
 $<  // first prerequisite
 $+, $^  // all prerequisites
-$$HOME  // escape shell variable
+$(@D), $(@F)  // directory and filename of $@
+$(<D), $(<F)  // directory and filename of $<
+$(+D), $(+F)  // directory and filename of $+
+$$HOME  // escape/mask shell variable
+\:  // escape colon
+$HOME // environment variables become Make variables
 
-<<<<<<< HEAD
-=======
+
+## assignments
+x = value
+x ?= value  // only if not defined
+x := value  // overwrite
+target: x = value // target specific variable
+
+# multiple commands per line
+seqmonk: txt
+	mkdir -p seqmonk && \
+	for infile in $$(ls txt/*txt); do \
+		outfile=seqmonk/$$(basename $$infile); \
+		./txt_to_seqmonk.py $$infile > $$outfile; \
+	done
 
 # functions
->>>>>>> f0c449f188594a61118aa73ef9732c4d8362e0fc
-$(patsubst, RSC_%, cell_%, RSC_1 RSC_2) // cell_1 cell_2
+$(patsubst RSC_%,cell_%, RSC_1 RSC_2) // cell_1 cell_2
 $(RSC_1 RSC_2:RSC_%=cell_%) // same as before; no space around ':'!
+$(subst what,by,string) // substitute substring
 
-$(wildcard dir/*.dir) // glob files
+$(wildcard dir/*.dir) // glob files; ls dir/*.dir
 $(dir /dir/file.txt)  // /dir
 $(notdir /dir/file.txt) // file.txt
 $(suffix /dir/file.txt) // .txt
-$(basename /dir/file.txt)  // /dir/file; not suffix
+$(basename /dir/file.txt)  // /dir/file; -> remove suffix
 $(addprefix prefix, list) // a b, .txt -> a.txt b.txt
 $(addsuffix suffix, list)
 $(shell ls) // shell command
 
+# control structures
+## if
+$(if var,true,false)  // if var not empty
+$(if ,true,false) // -> true
+## loops
+$(foreach var,list,foo $(var) bar)  // loop over list
+## functions
+reverse = $(2) $(1) // reverse 1st and 2nd arg; $(0) is name of function
+$(call reverse,word1,word2) // $(call NAME,arg1,arg2)
+## example
+parse_k = $(shell python  -c 'import re; print(re.search("_k(\d+)", "$(1)").group(1))')
+k = $(call parse_k,file_k123_w100.h5)
+## assert
+$(error Message)  // stop with error message
+$(warning Message)  // stop with error message
+
+
+# pattern rule
+%.o: %.c
+  gcc -o $@ $<
+
+## different directories
+$(a_dir)/%.a:
+  cmd
+$(b_dir)/%.b: $(a_dir)/%.a
+  cmd
+
+## wildcards
+%.o: $(dir)/*%*.c
+  NOTE: $(wildcard $(dir)/*%*.c) does not work! % not in functions!
+
+# suffix rule // deprecated
+.c.o:
+  gcc -o $@ $<
+
 # static pattern rule
 list_targets : pattern : pattern_pre
   apply command to each target that matches pattern individually
+file1.h5 file2.h5 file3.h5: %:
+  echo $@ // file1.h5; file2.h5; file3.h5
+File1.h5 file2.h5 file3.h5: F%:
+  echo $@ // file2.h5; file3.h5 --> File1.h5 filtered out
 
 objects = foo.o bar.o
 $(object): %.o : %.c
   gcc -c $@ $^
 
-# variables
-x = value
-x ?= value  // only if not defined
-x := value  // overwrite
-target: x = value // target specific variable
+# order-only prerequisites
+* are always executed before all other prerequisites
+target: pre | order-only
+
+# print value of variable
+print-var:
+  echo $($*)
+
+# supress echo of command
+target:
+  @command
+
+

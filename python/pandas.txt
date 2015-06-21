@@ -1,3 +1,31 @@
+# string functions
+s = pd.Series(['1', 'ab', '10.0'])
+s.str.fun
+isdigit // integer
+isalpha // a-z
+isalnum // a-z0-9
+replace(x, y)
+slice_replace(from, to, replace)
+slice(from, to)
+pad(length, fillchar=' ') // extend length
+startswith(string)  // starts with string (not re!)
+contains(re)  // contained regular expression
+find(str, start=0, end=len) // -1 if not find; start else
+Series(['a', 'b', 'c']).cat(['1', '2', '3'])  // concat; same lenght!
+
+# assign
+d.assign(
+  a=10,
+  b=20,
+  c=lambda x: x.a / x.b // function of other variables
+  )
+  
+# Operations
+df.corr(...)  // correlation matrix
+df.apply(fun, axis=0) // apply function over axis
+  axis=0  // over rows -> return value for each column
+  axis=1 // over columns -> return value for each row
+
 # sample DataFrame
 df.iloc[np.random.sample(df.index, n), :]
   np.random.sample(list, n) // sample n elements without replacement
@@ -9,23 +37,11 @@ df['c1'] = df['c1'].astype(str) // convert dtype column
 
 # Misc
 pd.crosstab(y, x) // contingency table
-pd.concat((a, b), axis=1) // concat by columns
-  keys=['a', 'b'] // create multiindex
-pd.merge(a, b)  // merge dataframes by common columns
-  on=['c1', 'c2'] // columns to be used for merging
-  how='left'  // left join -> fill with np.NaN
-df.drop_duplicates()  // remove duplicate rows -> unique rows
-
-# Excluding / selecting columns
-df = pd.DataFrame(np.arange(15).reshape(5, 3), columns=list('ABC'))
-sel = list('AC')
-df_sel = df[sel]
-df_unsel = df[[c for c in df.columns if c not in sel]]
-* Alternative: df.set_index()
 
 # IO
 to_pickle('file.pkl')
-from_pickle('file.pkl')
+read_pickle('file.pkl')
+read_excel('file', 'sheet')
 read_hdf('file', 'groupname')
 read_csv(file, ...) / read_table(file, ...)
   nrows // max number of rows to be read
@@ -33,104 +49,195 @@ read_csv(file, ...) / read_table(file, ...)
   sep='\s+' // separate by spaces
   usecols=['a', 'b'] // select columns by name
   usecols=[0, 1, 2] // select columns by index
-  header=None // no header
+  header=None // no header; not header=False!
+  header=i  // row number to use as column names (default: 0)
+  comment='#' // skip lines beginning with #; ignore everything after #
+  skiprows=0  // skip that many rows at beginning
+read_csv(StringIO(string))  // Read from string
+  from io import StringIO
 to_csv(file, ...)
   sep=','
   index=True  // write index
+  header=False  // do not write header
+to_sql('table1')  // see SQL below
 
-## hdf
+# HDF
+df.to_hdf('/df', format='t', ...)
+  format='f'  // fixed format; fast read + write; no query
+  format='t'  // table format; slower write (+ read); query
+  complib='bsoc', complevel=5 // compress
+  complib='bsoc, bzip2, ...'
+  complevel=[0-9] // 0 no compression (default)
+pd.read_hdf('file.h5', 'name', ...)
+  columns=['c1', 'c2']
+  ## selection
+  * format='t' required!
+  where=["columns=['c1', 'c2'] & index>10]
+  start=first_row // number (not index) first row (included)
+  stop=last_row // number (not index) last row (excluded)
+
+## HDFStore
 store = HDFStore(filename)
+store.close()
+store.is_open
 store.keys()
 store.groups()
+
+### Reading
 store['df'], store.df // read DataFrame
+store.select('df', '(index=[0, 1]) & ~(column=[A, B])')
+  index > 10
+store.remove('df', ...) // remove table
+  where='index="A"'
+  where='c1 > 10'
+
+### Writing
 store['df'] = df  // write DataFrame in fixed format
 store.put('df', df, ...)
   format='f'  // fixed format: fast write, no query/append/delete
   format='t'  // table format: slower write, read still fast
-  data_columnns=True  // for queries where('c1 > 0.2'); see below
-store.select('df', columns=['c1', 'c2'])
-store.select('df', where="index=['A', 'B']")
-store.select_column('df', 'c1') // if data_columns=True
-store.remove('df', ...) // remove table
-  where='index="A"'
-  where='c1 > 10'
-store.close()
-store.is_open
-df.to_hdf('file.h5', 'name', ...)
-  format='f'  // fixed format
-  format='t'  // table format
-pd.read_hdf('file.h5', 'name', ...)
-  columns=['c1', 'c2']
-  where=["columns=['c1', 'c2'] & index>10]
-  start=first_row
-  stop=last_row
+    * required for selection
+  data_columnns=True  // for queries where('c1 > 0.2')
+store.append('df', df)  // append rows; create new if not existing
 
-### Query table
-~, & , ~  // not, and, or
-=, >, >=  // operators
-columns=['c1', 'c2']
-~(columns=['c1', 'c2'])
-index=['A', 'B']
-chromo='chr1' // select by hierarchical index
-c1 > 0.2  // if store.put('df', df, data_columns=True)
+### Splitting into multiple table -> higher performance
+store.append_to_multiple({'t1', ['c1', 'c2'], 't2': None, t, selector='t1')
+  * arg1: how columns are split; None means all other columns
+    * split by index not supported
+  * t is DataFrame that is split
+store['t1'] // read chunk
+store.select_as_multiple(['t1', 't2'])  // read all chunks
+
+### Selecting groups
+* better: h5py
+g = store['/group']
+g._v_name // name 
+g._v_children // all children
+g._v_groups // all sub-groups
+g._v_parent // parent
+
+
+
+### Queries
+* format='t' required!
+* data_columns=True required for querying by value
+* read_hdf(where=query)
+* store.select('df', query)
+* http://pandas.pydata.org/pandas-docs/dev/io.html#querying-a-table
+index < 5 and columns=='c1' // select by index, columns
+index in [1, 2] & ~(columns in ['c1', 'c2']) // select by index, columns
+c1 < 10 // select by value; requires data_columns=True
+'c1 < = %d' % (variable)  // not direct reference possible (see query())
+
+
+
+
+
+
 
 ### rhdf5
+* supports different data types
+* columns are arrays! : num [1:222092(1d)] 
+  -> as.vector(d[,c])
 store.put('df', df, format='t', data_columns=True)
 df <- h5read('file.h5', '/df/table')
 df <- h5read('file.h5', 'df')$table
 
+#### Python
+def join_index(index, sep='_'):
+    return [sep.join(x) for x in index.values]
 
-# Index
-columns // column index
-  d['c1']
-index // row index
-  d.loc['r1']
+def to_r_hdf(d, filename, group):
+    if d.columns.nlevels > 1:
+        d = d.copy()
+        d.columns = join_index(d.columns)
+    d = d.reset_index()
+    d.to_hdf(filename, group, format='t', data_columns=True)
 
-## Rows
-set_index(columns, inplace=False) // use column as index
-reset_index(inplace=False) // convert index to columns
-sort_index(ascending=True, inplace=False)
+#### R
+h5_read <- function(filename, group, ...) {
+  d <- suppressWarnings(h5read(filename, group, ...)$table)
+  for (i in 1:ncol(d)) {
+    d[,i] <- as.vector(d[,i])
+  }
+  d <- d %>% tbl_df %>% select(-index)
+  return (d)
+}
+
+
+
+
+
+
+
+# Creating index
+i = Index(array, name=, dtype=
+df = DataFrame(array, index=i, columns=i)
+df.index = i / df.columns = i
+i.name; i.names // return names
+i = i.set_names('name', ...) // change name; returns new index
+  inplace=False
+
+
+# Multiindex / Hierarchical index
+u = MultiIndex.from_arrays([array1, array2], names=[name1, name2])  // must have same length
+i = MultiIndex.from_tuples([('chr1', 1), ('chr1', 2), ]) // must have same length
+i = MultiIndex.from_arrays(...) // same as from_tuples
+i = MultiIndex.from_product([[o1, o2], ['i1', 'i2', 'i3']], names=['chromo', 'pos'])
+  * Make index of Cartesian product of two iterators
+i.levels[k] // unique index values at level k
+i.get_level_values(k) // index values (not unique) at level k
+i.droplevel(k) // remove level k
+
+# Index options
+.nlevels
+
+
+# Index operations
+rename(
+  columns={'new': 'old}  // rename columns
+  index={'new':'old'} // rename rows
+  columns=lambda x: x + '_' // apply renaming function
+  )
+set_index([columns], ...) // set row index
+  drop=False  // retain column
+  append=True // append to end
+reset_index(...)  // row index -> columns
+  level=
+  drop=True // do not add columns
+sort_index(...) // sort df by non-hierarchical index
+  axis=0
+  ascending=True
+  inplace=False
+sortlevels(...) // sort hierarchical index
+  level=0
+  inplace=False
+  ascending=True
+swaplevel(0, 1, ...)  // swap levels
+  inplace=False
+reorder_levels([1, 0], ...) // change order levels
+  axis=0
 reindex(range(1990, 2000))  // adjust to new index
   * drop rows that are not indexed by new index
   * fill with np.NaN for newly indexed rows
   * columns=  // reindex columns
   * index=  // reindex index
   * fill_value=
-index.values[0] = 'new_label' // rename index; rename column/row
-index.names // names
-
-## Columns
-df.columns = ['c1', 'c2'] // rename all columns
-df.rename(columns={'old':'new'}, inplace=True)  // rename selected columns
-df.rename(columns=lambda x: x[1:])  // apply function for renaming
+  * method='nearest'  // use nearest value
 del df['col'] // delete column
 
-## Indexing
-df.loc[(r1, r2), c] // row by levels (r1, r2), column c
-df.loc[r1, c] // only first level
-df.loc[r1].loc[r2] == df.loc[(r1, r2)]
-
-## Creating index
-i = Index(array, dtype=)
-df = DataFrame(array, index=i)
-df.index = i
-
-## Multiindex / Hierarchical index
-m = MultiIndex.from_arrays([array1, array2], names=[name1, name2])
-m = MultiIndex.from_tuples([('chr1', 1), ('chr1', 2), ])
-m = MultiIndex.from_arrays([df.c1, df.c2], names=df.columns[1, 2])  // from DataFrame
-df.index = m  // set index
-pd.concat((a, b), axis=1, keys=['a', 'b'])  // concat columns of a and b
-i = df.columns  // multiindex for columns
-i.get_level_values(k) // get column labels level k (int or str)
-i.droplevel(k) // remove level k
-df.columns = df.columns.droplevel(k)
-
-## Check if index contains value
+# Check if index contains value
 value in df.index
 'a' in df.index // single-index
 'a' in df.index // multi-index first level
 ('a', 1) in df.index  // mutli-index both levels
+
+# Flatten index
+def flatten_columns(d):
+    d.columns = ['_'.join(x) for x in d.columns.values]
+
+
+
 
 
 
@@ -138,43 +245,121 @@ value in df.index
 # Missing values
 np.nan, np.NAN, np.NaN  // pandas compatible
 pd.NaT  // Not a Time, for time series
-isnull(np.nan) == True
-isnull()
-notnull()
+s[i] = np.nan, None // setting missing values; np.nan and None equivalent
+np.nan(s[i]), isnull(s[i])  // testing nan
+notnull() == not isnull()
 count() // # non-missing
 fillna(0)
-dropna(axis=) // drop axis with at least one missing value
-interpolate() // fill missing values by interpolation
+df.fillna(df.mean())  // fill with column means
+df.fillna({'c2':10, 'c3':5})  // fill named columns
+dropna(...) // drop rows with at least one missing value
+  axis=0  // drop incomplete rows (default)
+  how='any' // if any entry is missing <-> how='all'
+
+[1, np.nan, 3].interpolate() // -> [1, 1.5, 3]
+  method='index'  // observations not equally spaced
 count(axis=)  // count # non-null elements
 
-# Selection, filtering
-s = df.pos  // selection based on series
-s > 0 // returns boolean vector
-(s > 0) & (s < 5) // boolean operator: brackets; &, |, ~ instead of and, or, not
-s[(s > 0) & (s < 5)]  // section series
-df[(df.pos > 0) & (df.pos < 5)] // selection data frame
-s.isin([3, 5, 5]) // select single values
-s.where(s > 5)  // sets entries s <= 5 to NaN
-s.where(s < 5, 10)  // sets entries s <= 5 to 10
-s.mask(s > 5) // sets entries s > 5 to Nan
+# Replacing values
+replace(from, to)
+replace(np.nan, 1)
+replace([f1, f2], [t1, t2]) // f1 -> t1; f2 -> t2
+replace({f:t})
+replace('\w+', '', regex=True)
 
 
 # pandas printoptions
-pd.set_option('display.width', 150) 
-pd.set_option('display.height', 150)
-pd.set_option('display.max_columns', 150)
-pd.set_option('display.max_rows', 150)
+?set_option // lists all options
+set_option('display.width', 150)
+  display.width=80 // line width
+  display.precision=7
+  display.max_rows=60
+  display.max_columns=60
+get_option('display.width')
 
-# reshaping
-df.pivot(index=, columns=, values=) // list -> matrix
-pd.melt(matrix, ...)  // matrix -> list
-  id_vars=  // column name to be used as identifier; rownames: reset_index()
-  var_name= // name of variable column
-  value_name= // name of value column
-pd.concat([d1, d2])
-  * concat DataFrames (Series)
-  * column order can be different
-  * columns can be missing: filled by NaN
+# Reshaping
+## Stacked -> unstacked
+id | id2 | value
+  0     0       3
+  0     1       4
+  1     0       2
+  1     1       5
+        =>
+      id2
+    id1 0  1 
+      0 3  4
+      0 2  5
+df.pivot_table(index='id1', columns='id2', values='value')
+  * use pivot_table instead of pivot
+df.pivot(index='id1', columns='id2')['value']
+  * index, columns is single string, not list!
+  * Hierarchical column index with value column at level 0
+
+## Unstacked -> stacked
+pd.melt(df, id_vars='id1', var_name='id2', value_name='value')
+pd.melt(df, ...) // matrix -> list
+  id_vars= // columns that stay as they are 
+  var_name= // name of new key columns
+  value_name= // name of new value column
+pd.melt(['a', 'b', 'c'], id_vars='a', var_name='id', value_name='value')
+  ['a', 'b', 'c'] -> ['a', 'id', 'value']
+
+
+## Example
+d = pd.concat([d1, d2])
+  chromo  pos   value   sample
+  0   1   3003339   1   CSC2_3B
+  1   1   3003379   1   CSC2_3B
+dmatrix = pd.pivot_table(index=['chromo', 'pos'], columns='sample', values='value')
+       sample  CSC2_3B   CSC2_3C
+  chromo  pos     
+  1   3003339        1   NaN
+      3003379        1   NaN
+      3003582        1   NaN
+dlist = pd.melt(dmatrix.reset_index(), id_vars=['chromo', 'pos'], var_name='sample', value_name='value')
+  chromo  pos   sample  value
+  0   1   3003339   CSC2_3B   1
+  1   1   3003379   CSC2_3B   1
+  2   1   3003582   CSC2_3B   1
+
+
+# Stacking, unstacking
+df.stack() // columns become Mutliindex ~ melt
+df.unstack() // last level becomes column ~ pivot_table
+
+# Concatenating DataFrame / Joining multiple DataFrames on indices
+pd.concat([d1, d2], axis=0, ...) // join data.frames on indices
+  axis=1  // concat columns
+  join='outer'  // 'inner'
+  ignore_index=True // create new index 0:nrows
+  keys=['d1', 'd2'] // create Multiindex with these outer level values
+  names=['outer', 'inner']  // names of levels in Multiindex
+
+# Joining 2 DataFrames on COLUMNS
+pd.merge(a, b, ...) // join on common columns
+  on=['c1', 'c2'] // set columns explicitly; overlap otherwise
+  how='left'  // right, outer, inner
+  rsuffix, lsuffix  // if overlapping columns names
+  left_index=True, right_index=True // join on indices instead of columns -> like a.join(b)
+
+# Joining 2 DataFrames on indices
+a.join(b, ...)  // join on indices
+  how='left'  // right, outer, inner
+  rsuffix, lsuffix  // if overlapping columns names
+
+# Appending rows
+df.append([d1, d2], ...)
+ * add rows
+ * same as pd.concat([df, d1, d2], axis=0)
+ * columns can differ -> filled with NA
+ ignore_index=True  // create new index 0:nrows
+df.append({'c1': 1, 'c2':2}, ignore_index=True) // append single
+df.append(Series([1, 2], index=df.columns), ignore_index=True) // append single row
+
+# Dummy coding
+pd.get_dummies(series, prefix='', prefix_sep='_')
+pd.get_dummies(df['c1'], prefix='c1').join(df.loc[:, df.columns != 'c1']) // dummy code columns c1
+
 
 
 
@@ -199,53 +384,82 @@ com.load_data('mtcars')
 
 
 # Grouping
-g = df.groupby(['c1', 'c2'])
-g.groups  // groups as dictionary
+g = df.groupby(['c1', 'c2'], ...)
+  level=0 // group by level instead of column name
+  sort=True // sort groups
+  as_index=False  // use integers instead of group keys as index
+  group_keys=False  // only when calling apply: no not set index of concatenated output frame
+for name, group in groups:  // iterate over groups
+g.groups  // dictionary
+  .keys() // group keys
+  .values() // indices! -> use get_group(key) to get the actual group
 g.groups.keys() // group names
 g.get_group('g1') // get group by name
 g.ngroups // number of groups
-for name, value in g: // iterate over groups
 g['c1', 'c2'] // select columns; return new grouped object
-g
-  count(), size() // # elements
-  mean()
-  median()
-  describe()  // summary statistics
-  first()
-  last()
-g.apply(lambda df: pd.DataFrame({...})  // apply arbitrary function to groups
-  .apply(lambda df: df.field.iloc[0]) // return value of field of first row
-  .apply(lambda df: pd.DataFrame({'f1':[df.f1.min()]}) // return min of f1
-g.transform(lambda x: np.mean(x)) // group specific modification; same size as group
-g.filter(lambda x: np.mean(x) > 0.5)  // return only members of groups that satisfy constraint
-g.aggregate(fun)  // apply fun to each columns; return same columns (<> apply)
-  .agg(fun) // same as aggregate
-  .agg(np.min)  // min of each column
-  .agg(lambda x: x.iloc[0]) // first entry of each column
 
-# Summary
-df.head() / df.tail()
-df.columns / df.index
-df.describe()
+## Aggregation functions: reduce the dimension
+g.fun
+g['col'].mean(), g.col.mean() // aggregate single column
+size() // # records in each group
+count() // # non np.nan values in each column
+mean()
+median()
+describe()  // summary statistics
+first()
+last()
+nth(i)  // select record as position i
+nth(0) == first()
+nth(-1) == last()
+nth(0, dropna='any')  // take first record without any nan
+agg == aggregate
+agg(np.mean)  // apply function to each column
+agg([np.mean, np.std]) // apply multiple functions to columns
+agg({'c1': fun1, 'c2': fun2}) // apply different functions to columns
 
-# Comparing DataFrames
+## Transform: perform group specific modifications
+* return df must have same shape
+d.groupby('key').transform(lambda x: x - x.mean())  // center each group
+
+## Filter: select particular group (not single group members)
+d.groupby('key').filter(lambda x: x.a.mean() > 0) // select groups with a.mean() > 0
+
+
+## Apply: return DataFrame of any dimension
+NOTE: call to first group applied twice! -> Don't use apply if long runtime
+fun(d)
+  * d has same columns than format than ungrouped data, only filtered by group
+  * can return any DataFrame with different columns
+apply(lambda df: pd.DataFrame({'f1':df.f1.min()}) // return min of f1
+
+
+
+
+
+
+
+# Comparing DataFrames / testing
 df.all(axis=0)
 df.all().all()
 import pandas.util.testing as pt
 pt.assert_frame_equal(df1, df2)
 
 # Sql
-import sqlite3 as sql
-import pandas.io.sql as psql
-con = sql.connect()
-df = psql.read_sql('SELECT * ', con, index_col=)
+import sqlite3 as sql // mysql, etc. supported as well
+con = sql.connect(file)
+  file='db.sqlite'  // local file
+  file=':memory'
+df = pd.read_sql('SELECT * from table1', con)
+df.to_sql('table1')
 
 
-# DataFrame
+# Creating DataFrame
 DataFrame(columns=['c1', 'c2'], index=['r1', 'r2'], dtype=bool)
   columns=  // column labels
   index=  // row labels
 DataFrame({'id':[0, 1, 2], 'value':[1, 2, 3]})  // from dict
+  * column order random
+  * use d[[c1, c2]] to order afterwards -> no other solution (?)
 DataFrame.from_dict(dict) // same as before
 DataFrame(np.ones((n, m)), columns=)  // from numpy array
 DataFrame.from_csv
@@ -260,15 +474,6 @@ df.sort_index(by='column')  // sort by column -> like sort
 df.drop(['r1', 'r2'], axis=0) // delete rows
 df.drop(['c1', 'c2'], axis=1) // delete columns
 
-## selection
-.loc[rowlabel, collabel]  // purely label based
-.iloc[rowindex, colindex] // purely index based
-.ix[rowlabel, colindex] // mixed label index
-.at[rowlabel, collabel] // scalar label based
-.iat[rowindex, colindex]  // scalar index based
-df[a & b | c & ~d]  // boolean indexing by rows
-df.ix[:, a & b] // boolean indexing by columns
-
 ## hdf5
 df.to_hdf('file', 'groupname')
 df = pd.read_hdf('file', 'groupname')
@@ -282,9 +487,172 @@ isnull(), notnull()
 
 
 # Series
-s = Series([1, 2, 3], index=['a', 'b', 'c'])
+s = Series([1, 2, 3], index=['a', 'b', 'c'], name='name')
 s['a'], s.a
 s.index = [0.1, 0.2, 0.3] // index does not need to be str
 s[0.1]  // 1
 for key, value in s.items():
   print(key, value)
+s.to_frame(col_name)
+
+# Categorical
+Categorical(list('bbbcc'), categories=['a', 'b', 'c', 'f'], ordered=False)
+Series(list('abcd'), dtype='category')
+.astype('category', categories=, ordered=False)
+.cat.categories = ['a', 'b', 'c'] // rename categories
+.cat.ordered = True // set to ordered
+.cat.add_categories
+.cat.remove_categories
+.rename_categories({'new': 'old})
+.describe()
+.to_hdf(fomart='t')  // table format required!
+
+
+# Selection
+.loc[rowlabel, collabel]  // purely label based
+.loc[:, 'c1':'c10'] // slicing
+.loc[(l1, lr2), (c1, c2)] // multiindex
+.iloc[rowindex, colindex] // purely index based
+.ix[rowlabel, colindex] // mixed: first label, then index
+.at[rowlabel, collabel] // label based access single value
+.iat[rowindex, colindex]  // fast index based access single value
+.xs(value, level=1, ...) // select on specific level
+  axis=1  // select columns
+  drop_level=False  // retrain level
+.get_value(rowlabel, collabel)  // fast label based access single value
+.loc[(a & b) | (c & ~d)]  // boolean indexing by rows
+loc[:, a & b] // boolean indexing by columns
+.loc[df.chromo.isisn(['x', 'y'])] // isin() for Series, and indicies
+d.where(d < 0, 10) // same shape as d; select d < 0 and set everything else to 10
+d.mask(d < 0) // inverse where; set everythink < 0 to NA
+
+## isin(list)
+Series.isin([1, 2, 3])
+columns.isin(['a', 'b'])  // works on indices
+index.isin([3, 4])
+## query
+query('col1 < col2 & col3 == "a")
+query('col < @local_var') // reference local variable
+query('col in [1, 2, 3]') // isin
+query('col == [1, 2, 3]') // same as isin
+query('col1 in col2') // same as isin
+query('~ col in [1, 2]')  // ~ or not for negating
+a = "X"; query('chromo == @a') // reference variable
+
+## Excluding / selecting columns
+df.loc[:, ~df.columns.isin(['col1', 'col2'])]
+df.drop(['col1', 'col2'], axis=1)
+df.loc[:, 'chromo':'end']  // select all between chromo and end
+df[[c for c in df.columns if c not in sel]]
+
+# Duplicates, unique
+df.duplicated(['col1', 'col2'])
+df.duplicated('col').sum() == 0  // check if unique
+df.drop_duplicates(['col1', 'col2'], take_last=False)
+
+# Windowing
+rolling_mean(Series, window, ...)
+  * step size always 1; step_roll = rolling_mean(...)[::step]
+  * ignores index -> observation are equally spaced
+  * nan lead to nan -> use interpolate() first
+  window=3000  // window width
+  center=True // center on index; default: window ends at index
+rolling_count(...)  // count non_zero entries
+rolling_corr(...)
+rolling_apply(df, window, fun)  // apply any function
+ewma(s, span=)  // exponentially weighted moving average
+ewmcorr(s, span=) // exponentially weighted moving correlation
+
+# numba
+import numba
+@numba.jit
+def fun_with_loops_on_large_frame(df):
+  ...
+
+# Eval
+* performance improvement for large DataFrames)
+* numexpr
+pd.eval('df1 + df2 + 2 * df')
+df.eval('a + b')  // operation on columns
+df.eval('c = a + b')  // new columns
+c = 2
+df.eval('a + @c') // @c is local variable
+
+# Sparse array
+* lower memory
+sdf = df.to_sparse(fill_value=np.nan)
+sdf.density // % values != fill_value
+df = sdf.to_dense()
+
+
+# rpy2
+import pandas.rpy.common as com
+com.load_data('iris')
+ro = com.convert_to_r_dataframe(df)
+ro = com.convert_to_r_matrix(df)
+df = com.convert_robj(ro)
+
+## Loading RData
+from rpy2.robjects import r
+r('load("file.RData")')
+ro = r['object']
+df = com.convert_robj(ro)
+
+## Saving to RData
+-> see $PY/rpy2.txt
+import pandas.rpy2.common as com
+com.load_data('object') // R object -> pandas object
+df_r = com.convert_to_r_dataframe(df) // first convert df
+r.assign('df', df_r) // then write it to R
+r('saveRDS(df, file="file.rds")')
+
+# binning values
+pd.cut(values, bins, ...) // equally spaced bins
+pd.qcut(values, bins, ...)  // same #obs in bins
+bins=3  // # bins / quantiles
+bins=[0, 0.5, 1.0]  // (0;0.5), (0.5, 1.0)
+labels=['a', 'b'] // define labels of bins
+retbins=True  // return also (tuple) bins -> [0, 0.5, 1.0]
+
+
+
+
+
+
+# plotting
+matplotlib.style.use('ggplot')
+df.plot(...)
+kind=line, bar, barh, hist, scatter, pie, kde, hexbin (2d density)
+figsize=(width, height)
+legend=False  // not legend
+logy=True
+ax=axis
+subplots=True // create subplots
+layout=[nrows, ncols] // layout for subplots
+sharex=False  // subplot have different x-axis
+set_title(plot_title)
+table=True, df  // add table to bottom; df = data.describe()
+colormap='Greens', 'cubehelix'
+
+
+## boxplot
+df.boxplot(..)
+vert=False  // horizontal
+color = dict(boxes='DarkGreen', whiskers ,medians, caps)
+by= // different categories become bars; subplots are columns
+  columns=['c1', 'c2']  // create subplots for these columns
+  df.groupby(by).boxplot()  == df.boxplot(by=by)
+
+
+# subtract
+a - b // subtract b from rows of a by matching indices!
+a.sub(b, axis=) // same as a - b
+a.subtract(b, ...)  // same as sub
+a.values - b.values // broadcast numpy
+
+# piping
+* better readability
+f(g(df, arg_g=1), arg_f=2)
+df.pipe(g, arg_g=1).pipe(f, arg_f=2)
+
+

@@ -1,6 +1,8 @@
 Gene name: Fbxo15
   * Approved by HGNC
   * http://www.genenames.org/guidelines
+MGI id: Fbxo15
+  * Mouse Genome Database
 Ensemble gene: ENSMUSG00000034391
   * EN: Ensembl
   * MUS:  Mus musculous

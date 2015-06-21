@@ -10,7 +10,7 @@ fetch_mldata  // download digits from ML repository
 # PCA
 import sklearn.decomposition
 pca = PCA(n_components=2, white=False)
-pca.fit(Y) 
+pca.fit(Y)
   Y = X W // n x p
   X = [-] // samples in rows; n x q
   W = [-] // eigenvectors in rows; q x p
@@ -19,3 +19,87 @@ pca.components_  // W
 pca.transform(Y)  // X; n x q
 pca.inverse_transform(X)  // Y
 pca.explained_variance_
+
+# metrices
+import sklearn.metrices
+accuracy_score(true, pred)  // accuracy
+precision_score(true, pred) // precision
+recall_score(true, pred)  // TPR
+roc_auc_score(true, pred)
+classification_report(true, pred)
+
+## curves
+fpr, tpr, thr = roc_auc_curve(true, score)
+pre, recall, thr = precision_recall_curve(true, score)
+
+
+## confusion matrix
+confusion_matrix(true, pred)
+* rows: true
+* columns: predicted
+
+# parameter grid
+from sklearn.grid_search import ParameterGrid
+p = ParameterGrid({'a': [...], 'b': [...]})
+for pp in p:
+  model.set_params(**pp)
+
+
+
+
+
+
+# preprocessing
+import sklearn.preprocesing as pp
+
+scale(X)  // mean-normalize columns; returns array
+
+## pp.LabelBinarizer
+* labels -> binary
+fit(['a', 'a', 'b'])
+transform(['a', 'b', 'b']) -> [[0], [1], [1]]
+
+## pp.LabelEncoder
+* labels -> integer
+fit(['a', 'a', 'b'])
+transform(['a', 'b', 'b']) -> [0, 1, 1]
+
+## pp.OneHotEncoder
+* integers -> binary
+enc = OneHotEncoder(...)
+  n_values='auto'  // # values per features -> # bits
+  sparse=True // return sparse matrix
+fit([[1, 2], [2, 3], [2, 4]]) // rows = samples, columns = features
+transform([[1, 2]]) // transform features of single sample to sparse binary mat
+  .todense()  // dense matrix
+feature_indices_[i] // start col of bits in binary matrix; fi[i]:fi[i+1] is code
+### Encoding
+0 -> 1 0 0
+1 -> 0 1 0
+2 -> 0 0 1
+
+## cross_validation
+import sklearn.cross_validation
+StratifiedShuffleSplit(labels, n_iter, test_size=0.5) // stratified bootstrapping
+Bootstrap(num_samples, test_size=0.5) // unstratified bootstrapping
+
+
+
+
+
+
+# decision tree
+import sklearn.tree.DecisionTreeClassifier
+import sklearn.tree
+tree.export_graphviz(dt, 'file.dot')  // export as *.dot -> viz with graphviz
+
+# contributing
+* https://github.com/scikit-learn/scikit-learn/pull/4566#issuecomment-93368443
+git checkout master
+git pull upstream master
+git checkout feature-branch
+git rebase master
+
+# copy / clone model
+clone = sklearn.base.clone(model)
+

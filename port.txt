@@ -1,0 +1,27 @@
+# basics
+selfupdate  // update ports
+upgrade outdated  // upgrade all ports
+install vim +python27
+uninstall --follow-dependents x // uninstall x and all packaged that depend on x
+
+# info
+installed // show version all installed ports
+installed vim // only show installed version of vim
+list installed  // list current (not installed!) version of available ports
+list vim  // only vim
+info vim  // additional infos
+
+# groups
+* changes links to bins/lib, e.g. python is linked to python2.7 or python3.4
+* install py27-ipython version still required
+select --summary  // show all groups and their options
+select --list python  // list options python group
+select --set python27 // set default python option
+
+# variants
+port info vim
+port install vim +python27
+
+## vim
++gtk2+huge+perl+python27+x11
+gtk-doc @1.20_4+python27

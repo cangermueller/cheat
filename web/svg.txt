@@ -1,0 +1,98 @@
+# svg
+<svg with='800' height='800' style='border: 1px solid black'>
+</svg>
+viewBox='minx,miny,width,height'
+
+
+# scale svg to full screen
+<svg ...>
+  width='100%'
+  height='100%'
+  style='position:fixed; top:1%; left:1%; right:1% bottom=1%'
+  viewBox='0,0,400,400'
+  preserveAspectRatio='xMinYMin meet'
+</svg>
+
+## viewBox
+* viewPort: actual width/height
+* viewBox: internal coordinate system mapped on viewPort
+xmin, xmax, width, height
+
+## preserveAspectRatio
+xMinYMin  // align viewBox in top left corner of viewPort
+xMaxYMax  // align viewBox in right bottom corner of viewPort
+xMidYMid  // align viewBox in middle of viewPort
+meet  // preserve aspect ratio and fit viewBox into viewPort
+slice  // preserve aspect ratio and remove parts of viewBox that does not fit in viewPort
+
+
+
+<circle cx='50' cy='50' r='25' fill='lightblue' stroke='steelblue' stroke-width='2px'>
+<ellipse cx='50' cy='150' rx='50' ry='20' style='border: black; fill: green'></ellipse>
+<rect x='100' y='25' width='50' height='50' style='fill: blue'></rect>
+  rx, ry  // rounded corners
+<line x1='50' y1='50' x2='100' y2='50' stroke='green' stroke-width='2'> </line>
+  stroke-dasharray='5,5'
+<polyline points='0,0 10,0 10,10 20,10 20,20' stroke='grey' stroke-width='2' fill='none'></polyline>
+<polygon points='0,400 50,400 25,450' stroke='black' stroke-width='2' fill='blue'></polygon>  
+<text x='100' y='100' font-size='20px' font-family='sans serif' fill='blue' text-anchor='middle'>Hello world!</text>
+  * position bottom left
+  * dy  // shift along y
+  text-anchor: start, middle, end
+
+
+# path
+http://tutorials.jenkov.com/svg/path-element.html
+<path d='M 10 600 L 100 600 L 50 650 Z' stroke='red' stroke-width='3px' fill='none'></path>
+<path d='M 120 600 l 100 0 l -50 50 Z' stroke='blue' stroke-width='3px' fill='none'></path>
+  * M: go to start position
+  * L: draw solid line
+  * Z: draw solid line for current to initial point
+  * M/m: absolute, relative position
+<path d='M400,400 S600,200 800,400' stroke='blue' stroke-width='3px' fill='none'></path>
+  Mstart_x,start_y Smid_x,mid_y end_x,end_y
+
+<path d='M00,600 C300,600 400,400 800,600' stroke='green' stroke-width='3px' fill='none'></path>
+<path d='M400,400 q200,-400 400,0' stroke='red' stroke-width='3px' fill='none'></path>
+  * Quadrativ curve
+  * Q mid_x,mid_y,end_y,end_y
+<path d='M00,600 c0,0 400,200 800,0' stroke='red' stroke-width='3px' fill='none'></path>
+  * Cubic curve
+  * C start_x,start_y mid_x,mid_y end_x,end_y // curve
+  * c // relative from M
+<path d='M400,400 A200,100 0 0,1 800,400' stroke='green' stroke-width='3px' fill='none'></path>
+  * arc
+  * Arx,ry 0 a,b end_x,end_y  // a,b are 1 or 0, depending of up/or down
+
+# Markers
+marker-start  // at beginning
+marker-mid  // at all intermediate nodes
+marker-end  // at the end
+
+<svg with='400' height='400' style='border: 1px solid black'>
+  <defs>
+    <marker id='mCircle' markerWidth='10' markerHeight='10' refX='10' refY='5' orient='auto'>
+      <circle cx='5' cy='5' r='4' style='stroke: black; stroke-width: 1; fill: none'></circle>
+    </marker>
+    <marker id="mArrow" markerWidth="13" markerHeight="13" refx="10" refy="6" orient="auto">
+        <path d="M2,2 L2,11 L10,6 L2,2" style="fill: none; stroke: black"></path>
+    </marker>
+  </defs>
+  <path d='M100,100 l-50,-50' marker-start='url(#mCircle)' marker-end='url(#mArrow)' stroke='black' stroke-width='2'></path>
+  <path d='M200,200 l50,-50' marker-start='url(#mCircle)' marker-end='url(#mArrow)' stroke='black' stroke-width='2'></path>
+  <path d='M0,300 l100,-50 l100,100' stroke='black' stroke-width='2' fill='transparent' marker-mid='url(#mArrow)'></path>
+</svg>
+
+# grouping
+<g transform='rotate(45) translate(100 50) scale(1.5 1.5)'>
+  <rect x='0' y='0' width='50' height='50' fill='red'></rect>
+  <rect x='50' y='50' width='50' height='50' fill='blue'></rect>
+</g>
+
+# colors
+* http://www.december.com/html/spec/colorsvg.html
+steelblue
+skyblue
+forestgreen
+
+

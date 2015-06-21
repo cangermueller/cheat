@@ -1,5 +1,8 @@
 # Conversion
 2to3
+  -w  // modify file; backup is created: file.py.bak
+  -n  // do not create backup file.py.bak
+  -o  dir // write modified file to dir
 3to2
 http://python-future.org // write python3 with back compatibility
 

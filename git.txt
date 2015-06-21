@@ -15,6 +15,9 @@ push name master:child/master // push master to name/child/master
 push name master:refs/remotes/X/master  // push to remote branch X/master on name
 pull name master  // pull master from name
 
+# Undo changes
+git checkout file.py  // single file
+git reset --hard  // all changes
 
 
 # Commit messages
@@ -33,6 +36,17 @@ Fix bug at line 88 caused by division of zero.
 * Description
   * Present, imperative
   * &lt50 characters
+
+# Nested repository
+/main_rep
+  git clone src nested_rep
+* main_rep ignores nested_rep
+* nested_rep is independent of main_rep
+* nested_rep has own .git
+* git clone main_rep does not clone nested_rep
+<-> submodules
+  * nested_rep does not have .git
+  * submodules can be checked out from main_rep
 
 # Submodules
 * git submodule CMD
@@ -53,6 +67,10 @@ Fix bug at line 88 caused by division of zero.
 * git submodule add git://github.com... [PATH]
 * git commit
 
+## Removing submodule
+submodule deinit NAME
+rm NAME
+
 # tag
 tag -a -m 'First version' v0.1  // create annotated tag with message -m
 -l -n [1] // show first line of annotation
@@ -60,3 +78,27 @@ git push --tags
 
 # describe
 describe  // show description of current tag
+
+# checkout branches and files
+log // show last commits
+checkout ID // checkout branch in tmp branch
+checkout -B tmp ID  // checkout branch in new branch tmp
+checkout ID -- file // checkout single file into current branch
+
+# update root of branch
+A - B - master
+     \
+       develop
+
+develop is checked out:
+
+git fetch upstream
+git rebase upstream/master
+A - B - master
+             \
+               develop
+
+more transparent than merge:
+http://stackoverflow.com/questions/16666089/whats-the-difference-between-git-merge-and-git-rebase
+* git push -f origin branch // overwrite changes after rebase
+

@@ -27,8 +27,13 @@
 # Misc
 aes_string(fill='mean') // aes variable
 round_any(var, 0.1) // discretize/round continuous information
+
+
+# Adding lines
 geom_abline(slope=1)  // diagonal line
-  intercept=
+  intercept=  // y-intercept
+geom_vline(xintercept=) // add vertical line
+geom_hline(yintercept=) // add horizontal line
 
 # stat_summary
 stat_summary(...)
@@ -53,11 +58,11 @@ theme_classic()
 theme_light()
 theme_minimal()
 theme_grey()
-theme(panel.backgroud=element_rect(fill='transparent'))
+theme(panel.backgroud=element_blank())
 
 # ggdendro
 plot_hclust <- function(hc) {
-  p <- ggdendrogram(hc) #+ theme(plot.background=element_rect(fill='transparent', color=NA)))
+  p <- ggdendrogram(hc) #+ theme(panel.background=element_rect(fill='transparent', color=NA)))
   return (p)
 }
 plot_hclust <- function(hc) {
@@ -92,12 +97,20 @@ ggtitle(title)
 
 # Axis
 coord_cartesian(xlim=c(min, max), ylim=c(min, max)) // zoom, do not discard points
-scale_x_continuous(xlim=, breaks=, labels=) // xlim (points discarded), breaks, labels axis
+scale_x_continuous(limis=c(min, max), breaks=, labels=) // xlim (points discarded), breaks, labels axis
 xlim(min, max)  // discard points
 xlab('x'), ylab('y')
-theme(axis.title=element_blank()) // no axis labels
+theme(
+  axis.title=element_blank(), axis.title.x=, axis.title.y= // no axis labels
+  axis.text.x=element_text(angle=-90))  // rotate axis ticks labels
+  axis.text.x=element_blank() // no xlabs
+element_text(...)
+  angle=
+  vjust=0, hjust=0
 scale_x_discrete(title='xlab')
-theme(axis.text.x=element_test(angle=-90))  // rotate axis ticks labels
+scale_x_log10() // log transform
+library(scales)
+  scale_x_continous(label=comma)  // separate by comma
 
 # Colors
 fill=, color=
@@ -107,7 +120,8 @@ aes(..., fill=I('red'))
 scale_fill_hue(), scale_fill_brewer() // default colors
 scale_color_brewer(palette='Set1')
 scale_color_manual(values=c('g1'='red', 'g2'='blue'))
-scale_fill_gradient2(min='blue', mid='white', hight='red', midpoint=0.5)
+scale_color_gradient(low='black', high='red')
+scale_fill_gradient2(low='blue', mid='white', high='red', midpoint=0.5)
 scale_fill_gradientn(colors=brewer.pal(7, 'Spectral')) // see brewer.txt
 
 ## default color palette
@@ -123,9 +137,12 @@ geom_point(show_guide=FALSE)  // turn all legends of points off
 geom_points() + guides(size=FALSE)  // turn specific legends off
 scale_fill_discrete(guide=FALSE) // turn specific legends off
 guides(color=guide_legend(...), size=guide_legend(...)) // change legend format
-guide_legend(title='New title', nrow=, ncol=, keywidth=, ...) // change legend format
+  guide_legend(title='New title', nrow=, ncol=, keywidth=, ...) // change legend format
+  guides(color=guide_legend(ncol=7), size=guide_legend(title='# CpGs')) +
+
 scale_fill_continuous(limits=c(0, 1)) // set color range
 scale_size(range=c(1, 6)) // adjust min/max size of points
+scale_alpha(range=c(0.1, 1)) // adjust min/max alpha
 
 
 # Multiple overlapping plots
@@ -147,8 +164,14 @@ pushViewport(viewport(layout=grid.layout(nrow=1, ncol=2, width=c(w1, w2))))
 print(p1, vp=viewport(layout.pos.row=1, layout.pos.col=1))
 print(p2, vp=viewport(layout.pos.row=1, layout.pos.col=2))
 
-## gridExtra
-grid.arrange(plot1, plot2)  // vertical alignment
+## gridExtra: stacking plots
+* mfrow, mfcol does not work!
+grid.arrange(p1, p2)  // two rows
+grid.arrange(p1, p2, ncol=2)  // two columns
+grid.arrange(...)
+  nrow, ncol
+  widths, heights=c(0.3, 0.5, 0.2)
+  main=, sub= // titles
 
 
 
@@ -188,7 +211,7 @@ grid.arrange(plot1, plot2)  // vertical alignment
 * Visualizing different subgroups
   * by aesthetics: color, shape, size, ...
   * by subplots -> facets
-* facet_wrap(~var)
+* facet_wrap(~var, ncol=, nrow=)
 * facet_grid(xvar~.)
 * facet_grid(xvar~yvar)
 * facets are applied to all data objects -> must contain the same factors
@@ -214,7 +237,34 @@ grid.arrange(plot1, plot2)  // vertical alignment
 
 # geom_bar
 aes(x=ptpn22, fill=t1d) // count number of TRUE / FALSE
+stat='identity'
 position=
   'stack' // default: on top
   'dodge' // side-by-side
   'fill'  // stretched for relative comparison
+
+# geom_smooth
+aes(group=sample) // line for each sample
+method=loess,lm
+degree=0,1,2  // degree loess; default=2
+span=0.75 // loess span
+se=F  // no confidence interval
+level=0.95  // confidence level
+stat_smooth(method=lm, aes(weights=weight)) // weighted linear regression
+
+# plotting densities
+geom_histogram()
+geom_density()
+stat_density2d()
+
+
+# geom_boxplot
++ geom_point(position=position_jitter(w=0.1, h=))  // plot points
+
+# Nature Figures
+* ps, eps, tif, ai
+* >300dpi
+* color-safe heat-maps, i.e.:
+  * green and magenta
+  * turquoise and red
+  * yellow and blue

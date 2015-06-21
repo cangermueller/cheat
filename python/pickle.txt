@@ -3,13 +3,28 @@ pickle  // slow; subclassing
 cPickle // fast; no subclassing
 
 # Functions
+file must be opened in binary mode!
+  read: 'rb'
+  write: 'wb'
 dump(object, file)
 object = load(file)
-dump((o1, o2, o3), file('file.pk1', 'w'))
-o1, o2 o3 = load(file('file.pk2', 'r'))
+dump((o1, o2, o3), file('file.pkl', 'wb'))
+o1, o2 o3 = load(file('file.pkl', 'rb'))
 
 # Classes
 p = Pickler(file)
 p.dump(object)
 u = Unpicker(file)
 object = u.load()
+
+# Custom serialization
+def __getstate__(self): // called on dump()
+  rv = self.__dict__.copy()
+  del rv['object']  // exclude certain object from serialization
+  return rv // dictionary with all values that are stored
+
+def __setstate__(self, d):  // called on load()
+  self.__dict__.update(d) // add values from d to __dict__
+  self.__dict__['state'] = y  // add custom values
+
+

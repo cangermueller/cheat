@@ -3,35 +3,86 @@ not sys.stdout.isatty() // file.py | cmd; file.py > out
 not sys.stderr.isatty() // file.py 2> err
 not sys.stdin.isatty()  // cmd | file.py
 
-# Reading content
+# file
+## Reading content
 f = open(filename, 'rwa')
 with open(filename) as f: // will be closed at the end
   f.read()
-f.read()  // read everything
-f.readline()
-f.readlines()
-for line in f:
-lines = open(filename).read().splitlines() // read lines in array
+f.read()  // read everything as single string
+f.readline()  // read single line; '' == eof; '\n' is empty line
+for line in f:  // read line by line
+lines = open(filename).read().splitlines() // read all lines in array
+f.readlines() // read all lines in array()
 lines = [l.rstrip() for l in open(filename, 'r')]
 
-# Writing content
+## Misc
+f.close()
+f.seek(0) // reopen file
+
+## Writing content
 f.write('line\n')
 
-# Checking eof
+## Checking eof
 f.readline() == ''
 f.tell() = tell_previous
+
+
+
 
 # File names
 os.path
 join(a, b, c)
 splitext('/d/f.ext') -> ['/d/f', 'ext']
 splitexit(path)[0]  // remove extension
+extsep == '.' // character extension separator
+f.split(extsep)[0]  // split ext with multiple '.'
 basename(path)
 dirname(path)
 abspath(__file__)
+realpath()  // like abspath, but resolves symlinks
 expanduser('~')
-isfile(file)  // check if file exists
+
 
 # Misc
 os.listdir('.') // list all files in directory
+os.getcwd()  // current working directory
+os.chdir(dir) // change working directory
+import glob
 glob.glob('dir/*.py')
+os.remove(file) // remove/delete file
+os.rmdir(dir) // remove/delete dir
+
+# execute system/shell command
+import subprocess as sp
+sp.call(['ls', '-l']) // returns exit state
+## capturing output
+sp.check_output(cmd)
+  * like Popen (below), but Exception if $? != 0
+sp.check_output(cmd, shell=True).decode().splitlines()
+sp.Popen(cmd, stdout=sp.PIPE).stdout.read()
+sp.Popen(cmd, shell=True, cwd=os.getcwd(), stdout=sp.PIPE).stdout.read().decode().splitlines()
+
+
+## deprecated
+os.system(cmd)  // returns exit status
+
+
+# check if exsits
+os.path.
+exists(f) // file or directory
+isfile(f) // is file
+isdir(f)  // is directory
+
+
+# Temporary files
+import tempfile
+fd, name = mkstemp(...) // name is abs filename; fd is file descriptor
+  prefix='abc'
+  suffix='.h5'
+  dir='./my_tmp
+path = mkdtemp(dir=, prefix=, suffix=)  // create temp dir and return rel path
+
+# String file
+from io import StringIO
+f = StringIO('hello\nworld')
+f.read()

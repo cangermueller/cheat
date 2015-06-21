@@ -1,9 +1,0 @@
-heatmatp.2(matrix, ...)
-  trace='none'
-  density.info='none'
-  ColSideColors=c('green', 'blue')
-  col=rev(heat.colors(50))
-  dendrogram='column'  // draw only column dendrogram
-  Rowv=FALSE  // do not cluster rows
-  Rowv=dendrogram // use existing row dendrogram
-  labCol=NA  // no labels

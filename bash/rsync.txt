@@ -1,0 +1,22 @@
+* rsync src dst
+* copies everything from src to dst
+* replaces files that already exist in b
+  --ignore-existing // ignore existing files, not replace
+  --update  // only replace older files (by comparing time stamp)
+* alternatives: unison
+
+# Directories
+rsync src dst // creates dst/src
+rsync src/ dst  // copies src/* into dst, not dst/src!
+--exclude dir/  // exclude dir anywhere
+--exclude /dir/ // exclude dir at root
+
+
+# Options
+--delete  // delete in dest before transfer
+--delete-excluded // delete also excluded files
+
+# Filter extension
+rsync -r --include '*/' --include '*.html' --exclude '*' SRC DST  // in this order!
+* --exclude '*' after --include '*'
+* --include '*/' required

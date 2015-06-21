@@ -1,0 +1,18 @@
+# Links
+[Link](http://...)
+
+# Equations
+This in $\log(x + 1)$ inline
+This is display: $$\frac{1}{2}$$
+
+# Code
+Inline `code(x)`
+```python
+def code(c):
+  ...
+```
+
+# Image
+![alt_text](./image.png =800x600)
+<img src='logreg.png' width=600 height=400></img>
+

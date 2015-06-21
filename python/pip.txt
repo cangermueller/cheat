@@ -1,9 +1,21 @@
+install -U pip  // update pip
 list  // list installed packages
 freeze // list installed packages
 search name
 install name
+  --upgrade, -U // update package
+  --user  // as current user into ~/Library/Python
 install -r requirements.txt // install from requirements file
-install -U name // update package
+install git+https://github.com/PyTables/PyTables.git@develop#egg=tables
 freeze > requirements.txt // create requirements file
 uninstall name
+pip freeze | grep -v "^-e" | xargs pip uninstall -y // uninstall all packages
 show name // show information
+
+# Misc
+/opt/local/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/site-packages
+
+
+## Error: TypeError: unorderable types: NoneType() < str()
+ls /sw/python3/lib/python3.4/site-packages/ | grep matplotlib
+remove dist-info file, if there is already egg-info file

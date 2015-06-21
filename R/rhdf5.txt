@@ -3,3 +3,15 @@ H5... // low level functions
 f = h5createFile('file.h5')
 h5read(file, group)
 h5write(object, file, group)
+  * file is filename
+  * file must exist:
+    if (!file.exists(filename)) {
+      tmp <- h5createFile(filename)
+    }
+  * fails to overwrite, if compound object (data.frame)
+      if (file.exists(filename)) {
+        file.remove(filename)
+        tmp <- h5createFile(filename)
+      }
+      h5write(df, filename, group)
+    

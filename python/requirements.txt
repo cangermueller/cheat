@@ -1,0 +1,12 @@
+numpy
+matplotlib
+scipy
+pandas
+tables
+pudb
+ipython
+zmq
+tornado
+jsonschema
+jinja2
+ipdb

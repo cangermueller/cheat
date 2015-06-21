@@ -7,7 +7,7 @@ load_dataset(name)
   exercise
   tips  // y=tip; x=mixed
 
-# size
+# size, width, height
 plt.figure(figsize=(w, h))
 sns.plot()
 f, a = plt.subplots(figsize=(w, h))
@@ -19,6 +19,7 @@ set_style(...)  // grid style
   'whitegrid'
   'darkgrid'
   'ticks'
+with axes_style('whitegrid'): // change settings locally
 set_context(...)  // size, colors
   'notebook'  // default
   'paper'
@@ -35,11 +36,27 @@ set(...)
 # plot types
 
 boxplot(data, ...)
+  * Use factorplot for facetting!
   data  // 2d numpy array or data.frame; columns == boxes
+  (data.auc, data.group, ...) // x=data.group, y=data.auc
+  vert=False  // horizontal
+  order=  // order of boxes
+  join_rm=True  // connect dots by lines
+violinplot(data, ...)
+  * Use factorplot for facetting!
+  data  // 2d numpy array or data.frame; columns == boxes
+  (data.auc, data.group, ...) // x=data.group, y=data.auc
+  vert=False  // horizontal
+  order=  // order of boxes
+  inner=points,sticks,box // plot sample values
+  join_rm=True  // connect dots by lines
 barplot(x, y, ...)
   data=
   hue=  // color
 lineplot(x, y, ...)
+  data=
+  hue=  // color
+pointplot(x, y, ...)
   data=
   hue=  // color
 corrplot(data, ...)
@@ -95,6 +112,8 @@ factorplot(x, y, ...) // x categorical
   col='col_var' // facet by column
   row='row_var' // facet by row
   hue='color_var'
+  col_wrap=#columns
+  kind='auto', 'box', 'bar', 'point'
 
 
 
@@ -103,7 +122,11 @@ factorplot(x, y, ...) // x categorical
 g = FacetGrid(data, col='col_var', row='row_var', ...)
   col_wrap=None // # columns
   hue='color_var'
-g.map(plt.scatter, xvar, yvar)
+  size=3  // height of each grid in inches
+  xlim=[0, 1], ylim=
+  legend_out=True // False to draw legend inside
+g.map(plt.scatter, xvar, yvar, linewidth=3, marker='o', ms=6) // lineplot
+g.add_legend()
 
 
 ## PairGrid: trellis plot
