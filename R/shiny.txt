@@ -9,6 +9,14 @@ stop shiny-server
 restart shiny-server
 /etc/shiny/shiny-server.conf
 
+# shiny server
+/etc/shiny-server/shiny-server.conf // configs
+  run_as ubuntu;  // run as user ubuntu instead of shiny!
+/var/log/shiny-server.log // log
+sudo start shiny-server
+sudo stop shiny-server
+
+
 
 # ui.R
 library(shiny)
