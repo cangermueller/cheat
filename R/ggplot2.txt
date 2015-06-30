@@ -260,6 +260,11 @@ stat_density2d()
 
 # geom_boxplot
 + geom_point(position=position_jitter(w=0.1, h=))  // plot points
+## points in dodged boxplot
+ggplot(pannos, aes(x=anno, y=auc)) +
+  geom_boxplot(aes(fill=model), alpha=0.3) +
+  geom_point(aes(fill=model, color=sample), size=1.5,
+    position=position_jitterdodge(jitter.width=0, jitter.height=0, dodge.width=0.9))
 
 # Nature Figures
 * ps, eps, tif, ai

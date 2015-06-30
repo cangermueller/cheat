@@ -54,7 +54,7 @@ http://tutorials.jenkov.com/svg/path-element.html
 
 <path d='M00,600 C300,600 400,400 800,600' stroke='green' stroke-width='3px' fill='none'></path>
 <path d='M400,400 q200,-400 400,0' stroke='red' stroke-width='3px' fill='none'></path>
-  * Quadrativ curve
+  * Quadratic curve
   * Q mid_x,mid_y,end_y,end_y
 <path d='M00,600 c0,0 400,200 800,0' stroke='red' stroke-width='3px' fill='none'></path>
   * Cubic curve
@@ -95,4 +95,12 @@ steelblue
 skyblue
 forestgreen
 
-
+# foreign object
+* embed namespace
+<svg width='800' height='800' style='border: 1px solid black'>
+  <foreignObject x='50' y='50' width="100" height="100">
+    <body>
+      <p contenteditable='true'>Here is a paragraph that requires word wrap</p>
+    </body>
+  </foreignObject>
+</svg>

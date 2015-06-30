@@ -38,6 +38,7 @@ l.map(function(x) x+2)
 for (index in list) {
   console.log(list[index])
 }
+ll = l.slice(0) // copy list
 
 
 # dict, hash, Object initializer
@@ -47,6 +48,8 @@ Object.keys(d)  // get keys
 for (key in dict) {
   console.log(dict[key])
 }
+oo = eval(uneval(o))  // copy
+
 
 
 # Math

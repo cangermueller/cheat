@@ -1,6 +1,6 @@
 # string functions
 s = pd.Series(['1', 'ab', '10.0'])
-s.str.fun
+>> s.str.fun. <<
 isdigit // integer
 isalpha // a-z
 isalnum // a-z0-9
@@ -416,6 +416,7 @@ agg == aggregate
 agg(np.mean)  // apply function to each column
 agg([np.mean, np.std]) // apply multiple functions to columns
 agg({'c1': fun1, 'c2': fun2}) // apply different functions to columns
+  * NOTE: returned column order is arbitrary!
 
 ## Transform: perform group specific modifications
 * return df must have same shape
@@ -624,6 +625,8 @@ matplotlib.style.use('ggplot')
 df.plot(...)
 kind=line, bar, barh, hist, scatter, pie, kde, hexbin (2d density)
 figsize=(width, height)
+xlim=[a,b], ylim=
+plt.xlabel('xlabel'), plt.ylabel()
 legend=False  // not legend
 logy=True
 ax=axis

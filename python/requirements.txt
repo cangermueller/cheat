@@ -1,8 +1,8 @@
 numpy
 matplotlib
 scipy
+cython
 pandas
-tables
 pudb
 ipython
 zmq
@@ -10,3 +10,7 @@ tornado
 jsonschema
 jinja2
 ipdb
+scikit-learn
+h5py
+seaborn
+mistune

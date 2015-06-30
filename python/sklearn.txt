@@ -27,6 +27,11 @@ precision_score(true, pred) // precision
 recall_score(true, pred)  // TPR
 roc_auc_score(true, pred)
 classification_report(true, pred)
+c = skm.confusion_matrix(y, z.round())
+  tpr = c[1, 1] / c[1].sum()
+  fpr = c[0, 0] / c[0].sum()
+matthews_corrcoef(y, z.round())
+
 
 ## curves
 fpr, tpr, thr = roc_auc_curve(true, score)

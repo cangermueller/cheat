@@ -1,0 +1,56 @@
+* http://fastml.com/optimizing-hyperparams-with-hyperopt/
+
+def objective(x):
+    loss = (x - 5)**2 + 2
+    rv = {'loss': loss,
+          'status': ho.STATUS_OK,
+          'foo': 'bar', 
+          'time': time.time()
+          }   
+    return rv
+
+
+trials = ho.Trials()
+best = ho.fmin(objective,
+               space=ho.hp.uniform('x', -10, 10),
+               algo=ho.tpe.suggest,
+               max_evals=5,
+               trials=trials)
+best  // best parameter setting
+  best['x'] // best value x
+trials  // details about information
+  .argmin // same as best
+  .results  // all return values of objective
+  .lossess()  // returned losses
+  .statuses() // returned statuses
+  .vals // parameters used for trials
+  .trials // all information about trials
+
+# algorithms
+tpm.suggest
+random.suggest
+
+
+# defining search space
+space = var, list, dict
+var = var * var, var + var  // combinations possible
+  var = 1 + hp.randint('n_estimators', 20)  // minimum is 1
+space = {'p1': f1(), 'p2': f2(), ...}
+
+pyll.stochastic.sample(sample)  // draw one sample from space
+
+## var
+hp.randint(label, max)
+hp.uniform(label, min, max) // float
+hp.quniform(label, min, max, q=1) // integer; NOTE: float type!
+hp.choice(label, list)  // sample value from list
+  hp.choice('model', ['svm', 'lr', {'a': 10, 'b': 20}])
+
+
+space = ( 
+    hp.qloguniform( 'n_hidden', log( 10 ), log( 1000 ), 1 ),
+    hp.uniform( 'alpha', 0, 1 ),
+    hp.loguniform( 'rbf_width', log( 1e-5 ), log( 100 )),
+    hp.choice( 'activation_func', [ 'tanh', 'sine', 'tribas', 'inv_tribas', 'sigmoid', \
+        'hardlim', 'softlim', 'gaussian', 'multiquadric','inv_multiquadric' ] )
+)

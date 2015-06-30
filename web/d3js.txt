@@ -6,6 +6,8 @@
   </body>
 </html>
 
+<!-- Long comment -->
+
 # selection
 select('body')
 select('#id')
@@ -16,6 +18,7 @@ selection.each(function(d, i)) {
   s = d3.select(this) 
 }
 sel.data()  // get data of selection
+* getting data of selection impossible?
 
 # setting attributes
 attr(name, value)
@@ -115,6 +118,8 @@ d3.event.stopPropagation()
   * http://bl.ocks.org/jasondavies/3186840
 
 .on('mouseover', function(d) {})  // child and parent
+  d is data
+  element = d3.select(this) is html element
 .on('mouseout', function(d) {})  // child and parent
 .on('mouseenter', function(d) {})  // only child;
   https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter
