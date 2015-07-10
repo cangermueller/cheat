@@ -1,6 +1,9 @@
 # Misc
 * ProxyCommand: command which is executed when 'ssh host' is typed
 
+# ssh-copy-id
+cat ~/.ssh/id_dsa.pub | ssh host 'cat >> ~/.ssh/authorized_keys'
+
 # Port fowarding
 * https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding
 * Local port forwarding:

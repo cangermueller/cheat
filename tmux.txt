@@ -1,3 +1,8 @@
+# install
+DIR="$HOME/.bin-libevent"
+/configure CFLAGS="-I$DIR/include" LDFLAGS="-L$DIR/lib" --prefix=/home/ca426/opt/stow/tmux-2.0
+
+
 swap-windows -t 0 // rearrange windows
 ? // show keybindings
 s //  switch between sessions

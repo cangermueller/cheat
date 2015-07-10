@@ -76,7 +76,9 @@ summarise(n=n(), n_val=n_distinct(c))  // counts # records
 group_by(id) %>% n_groups()  // # groups
 group_by(id) %>% summarise(n=n()) // # records in group
 group_by(.) %>% mutate(c=f(c))  // group-specific modifications
-count(id) // # records in group
+
+n() // number of records in group
+count(id) // # unique x values
 tally(var, ...) // == summarise(n=sum(var))
   sort=T  // sort by n
   wt=col  // weight records by col; summarize(n=sum(col))

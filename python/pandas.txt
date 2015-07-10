@@ -44,6 +44,7 @@ read_pickle('file.pkl')
 read_excel('file', 'sheet')
 read_hdf('file', 'groupname')
 read_csv(file, ...) / read_table(file, ...)
+  read_csv(sys.stdin, ...)  // read from stdin
   nrows // max number of rows to be read
   sep=',' // field separator
   sep='\s+' // separate by spaces
@@ -371,7 +372,7 @@ t = df.to_records() //structured
 
 # Iterating
 for index, row in df.iterrows():
-  print row[colindex]
+  print row[colindex] // type(row) == Series
 for col in df.iteritems():
   print col[rowindex]
 df.iterrows() // iterate over rows
@@ -624,6 +625,8 @@ retbins=True  // return also (tuple) bins -> [0, 0.5, 1.0]
 matplotlib.style.use('ggplot')
 df.plot(...)
 kind=line, bar, barh, hist, scatter, pie, kde, hexbin (2d density)
+  bar // vertical bars
+  barh  // horizonal bars
 figsize=(width, height)
 xlim=[a,b], ylim=
 plt.xlabel('xlabel'), plt.ylabel()

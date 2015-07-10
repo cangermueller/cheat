@@ -3,11 +3,18 @@ console.FUN()
 log()
 
 
+# json
+* keys and strings most be quoted
+* "quote", not 'quote'!
+{"a": 10, "b": "string"}
+var d = {a: 10, b: 'string'};
+  * unquoted keys supported
+  * '' quotes supported
+
+
 # style
 fill, 'red'
 border, '1px solid black'
-
-# rect
 
 
 # functions

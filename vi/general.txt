@@ -151,6 +151,11 @@ set cc=+1 // +1 after textwidth
 z+  // correct
 zg  // add to good list
 
+# Compilation
+./configure --prefix /home/ca426/opt/stow/vim74 --enable-rubyinterp
+--enable-pythoninterp --enable-perlinterp --enable-gui=auto --enable-cscope
+--enable-multibyte --with-x --with-features=huge
+
 # Installing bundles
 vim +BundleInstall +qall
 
