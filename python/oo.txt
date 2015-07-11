@@ -21,6 +21,8 @@ __dict__
   * vars(Class)
   * type(__dict__) == mappingproxy
   * type(dict(__dict)) == dict
+  * o.__dict__['attr'] = value  // change attribute
+
 
 # Private: double underscore
 __private_constant

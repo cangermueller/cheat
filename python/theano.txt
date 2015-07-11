@@ -1,6 +1,17 @@
 # misc
 theano.test() // test theano installation
 
+
+# installation
+## ebi
+requires libpython3.4.so
+compile python with --enable-shared
+./configure.sh --enable-shared --prefix=$STOW/python3.4.2
+
+## intel mkl
+[blas]
+ldflags = -L/nfs/research2/stegle/software/opt/intel/composer_xe_2013.2.146/mkl/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lpthread -lm
+
 # configurations
 theano.configs
 print(theano.configs)
