@@ -3,6 +3,21 @@ console.FUN()
 log()
 
 
+# missing values
+t = NaN
+isNaN(t)
+isNaN([0, NaN, 1]) == true
+
+# string functions
+s = 'string'
+parseInt('1')
+parseFloat('1.2')
+replace(what, by) // only first occurrence
+function replaceAll(find, replace, str) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
+
+
 # json
 * keys and strings most be quoted
 * "quote", not 'quote'!

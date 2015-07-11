@@ -117,13 +117,14 @@ d3.event.stopPropagation()
   * event not propagated to parent
   * http://bl.ocks.org/jasondavies/3186840
 
-.on('mouseover', function(d) {})  // child and parent
-  d is data
-  element = d3.select(this) is html element
-.on('mouseout', function(d) {})  // child and parent
-.on('mouseenter', function(d) {})  // only child;
-  https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter
-.on('mouseleave', function(d) {})  // child and parent
+.on('click', function(d) {})  // d is object
+click
+dblclick
+contextmenu // right click
+mouseover // child and parent
+mouseout  // child and parent
+mouseenter  // only child: https://developer.mozilla.org/en-US/docs/Web/Events/mouseenter
+mouseleave  // only child
 
 # Transitions
 sel.transition()
