@@ -1,3 +1,8 @@
+# misc
+http://d3js.org/d3.v3.js
+http://alignedleft.com/tutorials/d3/setup
+
+
 <html>
   <head>
     <script type='txt/javascript' src='http://d3js.org/d3.v3.min.js'/>
@@ -15,10 +20,14 @@ select('body svg rect') // select within
 selection.each(function(d, i)) {
   // s is current element, e.g. rect
   // d is data of current element
-  s = d3.select(this) 
+  s = d3.select(this) // HTML select to d3 selection
 }
 sel.data()  // get data of selection
 * getting data of selection impossible?
+.on(event, function() { this})
+  this is HTML element, e.g. <g transform ...>
+sel = d3.select(this) // d3 selection
+sel.remove()
 
 # setting attributes
 attr(name, value)
@@ -26,6 +35,8 @@ attr('width', 100)
 attr('class', class)
 style('cursor', 'pointer')  // add to style
 attr('style', 'cursor: pointer')  // overwrite style
+sclassed(css_class, true)  // set CSS class
+classed(css_class, false)  // unset CSS class
 
 
 s = d3.select('body').append('svg').attr('width', 100).attr('height', 100)
@@ -94,10 +105,6 @@ Math.random() // uniform [0, 1]
 f = d3.random.normal(mean=0, std=1.0) // return function
 f() // get number
 
-
-# Misc
-sel.classed(css_class, true)  // set CSS class
-sel.classed(css_class, false)  // unset CSS class
 
 # Getting size of selection
 http://bl.ocks.org/mbostock/1160929

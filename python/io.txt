@@ -51,6 +51,8 @@ import glob
 glob.glob('dir/*.py')
 os.remove(file) // remove/delete file
 os.rmdir(dir) // remove/delete dir
+import shutil
+shutil.copyfile(src, dst) // copy
 
 # execute system/shell command
 import subprocess as sp
@@ -72,6 +74,10 @@ os.path.
 exists(f) // file or directory
 isfile(f) // is file
 isdir(f)  // is directory
+
+
+# create
+os.makedirs('d1/d2', exist_ok=True) // mkdir -p
 
 
 # Temporary files

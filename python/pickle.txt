@@ -1,13 +1,11 @@
-# Modules
-pickle  // slow; subclassing
-cPickle // fast; no subclassing
-
 # Functions
 file must be opened in binary mode!
   read: 'rb'
   write: 'wb'
 dump(object, file)
-object = load(file)
+object = load(file, ...)
+  fix_import=True // python2 backward compatibility
+  encoding='latin1' // python2 backward compatibility
 dump((o1, o2, o3), file('file.pkl', 'wb'))
 o1, o2 o3 = load(file('file.pkl', 'rb'))
 

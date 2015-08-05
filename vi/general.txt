@@ -220,6 +220,12 @@ set rtp+=~/.vim/bundle/plugin # extend runtime path
 * t: top left
 * b: bottom right
 * p: previous
+## Resize
+= // same size
++ // increase height
+- // decrease height
+< // decrease width
+> // increase width
 ## Rotation
 * r: rotate
 * x: exchange

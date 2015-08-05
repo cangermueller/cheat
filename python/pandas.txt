@@ -205,7 +205,7 @@ set_index([columns], ...) // set row index
   append=True // append to end
 reset_index(...)  // row index -> columns
   level=
-  drop=True // do not add columns
+  drop=True // do not add columns; only delete level
 sort_index(...) // sort df by non-hierarchical index
   axis=0
   ascending=True
@@ -496,6 +496,9 @@ s[0.1]  // 1
 for key, value in s.items():
   print(key, value)
 s.to_frame(col_name)
+s.tolist()  // to list()
+s.to_frame()  // to DataFrame; name --> column
+s.values  // to np.array
 
 # Categorical
 Categorical(list('bbbcc'), categories=['a', 'b', 'c', 'f'], ordered=False)
@@ -639,6 +642,11 @@ sharex=False  // subplot have different x-axis
 set_title(plot_title)
 table=True, df  // add table to bottom; df = data.describe()
 colormap='Greens', 'cubehelix'
+
+
+## lineplot
+d.loc[:, ['line1', 'line2']].plot(...)
+
 
 
 ## boxplot

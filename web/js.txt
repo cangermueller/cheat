@@ -7,6 +7,9 @@ log()
 t = NaN
 isNaN(t)
 isNaN([0, NaN, 1]) == true
+typeof(t) == 'undefined'
+v = possibly_missing || default_value
+v = x || 10
 
 # string functions
 s = 'string'
@@ -25,6 +28,7 @@ function replaceAll(find, replace, str) {
 var d = {a: 10, b: 'string'};
   * unquoted keys supported
   * '' quotes supported
+o = JSON.parse(str) // string to JSON
 
 
 # style
@@ -49,7 +53,7 @@ a = 1;  // global
 var l = [1, 2, 3]
 l.push(x)
 l.pop()
-l.concat(l2)  // not inplace
+l = l.concat(l2)  // add elements of other list
 l.join(',') // join elements by separator
 l.length
 l.forEach(function(d, i) {
@@ -57,6 +61,7 @@ l.forEach(function(d, i) {
   l[i] = 10 // will change value!
 })
 l.map(function(x) x+2)
+l.filter(function(x) x > 2)
 for (index in list) {
   console.log(list[index])
 }
@@ -70,6 +75,7 @@ Object.keys(d)  // get keys
 for (key in dict) {
   console.log(dict[key])
 }
+key in dict // check if key exists
 oo = eval(uneval(o))  // copy
 
 
@@ -78,6 +84,7 @@ oo = eval(uneval(o))  // copy
 random()  // rnd [0; 1]
 round()
 sin(), cos()
+Infinity  // inf, maximum
 
 is_true ? yes : no  // ternary operator
 

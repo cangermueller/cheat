@@ -5,6 +5,7 @@
 pip install hyperopt
 pip install git+https://github.com/hyperopt/hyperopt
 
+0) pip install networkx
 1) Fix trials bug
 in base.py line 625
     from . import fmin as fmin_module
@@ -16,10 +17,11 @@ in base.py line 625
 <         return fmin_module.fmin(
 ---
 >         return fmin_module(
-
 2) comment out distribute_setup in setup.py of sys_platform undefined
-
 3) add zip_safe = False to setup.py setuptools.setup() // install files, not egg
+
+
+
 
 
 def objective(x):

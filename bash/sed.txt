@@ -1,0 +1,60 @@
+sed [options] EXPR [file]
+-E  // extended regex
+sed -e CMD1 -e CMD2 // chain multiple commands
+
+# Substituting
+sed -E s/[0-9]+/>&</g // 123 -> >123<
+sed -E s/(group)xx/\1/ // d // (...) is group references by \1, \2, ...
+sed -E 's/([0-9]+) ([0-9]+)/\2 \1/g'  // switch order numbers
+
+## Ranges
+'2  s/.../.../' // only line 2
+'1,5  s/.../.../' // line 1-5
+'/^#/  s/.../.../' // only lines starting with #
+'1,/^#/ ...'  // from first line to first comment
+10,$  // until end
+
+## Flags
+s//[FLAGS]
+g // all occurrences
+1, 2, ... // first, second, occurrence
+I // ignore case
+
+
+# Deleting lines
+sed RANGE d
+sed 1,10  d // lines 1-10
+sed /^#/  d // comments
+
+# Printing
+sed -n '/^#/ p' // all comments
+sed -n '/^#/ !p' // not comments
+
+# Quitting
+sed -E -e 's/[0-9]+//g' -e '/^#/ q' // quit AFTER first comment line
+
+# Skipping
+sed -E -e '/^#/ n' -e 's/[0-9]+//g' test.txt  // skip comment lines
+
+# Appending line after
+sed '/^#/ a\
+New line after comment
+'
+
+# Insert line before
+sed '/^#/ i\
+New line after comment
+'
+
+# Change line
+sed '/^#/ c\
+New line
+'
+
+# Print line number
+sed -n '/^#/ ='
+
+# Translate characters
+sed 'y/abc/ABC/' test.txt // lower case -> upper case
+
+

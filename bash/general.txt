@@ -132,6 +132,7 @@ diskutil info /Volumns/hdd
 -path "*/src" // all src directories
 -regex "*/.EADME" // emacs regex whole path
 -type df  // directory of file
+-not -path '*/\.*'  // exclude hidden directories
 -exec
 -delete
 -ls

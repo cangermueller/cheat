@@ -65,13 +65,7 @@ a.fields()  // split lines by spaces
 !echo $a  // print variable
 
 
-# parallel
-ipcluster start -n 4  // start cluster with 4 engines
-ipcluster start --profile -n 4 // use profile mp
-from IPython.parallel import Client
-client = Client(profile='default')  // connect to local server
-client = Client(profile_dir='SSH/.ipython/profile_mp', sshserver=, password=) // connect to remote controller
-client.close()
+
 
 # ipycache
 %load_ext ipycache
