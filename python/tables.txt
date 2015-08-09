@@ -9,8 +9,9 @@ http://pytables.github.io/usersguide/tutorials.html#
 pip install git+https://github.com/PyTables/PyTables.git@develop#egg=tables
 
 ## cluster?
-HDF5_DIR=~/apps/hdf5
-(LIBS="hdf5-1.8.12 nsl")  // optional
+* set for installation
+HDF5_DIR=opt/stow/hdf5-1.8.13
+LIBS="hdf5-1.8.13 nsl"
 pip install --upgrade git+git://github.com/cython/cython@master
 pip install --upgrade tables
 

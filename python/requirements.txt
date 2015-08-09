@@ -14,3 +14,5 @@ scikit-learn
 h5py
 seaborn
 mistune
+virtualenvwrapper
+progressbar2
