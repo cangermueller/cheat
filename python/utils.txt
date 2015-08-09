@@ -23,3 +23,6 @@ with warnings.catch_warnings():
 # minimum / maximum (integer) value
 max = sys.maxsize
 min = -sys.maxsize
+
+# determine which element in boolean array is true
+np.where(np.array(a) == value)

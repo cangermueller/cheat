@@ -44,6 +44,7 @@ read_pickle('file.pkl')
 read_excel('file', 'sheet')
 read_hdf('file', 'groupname')
 read_csv(file, ...) / read_table(file, ...)
+  read_csv(sys.stdin, ...)  // read from stdin
   nrows // max number of rows to be read
   sep=',' // field separator
   sep='\s+' // separate by spaces
@@ -204,7 +205,7 @@ set_index([columns], ...) // set row index
   append=True // append to end
 reset_index(...)  // row index -> columns
   level=
-  drop=True // do not add columns
+  drop=True // do not add columns; only delete level
 sort_index(...) // sort df by non-hierarchical index
   axis=0
   ascending=True
@@ -371,7 +372,7 @@ t = df.to_records() //structured
 
 # Iterating
 for index, row in df.iterrows():
-  print row[colindex]
+  print row[colindex] // type(row) == Series
 for col in df.iteritems():
   print col[rowindex]
 df.iterrows() // iterate over rows
@@ -495,6 +496,9 @@ s[0.1]  // 1
 for key, value in s.items():
   print(key, value)
 s.to_frame(col_name)
+s.tolist()  // to list()
+s.to_frame()  // to DataFrame; name --> column
+s.values  // to np.array
 
 # Categorical
 Categorical(list('bbbcc'), categories=['a', 'b', 'c', 'f'], ordered=False)
@@ -624,6 +628,8 @@ retbins=True  // return also (tuple) bins -> [0, 0.5, 1.0]
 matplotlib.style.use('ggplot')
 df.plot(...)
 kind=line, bar, barh, hist, scatter, pie, kde, hexbin (2d density)
+  bar // vertical bars
+  barh  // horizonal bars
 figsize=(width, height)
 xlim=[a,b], ylim=
 plt.xlabel('xlabel'), plt.ylabel()
@@ -636,6 +642,11 @@ sharex=False  // subplot have different x-axis
 set_title(plot_title)
 table=True, df  // add table to bottom; df = data.describe()
 colormap='Greens', 'cubehelix'
+
+
+## lineplot
+d.loc[:, ['line1', 'line2']].plot(...)
+
 
 
 ## boxplot

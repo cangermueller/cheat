@@ -1,6 +1,7 @@
 # Misc
 status -u // show untracked files
 add -f *.pdf  // add .gitignore files
+git checkout-index -a -f --prefix=/path/  // checkout current branch to dir
 
 # Ignoring files
 .gitignore  // shared
@@ -13,6 +14,9 @@ fetch name  // update local branches -> see branch -r
 push name src_branch:dst_branch
 push name master:child/master // push master to name/child/master
 push name master:refs/remotes/X/master  // push to remote branch X/master on name
+push -u name r1:sync/r2
+  * push r1 to sync/r2 on name
+  * set upstream information -> pull will use name sync/r2
 pull name master  // pull master from name
 
 # Undo changes

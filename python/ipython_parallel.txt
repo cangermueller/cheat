@@ -1,0 +1,46 @@
+ipcluster // starts controller and engines
+ipconstoller  // starts controller (distributes jobs)
+ipengine  // starts client engine
+
+
+http://nbviewer.ipython.org/github/vals/scilife-python-course/blob/master/parallel%20python.ipynb
+http://www.astro.washington.edu/users/vanderplas/Astr599/notebooks/21_IPythonParallel
+
+ipcluster start -n 4  // start cluster with 4 engines
+  --profile profile
+  --cluster_id  c2  // start several cluster; use cluster_id= in Client()
+
+from IPython.parallel import Client
+clients = Client(profile='default')  // connect to local server
+  cluster_id=c2
+  profile_dir='SSH/.ipython/profile_mp' sshserver=, password= // connect to remote controller
+clients.close()
+
+dview = clients[:], clients[0], clients[::2]  // direct view to certain clients
+  * comment executed on ALL engines
+lbview = clients.load_balanced_view()
+  * comment executed on single engine
+
+def fun(a1, a2):
+  return a1 + a2
+v.apply(fun, 1, 2)  // call fun on all engines with same arguments a1=1, a2=2
+v.map(fun, [1, 2], [3, 3])  // split mapping on different engines
+r = v.apply_async(fun, args)
+r.ready() // True if done
+r.result  // get result
+
+%px command // run cell clients
+  --local // also on local host
+  --targets 0 1 // specify targets
+
+with dview.sync_imports():
+  import numpy
+
+dview.run('script.py', block=False)  // run script
+dview['var'] = value  // set value
+dview['var']  // get value
+dview.execute('a = b + c')  // execute command
+
+dview.scatter('x', [1, 2, 3, 4])  // split data on different clients
+dview.gather('x') // get data back
+

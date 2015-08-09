@@ -1,3 +1,6 @@
+# misc
+open .  // open Finder from current position
+
 # file system, df
 diskutil list // overview devices
 diskutil info /dev/disk1  // show information

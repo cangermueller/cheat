@@ -14,3 +14,12 @@ else:
   handle other error
 finally:
   executed if error or no error
+
+try:
+  ...
+except:
+  Catch everything
+except (RuntimeError, IOError):  // catch multiple
+  ...
+except RuntimeError as e:
+  print(e)

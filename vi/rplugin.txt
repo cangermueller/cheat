@@ -48,7 +48,7 @@ ctrl-o  // complete function
 \kh // knit html
 \kl // knit beamer presentation
 \ko // knit odt
-\kz // render rmd (c)
+\kz // knit to html without browser (render file) (c)
 \kx // run shiny (c)
 \kc // clear cache (c)
 \cc // send chunk

@@ -172,7 +172,10 @@ sum(a, 1) // sum horizontally (over columns)
 max, min
 argmax(array, axis=), argmin  // maximum/minimum (along axis)
 maximum(a, b) // pairwise maximum of two arrays
-unique(a)
+unique(a, ...)
+  return_counts=True  // count number of unique elements
+var(X, ddof=1)  // unbiased variance
+np.average(X, axis, weights)  // weighted mean
 
 ## io
 save('data.npy', data)  // binary npy format

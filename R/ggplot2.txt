@@ -98,11 +98,13 @@ ggtitle(title)
 # Axis
 coord_cartesian(xlim=c(min, max), ylim=c(min, max)) // zoom, do not discard points
 scale_x_continuous(limis=c(min, max), breaks=, labels=) // xlim (points discarded), breaks, labels axis
+  breaks=rev(seq(0, 1, len=4)), labels=seq(0, 1, 0.25)  // reverse axis
 xlim(min, max)  // discard points
 xlab('x'), ylab('y')
 theme(
   axis.title=element_blank(), axis.title.x=, axis.title.y= // no axis labels
   axis.text.x=element_text(angle=-90))  // rotate axis ticks labels
+  axis.text.x=element_text(angle=35, hjust=1)) // rotate and offset
   axis.text.x=element_blank() // no xlabs
 element_text(...)
   angle=
@@ -273,3 +275,30 @@ ggplot(pannos, aes(x=anno, y=auc)) +
   * green and magenta
   * turquoise and red
   * yellow and blue
+
+
+# theme
+* library(grid)
+
+```{r}
+theme_pub <- function() {
+  p <- theme(
+    axis.text=element_text(size=rel(1.2), color='black'),
+    axis.title=element_text(size=rel(1.5)),
+    axis.title.y=element_text(vjust=1.0),
+    axis.title.x=element_text(vjust=-0.5),
+    legend.position='top',
+    legend.text=element_text(size=rel(1.2)),
+    legend.title=element_text(size=rel(1.2)),
+    legend.key=element_rect(fill='transparent'),
+    panel.border=element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(),
+    axis.line = element_line(colour="black", size=1),
+    axis.ticks.length = unit(.3, 'cm'),
+    axis.ticks.margin = unit(.3, 'cm')
+    )
+  return (p)
+}
+```

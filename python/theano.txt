@@ -1,9 +1,25 @@
 # misc
 theano.test() // test theano installation
 
+
+# installation
+## ebi
+requires libpython3.4.so
+compile python with --enable-shared
+./configure.sh --enable-shared --prefix=$STOW/python3.4.2
+
+## intel mkl
+[blas]
+ldflags = -L/nfs/research2/stegle/software/opt/intel/composer_xe_2013.2.146/mkl/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lpthread -lm
+
+# compilation failure error on MacOS
+add to ~/.theanorc:
+[gcc]
+cxxflags=-march=corei7
+
 # configurations
 theano.configs
-print(theano.configs)
+print(theano.configs) // show all configs
 ## precedence
 1. theano.config.floatX = 'float32'
 2. THEANO_FLAGS='floatX=float32, ...'
@@ -12,14 +28,57 @@ print(theano.configs)
   floatX = float32
   device = gpu0
 
+# Nodes
+a = tht.scalar('a')
+b = tht.scalar('b')
+c = a + b
 
-print(theano.configs) // show all configurations
+ap = c.owner
+  * owner is not None if c is output of operation
+type(ap) // theano.gof.graph.Apply
+assert ap.inputs[0] is a
+assert ap.inputs[1] is b
+assert ap.outputs[0] is c
+ap.op // <theano.tensor.elemwise.Elemwise at 0x10bdc80d0>
+  * defines operation on input
+  * ap.op == function declaration (def fun(x, y): ...)
+  * ap == function result (fun(x, y))
+type(a) // theano.tensor.var.TensorVariable
+type(c) // theano.tensor.var.TensorVariable
+a.type // TensorType(int32, scalar)
+b.type // TensorType(float32, scalar)
+  * type defines set of constraints (dtype, dim, etc.)
 
-# compilation failure error on MacOS
-add to ~/.theanorc:
-[gcc]
-cxxflags=-march=corei7
 
+# OpFromGraph
+* Define operation(x, y, z) of tensor variables
+* function: operations of numpy variabiles
+## Example
+x, y, z = tht.scalars('xyz')
+e = x + y * z
+o = th.OpFromGraph([x, y, z], [e])
+e2 = o(x, y, z) + o(z, y, y)
+f = th.function([x, y, z], [e2])
+
+# scan, looping
+* recursion on tensor variable
+results, update = th.scan(fun, ...)
+  sequences=x // x[0], x[1], x[2], ..., passed to fun each time step
+  outputs_info= // initial value result of fun
+  n_steps=n  // # recursions, n_steps == len(x
+  non_sequences=const // constants in operation
+results = [result0, result1, ...] // result of all iterations
+fun([sequences], [last_output_fun], [non_sequences])
+  * args are only passed, if specified as sequences=, outputs_info=, non_sequences=)
+## Example: x^n
+n = tht.iscalar('n')
+x = tht.scalar('x')
+xns, update = th.scan(lambda xl, x: xl * x,
+                      outputs_info=tht.ones_like(x),
+                      non_sequences=x,
+                      n_steps=n)
+xn = xns[-1]
+f = th.function([x, n], xn)
 
 
 # printing
@@ -53,12 +112,13 @@ matrix()  // 2d: [[1, 2], [3, 4]]
 col() // 2d column vector: [[1], [2], [3]]
 row() // 2d row vector: [[1, 2, 3]]
 * bool not supported!
+X // config.floatX is default dtype
 bX  // int8
 wX  // int16
 iX  // int32
 lX  // int64
 fX  // float32
-dX  // double64
+dX  // float64
 b = T.cast(a, 'float32')  // change dtype (np.float32 not allowed)
 
 ## attributes
@@ -156,14 +216,6 @@ b = T.dscalar('b')
 c = a + b
 c.owner.inputs  // a, b
 c.owner.op.name // operation name
-
-# scan, looping
-results, updates = th.scan(fun, ...)
-  fun=lambda prev, non_sequence: // function in loop
-  non_sequence= // constant in loop
-  output_info=  // initial value
-  n_steps=  // # interactions
-results = [result0, result1, ...] // result of all iterations
 
 # missing values
 * http://deeplearning.net/software/theano/library/tensor/basic.html#indexing

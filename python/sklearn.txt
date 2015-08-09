@@ -57,6 +57,14 @@ for pp in p:
 # preprocessing
 import sklearn.preprocesing as pp
 
+
+## Mean normalization
+s = StandartScalter(with_mean=True, with_std=True)
+s.fit(X)
+Z = s.transform(X)
+
+
+
 scale(X)  // mean-normalize columns; returns array
 
 ## pp.LabelBinarizer
@@ -83,8 +91,17 @@ feature_indices_[i] // start col of bits in binary matrix; fi[i]:fi[i+1] is code
 1 -> 0 1 0
 2 -> 0 0 1
 
-## cross_validation
-import sklearn.cross_validation
+
+
+# Validation
+
+## Hold-out split
+import sklearn.cross_validation as cv
+train_X, test_X, train_y, test_y = cv.train_test_split(X, y, train_size=0.6)
+  * inputs are *args, not kwargs!
+
+
+## Sampling
 StratifiedShuffleSplit(labels, n_iter, test_size=0.5) // stratified bootstrapping
 Bootstrap(num_samples, test_size=0.5) // unstratified bootstrapping
 

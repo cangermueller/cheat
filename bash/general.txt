@@ -1,3 +1,8 @@
+# nice
+nice -n 10  // decrease priority
+nice -n -10  // increase priority
+nice -n [-20;20]
+
 # chmod, chown
 -R  // recursively
 
@@ -127,6 +132,7 @@ diskutil info /Volumns/hdd
 -path "*/src" // all src directories
 -regex "*/.EADME" // emacs regex whole path
 -type df  // directory of file
+-not -path '*/\.*'  // exclude hidden directories
 -exec
 -delete
 -ls

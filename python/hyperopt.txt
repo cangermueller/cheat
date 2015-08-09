@@ -1,4 +1,28 @@
+# General
 * http://fastml.com/optimizing-hyperparams-with-hyperopt/
+
+# Installation
+pip install hyperopt
+pip install git+https://github.com/hyperopt/hyperopt
+
+0) pip install networkx
+1) Fix trials bug
+in base.py line 625
+    from . import fmin as fmin_module
+    return fmin_module(
+        fn, space, algo, max_evals,
+<         return fmin_module.fmin(
+---
+>         return fmin_module(
+<         return fmin_module.fmin(
+---
+>         return fmin_module(
+2) comment out distribute_setup in setup.py of sys_platform undefined
+3) add zip_safe = False to setup.py setuptools.setup() // install files, not egg
+
+
+
+
 
 def objective(x):
     loss = (x - 5)**2 + 2
@@ -52,5 +76,6 @@ space = (
     hp.uniform( 'alpha', 0, 1 ),
     hp.loguniform( 'rbf_width', log( 1e-5 ), log( 100 )),
     hp.choice( 'activation_func', [ 'tanh', 'sine', 'tribas', 'inv_tribas', 'sigmoid', \
-        'hardlim', 'softlim', 'gaussian', 'multiquadric','inv_multiquadric' ] )
+        'hardlim', 'softlim', 'gaussian', 'multiquadric','inv_multiquadric' ] ),
+    2**-hp.uniform('learning_rate', 0, 3)
 )
