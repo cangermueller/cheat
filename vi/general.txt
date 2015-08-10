@@ -1,3 +1,5 @@
+# install
+
 # diff files
 1) open files in windows (vert/hor)
 2) execute :diffthis in both windows (:windo diffthis)
