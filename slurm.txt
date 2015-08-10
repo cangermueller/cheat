@@ -1,0 +1,7 @@
+myaccount // account infos
+qstat, squeue // submission status
+ -u ca426
+
+cp /usr/local/Cluster-Docs/SLURM/slurm_submit.darwin slurm_submit
+
+sbatch slurm_submit
