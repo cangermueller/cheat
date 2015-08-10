@@ -22,11 +22,11 @@ theano.configs
 print(theano.configs) // show all configs
 ## precedence
 1. theano.config.floatX = 'float32'
-2. THEANO_FLAGS='floatX=float32, ...'
+2. THEANO_FLAGS='floatX=float32,device=gpu'
 3. .theanorc
 [global]
   floatX = float32
-  device = gpu0
+  device = gpu
 
 # Nodes
 a = tht.scalar('a')
