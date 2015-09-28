@@ -31,16 +31,12 @@ gq  // reindent line
 :PymodeRopeUndo
 :PymodeRopeNewProject // create new project (done automatically)
 
-
-
 # jedi
-c-space // auto-completion
-l-g // goto definition
-l-d // goto definition
-l-r // rename variable (not function!)
-K // show pydoc
+* add package to PYTHONPATH if not found !
+c-space, c-x c-o // auto-completion
+\-K, K // show pydoc
+\-D // goto definition
 l-n // show quickfix where object is used
-:Pyimport numpy // open module
 
 
 
@@ -56,10 +52,6 @@ bundle/vim-ipython/ftplugin/python/ipy.vim
 ## Keybindings
 -> ~/.vim/ftplugin/python.vim
 \rf // connect
-\rh // show doc
 \aa // send all
 \w  // send line
 \q  // send line down
-\d  // send line down
-<Leader>D // add docstring
-<Leader>F // removl docstring

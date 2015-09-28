@@ -69,7 +69,7 @@ for color in Colors:
   'h' -> 68
   'r' -> 72
   'hr' -> 6872
-  * code points can be stored in differnt byte formats
+  * code points can be stored in different byte formats
 * bytes: bytes as stored on disk
 * bytes / str completely separated in python3
 * bytes / str can be mixed in python2
@@ -84,3 +84,22 @@ s = b.decode()  // bytes -> unicode
 '123' + b'123'.decode()  // works
 open(file)  // returns unicode/str in python3; bytes in python2
 open(file, 'b') // returns bytes
+
+# dict.iter() / iteritems()
+## Python2
+.keys(), .values(), .items()  // returns list
+.iterkeys(), .itervalues(), .iteritems() // returns iterator
+
+## Python3
+.iterX() does not exist anymore
+.keys() // return dict_keys: list OR iterator
+for k in d.keys()
+  * returns iterator implicitly
+  * == for k in iter(d.keys())
+k = d.keys()  // return dict_keys(), like list (?)
+
+## six
+import six
+for k, v in six.iteritems(d)  // iterator
+for v in six.itervalues(d)  // iterator
+for k in six.iterkeys(d)  // iterator

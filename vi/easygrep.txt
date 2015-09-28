@@ -1,0 +1,23 @@
+# Key binding
+\vv // match word
+\vV // match whole word
+\vo // option explorer
+\vr // replace word
+  * buffers (\vyb), to replace in all buffers
+  * 'User' (\vyu), to replace only in current file
+\vR // replace whole word
+
+# Commands
+Grep Pattern
+  -E pa\?\$ // -E for regex
+Replace what by
+Replace /what/by/
+Replace /num?y/numpy/
+ReplaceUndo
+
+# Options
+\vyr  // toggle recursive mode
+\vyu  // swith to user mode
+\vyr  // switch to buffer mode
+\vs   // replace word under cursor (custom)
+

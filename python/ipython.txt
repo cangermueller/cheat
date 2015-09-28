@@ -13,6 +13,7 @@ IPython.load_extensions('calico-spell-check', 'calico-document-tools', 'calico-c
 # selected magics
 %run -d b10 ./script.py
 %pycat file.txt
+%load file  // load file into cell
 %less // faster than %pycat
 %reset  // reset workspace
 

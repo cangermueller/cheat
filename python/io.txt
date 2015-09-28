@@ -28,7 +28,6 @@ f.tell() = tell_previous
 
 
 
-
 # File names
 os.path
 join(a, b, c)
@@ -52,7 +51,8 @@ glob.glob('dir/*.py')
 os.remove(file) // remove/delete file
 os.rmdir(dir) // remove/delete dir
 import shutil
-shutil.copyfile(src, dst) // copy
+shutil.copyfile(src, dst) // copy file
+shutil.copytree(src_dir, dst_dir) // dopy dir
 
 # execute system/shell command
 import subprocess as sp
@@ -77,7 +77,8 @@ isdir(f)  // is directory
 
 
 # create
-os.makedirs('d1/d2', exist_ok=True) // mkdir -p
+os.makedirs('d1/d2', exist_ok=True) // mkdir -p; exist_ok only Python3
+
 
 
 # Temporary files
@@ -88,7 +89,18 @@ fd, name = mkstemp(...) // name is abs filename; fd is file descriptor
   dir='./my_tmp
 path = mkdtemp(dir=, prefix=, suffix=)  // create temp dir and return rel path
 
+
 # String file
 from io import StringIO
 f = StringIO('hello\nworld')
 f.read()
+
+
+# comparing files
+import filecmp
+cmp('file1', 'file2') // True if files are equal
+cmpfiles(dir1, dir2, commom=[file1, file2]) // Compare files in directories
+  returns (a, b, c)
+    a // list of files in common that are equal
+    b // list of files in common that are unequal
+    c // list of files in common that non-regular files

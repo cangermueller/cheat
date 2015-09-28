@@ -1,6 +1,23 @@
 # doctests
+1st way: from IPython console
 import doctest
 doctest.testfile('file.rst')
+  * module_relative=False // if file is local
+
+2nd way: as module
+python -m doctest file.rst
+
+## In Sphinx
+1st way:
+>>> print('Hello world')
+'Hello way
+
+2nd way:
+.. doctest::
+
+  >>> print('Hello world')
+  'Hello world'
+
 
 # flags
 >>> code # doctest: +FLAG
@@ -60,8 +77,8 @@ sphinx extension to import docstrings into rst files
 .. autoclass: vbfa.VbFa // import class docstring (after class VbFa)
   :members: // show all members
   :members: a, b  // show only a() and b()
-  :private_members: // _private
-  :special_members: // __init__
+  :private-members: // _private
+  :special-members: // __init__
 
 
 # rst
@@ -116,4 +133,13 @@ intersphinx_mapping = {
 http://codeandchaos.wordpress.com/2012/08/09/sphinx-and-numpydoc/
 https://github.com/numpy/numpydoc
 http://sphinxcontrib-napoleon.readthedocs.org/en/latest/example_numpy.html
+
+# linking static files
+## download single files
+:download:`Download this file <dir/file.abc>` // will be copied to _downloads/file.abc
+
+## linking files and directories
+html_static_path = ['examples/']  // in conf.py; path relative to file.rst
+`Link to static file <../_static/static_file.html>`_  // path relative in html dir
+
 

@@ -59,13 +59,21 @@ import sklearn.preprocesing as pp
 
 
 ## Mean normalization
-s = StandartScalter(with_mean=True, with_std=True)
+s = StandardScaler(copy=True, with_mean=True, with_std=True)
+  copy=False  // don't copy data on transform, fit_transform
 s.fit(X)
+  s.mean_ // column means
+  s.std_ // column std
 Z = s.transform(X)
+Z = s.fit_transform(X)
+X = StandardScaler(copy=False).fit_transform(X)
 
-
-
-scale(X)  // mean-normalize columns; returns array
+## MinMax normalization
+s = MinMaxScaler(feature_range=(0, 1))
+  * scales all features independently between (0, 1)
+  * same interface as StandardScaler
+s.fit(X)
+  x.min_ is not X.min(axis=0) !!
 
 ## pp.LabelBinarizer
 * labels -> binary
@@ -81,6 +89,7 @@ transform(['a', 'b', 'b']) -> [0, 1, 1]
 * integers -> binary
 enc = OneHotEncoder(...)
   n_values='auto'  // # values per features -> # bits
+    ! Set manually !
   sparse=True // return sparse matrix
 fit([[1, 2], [2, 3], [2, 4]]) // rows = samples, columns = features
 transform([[1, 2]]) // transform features of single sample to sparse binary mat

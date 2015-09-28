@@ -2,28 +2,31 @@
 DIR="$HOME/.bin-libevent"
 /configure CFLAGS="-I$DIR/include" LDFLAGS="-L$DIR/lib" --prefix=/home/ca426/opt/stow/tmux-2.0
 
-
-swap-windows -t 0 // rearrange windows
 ? // show keybindings
 s //  switch between sessions
 t // show clock
 
-# Windows bindings
+# Windows
 j, k  // previous, next window
 p // previous window
 & // kill window
 . // change index of window
+swap-windows -t 0 // rearrange windows
+move-window -t 1  
 
 # Panes
 ; // last pane
 space // next pane layout
 alt+[1234]  // select pane layout
-o (long)  // swap with other
 {}  // rotate panes; { counter clock
+q // show pane numbers
+:swap-pane .p // swap current pane with p
+:swap-pane w.p  // swap current pane with p in window w
+c-o // swap with other clock-wise
 ! // break pane
 join-pane -t 1  // join pane
 x // kill pane
-z // zoom pane
+z // toggle pane zoom
 arrows  // resize
 
 # Key binding

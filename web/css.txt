@@ -52,4 +52,8 @@ div {
   pointer-events: none;
 }
 
+# Align images side-by-side
+<img style="float: left; margin-right: 5px;" src="img1.png"/>
+<img style="float: left; margin-right: 5px;" src="img2.png"/>
+
 

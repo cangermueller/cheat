@@ -17,6 +17,7 @@ push name master:refs/remotes/X/master  // push to remote branch X/master on nam
 push -u name r1:sync/r2
   * push r1 to sync/r2 on name
   * set upstream information -> pull will use name sync/r2
+push name --delete branch // delete remote branch
 pull name master  // pull master from name
 
 # Undo changes
@@ -89,7 +90,8 @@ checkout ID // checkout branch in tmp branch
 checkout -B tmp ID  // checkout branch in new branch tmp
 checkout ID -- file // checkout single file into current branch
 
-# update root of branch
+# rebase
+## idea
 A - B - master
      \
        develop
@@ -105,4 +107,11 @@ A - B - master
 more transparent than merge:
 http://stackoverflow.com/questions/16666089/whats-the-difference-between-git-merge-and-git-rebase
 * git push -f origin branch // overwrite changes after rebase
+
+## interactive rebase
+* to skip, merge, amend past commits
+* http://stackoverflow.com/questions/495345/removing-selected-commit-log-entries-for-a-git-repository
+git rebase -i HEAD~5  // HEAD~5 point to last clean commit before change
+git rebase --abort
+git rebase --continue
 

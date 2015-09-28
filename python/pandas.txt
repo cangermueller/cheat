@@ -464,6 +464,7 @@ DataFrame({'id':[0, 1, 2], 'value':[1, 2, 3]})  // from dict
   * use d[[c1, c2]] to order afterwards -> no other solution (?)
 DataFrame.from_dict(dict) // same as before
 DataFrame(np.ones((n, m)), columns=)  // from numpy array
+DataFrame([[1, 2]], columns=['a', 'b']) // from numpy array
 DataFrame.from_csv
 
 ## Misc
@@ -642,6 +643,9 @@ sharex=False  // subplot have different x-axis
 set_title(plot_title)
 table=True, df  // add table to bottom; df = data.describe()
 colormap='Greens', 'cubehelix'
+
+## matplotlib help
+plt.xlabel(label)
 
 
 ## lineplot

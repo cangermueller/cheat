@@ -124,14 +124,26 @@ mapper = cm.ScalarMappale(cmap=cmap, norm=norm)
 colors = mapper.to_rgba(values)
 
 
-# imshow / matshow
+# imshow / matshow for images
 * plot 2d matrix in the way it is in memory (X[0,0] top/left)
 matshow(M, ...) // simple; no interpolation
 imshow(M, ...)  // complex; interpolation
   interpolation='nearest,none'
   cmap=cm.RuBu,'binary'
-aspect='auto', 10, 100 // adjust width/height
-im = ax.imshow(...)
+  aspect='auto', 10, 100 // adjust width/height
+
+## grey scale image (mnist)
+I is m x n
+imshow(I, cmap='binary')
+
+## color image (cifar)
+* use np.swapaxes to swap axes
+I is m x n x 3
+imshow(I)
+
+
+
+# colorbar
 fig.colorbar(im, orientation='horizontal')
   * Don't know how to do specific for each axis
   orientation='horizontal'

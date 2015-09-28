@@ -28,7 +28,9 @@ coo_matrix  // coordinate form
 s = X_matrix((nrow, ncol), dtype=)
 s = X_matrix(np.array)  // from numpy array; 0 is interpreted as missing value
 s[a != 10] = a[a != 10] // 10 is missing value
-s.todense(), s.toarray()  // return dense numpy array
+s.todense(...), s.toarray()  // return dense numpy array
+  order={'C', 'F'} // column order
+  out=array // write to array instead of creating new one
 s.dot(s)  // sparse matrix operation
 s.nnz, s.getnnz()  // number of stored (non zero) values
 s.sorted_indices()  // indices of stored elements as sparse matrix
@@ -71,3 +73,19 @@ import scipy.interpolate
 interp1d(x, y, kind='linear')
   kind='quadratic': spline^2
   kind='cubic': spline^3
+
+# Convolution
+scipy.signal.convolve(x, k, mode='full')
+* convolution over x with kernel k
+## full
+* size: n + k - 1
+k k k             k k k
+    x x x  -> x x x
+## same
+* size: n
+k k k         k k k
+  x x x  -> x x x
+## valid
+* size: n - k + 1
+k k k             k k k
+x x x x x  -> x x x x x

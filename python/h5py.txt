@@ -5,7 +5,7 @@ pytables (tables) is more abstract (complicated)
 
 # Write numpy array
 f = File('file.h5', 'w')  // use 'a' to append, else overwrite
-f.create_dataset(['/group/dataset'], data=array)
+f.create_dataset('/group/dataset', data=array)
 f.close()
 
 # Read array

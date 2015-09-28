@@ -200,6 +200,8 @@ hsplit(M, 4)  // split M into 4 parts |
 vsplit(M, 4)  // split M into 4 parts -
 repeat(a, n)  // repeat each element n times
 tile(M, (3, 4)) // copy M 3x4
+swapaxes(a, a1 a2)  // swap axis a1 and a2
+  swapaxes((m x n), 0, 1) --> (n x m)
 
 ## boolean array
 b = data[:, 5] > 5

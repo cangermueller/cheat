@@ -54,22 +54,33 @@ b.type // TensorType(float32, scalar)
 * Define operation(x, y, z) of tensor variables
 * function: operations of numpy variabiles
 ## Example
-x, y, z = tht.scalars('xyz')
+x, y, z = tht.scalars('xyz')  // no commans, white spaces
 e = x + y * z
 o = th.OpFromGraph([x, y, z], [e])
 e2 = o(x, y, z) + o(z, y, y)
 f = th.function([x, y, z], [e2])
 
 # scan, looping
-* recursion on tensor variable
+* don't use, if vectorized version possible
+* don't use, if small number iterations -> unroll graph
+* if many iterations, use scan!
+
 results, update = th.scan(fun, ...)
-  sequences=x // x[0], x[1], x[2], ..., passed to fun each time step
-  outputs_info= // initial value result of fun
+  sequences=[in1, in2] // x[0], x[1], x[2], ..., passed to fun each time step
+    * if vector, loop over elements
+    * if matrix, loop over rows
+  outputs_info=[out1, out2] // initial value result of fun
+    out=None  // don't pass to next iterations
+    dict(initial=init, taps=[-2, -1]) // pass v_last_last and v_last to fun
   n_steps=n  // # recursions, n_steps == len(x
   non_sequences=const // constants in operation
-results = [result0, result1, ...] // result of all iterations
+
 fun([sequences], [last_output_fun], [non_sequences])
   * args are only passed, if specified as sequences=, outputs_info=, non_sequences=)
+
+results = [result0, result1, ...] // result of all iterations
+updates // should be passed to function(updates=updates) --> compute time
+
 ## Example: x^n
 n = tht.iscalar('n')
 x = tht.scalar('x')
@@ -77,6 +88,7 @@ xns, update = th.scan(lambda xl, x: xl * x,
                       outputs_info=tht.ones_like(x),
                       non_sequences=x,
                       n_steps=n)
+
 xn = xns[-1]
 f = th.function([x, n], xn)
 

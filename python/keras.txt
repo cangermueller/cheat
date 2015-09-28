@@ -1,0 +1,98 @@
+# data
+from keras.datasets import (mnist, cifar10, ...)
+(X_train, y_train), (X_test, y_test) = data.load_data()
+
+# np_utils
+to_categorical([0, 1, 2], 3)  --> [[0 0 0] [0 1 0] [1 0 0]]
+probas_to_classes() // reverse to_categorical
+
+# loss
+m.compile(loss=)
+categorical_crossentropy
+binary_crossentropy
+
+# fit
+* does not initialize parameters
+nb_epoch=100
+show_accuracy=False
+
+# layers
+core.Dense(nin, nout, ...)
+  activation='relu'
+  W_regularizer='l1', regularizer
+  init='glorot_uniform', init
+
+## Convolution
+convolutional.Convolution2D(nkernels, ninput_channels, m, n, ...)
+  * input: samples x channels x rows x columns
+  * output: samples x nkernels x rows' x columns'
+  border_mode='valid,full,same,valid'
+    full: n + k - 1 // zero-padding
+    same: n // zero-padding, preserve size  -> prefer
+    valid: n - k + 1  // no zero-padding
+  activation='linear'
+  init='glorot_uniform'
+  W_regularizer=None
+  subsample=(1,1) // step/stride size, 2 -> take every 2nd
+convolutional.Convolution1D(input_dim, nb_filters, input_len)
+  * input: samples x seq_len x input_dim
+    input_dim is nb_filters/channels of previous layer
+  * output: samples x seq_len' x nb_filters
+  * difference 2D: slides filter only vertically, not horizontally
+convolutional.MaxPooling2D(...)
+  poolsize=(2,2)
+
+### border modes
+scipy.signal.convolve(x, k, mode='full')
+* convolution over x with kernel k
+>> full
+* size: n + k - 1
+k k k             k k k
+    x x x  -> x x x
+>> same
+* size: n
+k k k         k k k
+  x x x  -> x x x
+>> valid
+* size: n - k + 1
+k k k             k k k
+x x x x x  -> x x x x x
+
+# regularizer
+import keras.regularizer
+l1, l2, l1l2
+
+# initializer
+import keras.initializers
+glorot_uniform
+normal
+uniform
+
+# Sequential model
+m = models.Sequential()
+m.add(layers.core.Dense())
+m.add(layers.core.Activation())
+m.compile(optimizer=, loss=)
+m.fit(x, y, ...)
+  nb_epoch=100
+  validation_data=(X_test, y_test)
+  show_accuracy=False
+m.predict(x)  // predict_proba()
+m.predict_proba()
+m.predict_classes()  // [0, 1, 2]
+m.evaluate(X, y, show_accuracy=False) // loss (+ accuracy)
+get_weights()  // return copy of weights
+set_weights(w)
+save_weights(file, overwrite=False)  // save as hdf5
+load_weights(file)
+
+
+# Graph model
+m = models.Graph()
+m.add_input(name='x', ndim=2)
+m.add_node(name='h1', input='x', layer=)
+m.add_node(name='z1', input='h1', activation='softmax')
+m.add_node(name='y1', input='z1')
+m.compile(loss={'y1': 'categorical_crossentropy'}, opt='adam')
+m.predict({'x': X_train})
+
