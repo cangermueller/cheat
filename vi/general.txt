@@ -1,4 +1,20 @@
-# install
+# Edit key bindings
+R   // start replace mode
+## change
+I   // insert at beginning
+A   // insert at end
+c^  // change till first character of line
+c0  // change till beginning of line
+C   // change till end of line
+S   // change whole line
+
+## delete
+d^  // delete until first character of line
+d0  // delete until beginning of line
+D   // delete until end of line
+X   // delete character before cursor
+x   // delete character after cursor
+
 
 # diff files
 1) open files in windows (vert/hor)
