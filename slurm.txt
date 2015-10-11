@@ -1,7 +1,34 @@
-myaccount // account infos
-qstat, squeue // submission status
- -u ca426
+# Misc
+/usr/local/Cluster-Docs/SLURM/slurm_submit.darwin slurm_submit
 
-cp /usr/local/Cluster-Docs/SLURM/slurm_submit.darwin slurm_submit
+# Account
+mybalance   // how many hours are left
+
+# sbatch
+SBATCH_ACCOUNT
+SBATCH_JOB_NAME
+SBATCH_QOS
 
 sbatch slurm_submit
+  -J jobname
+  -D workdir
+  -o stdout.log (default: slurm*)
+  -e stderr.log (default: stdout)
+  --mem mem // memory in MB per node
+  --mem-per-cpu mem // minimum memory in MB per CPU
+  --mincpus n  // min # cpus per node
+  --test-only
+  --qos=INTR  // for fast running jobs
+
+
+# Others
+squeue -u ca426
+scontrol show job <jobid>
+scancel/skill <jobid>
+  -u ca426  // all jobs
+
+
+# Disk quota
+quota
+home: 40 GB, backup
+scratch: unlimited, no backup

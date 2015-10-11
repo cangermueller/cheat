@@ -1,3 +1,6 @@
+# Install
+./configure.sh --enable-shared --prefix=$STOW/python3.4.2
+
 # Maximum recursion depth
 sys.setrecursionlimit(x)
 
