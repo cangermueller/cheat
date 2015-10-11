@@ -1,0 +1,7 @@
+# Command list options
+-ls  // list session
+-S name // start new session
+-r // reattach
+
+# Key bindings
+<c-a> <c-d>  // detach

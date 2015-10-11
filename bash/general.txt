@@ -1,3 +1,6 @@
+# Show linux version
+cat /proc/version
+
 # nice
 nice -n 10  // decrease priority
 nice -n -10  // increase priority

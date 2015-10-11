@@ -1,0 +1,15 @@
+import json/yaml
+* have same interface
+
+dumps(dict, ...)  // dict -> json/yaml
+  separator=2  // indent lines
+loads(string) // json/yaml -> dict
+
+
+
+# misc
+object.__dict__.update(dict) // add variables in dict to object
+vars(object) // get variables object as dict
+Class Params():
+  def __init__(self, **args):
+    self.__dict__.update(args)

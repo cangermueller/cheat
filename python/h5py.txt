@@ -3,15 +3,34 @@ http://docs.h5py.org/en/latest/quick.html
 Optimized for numpy
 pytables (tables) is more abstract (complicated)
 
+# Notation
+f: File
+g: group
+[fg]: File or group
+
 # Write numpy array
 f = File('file.h5', 'w')  // use 'a' to append, else overwrite
-f.create_dataset('/group/dataset', data=array)
+[fg].create_dataset('/group/dataset', data=array)
 f.close()
+
+# Overwrite dataset
+if 'd' in f:
+  def f['d']
+d.create_dataset('d', ...)
 
 # Read array
 f = File('file.h5', 'r')
-array = f['/group/dataset'].value
+array = [fg]['/group/dataset'].value
 f.close()
+
+# Slicing data
+d = f['dataset']
+d.value // everything
+d[i]  // at index i
+d[[i, j, k]]  // at indices (increasing order)
+d[:k] // every kth
+d[[True, False, ...]] // via boolean
+
 
 # Explore file
 f = File('file.h5', 'r')
@@ -25,7 +44,7 @@ g.get('child')
 
 # open attributes
 * r: read-only
-* w: overwrite existing
+* w: overwrite existing file (all groups)
 * r+ : read/write; file must exist
 * a : read/write; file does not have to exist
 
@@ -58,3 +77,11 @@ d[...] = new_value
 # check if dataset exists
 f = File(...)
 '/data' in f  // True or False
+
+# Attributes
+attr = [fg].attr
+list(attr.keys) // list attributes
+attr['a']  // get value
+attr['a'] = 'str'
+attr['a'] = 10
+attr['a'] = np.arange(10)

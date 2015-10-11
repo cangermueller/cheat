@@ -60,11 +60,13 @@ to_csv(file, ...)
   sep=','
   index=True  // write index
   header=False  // do not write header
+  mode='a'  // append
+  float_format='%.2f'
 to_sql('table1')  // see SQL below
 
 # HDF
 df.to_hdf('/df', format='t', ...)
-  format='f'  // fixed format; fast read + write; no query
+  format='f'  // (default), fixed format; fast read + write; no query
   format='t'  // table format; slower write (+ read); query
   complib='bsoc', complevel=5 // compress
   complib='bsoc, bzip2, ...'
@@ -72,13 +74,16 @@ df.to_hdf('/df', format='t', ...)
 pd.read_hdf('file.h5', 'name', ...)
   columns=['c1', 'c2']
   ## selection
-  * format='t' required!
+  !!! format='t' required, (data_columns=True optional)
   where=["columns=['c1', 'c2'] & index>10]
   start=first_row // number (not index) first row (included)
   stop=last_row // number (not index) last row (excluded)
+  for dc in pd.read_hdf(..., chunksize=100): // read in blocks
+    dc.shape[0] == 100
 
 ## HDFStore
-store = HDFStore(filename)
+store = HDFStore(filename, ...)
+  mode='a'  // r, w
 store.close()
 store.is_open
 store.keys()
@@ -187,6 +192,7 @@ i = MultiIndex.from_arrays(...) // same as from_tuples
 i = MultiIndex.from_product([[o1, o2], ['i1', 'i2', 'i3']], names=['chromo', 'pos'])
   * Make index of Cartesian product of two iterators
 i.levels[k] // unique index values at level k
+  * only Multiindex
 i.get_level_values(k) // index values (not unique) at level k
 i.droplevel(k) // remove level k
 
@@ -206,10 +212,9 @@ set_index([columns], ...) // set row index
 reset_index(...)  // row index -> columns
   level=
   drop=True // do not add columns; only delete level
-sort_index(...) // sort df by non-hierarchical index
+d = d.sort_index(...) // sort df by non-hierarchical index; not inplace!
   axis=0
   ascending=True
-  inplace=False
 sortlevels(...) // sort hierarchical index
   level=0
   inplace=False

@@ -25,6 +25,7 @@ sudo cp bin $dir
 ^ + 3 // pounds
 
 # iterm
+cmd - shift - T  // toggle show tabs in fullscreen mode
 cmd - t // new tab
 cmd - [123] // switch between tabs
 cmd - ^ - [123] // switch between windows

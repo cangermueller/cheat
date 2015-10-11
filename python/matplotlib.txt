@@ -29,6 +29,7 @@ figure(figsize=(width, height)) // new figure
 subplot(nrow, ncol. index)  // switch to subplot
 title
 xticks(()), yticks(())  // no ticks
+xticks(np.arange(5), ['A', 'G', 'T', 'C']) // set position and label of ticks
 plt.xticks(rotation=90) // rotate xticks;
 xlabel(), ylabel()
 xlim(), ylim(), axis([xmin, xmax, ymin, ymax])
@@ -75,8 +76,8 @@ axis([xmin, xmax, ymin, ymax])
 set_axis_off()  // turn axis off
 grid()
 set_xscale('log')
-set_xticks([1, 2, 3])
-set_xticklabels(['A', 'B', 'C'])
+set_xticks([1, 2, 3])  // set position of ticks
+set_xticklabels(['A', 'B', 'C'])  // set labels of ticks
 xaxis.ticks_bottom()
 ax.axis('off')  // remove all axis
 ax.spines['top'].set_visible(False) // hide line
@@ -110,6 +111,7 @@ linewidth
 '#ff0000' // red
 
 ## color maps
+'RdBu', 'RdBu_R', 'binary'  // access by string
 import matplotlib.cm as cm
 cmap = cm.rainbow  // color map class
 cmap([0.0, 0.5, 1.0])
@@ -129,7 +131,7 @@ colors = mapper.to_rgba(values)
 matshow(M, ...) // simple; no interpolation
 imshow(M, ...)  // complex; interpolation
   interpolation='nearest,none'
-  cmap=cm.RuBu,'binary'
+  cmap='RdBu', 'RdBu_R', 'binary', cm.RuBu
   aspect='auto', 10, 100 // adjust width/height
 
 ## grey scale image (mnist)

@@ -33,6 +33,10 @@ isnan(a)
 isinf(a)
 def complete_cases(a):
     return np.all(~np.isnan(a), axis=1)
+
+## fill missing values
+a[np.isnan(a)] = value
+
 ## functions
 nanmin, nanmax, nanmean, ...
 
@@ -47,10 +51,6 @@ A = array(order='F')
 A.stride  // stide: bytes to go to next axis
 np.max(list) is bad!  // do not use np functions on lists - conversion to array
 
-## Matrix to vector
-flatten // returns copy
-ravel // return reference
-
 
 
 # Apply function over axis
@@ -61,8 +61,15 @@ r = [fun(row) for row in array] // returns list
 int16 'i2'
 float8  'f8'
 str 'S10' == 'a10'  // str length 10
-x = x.astype(np.float16)  // change dtype, return copy
+x = x.astype(np.float16, ..)  // change dtype, return copy
+  copy=False // don't allocate if possible
 x.view(np.float16)  // change view on dtype
+
+## Information data type
+np.iinfo(np.int32)
+  .max // maximum value
+  .min // minimum value
+
 
 # Structure array
 a = np.empty((3, ), dtype=('i4, f4, a10'))  // unlabeled
@@ -172,7 +179,7 @@ sum(a, 1) // sum horizontally (over columns)
 max, min
 argmax(array, axis=), argmin  // maximum/minimum (along axis)
 maximum(a, b) // pairwise maximum of two arrays
-unique(a, ...)
+np.unique(a, ...)
   return_counts=True  // count number of unique elements
 var(X, ddof=1)  // unbiased variance
 np.average(X, axis, weights)  // weighted mean
@@ -189,8 +196,9 @@ loadtxt('data.csv', sep=',')
 ## reshape
 .reshape(3, 4)
 .reshape(3, -1) // calculate missing dim
-.flatten()  // matrix to vector
-.ravel()  // flatten(), but reference if possible
+.flatten()  // matrix to vector; return copy
+.ravel()  // flatten(); return reference
+.squeeze(axis=None) // remove single axis, e.g 3x1 -> 3
 a[:, newaxis] // vector to column vector
 a.sqeeze()  // remove 1 dims, e.g. column vector to vector
 hstack((a, b))  // concat left - right
@@ -208,11 +216,10 @@ b = data[:, 5] > 5
 b.sum()
 b.any()
 b.all()
-b.nonzero()
-where(b > 0)  // like R which(b > 0)
-
-## vectorize function
-vectorize(func)(a)  // calls func with each element of a
+b.nonzero()[0]  // indices where True
+np.where(b)[0]  // smae a nonzero
+(x > 0).nonzero()[0]  // like R which(b > 0)
+np.in1d(a, b) // boolean mask, where True means that a is in b
 
 
 ## comparison

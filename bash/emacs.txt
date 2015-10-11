@@ -7,7 +7,7 @@ c-b // end of line
 c-f // forward character
 c-b // backward charcter
 m-f // forward word
-m-b // backwawrd word
+m-b // backward word
 c-] // search character forward
 c-m-] // search character backward
 m-0..9  // specifiy argument of command
