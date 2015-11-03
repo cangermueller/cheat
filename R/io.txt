@@ -14,7 +14,8 @@ Sys.glob('../*.csv')  // glob, wildcard files
 dir(dirname, ...) / list.files() // show directory content
   pattern='.csv$' // filter file names by regex; glob; wildcard
   full.names=T  // include dirname
-list.dirs()
+list.dirs(path, full=T, recursive=T)
+  full=F, recursive=F // only show names of dirs without .
 file.show(file) // open file with vi
 file.choose()
 file.exists()

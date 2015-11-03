@@ -125,6 +125,7 @@ scale_color_manual(values=c('g1'='red', 'g2'='blue'))
 scale_color_gradient(low='black', high='red')
 scale_fill_gradient2(low='blue', mid='white', high='red', midpoint=0.5)
 scale_fill_gradientn(colors=brewer.pal(7, 'Spectral')) // see brewer.txt
+scale_size_discrete(range=c(3, 1, 2))
 
 ## default color palette
 scale_fill_hue(), scale_fill_brewer() // default colors
@@ -261,7 +262,9 @@ stat_density2d()
 
 
 # geom_boxplot
-+ geom_point(position=position_jitter(w=0.1, h=))  // plot points
+geom_boxplot(...)
+  outlier.size=0
+
 ## points in dodged boxplot
 ggplot(pannos, aes(x=anno, y=auc)) +
   geom_boxplot(aes(fill=model), alpha=0.3) +

@@ -106,3 +106,7 @@ pkg/
 import pkg.spkg1.module
 import pkg.spkg2.module
 import pkg.module
+
+# Bit operations
+-> Same as in C
+~, |, &, <<, >>

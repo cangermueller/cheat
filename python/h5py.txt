@@ -34,7 +34,9 @@ d[[True, False, ...]] // via boolean
 
 # Explore file
 f = File('file.h5', 'r')
-f.items() // list items
+f.items() // items as dict
+for k, v in f.items():
+  data[k] = v.value // v if HDF5 dataset object
 list(f.keys())  // list keys
 g = f['/group']
 v = g['/item'].value  // read data

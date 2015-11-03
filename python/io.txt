@@ -9,7 +9,7 @@ f = open(filename, 'rwa')
 with open(filename) as f: // will be closed at the end
   f.read()
 f.read()  // read everything as single string
-f.readline()  // read single line; '' == eof; '\n' is empty line
+f.readline()  // f.readline() == 'line\n'; '' == eof; '\n' is empty line
 for line in f:  // read line by line
 lines = open(filename).read().splitlines() // read all lines in array
 f.readlines() // read all lines in array()

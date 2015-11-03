@@ -632,6 +632,10 @@ retbins=True  // return also (tuple) bins -> [0, 0.5, 1.0]
 
 # plotting
 matplotlib.style.use('ggplot')
+NEW in pandas0.7
+  plot.x.<X>
+  plot.bar
+  plot.hist
 df.plot(...)
 kind=line, bar, barh, hist, scatter, pie, kde, hexbin (2d density)
   bar // vertical bars

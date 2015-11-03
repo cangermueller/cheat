@@ -1,3 +1,7 @@
+# Conversion
+pandoc -f markdown README.md > README.html
+
+
 # Links
 [Link](http://...)
 

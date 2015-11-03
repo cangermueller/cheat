@@ -1,0 +1,47 @@
+# IO
+std::cout, std::endl // iostream
+printf()  // stdio.h
+rand() % 100 // stdlib.h
+
+# string
+string.h
+char s[] = "string"
+char s[100]
+strlen(s)
+strcpy(dst, src)
+strcat(dst, src)
+strcmp(dst, src)
+memcpy(dst, &str[i], k); dst[k] = '\0' // copy substring
+
+
+# namespaces
+namespace A { cost int value = 10;} --> A::value
+namespace B { cost int value = 20;} --> B::value
+using A::value --> value 
+using namespace std // import everything from std
+
+
+
+# list
+include <list>
+list<int> l;
+int ints[] = {1, 2, 3};
+list<int> l(ints);
+l.push_back(1)
+l.push_front(1)
+l.pop_front()
+l.insert(it, 0)
+l.erase(it) // iterator will then point o next element
+
+# map, hash
+* balanced tree -> O(log n)
+map<char, string> m;
+m['a'] = 'abc'
+m.count('a') > 0  // exists ?
+for (map<char, string>::iterator it; ...)
+  it->first // key
+  it->second // value
+
+
+
+

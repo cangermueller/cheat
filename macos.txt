@@ -1,5 +1,11 @@
-# misc
-open .  // open Finder from current position
+# Copying path finder/terminal
+terminal -> finder
+  open .
+finder -> terminal
+  * Right click -> Get info
+  * Drag & drop to terminal
+  * Shift - cmd - g
+
 
 # file system, df
 diskutil list // overview devices

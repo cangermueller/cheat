@@ -23,6 +23,8 @@ q // show pane numbers
 :swap-pane .p // swap current pane with p
 :swap-pane w.p  // swap current pane with p in window w
 c-o // swap with other clock-wise
+opt-1 // space equally vertically
+opt-2 // space equally horizontally
 ! // break pane
 join-pane -t 1  // join pane
 x // kill pane

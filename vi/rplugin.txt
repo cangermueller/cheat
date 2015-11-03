@@ -42,6 +42,9 @@ ctrl-o  // complete function
 \cc // knitr chunk
 \ss // visual selection
 \aa // file
+\ff // function
+\r<left> // left part of line
+\r<right> // right part of line
 
 # Knitr
 \kp // knit pdf

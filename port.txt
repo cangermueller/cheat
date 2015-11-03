@@ -22,6 +22,10 @@ select --set python27 // set default python option
 port info vim
 port install vim +python27
 
-## vim
-+gtk2+huge+perl+python27+x11
-gtk-doc @1.20_4+python27
+# Python installations
+## Apple provided
+/System/Library/Frameworks/Python.framework
+## If downloaded from web
+/Library/Frameworks/Python.framework
+## Macpors
+/opt/local/Library/Frameworks/Python.framework
