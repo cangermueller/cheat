@@ -1,7 +1,8 @@
 h5... // high level functions
 H5... // low level functions
 f = h5createFile('file.h5')
-h5read(file, group)
+h5read(file, group, ...)
+  index=list(1:ncol, 1:nrow)  // choose by index; rows/columns swapped?
 h5write(object, file, group)
   * file is filename
   * file must exist:

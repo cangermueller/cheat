@@ -7,6 +7,37 @@ fetch_mldata  // download digits from ML repository
 .target // classes as integers
 .target_names
 
+# Hyperparameter optimization
+rf = RandomForestClassifier()
+params = {'max_depth': [4, 8, 12], 'n_estimator': [8, 12]}
+
+## GridSearchCV
+from sklearn.grid_search
+m = GridSearchCV(rf, params, ...)
+  cv=x  // CV method --> see below
+    Number of folds
+    PredefinedFold(), StratifiedKFold(), ...
+  scoring='accuracy, roc_auc' // http://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter
+  n_jobs=1
+m.fit(X, y) // Split into train/val according to cv=
+m.best_params_
+m.best_estimator_
+m.grid_scores_ // scores and parameter settings
+
+## RandomizedSearchCV
+params = {
+  'max_depth': scipy.stats.randint(4, 12), // define distribution
+  'n_estimator': [0, 1] // draw from array
+m = RandomizedSearchCV(rf, params, ...)
+  n_iter=10
+
+## Predefined fold
+x = PredefinedFold([0, 0, 1, 1])
+  * Train on 0, val on 1 and VICE VERSA!
+x = PredefinedFold([-1, -1, 0, 0])
+  * Train on 0, val on 0 without VICE VERSA!
+
+
 # PCA
 import sklearn.decomposition
 pca = PCA(n_components=2, white=False)

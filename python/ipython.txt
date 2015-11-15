@@ -16,6 +16,9 @@ IPython.load_extensions('calico-spell-check', 'calico-document-tools', 'calico-c
 %load file  // load file into cell
 %less // faster than %pycat
 %reset  // reset workspace
+%% file script.py // write cell content to file
+%% bash // content of file is bash script
+
 
 
 # autoreload modules; import

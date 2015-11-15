@@ -25,3 +25,7 @@ plot(hclust(as.dist(1 - m)))
 corrplot(m, is.corr=F)
 plot(hclust(as.dist(m)))
 
+# font size
+t = par(cex=0.8)
+corrplot(...)
+par(cex=t$cex)

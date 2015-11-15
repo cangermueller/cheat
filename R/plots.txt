@@ -4,8 +4,10 @@
 * par(mfrow=c(nrows,ncols)): multiple frames filled by rows
 * par(mfcol=c(nrows,ncols)): multiple frames filled by columns
 
-== Misc
-* Nice colors: darkblue, salmon
+== Colors
+forestgreen
+royalblue
+brown2
 
 == Devices
 * ?Devices  // show all available devices
@@ -161,7 +163,7 @@
 * dev.off() restores default parameters
 * parameters:
   - bg: background color
-  - cex, cex.main, cex.lab, cex.axis: font scaling
+  - cex, cex.main, cex.lab, cex.axis: font scaling, font size
   - font=[1:plain, 2:bold, 3:italic, 4:bold+italic]
   - col, col.axis, col.main, col.lab
   - mfrow=c(nrows, ncols): multi-frame plot filled by row

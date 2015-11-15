@@ -1,7 +1,8 @@
 # General
-http://docs.h5py.org/en/latest/quick.html
-Optimized for numpy
-pytables (tables) is more abstract (complicated)
+* http://docs.h5py.org/en/latest/quick.html
+* Optimized for numpy
+* pytables (tables) is more abstract (complicated)
+* Parallel read ok; parallel write will corrupt file!
 
 # Notation
 f: File
@@ -10,22 +11,36 @@ g: group
 
 # Write numpy array
 f = File('file.h5', 'w')  // use 'a' to append, else overwrite
-[fg].create_dataset('/group/dataset', data=array)
+if '/g1/d1' in f:
+  del f['/g1/d1']
+[fg].create_dataset('/g1/d1', data=array)
+fg['/g1/d1'] = array
 f.close()
+
+# Groups
+g = f.create_group('g1')
+g['dataset'] = array
+
+# Links
+f['alias'] = d['dataset'] // internal link
+f['alias'] = h5.ExternalLink('file.h5', '/g1/d1') // external link
+
 
 # Overwrite dataset
 if 'd' in f:
   def f['d']
 d.create_dataset('d', ...)
 
-# Read array
-f = File('file.h5', 'r')
-array = [fg]['/group/dataset'].value
-f.close()
+# Read dataset
+d = [fg]['dataset']
+d.value
+with d.astype('float32'):
+  v = d.value // conversion done by h5py
 
 # Slicing data
 d = f['dataset']
 d.value // everything
+d[...]  // everything
 d[i]  // at index i
 d[[i, j, k]]  // at indices (increasing order)
 d[:k] // every kth
@@ -34,7 +49,9 @@ d[[True, False, ...]] // via boolean
 
 # Explore file
 f = File('file.h5', 'r')
-f.items() // list items
+f.items() // items as dict
+for k, v in f.items():
+  data[k] = v.value // v if HDF5 dataset object
 list(f.keys())  // list keys
 g = f['/group']
 v = g['/item'].value  // read data
@@ -55,6 +72,7 @@ d[0, 0] = 10
 f.close()
 
 # create_dataset
+[fg].create_dataset(path, data=array)
 d = [fg].create_dataset('d1', (n,m), dtype='i')
 d = [fg].create_dataset('d1', data=np.arange(3))
 d = f.create_dataset('d1', (10,), dtype=('i4, f4, a10'))  // structured array
@@ -68,7 +86,7 @@ compression='gzip'
 maxshape=(None, 100)  // resizeable dataset
 
 # delete dataset
-del f['dataset']
+del f['/group/dataset']
 
 # modify dataset
 d = f['/data']
@@ -77,6 +95,7 @@ d[...] = new_value
 # check if dataset exists
 f = File(...)
 '/data' in f  // True or False
+'/group/data' in f  // True or False
 
 # Attributes
 attr = [fg].attr
@@ -85,3 +104,9 @@ attr['a']  // get value
 attr['a'] = 'str'
 attr['a'] = 10
 attr['a'] = np.arange(10)
+
+# Storing strings
+* need to be byte-encode
+s = [x.encode() for x in ['a', 'b', 'c']
+[fg].create_dataset(data=s)
+[fg].attrs['columns'] = s

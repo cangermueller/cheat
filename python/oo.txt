@@ -62,23 +62,18 @@ class Child(Parent):
     super(Child, self).method() // call parent method
 
 
-# decorators
+# Decorators
 @staticmethod
-def f(arg):
-* No implicit first argument
-* ref = Class.f // class is not bound
+def static():
+  // Class.static() or object.static()
+  // no self (class) argument
+  // like static C++ 
 
 @classmethod
-def f(cls, arg)
-* cls as implicit first argument
-* ref = Class.f // unbound
+def static(self):
+  // Class.static() or object.static()
+  // has self (class) argument
 
-
-
-# Static class methods
-@staticmethod
-def class_info():
-  return 'Class information'
 
 # Multiple constructors
 class Class:
@@ -91,3 +86,28 @@ class Class:
     cls(data)
     
 
+# Iterable
+__iter__(self)
+__getitem__(self, index)
+
+# Iterator
+class Generator(object):
+  def __init__(n):  // construct
+  def __iter__(self): // initialize
+  def __next__(self): // return next element
+    raise StopIteration()
+  def next(self): // Python2 backward compatibility
+      return self.__next__()
+
+# Generator function --> generate Iterator with yield
+def fibonacci(n):
+    # proceed at yield() when function is called again
+    # function with yield() generators iterator if __next__() method
+    a = 0
+    b = 1
+    for i in range(n):
+        c = a + b
+        if i >= 1:
+            a = b
+            b = c
+        yield c

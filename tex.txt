@@ -1,3 +1,6 @@
+# symbols
+~: \textasciitilde
+
 # cite
 \citep{x} // [1]
 \citet{x} // Author name

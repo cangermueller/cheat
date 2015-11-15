@@ -1,8 +1,11 @@
 # random variables
-dist = scipy.stats.{norm,bernoulli,binom,gamma}
+dist = scipy.stats. // Generate RNG
+  randint(low, high)
+  norm(loc, scale)
+  bernoulli,binom,gamma}()
+.rvs(size=n)  // draw n samples
 .pdf(x)
 .cdf(x)
-.rvs(10)  // 10 samples
 .entropy()
 
 # linalg
