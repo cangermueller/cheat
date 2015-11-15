@@ -1,0 +1,109 @@
+# Data types
+climits
+short   16  SHRT_MAX
+int     32  INT_MAX
+long    64 LONG_MAX
+float   32
+double  64
+
+# casting
+int a = (int)b  // C-style cast
+int a = static_cast<int>(b);
+int *a = const_cast<int*>(&const_b)
+Class* c = static_cast<Class*>(void)  // Type of object is known
+if (Class* c = dynamic_cast<Class*>(void)) // Type of object unknown
+
+
+# string
+string.h
+char s[] = "string"
+char s[100]
+strlen(s)
+strcpy(dst, src)
+strcat(dst, src)
+strcmp(dst, src)
+memcpy(dst, &str[i], k); dst[k] = '\0' // copy substring
+memset(dst, value, nbytes) // fill, initialize array
+
+
+# array
+int a[] = {1, 2, 3, 4};  // initialize with values
+int a[10];  // initialize empty
+int n = sizeof(a) / sizeof(a[0])
+memset(a, init, sizeof(a) / sizeof(a[0])) // initialize array
+
+
+
+# IO
+std::cout, std::endl // iostream
+printf()  // stdio.h
+rand() % 100 // stdlib.h
+
+
+# namespaces
+namespace A { cost int value = 10;} --> A::value
+namespace B { cost int value = 20;} --> B::value
+using A::value --> value 
+using namespace std // import everything from std
+
+
+
+# pair
+pair<char, int> p
+p.first
+p.last
+
+# stack
+stack<int> s
+s.push(1)
+s.pop() // remove last but don't return!
+s.top() // reference to last
+s.empty()
+s.size()
+
+# list
+include <list>
+list<int> l;
+int ints[] = {1, 2, 3};
+list<int> l(ints);
+l.push_back(1)
+l.push_front(1)
+l.pop_front()
+l.insert(it, 0)
+l.erase(it) // iterator will then point o next element
+
+# deque
+* double ended queue, linked-list with pointer beginning/end
+* fast access beginning/end
+d = deque<int>()
+d.push_front(1)
+d.push_back(2)
+d.front() // reference first
+d.back()  // reference last
+
+# map, hash
+* balanced tree -> O(log n)
+map<char, string> m;
+m['a'] = 'abc'
+m.count('a') > 0  // exists ?
+for (map<char, string>::iterator it; ...)
+  it->first // key
+  it->second // value
+
+
+
+# constructor calling
+Child() --> Base()  // Default base will called automatically first
+Child(a) : Base(a) {} // Constructors with arg must be called explicitly
+class Child : public Base1, Base2 // Multi-class inheritance
+virtual int fun() = 0;  // Class abstract (interface) when >= 1 pure virtual function
+
+
+overloading: alternative arguments
+overwriting: inheritance
+
+virtual: overwriting after upcast
+typedef int myint // rename type
+
+delete a = new; // delete reference
+delete a = new[]; // delete vector reference

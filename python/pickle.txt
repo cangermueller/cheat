@@ -2,7 +2,8 @@
 file must be opened in binary mode!
   read: 'rb'
   write: 'wb'
-dump(object, file)
+dump(object, file, ...)
+  protocol=4  // to store more than 4 GB
 object = load(file, ...)
   fix_import=True // python2 backward compatibility
   encoding='latin1' // python2 backward compatibility

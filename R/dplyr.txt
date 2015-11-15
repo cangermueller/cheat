@@ -48,7 +48,7 @@ transmutate(c=f(c1))  // like mutate, but only keeps new columns
 # misc
 filter(df, c1=v1, c2=v2|v3, c3 %in% c(v1, v2))  // select rows
 arrange(df, c1, desc(c2)) // sort by multiple columns
-  * df most be data.frame, not tbl_df!!
+  * df must be data.frame, not tbl_df!!
 rename(df, new=old) // rename columns; unquoted
 slice(start:end, c(i, j, k))  // select rows by index
 add_rownames('c_rownames')  // rownames -> column 'c_rownames'

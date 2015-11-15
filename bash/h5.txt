@@ -5,20 +5,19 @@ h5ls -d // data
 h5ls -rd  // data recursive by groups
 h5ls -v file  // verbose
 
-# h5dump
+# h5dump [options] file.h5
 -n  // structure; like h5ls
--H  // only header
--A  // only attributes; no content
-## Selection
 -d /dataset
--g /group
--N  /foo/bar  // any path
--s index  // start block
--c count  // number of blocks
--S stride // stride = step size
+-s start
+-s 'start_row,start_col'
+-c count  // number of record to show
+-c 'num_row,num_col
+-S 'step_row,step_col' // step size; default=1
+-a /dataset // show attributes
 ## Example
 h5dump -n file.h5 // show structure
-h5dump -N /group/table file.h5 // show data pandas table
+h5dump -d /1/value file.h5 // show full data
+h5dump -d /1/value -s 100,1 -c 5,10 file.h5 // select rows,cols
 
 # h5copy
 h5copy -i infile.h5 -o outfile.h5 -s /Source -d /Dest

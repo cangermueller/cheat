@@ -1,5 +1,11 @@
+# Arguments
+python [args]
+-m  module // load module
+-u // unbuffered stdout; flush stdout
+
+
 # Install
-./configure.sh --enable-shared --prefix=$STOW/python3.4.2
+./configure --enable-shared --prefix=$STOW/python3.4.2
 
 # Suppress warnings
 import warnings
@@ -112,3 +118,7 @@ pkg/
 import pkg.spkg1.module
 import pkg.spkg2.module
 import pkg.module
+
+# Bit operations
+-> Same as in C
+~, |, &, <<, >>

@@ -1,13 +1,15 @@
-# Options
-options(xtable.type='html') // change output from 'latex' to 'html'
+```{r}
+options(xtable.type='html')
+```
 
-# xtable
-xtable(tab, ...)
-  caption=
-  label='tab:x'
-  digits=c(0, 2)
-
-# print.xtable
+```{r}
 print(xtable, ...)
   table.position='!h'
   include.rownames=F
+```
+
+xtable(tab, ...)
+  caption=
+  label='tab:x'
+  digits=2  // all columns 1.23
+  digits=c(0, 0, 1) // rownames = 0, 1st column = 0, 2nd column = 1.2

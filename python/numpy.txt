@@ -15,7 +15,7 @@ m = ma.masked_array([1, 2, 3], [0, 0, 1]) // 3 is masked
 m = ma.masked_values(n, 3)  // mask value 3 in numpy array
 m[i, j] = ma.masked // mask value
 m.data  // original data -> numpy array
-m.mask  // mask
+m.mask  // boolean mask; m.mask[i, j] == True for missing values
 m[~m.mask]  // return view on existing values
 m.compressed()  // return new numpy array only with existing values
 m[i, j] = ma.masked // mask value

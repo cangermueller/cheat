@@ -11,6 +11,9 @@ pb = Progressbar(...)
     max_val=maximum_value
 update(i)
 finish()
+
+if sys.stderr.isatty() // only show progress bar is stderr not redirected to file
+    pb.update(i)
 """
 
 widgets=['Loading ', pb.AnimatedMarker(), ': ', pb.Percentage(), ' ', pb.Bar(), ' ', pb.ETA(), ' ', pb.FileTransferSpeed()]

@@ -31,6 +31,9 @@ use=
   ylab=NA
   main=NA
   sub=NA
+t = par(cex=0.8) // font size
+hclust(...)
+par(cex=t$cex)
 
 * members = cutree(hc, k=, h=)
   - return cluster assignment for hierachical clustering
