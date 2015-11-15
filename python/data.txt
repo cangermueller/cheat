@@ -41,11 +41,12 @@ for value in d.itervalues():
 # Sets
 s = set() // empty set; {} is hash!!
 s = {1, 2, 3}
+s = {x for x in range(3)}
 len(s)
 s.add(3)
 s.update({2, 3})
 s.update([2, 3])
-s.remove(10)
+s.remove(10)   // inplace
 s.pop() // remove and return first element
 x in s
 s | t // union; like [1, 2] + [3, 4] to concat lists

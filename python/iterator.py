@@ -1,50 +1,65 @@
-"""Implement Person class."""
+from math import sqrt
 
+class MyRange(object):
 
-class PersonIterator(object):
-
-    """Implement iterator for Person."""
-
-    def __init__(self, attr):
-        self.attr = attr
-
-    def next(self):
-        """Return next iterable value."""
-        if len(self.attr):
-            v = self.attr[0]
-            self.attr = self.attr[1:]
-            return v
-        else:
-            raise StopIteration
-
-
-class Person(object):
-
-    """Represent a person."""
-
-    def __init__(self, name='Noname', age=0):
-        self.name = name
-        self.age = age
-        self.attributes = {}
-
-    def __str__(self):
-        """Return string for object."""
-        attr = ''
-        if len(self.attributes) == 0:
-            attr = 'None'
-        else:
-            attr = '; '.join(['%s -> %s' %
-                              (k, v) for k, v in self.attributes.items()])
-        s = 'Name: %s\nAge: %d\nAdditional attributes: %s' % (self.name,
-                                                              self.age, attr)
-        return s
-
-    def add_attribute(self, key, value):
-        """Add attribute."""
-        self.attributes[key] = value
+    def __init__(self, n):
+        """Construct iterator."""
+        self.n = n
 
     def __iter__(self):
-        """Return iterator."""
-        values = [('Name', self.name), ('Age', self.age)]
-        values.extend(self.attributes.items())
-        return PersonIterator(values)
+        """Initialize iterator."""
+        self.i = 0
+        return self
+
+    def __next__(self):
+        if self.i < self.n:
+            r = self.i
+            self.i += 1
+            return r
+        else:
+            raise StopIteration()
+
+    def next(self):
+        return self.__next__()
+
+
+#  for i in MyRange(3):
+    #  print(i)
+
+
+def fibonacci(n):
+    # proceed at yield() when function is called again
+    # function with yield() generators iterator if __next__() method
+    a = 0
+    b = 1
+    for i in range(n):
+        c = a + b
+        if i >= 1:
+            a = b
+            b = c
+        yield c
+
+
+#  for i in fibonacci(5):
+    #  print(i)
+
+
+def is_prime(x):
+    p = True
+    for k in range(2, int(sqrt(x)) + 1):
+        if x % k == 0:
+            p = False
+            break
+    return p
+
+def primes(n):
+    k = 2
+    for i in range(n):
+        k += 1
+        while not is_prime(k):
+            k += 1
+        yield k
+
+
+for i in primes(10):
+    print(i)

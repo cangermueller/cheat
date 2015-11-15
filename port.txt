@@ -16,7 +16,7 @@ info vim  // additional infos
 * install py27-ipython version still required
 select --summary  // show all groups and their options
 select --list python  // list options python group
-select --set python27 // set default python option
+select --set python python27 // set default python option
 
 # variants
 port info vim

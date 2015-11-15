@@ -40,6 +40,8 @@ dirname(path)
 abspath(__file__)
 realpath()  // like abspath, but resolves symlinks
 expanduser('~')
+getenv('HOME', ...) // environment variables
+  default=
 
 
 # Misc

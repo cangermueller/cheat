@@ -1,3 +1,7 @@
+# max/min integer
+min = -sys.maxsize
+max = sys.maxsize
+
 # sort
 ## sort by 2nd entry
 sorted(tuples, key=lambda x: x[1])
@@ -17,6 +21,7 @@ def is_int(d):
 
 
 # supressing warnings
+import warnings
 with warnings.catch_warnings():
     warnings.simplefilter('ignore')
 

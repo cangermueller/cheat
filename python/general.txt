@@ -1,5 +1,11 @@
+# Arguments
+python [args]
+-m  module // load module
+-u // unbuffered stdout; flush stdout
+
+
 # Install
-./configure.sh --enable-shared --prefix=$STOW/python3.4.2
+./configure --enable-shared --prefix=$STOW/python3.4.2
 
 # Maximum recursion depth
 sys.setrecursionlimit(x)
