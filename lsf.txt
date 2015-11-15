@@ -19,13 +19,14 @@ lsmake [makeoptions] [target] //
 -R "rusage[mem=100]" -M 100 // request 100 MB
 -R 'select[panfs_nobackup_research]'  // select filesystem
 -R "select[model=XeonE52670]" // cpu model
--n ncpu // tell LSF number of cpus, memory x ncpu
+-n ncpu // minimum number of CPUs
 -o  file  // append stdout to file
     file%J  // substitute %J by job id
 -e  file  // append stderr to file
 -oo, -ee  // overwrite instead of append
 -cwd dir  // change to dir before executing command, logs in dir
 -XF // X11 forwarding
+-J job_name
 
 # queues
 -q research-rh6  // research queue (default)

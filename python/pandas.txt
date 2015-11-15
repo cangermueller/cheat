@@ -202,8 +202,8 @@ i.droplevel(k) // remove level k
 
 # Index operations
 rename(
-  columns={'new': 'old}  // rename columns
-  index={'new':'old'} // rename rows
+  columns={'old': 'new'}  // rename columns
+  index={'old':'new'} // rename rows
   columns=lambda x: x + '_' // apply renaming function
   )
 set_index([columns], ...) // set row index
