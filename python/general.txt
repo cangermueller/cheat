@@ -1,6 +1,12 @@
 # Install
 ./configure.sh --enable-shared --prefix=$STOW/python3.4.2
 
+# Suppress warnings
+import warnings
+with warnings.catch_warnings():
+    warnings.simplefilter('ignore')
+    ...
+
 # Maximum recursion depth
 sys.setrecursionlimit(x)
 

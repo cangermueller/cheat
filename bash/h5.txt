@@ -1,11 +1,9 @@
 # h5ls
 h5ls file/path
-h5ls -rd  // data recursive by groups
-h5ls -d // data
-h5ls -v file  // verbose
-## Examples
 h5ls -r file.h5 // show structure recursively
-h5ls -d file.h5/group/table // show data pandas table
+h5ls -d // data
+h5ls -rd  // data recursive by groups
+h5ls -v file  // verbose
 
 # h5dump
 -n  // structure; like h5ls

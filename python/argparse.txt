@@ -34,7 +34,7 @@ add_argument('--no-verbose', action='store_false', dest='verbose')
     'const', const=10, nargs='?' // --head -> store 10 if not arg
     https://docs.python.org/3/library/argparse.html#action
 * nargs='1' // NUM, ?, *, +
-  nargs='+', opts.files is None // if not files given
+  nargs='+', opts.files is None // if no files given
 * choices=['red', 'green', 'blue']
 * dest='variable_name'  // use different variable name in namespace
   * use metavar='shown' for renaming positional arguments

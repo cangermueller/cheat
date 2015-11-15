@@ -55,6 +55,7 @@ d[0, 0] = 10
 f.close()
 
 # create_dataset
+[fg].create_dataset(path, data=array)
 d = [fg].create_dataset('d1', (n,m), dtype='i')
 d = [fg].create_dataset('d1', data=np.arange(3))
 d = f.create_dataset('d1', (10,), dtype=('i4, f4, a10'))  // structured array

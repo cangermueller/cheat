@@ -7,7 +7,8 @@ import time
 pip install progressbar2
 writes to stderr
 
-pb = Progressbar()
+pb = Progressbar(...)
+    max_val=maximum_value
 update(i)
 finish()
 """

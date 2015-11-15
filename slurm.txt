@@ -14,6 +14,7 @@ sbatch slurm_submit
   -D workdir
   -o stdout.log (default: slurm*)
   -e stderr.log (default: stdout)
+  --nodes min[-max]
   --mem mem // memory in MB per node
   --mem-per-cpu mem // minimum memory in MB per CPU
   --mincpus n  // min # cpus per node

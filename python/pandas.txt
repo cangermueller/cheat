@@ -475,7 +475,7 @@ DataFrame.from_csv
 ## Misc
 df.values // numpy array used internally
 df.values.nbytes  // memory usage
-df.sort('column', ascending=True, inplace=False)  // sort by column
+df.sort_values('column', ascending=True, inplace=False)  // sort by column(s)
 df.sort_index(axis=0, inplace=False)  // sort by row index
 df.sort_index(axis=1) // sort columns by names
 df.sort_index(by='column')  // sort by column -> like sort
@@ -619,9 +619,10 @@ r('saveRDS(df, file="file.rds")')
 
 # binning values
 pd.cut(values, bins, ...) // equally spaced bins
-pd.qcut(values, bins, ...)  // same #obs in bins
+pd.qcut(values, q, ...)  // same #obs in bins
 bins=3  // # bins / quantiles
 bins=[0, 0.5, 1.0]  // (0;0.5), (0.5, 1.0)
+precision=2 // Float precision bin labels
 labels=['a', 'b'] // define labels of bins
 retbins=True  // return also (tuple) bins -> [0, 0.5, 1.0]
 
