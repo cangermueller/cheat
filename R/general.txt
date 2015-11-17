@@ -6,7 +6,6 @@ options(name=value) // set
 results <- tryCatch(f(), error = function(x) return (y))
   * return f(), or y if f() fails
 
-
 # Representing missing values
 * NA
   * missing value

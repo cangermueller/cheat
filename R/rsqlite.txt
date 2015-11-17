@@ -1,4 +1,9 @@
 driver = dbDriver('SQLite')
 con = dbConnect(driver, './db.sqlite')
 df = dbGetQuery(con, 'SELECT * FROM table')
+df = dbGetPreparedQuery(
+  con=connection,
+  'SELECT * FROM table WHERE name IN (:x)',
+  data.frame(x=names)
+  )
 dbDisconnect(con)
