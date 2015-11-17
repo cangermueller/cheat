@@ -80,6 +80,7 @@ isdir(f)  // is directory
 
 # create
 os.makedirs('d1/d2', exist_ok=True) // mkdir -p; exist_ok only Python3
+  * NOTE: not mkdir!
 
 
 

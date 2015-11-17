@@ -83,6 +83,7 @@ create_dataset((1e5, 1e5), chunks=(100, 100))
 * keep chunk size between 10 KB and 1MB
 * not everything is loaded into memory
 compression='gzip'
+compression_opts=4  // compression level, default=4
 maxshape=(None, 100)  // resizeable dataset
 
 # delete dataset
