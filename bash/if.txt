@@ -3,7 +3,9 @@
 * test -e file == [ -e file ] // $? == 0 if file exists
 * if command; then  // if command succeeds than
 -z "$v" // zero?
+  * check if variable is unset
 -n "$v" // non-zero?
+  * check if variable is set
 -e  // file exists
 -f  // file exists
 -d  // directory exists

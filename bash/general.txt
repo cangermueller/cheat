@@ -1,3 +1,18 @@
+# Redirection
+echo Foo 1>&2 // stdout to error
+1>&2 echo foo 1>&2 // same as before
+1>&2 cat file
+
+# Multi-line string
+var="line1\n
+line2\n
+line3"
+cat <<- EOF
+line1
+line1
+EOF
+
+
 # Show linux version
 cat /proc/version
 
