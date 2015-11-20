@@ -4,3 +4,7 @@
 .help
 .open file.sqlite // load database
 .mode tabs, list, csv, html
+
+# String comparison
+= // exact match; fast
+LIKE  // allows patters (LIKE 'Test%'); slow
