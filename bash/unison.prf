@@ -20,4 +20,6 @@ ignore = Name unison.prf
 ignore = Path configs.sh
 ignore = Name index_*
 ignore = Name *.pkl
+# Ignore alls csv files somewhere below runs/151103
+ignore = Regex runs/151103/.*\.csv
 # ignorenot = Path runs/150512

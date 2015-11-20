@@ -4,8 +4,17 @@ w0 = model.get_weights()
 model.set_weights(w0)
 
 # Data
-from keras.datasets import (mnist, cifar10, ...)
+from keras.datasets import (mnist, cifar10, imdb, ...)
 (X_train, y_train), (X_test, y_test) = data.load_data()
+* mnist: digit classification
+* cifar10: small image classification
+* cifar100: large image classification
+* imdb: text sentiment classification
+  X_ij = rank frequency word j in movie description i
+  y_i = sentiment movie (0=positive, 1=negative
+* reuters: text topic classification
+  X_ij = rank frequency word j in description i
+  y_i = topic 0-45
 
 # np_utils
 to_categorical([0, 1, 2], 3)  --> [[0 0 0] [0 1 0] [1 0 0]]
@@ -16,16 +25,12 @@ m.compile(loss=)
 categorical_crossentropy
 binary_crossentropy
 
-# fit
-* does not initialize parameters
-nb_epoch=100
-show_accuracy=False
-
 # layers
 core.Dense(nin, nout, ...)
   activation='relu'
   W_regularizer='l1', regularizer
   init='glorot_uniform', init
+l.trainable = False // freeze layer -> not updated
 
 ## Convolution
 convolutional.Convolution2D(nkernels, ninput_channels, m, n, ...)
@@ -67,6 +72,16 @@ k k k         k k k
 k k k             k k k
 x x x x x  -> x x x x x
 
+
+# Embedding layers
+embedding(input_dim, output_dim)
+* Transforms nsamples x seq_len --> nsamples x seq_len x output_dim
+* input_dim is maximum integer (word index) in input vector
+* Y = X W, where X is one-hot encoding of words
+
+
+
+
 # regularizer
 import keras.regularizer
 l1, l2, l1l2
@@ -89,6 +104,7 @@ m.fit(x, y, ...)
   callbacks=[callback1, ...]  // see callbacks
   class_weight={0: 1, 1: 1}
   sample_weight=w // w has same length as y
+  batch_size=128
 m.predict(x)  // predict_proba()
 m.predict_proba()
 m.predict_classes()  // [0, 1, 2]
@@ -128,4 +144,13 @@ CallBack  // base class
 EarlyStopping
 ModelCheckpoint   // save model weights to file
 LearningRateScheduler
+
+
+
+# Preprocessing
+## Sequence
+from keras.preprocessing import sequence as s
+y = s.pad_sequences(seqs, maxlen, ...)
+  * seqs is list of n sequences with different length
+  * y is n x maxlen numpy array
 
