@@ -71,20 +71,29 @@ d = f['dataset']
 d[0, 0] = 10
 f.close()
 
-# create_dataset
-[fg].create_dataset(path, data=array)
-d = [fg].create_dataset('d1', (n,m), dtype='i')
-d = [fg].create_dataset('d1', data=np.arange(3))
+# Create_dataset
+d = [fg].create_dataset(path, ...)
+  shape=(n, m)
+  dtype='float32'
+  data=data // initialize with data
+  compression='gzip'
+  compression_opts=4  // compression level, default=4
+  maxshape=(None, 100)  // resizeable dataset
+
+## Examples
+d[:i, :j] = value // Assign value to parts
+f = [fg].create_dataset('d1', data=d1)   // initialize with data
+d = [fg].create_dataset('d1', (n,m), dtype='i') // initialize empty
 d = f.create_dataset('d1', (10,), dtype=('i4, f4, a10'))  // structured array
-d[0] = (1, 1.2, 'Christof')
+  d[0] = (1, 1.2, 'Christof')
+
+## Chunking
 create_dataset((1e5, 1e5), chunks=(100, 100))
 * split dataset into chunks of size (100, 100)
 * access by B-tree instead of linear access
 * keep chunk size between 10 KB and 1MB
 * not everything is loaded into memory
-compression='gzip'
-compression_opts=4  // compression level, default=4
-maxshape=(None, 100)  // resizeable dataset
+
 
 # delete dataset
 del f['/group/dataset']

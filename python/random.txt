@@ -1,0 +1,4 @@
+import random
+
+seed(x) // set seed
+shuffle(x)  // shuffle list in-place

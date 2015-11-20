@@ -32,7 +32,7 @@ key in d  // check if key exists
 d = {'a':1, 'b':2}
 d = dict(a=1, b=2)
 d = dict(zip(['a', 'b'], [1, 2]))
-d.get(key)  // return value or None (not exception!!) if missing
+d.get(key, default=None)  // return value or default=None (not exception!!) if missing
 for key, value in d.iteritems():
 for key, value in d.items():
 for key in d.iterkeys():

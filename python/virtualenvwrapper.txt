@@ -26,4 +26,5 @@ setvirtualenvproject  // set current path as project folder
 cdproject
 
 # misc
-if [ -z "$VIRTUAL_ENV" ]; then // check if virtualenv active
+if [ -z "$VIRTUAL_ENV" ]; then
+  * check if virtualenv active
