@@ -86,20 +86,23 @@ class Class:
     cls(data)
     
 
-# Iterable
-__iter__(self)
-__getitem__(self, index)
-
-# Iterator
+# Generator
 class Generator(object):
   def __init__(n):  // construct
   def __iter__(self): // initialize
+    return self
   def __next__(self): // return next element
     raise StopIteration()
   def next(self): // Python2 backward compatibility
       return self.__next__()
 
-# Generator function --> generate Iterator with yield
+for x in gen:
+  ...
+iter(gen) // calls __init__(); resets iterator
+x = next(gen) // calls __next__()
+
+
+# Iterator function --> yield to construct generator
 def fibonacci(n):
     # proceed at yield() when function is called again
     # function with yield() generators iterator if __next__() method

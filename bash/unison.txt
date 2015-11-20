@@ -50,4 +50,5 @@ ignore = Name .*~
 ignore = Path */pilot/backup/Archive_*
 ignore = Name *.o
 ignore = Name *.tmp
-
+ignore = Regex runs/151103/.*\.csv
+  * Ignore alls csv files somewhere below runs/151103
