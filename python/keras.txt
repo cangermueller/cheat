@@ -16,21 +16,23 @@ from keras.datasets import (mnist, cifar10, imdb, ...)
   X_ij = rank frequency word j in description i
   y_i = topic 0-45
 
-# np_utils
-to_categorical([0, 1, 2], 3)  --> [[0 0 0] [0 1 0] [1 0 0]]
-probas_to_classes() // reverse to_categorical
-
 # loss
 m.compile(loss=)
 categorical_crossentropy
 binary_crossentropy
 
-# layers
-core.Dense(nin, nout, ...)
+
+# Layers
+l.trainable = False // freeze layer -> not updated
+
+## Dense
+core.Dense(nunits, ...)
   activation='relu'
   W_regularizer='l1', regularizer
   init='glorot_uniform', init
-l.trainable = False // freeze layer -> not updated
+  input_dim=x // # previous units; required for first layer
+  input_shape=(x,) // same as input_dim, but tuple
+
 
 ## Convolution
 convolutional.Convolution2D(nkernels, ninput_channels, m, n, ...)
@@ -44,11 +46,13 @@ convolutional.Convolution2D(nkernels, ninput_channels, m, n, ...)
   init='glorot_uniform'
   W_regularizer=None
   subsample=(1,1) // step/stride size, 2 -> take every 2nd
+
 convolutional.Convolution1D(input_dim, nb_filters, input_len)
   * input: samples x seq_len x input_dim
     input_dim is nb_filters/channels of previous layer
   * output: samples x seq_len' x nb_filters
   * difference 2D: slides filter only vertically, not horizontally
+  subsample_length=1 // step/stride size
 convolutional.MaxPooling2D(...)
   poolsize=(2,2)
 
@@ -80,6 +84,14 @@ embedding(input_dim, output_dim)
 * Y = X W, where X is one-hot encoding of words
 
 
+# Recurrent layers
+input shape: nsamples x ntimesteps x input_dim
+output shape:
+  nsamples x output_dim if return_sequences == False
+  nsamples x ntimesteps x output_dim if return_sequences == True
+return_sequences=False // only return last hidden state
+truncate_gradient=-1 // only compute gradient over last x steps
+
 
 
 # regularizer
@@ -91,6 +103,13 @@ import keras.initializers
 glorot_uniform
 normal
 uniform
+
+
+# Model
+m.optimizer // Optimizer, e.g. Adam
+  .lr.set_value(0.01)
+  .lr.get_value()
+m.stop_training // True if early stopping
 
 # Sequential model
 m = models.Sequential()
@@ -123,6 +142,18 @@ model_from_json(), model_from_yaml  // from keras.models import model_from_json
 
 # Graph model
 m = models.Graph()
+m.inputs // dict of input layers
+m.input_order // ordered input names
+m.input_config // dict with name, dtype, input_shape of inputs
+m.outputs // dict of output nodes
+m.output_order // order output names
+m.optimizer
+m.get_inputs() // dict of Theano tensors
+m.get_outputs() // dict of Theano outputs
+m.get_params() // shared parameters of all layers
+m.get_weights() // all weights (numpy arrays)
+
+## Example
 m.add_input(name='x', ndim=2)
 m.add_node(name='h1', input='x', layer=)
 m.add_node(name='z1', input='h1', activation='softmax')
@@ -132,9 +163,6 @@ m.predict({'x': X_train})
 m.fit(...)
   class_weight={'y': {0: 1, 1: 1}}
   sample_weight={'y1': w1, 'y2': w2}
-node = m.nodes['x']
-  .input_dim
-  .output_dim
 
 
 
@@ -154,3 +182,14 @@ y = s.pad_sequences(seqs, maxlen, ...)
   * seqs is list of n sequences with different length
   * y is n x maxlen numpy array
 
+
+
+# Utils
+import keras.utils
+
+## np_utils
+to_categorical([0, 1, 2], 3)  --> [[0 0 0] [0 1 0] [1 0 0]]
+probas_to_classes() // reverse to_categorical
+
+## io_utils
+HDF5Matrix(path, dataset, start, end) // View on subset of matrix

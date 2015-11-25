@@ -47,9 +47,19 @@ realpath $file  // on MAC; external program
 
 # Arrays
 a = (one two three)
-${a[*]}
-${a[0]}
+${a[0]} // first element
+${a[*]} // all elements
 ${#a[*]}  // length
+
+## Accessing elements of list
+1)
+l="l1 l2 l3"
+a=($l)
+echo ${a[i]}
+2)
+set -- $l
+echo $1
+
 
 # Parameter Expansion
 man bash -> Parameter Expansion

@@ -11,8 +11,9 @@ j, k  // previous, next window
 p // previous window
 & // kill window
 . // change index of window
-swap-windows -t 0 // rearrange windows
+swap-window -t 0 // rearrange windows
 move-window -t 1  
+kill-window -a // close all other windows
 
 # Panes
 ; // last pane

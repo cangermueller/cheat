@@ -11,6 +11,7 @@
 * knit(): // Compile R source
 * knit2pdf(): Rnw -> pdf    // only lates source!
 * knit2html(): Rmd -> html  // only markdown!
+  * creates ./figure/ directory
 
 == Chunks
 <starttag> chunk.name, options <end>
