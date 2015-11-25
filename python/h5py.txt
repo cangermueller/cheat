@@ -85,15 +85,21 @@ d[:i, :j] = value // Assign value to parts
 f = [fg].create_dataset('d1', data=d1)   // initialize with data
 d = [fg].create_dataset('d1', (n,m), dtype='i') // initialize empty
 d = f.create_dataset('d1', (10,), dtype=('i4, f4, a10'))  // structured array
-  d[0] = (1, 1.2, 'Christof')
+d[0] = (1, 1.2, 'Christof')
+
+[fg].create_dataset(...)
+  compression='gzip'
+  compression_opts=4  // compression level, default=4
+  maxshape=(None, 100)  // resizeable dataset
 
 ## Chunking
-create_dataset((1e5, 1e5), chunks=(100, 100))
-* split dataset into chunks of size (100, 100)
-* access by B-tree instead of linear access
-* keep chunk size between 10 KB and 1MB
-* not everything is loaded into memory
-
+* Default: data stored contiguously
+* chunks=(n, m): store data as chunks in random order on disk 
+* if data element is accessed, whole chunk is read into memory
+* required for resizing elememnts
+chunks=None // no chunking by default
+chunks=True // auto chunking
+chunks=(n,m) // chunk size n x m; tuple, not list or int required !!
 
 # delete dataset
 del f['/group/dataset']
