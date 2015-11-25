@@ -6,6 +6,11 @@ git checkout-index -a -f --prefix=/path/  // checkout current branch to dir
 # Ignoring files
 .gitignore  // shared
 .git/info/exclude // not shared
+## Pattern
+name
+dir/
+/dir_at_root/
+**/sub_dir/**
 
 # Remote repository
 remote  // show remote branches

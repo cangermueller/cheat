@@ -3,7 +3,7 @@ h5ls file/path
 h5ls -r file.h5 // show structure recursively
 h5ls -d // data
 h5ls -rd  // data recursive by groups
-h5ls -v file  // verbose
+h5ls -v file  // verbose -> storage in bytes
 
 # h5dump [options] file.h5
 -n  // structure; like h5ls

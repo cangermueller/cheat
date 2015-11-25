@@ -4,6 +4,8 @@ con.close()
 
 con.executescript(f.read()) // execute all commands of string
 cmd = con.execute('INSERT INTO chromo (name) VALUES (?)', [opts.chromo])
+con.execute("DELETE FROM table")
+con.commit() // Required to make changes!!
 id = cmd.lastrowid
 con.executemany('INSERT INTO feature (name) VALUES (?)', [[name1], [name2]])
 

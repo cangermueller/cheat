@@ -4,6 +4,11 @@
 # Account
 mybalance   // how many hours are left
 
+# Module
+list  // currently loaded
+avail // available
+load name // load module
+
 # sbatch
 SBATCH_ACCOUNT
 SBATCH_JOB_NAME
@@ -14,12 +19,18 @@ sbatch slurm_submit
   -D workdir
   -o stdout.log (default: slurm*)
   -e stderr.log (default: stdout)
+    using only -o: writes first stderr, and appends stdout at end of job
   --nodes min[-max]
   --mem mem // memory in MB per node
   --mem-per-cpu mem // minimum memory in MB per CPU
   --mincpus n  // min # cpus per node
   --test-only
   --qos=INTR  // for fast running jobs
+  --profile=[all|task|network]
+
+## profiling
+/usr/local/Cluster-Config/slurm/profile_data/ca426
+sh5util
 
 
 # Others

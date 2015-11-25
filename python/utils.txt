@@ -31,3 +31,10 @@ min = -sys.maxsize
 
 # determine which element in boolean array is true
 np.where(np.array(a) == value)
+
+
+# Instantiate class from string
+c = globals()[s]()
+globals() // dict of global variables
+locals() // dict of local variables
+dir() // list of variable names
