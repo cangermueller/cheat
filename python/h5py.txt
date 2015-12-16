@@ -122,7 +122,8 @@ attr['a'] = 10
 attr['a'] = np.arange(10)
 
 # Storing strings
-* need to be byte-encode
+* need to be byte-encode, unicode not supported
+* dtype='S8' -> string of length 8
 s = [x.encode() for x in ['a', 'b', 'c']
 [fg].create_dataset(data=s)
 [fg].attrs['columns'] = s

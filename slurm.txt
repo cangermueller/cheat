@@ -27,6 +27,7 @@ sbatch slurm_submit
   --test-only
   --qos=INTR  // for fast running jobs
   --profile=[all|task|network]
+  -A STEGLE-SL2-GPU // acccount
 
 ## profiling
 /usr/local/Cluster-Config/slurm/profile_data/ca426
@@ -34,7 +35,9 @@ sh5util
 
 
 # Others
-squeue -u ca426
+squeue
+  -u ca426
+  -p [tesla|sandybridge]
 scontrol show job <jobid>
 scancel/skill <jobid>
   -u ca426  // all jobs

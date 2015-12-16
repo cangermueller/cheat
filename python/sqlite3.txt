@@ -12,3 +12,8 @@ con.executemany('INSERT INTO feature (name) VALUES (?)', [[name1], [name2]])
 cmd = con.execute('SELECT * FROM table')
 tuple = cmd.fetchone()  // None is EOF
 list_tuples = cmd.fetchall()
+
+
+# Count records
+len(con.execute('SELECT * FROM table').fetchall())
+

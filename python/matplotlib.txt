@@ -126,7 +126,7 @@ mapper = cm.ScalarMappale(cmap=cmap, norm=norm)
 colors = mapper.to_rgba(values)
 
 
-# imshow / matshow for images
+# imshow / matshow for images / heatmap
 * plot 2d matrix in the way it is in memory (X[0,0] top/left)
 matshow(M, ...) // simple; no interpolation
 imshow(M, ...)  // complex; interpolation

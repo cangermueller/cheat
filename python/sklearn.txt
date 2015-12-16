@@ -31,6 +31,14 @@ params = {
 m = RandomizedSearchCV(rf, params, ...)
   n_iter=10
 
+
+## ParameterSampler
+* Generators for parameters
+p = {'a': sps.uniform(0, 0.5), 'b': sps.randint(0, 10), 'c': ['x', 'y', 'z']}
+p = ParameterSampler(p, 10)
+for x in p:
+list(p)
+
 ## Predefined fold
 x = PredefinedFold([0, 0, 1, 1])
   * Train on 0, val on 1 and VICE VERSA!

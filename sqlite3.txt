@@ -1,3 +1,7 @@
+sqlite3 [options] db_file [sql_command]
+  -column // separate columns by space
+
+# Database commands
 .tables // show tables
 .schema // show databases
 .quit
@@ -8,3 +12,4 @@
 # String comparison
 = // exact match; fast
 LIKE  // allows patters (LIKE 'Test%'); slow
+

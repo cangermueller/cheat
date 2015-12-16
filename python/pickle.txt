@@ -1,3 +1,9 @@
+# Recursion limit
+Exception: maximum recursion limit reached
+sys.getrecursionlimit() == 1000
+sys.setrecursionlimit(10**6)
+
+
 # Functions
 file must be opened in binary mode!
   read: 'rb'
