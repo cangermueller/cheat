@@ -2,9 +2,19 @@
 DIR="$HOME/.bin-libevent"
 /configure CFLAGS="-I$DIR/include" LDFLAGS="-L$DIR/lib" --prefix=/home/ca426/opt/stow/tmux-2.0
 
+# key bindings
+O // close other
+r // source conf
+
+## default
 ? // show keybindings
 s //  switch between sessions
 t // show clock
+j, k  // previous, next window
+p // previous window
+& // kill window
+. // change index of window
+
 
 # Windows
 j, k  // previous, next window

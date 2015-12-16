@@ -210,15 +210,13 @@ grid.arrange(...)
 * qplot(factor, geom="bar")
 * qplot(factor, geom="bar", col=factor2)  // stacked bar plot
 
-= facets
-* Visualizing different subgroups
-  * by aesthetics: color, shape, size, ...
-  * by subplots -> facets
-* facet_wrap(~var, ncol=, nrow=)
-* facet_grid(xvar~.)
-* facet_grid(xvar~yvar)
-* facets are applied to all data objects -> must contain the same factors
-  * http://docs.ggplot2.org/0.9.3.1/facet_wrap.html: invalid factor level, NAs generated
+# Facetting
+facet_wrap(~var, ...)
+  ncol=
+  nrow=
+  scales='free' // different scales
+facet_grid(xvar~.)
+facet_grid(xvar~yvar)
 
 * p <- ggplot()
 * p + layer(geom="geom_point", geom_params=list(col="darkblue"))
