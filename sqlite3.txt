@@ -8,3 +8,6 @@
 # String comparison
 = // exact match; fast
 LIKE  // allows patters (LIKE 'Test%'); slow
+
+# Show tables
+SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
