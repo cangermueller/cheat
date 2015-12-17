@@ -89,6 +89,7 @@ slice(1)  // select single group member
 top_n(3, id) // select top n ordered by id in DESCENDING order
   * returns MULTIPLE records, if id not unique!
 sample_n(3) // sample three records of each group
+sample_frac(0.5)  // sample 50% of records from each group
 distinct  // unique members; more efficient than unique
 
 ## sorting
@@ -138,5 +139,8 @@ fun_()
 filter_('c1 > 10')
 rename_('new'='old')
 arrange_('c1', 'desc(c2)')
+## columns
+idx <- match(c('c1', 'c2'), data)
+data %>% select(idx)
 
 
