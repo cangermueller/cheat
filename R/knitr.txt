@@ -157,3 +157,16 @@ test_fun <- function() {
 test_fun()
 ```
 
+== Stitch
+#' ---
+#' title: Stitch document
+#' author: "Christof Angermueller"
+#' date: "May 3rd, 2014"
+#' ---
+
+#' This is a cool report with inline 2 + 2 =
+{{2 + 2}}
+#' code!
+
+#+ chunk_name, cache=T, fig.width=10, ...
+d <- dat$mat %>% transmute(x=a, y=a*2)

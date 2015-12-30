@@ -8,7 +8,7 @@ write.table(x, file=, quote=T)
 write.csv()
 
 # File operations
-getwd() // pwd
+getwd() // current working directory, pwd, cwd
 setwd(path)
 Sys.glob('../*.csv')  // glob, wildcard files
 dir(dirname, ...) / list.files() // show directory content

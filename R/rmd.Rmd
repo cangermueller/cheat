@@ -1,6 +1,7 @@
 ---
-title: project
-date: 150627
+title: "Project"
+author: "Christof Angermueller"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
 output:
   html_document:
     toc: yes
@@ -20,4 +21,8 @@ library(tidyr)
 ```{r}
 d <- test_df()
 print(d)
+```
+
+```{r}
+sessionInfo()
 ```

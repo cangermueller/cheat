@@ -34,7 +34,7 @@ starts_with('prefix')
 ends_with('suffix')
 contains('substr')
 matches('pattern')
-one_of(c('c1', 'c2')) // select by vector
+one_of('c1', 'c2') // select by vector, select_
 
 # filter
 filter(c1=1, c2>2)
@@ -127,8 +127,14 @@ ntile(v, n) // assign each v to one of n bins; same #points in each bin
 * Supports SQlite, MySQL, BigQuery
 * Same syntax
 * Read only -> mutate not supported
-my_db = src_sqlite('my_db.sqlite3')
-table = tbl(my_db, 'table')
+con = src_sqlite('my_db.sqlite3', ...)
+  create=T  // create new db
+table = tbl(con, 'table')
+d = tbl(con, sql('SELECT * FROM table'))
+  * Note: special (lazy) db object
+  d$query: sql_query
+  collect(d) // retrieve all data
+copy_to(con, df, name='df')
 
 # Standard evaluation function
 function()  // non-standard evaluation

@@ -7,9 +7,18 @@ p$add_argument(
   'in_file',
   help='Input file')
 p$add_argument(
+  '--nrow',
+  help='Numeric variable',
+  type='integer')
+p$add_argument(
   '-o', '--out_file',
   default='./out_file.h5',
   help='Output file')
+p$add_argument(
+  '--out_format',
+  help='Output format',
+  choices=c('pdf', 'html'),
+  default='pdf')
 p$add_argument(
   '--verbose',
   action='store_true',

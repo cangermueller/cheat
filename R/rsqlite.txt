@@ -1,3 +1,6 @@
+* consider using dplyr (see dplyr.txt)!
+
+
 driver = dbDriver('SQLite')
 con = dbConnect(driver, './db.sqlite')
 df = dbGetQuery(con, 'SELECT * FROM table')
