@@ -14,3 +14,7 @@ sudo service apache2 CMD
 # /etc/apache2/sites-available/000-default.conf
 ▸-ServerAdmin webmaster@localhost
 ▸-DocumentRoot /home/ubuntu/public_html/html
+
+# Authentification
+config: /home/ubuntu/public_html/html/.htaccess
+passwd: /home/ubuntu/etc/apache2/passwd
