@@ -247,10 +247,12 @@ position=
 # geom_smooth
 aes(group=sample) // line for each sample
 method=loess,lm
-degree=0,1,2  // degree loess; default=2
 span=0.75 // loess span
 se=F  // no confidence interval
 level=0.95  // confidence level
+size=1  // linewidth
+method.args=list(...) // arguments passed to loess
+  degree=2
 stat_smooth(method=lm, aes(weights=weight)) // weighted linear regression
 
 # plotting densities
@@ -261,7 +263,7 @@ stat_density2d()
 
 # geom_boxplot
 geom_boxplot(...)
-  outlier.size=0
+  outlier.shape=NA
 
 ## points in dodged boxplot
 ggplot(pannos, aes(x=anno, y=auc)) +

@@ -12,6 +12,8 @@ sqlite3 [options] db_file [sql_command]
 # String comparison
 = // exact match; fast
 LIKE  // allows patters (LIKE 'Test%'); slow
+  % // any sequence of >= 0 characters
+  _ // any character
 
 # Show tables
 SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';

@@ -16,11 +16,6 @@ EOF
 # Show linux version
 cat /proc/version
 
-# nice
-nice -n 10  // decrease priority
-nice -n -10  // increase priority
-nice -n [-20;20]
-
 # chmod, chown
 -R  // recursively
 
@@ -104,12 +99,6 @@ head -n x   // first x lines
 tail -n x   // first x lines
 tail -n +x  // everything from line x
 
-# cut
-cut file
--d  \t // delimiter
--f a-b  // range
--f a-
-
 # Debugging
 set -e  // exit on error
 bash -x file.sh // print executed command
@@ -118,23 +107,6 @@ bash -x file.sh // print executed command
 ssh-genkey
 ssh-copy-id host
 
-# ftp
-ftp ftp://ftpusr43:0afwmRLv@ftp2.babraham.ac.uk
-ftp ftp://user:pass@host
-ftp host  // starts prompt for user and pass (on EBI)
-ls
-put local_file  // upload local file
-mput *.txt  // upload multiple files
-get remote_file // download remove file
-delete remote_file
-quit
-
-
-
-# rsync
--a  // archive mode: preserve user, permissions, ...
--z  // compress for transfer
--v  // verbose
 
 # File system
 mount // show file system
@@ -143,41 +115,6 @@ fdisk // partitions
 diskutil info /Volumns/hdd
 
 
-# tree
-* -L  maxlevels
-* -d  // only directories
-* -a  // all files
-* --prune // do not show empty dirs
-* -P pattern  // only files matching pattern
-* -s, -h  // size (human readable)
-* -p  // ls -l
-
-
-# find
--name file.h  // only match filename
--name "?il*.[ho]" // ?, *, [] are special characters
--path pattern // match complete path
--path "*/src" // all src directories
--regex "*/.EADME" // emacs regex whole path
--type df  // directory of file
--not -path '*/\.*'  // exclude hidden directories
--exec
--delete
--ls
-
-
-
-
-
-# misc commands
-* uptime  // displays uptime and CPU load
-* tr SET SET  // translate characters
-  * tr -d SET // delete characters
-  * tr -s SET // sequence set of consecutive characters
-* readlink -f FILE  // get absolute path
-* ldd [binary]  // prints shared libraries [binary] depends on
-* uniq -c // count # unique words
-* ctrl - \ // interrupt command
 
 
 
@@ -211,8 +148,6 @@ diskutil info /Volumns/hdd
 # hd (hexdump) -> better use od
 * hd -c // character
 * hd -b // byte
-
-
 
 
 # color output
