@@ -92,6 +92,15 @@ output shape:
 return_sequences=False // only return last hidden state
 truncate_gradient=-1 // only compute gradient over last x steps
 
+## LSTM
+activation='tanh'  // activation h'
+inner_activation='hard_sidmoid' // activation gates
+
+## GRU
+activation='sigmoid'  // activation h'
+inner_activation='orthogonal' // activation gates
+
+
 
 
 # regularizer
@@ -128,6 +137,10 @@ m.fit(x, y, ...)
     batch: 10 11 12 | 1 2 3 | 7 8 9 | 4 5 6
       * Train on contiguous chunks
       * For HDF5
+  verbose=1
+    0: no output
+    1: progress bar
+    2: no progress bar
 m.predict(x)  // predict_proba()
 m.predict_proba()
 m.predict_classes()  // [0, 1, 2]

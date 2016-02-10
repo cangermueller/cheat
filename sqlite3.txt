@@ -15,3 +15,8 @@ LIKE  // allows patters (LIKE 'Test%'); slow
 
 # Show tables
 SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
+
+# Copy from other database
+ATTACH 'src.sql' as src;
+INSERT INTO table SELECT * FROM src.table;
+

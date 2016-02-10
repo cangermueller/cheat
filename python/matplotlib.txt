@@ -1,6 +1,11 @@
 # Magics
 %pylab  // start pylab mode
 
+# _tkinter.TclError: couldn't connect to display "localhost:117.0"
+import matplotlib
+matplotlib.use('pdf')
+import matplotlib.pyplot as plt // AFTER matplotlib.use(...)!
+
 # python script / console
 ## within ipython session
 %pylab

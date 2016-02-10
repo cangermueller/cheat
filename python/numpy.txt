@@ -161,6 +161,10 @@ dstack((a, b))
 np.sort(a)  // sort outplace
 np.sort(a)[::-1]  // sort reverse
 .argsort()  // order
+## reverse argsort
+  a = x.argsort()
+  ar = np.empty(len(a))
+  ar[a] = np.arange(len(a))
 
 ## Operations
 a1 * a2 // pairwise multiplication
@@ -218,8 +222,13 @@ b.any()
 b.all()
 b.nonzero()[0]  // indices where True
 np.where(b)[0]  // smae a nonzero
-(x > 0).nonzero()[0]  // like R which(b > 0)
 np.in1d(a, b) // boolean mask, where True means that a is in b
+### Bool to int indices // like R which (b > 0)
+i = x.nonzero()
+  * indices where x != 0
+  * len(i) = x.dim // number of dimensions
+i = np.eye(3).nonzero()
+  i = [[0, 1, 2], [0, 1, 2]] // diagonal elements are != 0
 
 
 ## comparison

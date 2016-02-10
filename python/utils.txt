@@ -9,6 +9,10 @@ sorted(tuples, key=lambda x: x[1])
 [y[0] for y in sorted(enumerate(t), key=lambda x: x[1])]
 ## order numpy array
 x.argsort()
+## reverse argsort
+a = x.argsort()
+ar = np.empty(len(a))
+ar[a] = np.arange(len(a))
 
 
 # check if string is integer
@@ -30,7 +34,7 @@ max = sys.maxsize
 min = -sys.maxsize
 
 # determine which element in boolean array is true
-np.where(np.array(a) == value)
+np.where(np.array(a) == value)[0]
 
 
 # Instantiate class from string
@@ -38,3 +42,5 @@ c = globals()[s]()
 globals() // dict of global variables
 locals() // dict of local variables
 dir() // list of variable names
+
+

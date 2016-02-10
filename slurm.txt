@@ -38,9 +38,10 @@ sh5util
 squeue
   -u ca426
   -p [tesla|sandybridge]
-scontrol show job <jobid>
+scontrol show job <jobid> // sshow
 scancel/skill <jobid>
   -u ca426  // all jobs
+  -n jobname // by name
 
 
 # Disk quota
