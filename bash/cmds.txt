@@ -34,6 +34,7 @@ quit
 # find
 -name file.h  // only match filename
 -name "?il*.[ho]" // ?, *, [] are special characters
+-name '*pdf' -o -name '*html' // combine regex
 -path pattern // match complete path
 -path "*/src" // all src directories
 -regex "*/.EADME" // emacs regex whole path
@@ -52,3 +53,6 @@ quit
 * ldd [binary]  // prints shared libraries [binary] depends on
 * uniq -c // count # unique words
 * ctrl - \ // interrupt command
+
+# gzip
+gzip -c infile > outfile  // different src/dst

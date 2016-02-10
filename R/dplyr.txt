@@ -40,6 +40,7 @@ one_of('c1', 'c2') // select by vector, select_
 filter(c1=1, c2>2)
 between(c1, min, max)
 !is.na(c1)
+filter(grepl('^loc.*, col)) // filter by regex
 
 # mutate, transmutate
 mutate(df, c = f(c1, c2)) // add or mutate columns

@@ -26,7 +26,7 @@ move-window -t 1
 kill-window -a // close all other windows
 
 # Panes
-; // last pane
+P, ; // last pane
 space // next pane layout
 alt+[1234]  // select pane layout
 {}  // rotate panes; { counter clock
