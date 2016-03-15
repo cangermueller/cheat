@@ -127,3 +127,8 @@ attr['a'] = np.arange(10)
 s = [x.encode() for x in ['a', 'b', 'c']
 [fg].create_dataset(data=s)
 [fg].attrs['columns'] = s
+
+# Bug: large file
+if group in out_file:
+  del out_file[group]
+

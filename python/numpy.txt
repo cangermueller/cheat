@@ -84,15 +84,23 @@ io.savemat('file.mat', {'a':a, 'b':b})
 cell = np.empty((n, m), dtype=np.object)
 cell[i, j] = np.ones((3, 4))
 
-# Indexing arrays
+# Indexing arrays, slicing arrays
 a[a > b]  // logical numpy array; not supported by default arrays
 a[::2]  // every second element
-a[[0, 1], [4, 5]] // select at (0, 4) and (1,5)
 (a > 1).nonzero() // return indices of values > 1
 A.take([1, 2], axis=0)  // select slices along axis; return copy!
 ## keep dimension after slicing
 atleast_1d(a[0, 0])
 atleat_2d(a[0, :])
+
+## Selecting for each row different columns
+a is 4 x 3
+a[[0, 1, 2, 3], [0, 1, 2]] // select at (0, 0), (1, 1), (2, 2)
+a[:, [0, 1, 2]] // will select columns 0, 1, 2 for each row!
+a[[0, 1, 2, 3], [[0, 1, 2], [2, 1, 0]]
+  a[0, [0, 2]]
+  a[1, [1, 1]]
+  a[2, [2, 0]]
 
 # Broadcasting
 A = np.random.rand(3, 5)
@@ -187,6 +195,7 @@ np.unique(a, ...)
   return_counts=True  // count number of unique elements
 var(X, ddof=1)  // unbiased variance
 np.average(X, axis, weights)  // weighted mean
+  * weights must have lenght of axis
 
 ## io
 save('data.npy', data)  // binary npy format

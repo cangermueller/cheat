@@ -669,6 +669,10 @@ set_title(plot_title)
 table=True, df  // add table to bottom; df = data.describe()
 colormap='Greens', 'cubehelix'
 
+## save figure
+ax = df.plot(figsize=(width, height))
+ax.get_figure().savefig('plot.pdf')
+
 ## matplotlib help
 plt.xlabel(label)
 

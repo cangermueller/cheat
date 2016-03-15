@@ -24,6 +24,10 @@ binary_crossentropy
 
 # Layers
 l.trainable = False // freeze layer -> not updated
+l.previous // previous layer
+l.input_shape (None, n)
+l.output_shape
+l.get_config()
 
 ## Dense
 core.Dense(nunits, ...)
