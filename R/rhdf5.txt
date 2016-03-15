@@ -3,6 +3,7 @@ H5... // low level functions
 f = h5createFile('file.h5')
 h5read(file, group, ...)
   index=list(1:ncol, 1:nrow)  // choose by index; rows/columns swapped?
+  * Can read entire group of datasets
 h5write(object, file, group)
   * file is filename
   * file must exist:

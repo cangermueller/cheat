@@ -1,0 +1,5 @@
+$@  // all arguments
+$1, $2  // 1st, 2nd argument
+$#  // number of arguments
+
+set -- a1 a2 $@ // append args to list of args; set args

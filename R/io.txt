@@ -8,7 +8,7 @@ write.table(x, file=, quote=T)
 write.csv()
 
 # File operations
-getwd() // pwd
+getwd() // current working directory, pwd, cwd
 setwd(path)
 Sys.glob('../*.csv')  // glob, wildcard files
 dir(dirname, ...) / list.files() // show directory content
@@ -25,13 +25,13 @@ file.info()
 file.path('/root', 'filename')  // combine path and filename
 basename(path)  // basename
 dirname(path) // dirname
-normalizePath(path) // abs path; path must exist
+normalizePath(path) // absolute path; path must exist
 
 ## tools
 library(tools)
 file_ext(path)  // file.html -> html
 file_path_sans_ext(path)  // file.html -> file
-file_path_as_absolute(path) // abs file path; file must exist
+file_path_as_absolute(path) // absolute file path; file must exist
 
 # Manual
 readLines(file, n=) // read all lines from file/connection/url

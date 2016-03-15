@@ -34,12 +34,14 @@ starts_with('prefix')
 ends_with('suffix')
 contains('substr')
 matches('pattern')
-one_of(c('c1', 'c2')) // select by vector
+matches('(c1|c2)') // one of these patterns
+one_of('c1', 'c2') // select by vector, select_
 
 # filter
 filter(c1=1, c2>2)
 between(c1, min, max)
 !is.na(c1)
+filter(grepl('^loc.*, col)) // filter by regex
 
 # mutate, transmutate
 mutate(df, c = f(c1, c2)) // add or mutate columns
@@ -88,7 +90,10 @@ slice(1)  // select single group member
   head(3) // first 3 record (does not always work!)
 top_n(3, id) // select top n ordered by id in DESCENDING order
   * returns MULTIPLE records, if id not unique!
+d %>% group_by(id) %>% arrange(col) %>% slice(1) %>% ungroup
+  * select unique record with max/min value in col
 sample_n(3) // sample three records of each group
+  * n <= nrow(d)!
 sample_frac(0.5)  // sample 50% of records from each group
 distinct  // unique members; more efficient than unique
 
@@ -127,8 +132,14 @@ ntile(v, n) // assign each v to one of n bins; same #points in each bin
 * Supports SQlite, MySQL, BigQuery
 * Same syntax
 * Read only -> mutate not supported
-my_db = src_sqlite('my_db.sqlite3')
-table = tbl(my_db, 'table')
+con = src_sqlite('my_db.sqlite3', ...)
+  create=T  // create new db
+table = tbl(con, 'table')
+d = tbl(con, sql('SELECT * FROM table'))
+  * Note: special (lazy) db object
+  d$query: sql_query
+  collect(d) // retrieve all data
+copy_to(con, df, name='df')
 
 # Standard evaluation function
 function()  // non-standard evaluation

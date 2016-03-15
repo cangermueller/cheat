@@ -33,4 +33,3 @@ out_format <- paste(file_ext(opts$out_file), 'document', sep='_')
 rmarkdown::render(rmd, output_file=opts$out_file,
   output_format=out_format,
   output_dir=dirname(opts$out_file)) # other than RMD file
-

@@ -10,6 +10,9 @@ rsync src dst // creates dst/src
 rsync src/ dst  // copies src/* into dst, not dst/src!
 --exclude dir/  // exclude dir anywhere
 --exclude /dir/ // exclude dir at root
+--exclude c --include '*csv' --exclude '*'
+  // order matters: right -> left!
+  // exclude * first, then include *csv, then exclude c
 
 
 # Options

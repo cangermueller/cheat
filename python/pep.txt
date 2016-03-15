@@ -23,17 +23,20 @@ i = i + 1
 def fun(a=1, b=2) // no whitespace for default arguments
 fun(b=2*3)  // no whitespace for function arguments
 
-# Modules
+# Imports
 * At beginning of file
-* Group modules: std modules, 3rd party modules, local modules
-* Whitespace between groups
+* Group modules
+  1. std modules
+  2. 3rd party modules
+  3. local modules
+  -> separated by white space
+* It's okay:
+  from module import fun
+  from .module import fun // relative import okay if complex structure
+  import numpy as np // renaming modules, not convection exits
 * Not allowed:
   * import module1, module2 // several modules per line
   * from module import *  // wildcards
-* can be renamed, but convection does not exist
-  * import numpy as np
-  * import scipy as sp
-  * import matplotlib.pyplot as plt
 
 # docstring
 http://legacy.python.org/dev/peps/pep-0008/#comments
