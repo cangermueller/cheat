@@ -11,8 +11,8 @@ Rowv=, Colv=
   dendro  // use existing dendrogram; as.dendrogram(hclust), rv$rowDendrogram
 labCol=NA  // no labels
 srtCol=45 // rotate column labels by 45
-lhei=c(1, 3)  // make first row (col dendro) smaller
-lwid=c(1, 3)  // make first column (row dendro) smaller
+lhei=c(2, 10)  // make first row (col dendro) smaller
+lwid=c(2, 10)  // make first column (row dendro) smaller
 margin=c(col, row)  // margin for column and row labels 
 distfun=dist
 hclustfun=hclust

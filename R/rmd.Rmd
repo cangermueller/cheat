@@ -7,6 +7,12 @@ output:
     toc: yes
 ---
 
+<style>
+img {
+    max-width: none;
+}
+</style>
+
 ```{r, include=F}
 library(knitr)
 opts_chunk$set(echo=F, warning=F, message=F)

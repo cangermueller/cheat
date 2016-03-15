@@ -102,10 +102,12 @@ scale_x_continuous(limis=c(min, max), breaks=, labels=) // xlim (points discarde
 xlim(min, max)  // discard points
 xlab('x'), ylab('y')
 theme(
-  axis.title=element_blank(), axis.title.x=, axis.title.y= // no axis labels
+  axis.title=element_blank(),
+  axis.text.x=element_blank() // no xlabs
+  axis.title.x=element_text(vjust=-1) // move xlab down
+  axis.title.y=element_text(hjust=-1) // move ylab left
   axis.text.x=element_text(angle=-90))  // rotate axis ticks labels
   axis.text.x=element_text(angle=35, hjust=1)) // rotate and offset
-  axis.text.x=element_blank() // no xlabs
 element_text(...)
   angle=
   vjust=0, hjust=0
@@ -125,7 +127,10 @@ scale_color_manual(values=c('g1'='red', 'g2'='blue'))
 scale_color_gradient(low='black', high='red')
 scale_fill_gradient2(low='blue', mid='white', high='red', midpoint=0.5)
 scale_fill_gradientn(colors=brewer.pal(7, 'Spectral')) // see brewer.txt
+scale_fill_continuous(limits=c(0, 1)) // set color range
 scale_size_discrete(range=c(3, 1, 2))
+scale_size(range=c(1, 6)) // adjust min/max size of points
+scale_alpha(range=c(0.1, 1)) // adjust min/max alpha
 
 ## default color palette
 scale_fill_hue(), scale_fill_brewer() // default colors
@@ -135,7 +140,11 @@ gg_color_hue <- function(n) {
 }
 
 # Legend
-theme(legend.position='bottom', legend.direction='horizontal')  // global legend settings
+theme( // global settings
+  legend.position='bottom',
+  legend.direction='horizontal'
+  legend.key.width=unit(2, 'cm')
+  ) 
 geom_point(show_guide=FALSE)  // turn all legends of points off
 geom_points() + guides(size=FALSE)  // turn specific legends off
 scale_fill_discrete(guide=FALSE) // turn specific legends off
@@ -143,9 +152,6 @@ guides(color=guide_legend(...), size=guide_legend(...)) // change legend format
   guide_legend(title='New title', nrow=, ncol=, keywidth=, ...) // change legend format
   guides(color=guide_legend(ncol=7), size=guide_legend(title='# CpGs')) +
 
-scale_fill_continuous(limits=c(0, 1)) // set color range
-scale_size(range=c(1, 6)) // adjust min/max size of points
-scale_alpha(range=c(0.1, 1)) // adjust min/max alpha
 
 
 # Multiple overlapping plots
