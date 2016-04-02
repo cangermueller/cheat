@@ -132,3 +132,6 @@ s = [x.encode() for x in ['a', 'b', 'c']
 if group in out_file:
   del out_file[group]
 
+# Copy groups between files
+for k in src_file.keys():
+  src_file.copy(k, dst_file)

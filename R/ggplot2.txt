@@ -97,15 +97,16 @@ ggtitle(title)
 
 # Axis
 coord_cartesian(xlim=c(min, max), ylim=c(min, max)) // zoom, do not discard points
-scale_x_continuous(limis=c(min, max), breaks=, labels=) // xlim (points discarded), breaks, labels axis
+scale_x_continuous(limis=c(min, max), ...)
+  * points not discarded compared with xlim
   breaks=rev(seq(0, 1, len=4)), labels=seq(0, 1, 0.25)  // reverse axis
 xlim(min, max)  // discard points
 xlab('x'), ylab('y')
 theme(
-  axis.title=element_blank(),
-  axis.text.x=element_blank() // no xlabs
+  axis.title=element_blank(), // xlab, ylab
   axis.title.x=element_text(vjust=-1) // move xlab down
   axis.title.y=element_text(hjust=-1) // move ylab left
+  axis.text.x=element_blank() // xticks
   axis.text.x=element_text(angle=-90))  // rotate axis ticks labels
   axis.text.x=element_text(angle=35, hjust=1)) // rotate and offset
 element_text(...)
@@ -126,6 +127,7 @@ scale_color_brewer(palette='Set1')
 scale_color_manual(values=c('g1'='red', 'g2'='blue'))
 scale_color_gradient(low='black', high='red')
 scale_fill_gradient2(low='blue', mid='white', high='red', midpoint=0.5)
+scale_color_gradient2(low='#0571b0', mid='#f7f7f7', high='#ca0020') // brewer blue - white - red
 scale_fill_gradientn(colors=brewer.pal(7, 'Spectral')) // see brewer.txt
 scale_fill_continuous(limits=c(0, 1)) // set color range
 scale_size_discrete(range=c(3, 1, 2))
