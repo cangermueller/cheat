@@ -200,10 +200,6 @@ grid.arrange(...)
   * size depends on dev() size
   * format = file extension
 
-= geom="smooth"
-* method="loess", span=0.1
-* method="lm", formula=y~x , formula=y~I(x^2)
-
 = geom="histogram"
 * qplot(var, geom="histogram")
 * qplot(var, ..density.., geom="histogram") // show density instead of counts
@@ -254,7 +250,8 @@ position=
 
 # geom_smooth
 aes(group=sample) // line for each sample
-method=loess,lm
+method=auto,loess,lm
+  * Use method='loess' to change span=x, method.args=list(degree=y)
 span=0.75 // loess span
 se=F  // no confidence interval
 level=0.95  // confidence level

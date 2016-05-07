@@ -517,10 +517,11 @@ s.values  // to np.array
 Categorical(list('bbbcc'), categories=['a', 'b', 'c', 'f'], ordered=False)
 Series(list('abcd'), dtype='category')
 .astype('category', categories=, ordered=False)
-.cat.categories = ['a', 'b', 'c'] // rename categories
-.cat.ordered = True // set to ordered
-.cat.add_categories
-.cat.remove_categories
+.categories = ['a', 'b', 'c'] // rename categories
+.codes // integers
+.ordered = True // set to ordered
+.add_categories
+.remove_categories
 .rename_categories({'new': 'old})
 .describe()
 .to_hdf(fomart='t')  // table format required!

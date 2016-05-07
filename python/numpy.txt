@@ -93,6 +93,15 @@ A.take([1, 2], axis=0)  // select slices along axis; return copy!
 atleast_1d(a[0, 0])
 atleat_2d(a[0, :])
 
+## flatten tensor array to list representation with indices
+def array_to_matrix(x):
+    # last column is value; columns before is index
+    v = list(np.ones(x.shape).nonzero())
+    v.append(x.ravel())
+    v = np.vstack(v).T
+    return v
+
+
 ## Selecting for each row different columns
 a is 4 x 3
 a[[0, 1, 2, 3], [0, 1, 2]] // select at (0, 0), (1, 1), (2, 2)
