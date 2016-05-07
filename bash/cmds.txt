@@ -22,6 +22,9 @@ get remote_file // download remove file
 delete remote_file
 quit
 
+# wget
+-O destination_file
+
 # tree
 * -L  maxlevels
 * -d  // only directories

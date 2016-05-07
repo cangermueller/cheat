@@ -15,6 +15,7 @@ EOF
 
 # Show linux version
 cat /proc/version
+cat /etc/redhat-release
 
 # chmod, chown
 -R  // recursively

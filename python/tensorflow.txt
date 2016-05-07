@@ -1,0 +1,4 @@
+# Installation
+Rename to right Python version
+mv tensorflow-0.8.0-cp34-cp34m-linux_x86_64.whl tensorflow-0.8.0-cp35-cp35m-linux_x86_64.whl
+pip install -U tensorflow-0.8.0-cp35-cp35m-linux_x86_64.whl

@@ -162,17 +162,17 @@ model_from_json(), model_from_yaml  // from keras.models import model_from_json
 
 
 # Graph model
-m = models.Graph()
-m.inputs // dict of input layers
+m.nodes['x']  // access Keras layer node by id
+m.nodes['x'].get_output() // Theano output node
+m.inputs // dict of Keras input layers
 m.input_order // ordered input names
-m.input_config // dict with name, dtype, input_shape of inputs
-m.outputs // dict of output nodes
+m.outputs // dict of Keras nodes
 m.output_order // order output names
-m.optimizer
-m.get_inputs() // dict of Theano tensors
-m.get_outputs() // dict of Theano outputs
+m.get_input() // dict of Theano tensors
+m.get_output() // dict of Theano tensors
 m.get_params() // shared parameters of all layers
 m.get_weights() // all weights (numpy arrays)
+m.optimizer
 
 ## Example
 m.add_input(name='x', ndim=2)
