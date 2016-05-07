@@ -8,6 +8,8 @@ load_dataset(name)
   tips  // y=tip; x=mixed
 
 # size, width, height
+* for axes-aware functions: regplot, boxplot, kdeplot
+* not: jointplot, lmplot, factorplot
 plt.figure(figsize=(w, h))
 sns.plot()
 f, a = plt.subplots(figsize=(w, h))

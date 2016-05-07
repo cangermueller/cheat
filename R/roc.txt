@@ -26,6 +26,7 @@ auc_score <- function(y, yp) {
 
 == pROC
 * Very slow, only use to get p-values/confidence
+* Only compute TPR,TNR, not precision, etc.
 * Visualization, confidence interval, hypothesis test
 * roc <- roc(p, y, ...)
   ci=T  // confidence is T by default; seems to have no impact on speed

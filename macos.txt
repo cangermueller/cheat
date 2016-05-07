@@ -87,6 +87,9 @@ cmd+shift+c // copy long
 cmd+shift+a // copy short
 shift+enter // insert next author
 
+# Word
+cmd-opt-z // go back to last position
+
 ## Advanced search
 Attachment content
 Creator // Author
@@ -96,6 +99,7 @@ update  // update brewer
 list  // list all installed packages
 search name // search package
 install name  // install package
+
 
 
 
