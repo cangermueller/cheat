@@ -4,6 +4,11 @@ sudo service apache2 CMD
   stop
   restart
 
+# /etc/apache2/sites-available/000-default.conf
+=> for managing root directories
+▸-ServerAdmin webmaster@localhost
+▸-DocumentRoot /home/ubuntu/public_html/html
+
 # /etc/apache2/apache2.conf
 <Directory /home/ubuntu/public_html/html>
 ▸-Options FollowSymLinks
@@ -11,10 +16,12 @@ sudo service apache2 CMD
 ▸-Require all granted
 </Directory>
 
-# /etc/apache2/sites-available/000-default.conf
-▸-ServerAdmin webmaster@localhost
-▸-DocumentRoot /home/ubuntu/public_html/html
-
 # Authentification
 config: /home/ubuntu/public_html/html/.htaccess
 passwd: /home/ubuntu/etc/apache2/passwd
+
+## User management
+htpasswd ./passwd <username> // add passwd for user
+  -c will overwrite existing file
+vi ./groups // manage to which groups user belongs to
+
