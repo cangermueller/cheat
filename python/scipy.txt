@@ -3,6 +3,7 @@ dist = scipy.stats. // Generate RNG
   randint(low, high)
   norm(loc, scale)
   bernoulli,binom,gamma}()
+  uniform(loc, scale) // uniform [loc; loc + scale]
 .rvs(size=n)  // draw n samples
 .pdf(x)
 .cdf(x)

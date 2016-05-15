@@ -517,10 +517,11 @@ s.values  // to np.array
 Categorical(list('bbbcc'), categories=['a', 'b', 'c', 'f'], ordered=False)
 Series(list('abcd'), dtype='category')
 .astype('category', categories=, ordered=False)
-.cat.categories = ['a', 'b', 'c'] // rename categories
-.cat.ordered = True // set to ordered
-.cat.add_categories
-.cat.remove_categories
+.categories = ['a', 'b', 'c'] // rename categories
+.codes // integers
+.ordered = True // set to ordered
+.add_categories
+.remove_categories
 .rename_categories({'new': 'old})
 .describe()
 .to_hdf(fomart='t')  // table format required!
@@ -625,13 +626,21 @@ r.assign('df', df_r) // then write it to R
 r('saveRDS(df, file="file.rds")')
 
 # binning values
-pd.cut(values, bins, ...) // equally spaced bins
+* return for each value[i] the bin (as category) it is assigned to
+c = pd.cut(values, bins, ...) // equally spaced bins
+  bins=3  // # bins
+  bins=[0, 0.5, 1.0]  // (0;0.5), (0.5, 1.0) -- bin edges with minimum and maximum
+  precision=2 // Float precision bin labels
+  labels=['a', 'b'] // define labels of bins
+  retbins=True  // return also (tuple) bins -> [0, 0.5, 1.0]
+    c[0] are categories
+    c[1] are tuples of cuts
+  include_lowest=True // first interval is left-inclusive
 pd.qcut(values, q, ...)  // same #obs in bins
-bins=3  // # bins / quantiles
-bins=[0, 0.5, 1.0]  // (0;0.5), (0.5, 1.0)
-precision=2 // Float precision bin labels
-labels=['a', 'b'] // define labels of bins
-retbins=True  // return also (tuple) bins -> [0, 0.5, 1.0]
+  q=4 -> q=[0, 0.25, 0.5, 0.75, 1.0]
+  q=[0, 0.5, 1.0] -> q=2
+q = np.percentile(values, [25, 50, 75])
+  * 25%, 50%, 75% percentile; not assignment!
 
 
 
@@ -660,6 +669,10 @@ sharex=False  // subplot have different x-axis
 set_title(plot_title)
 table=True, df  // add table to bottom; df = data.describe()
 colormap='Greens', 'cubehelix'
+
+## save figure
+ax = df.plot(figsize=(width, height))
+ax.get_figure().savefig('plot.pdf')
 
 ## matplotlib help
 plt.xlabel(label)

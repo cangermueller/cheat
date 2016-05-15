@@ -1,0 +1,124 @@
+---
+title: "Project"
+author: "Christof Angermueller"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r, include=F}
+library(knitr)
+opts_chunk$set(echo=F, warning=F, message=F, fig.width=12)
+```
+
+```{r, include=F}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(Gviz)
+library(tools)
+library(biomaRt)
+```
+
+# Example
+
+```{r}
+data(cpgIslands)
+data(geneModels)
+genome <- genome(cpgIslands)
+chromo <- as.character(unique(seqnames(cpgIslands)))
+
+itrack <- IdeogramTrack(genome=genome, chromo=chromo)
+gtrack <- GenomeAxisTrack()
+atrack <- AnnotationTrack(cpgIslands, name='CGI')
+grtrack <- GeneRegionTrack(geneModels, genome=genome, chrom=chromo)
+
+plotTracks(list(itrack, gtrack, atrack, grtrack))
+```
+
+```{r}
+region <- list(chromo='chr12', start=86360000, end=86530000)
+d <- BiomartGeneRegionTrack(genome='hg19', chromo=region$chromo,
+  start=region$start, end=region$end, name='ENSEMBL')
+```
+
+```{r}
+plotTracks(d)
+```
+
+
+
+
+
+# Custom
+
+```{r}
+read_bed <- function(path, chromo=NULL) {
+  d <- read.table(path)
+  names(d) <- c('chromo', 'start', 'end')
+  d <- d %>% tbl_df
+  return (d)
+}
+
+bed_to_atrack <- function(d) {
+  a <- AnnotationTrack(
+    chromo=d$chromo,
+    start=d$start,
+    end=d$end)
+  return (a)
+}
+
+filter_bed <- function(d, region) {
+  d <- d %>% filter(
+    chromo==region$chromo, start >= region$start, end <= region$end
+    )
+  return (d)
+}
+
+beds_to_atracks <- function(d, region) {
+  a <- list()
+  for (n in names(d)) {
+    dn <- d[[n]] %>% filter_bed(region)
+    an <- bed_to_atrack(dn)
+    an@name <- n
+    a[[n]] <- an
+  }
+  return (a)
+}
+```
+
+```{r}
+fnames <- c('CGI.bed', 'LMRs.bed', 'Active_enhancers.bed', 'p300.bed')
+beds <- list()
+for (fname in fnames) {
+  n <- file_path_sans_ext(fname)
+  h <- file.path('/Users/angermue/research/bs/alias/mm10/annos', fname)
+  beds[[n]] <- read_bed(h)
+}
+```
+
+```{r}
+# a$gene <- c(86361117, 86521628)
+region <- list(chromo='chr12', start=86361100, end=86521700)
+```
+
+```{r}
+atracks <- beds_to_atracks(beds, region)
+atracks$Active_enhancers@name <- 'AE'
+```
+
+```{r}
+bm <- useMart('ensembl', dataset='mmusculus_gene_ensembl')
+fm <- Gviz:::.getBMFeatureMap()
+grtrack <- BiomartGeneRegionTrack(
+  genome='mm10', chromo=region$chromo, start=region$start, end=region$end,
+  name='gene', biomart=bm, featureMap=fm)
+```
+
+
+```{r}
+itrack <- IdeogramTrack(genome='mm10', chromo=region$chromo)
+plotTracks(c(itrack, grtrack, atracks), transcriptAnnotation='symbol',
+  from=region$start, to=region$end)
+```

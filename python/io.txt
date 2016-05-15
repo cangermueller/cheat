@@ -55,6 +55,7 @@ os.rmdir(dir) // remove/delete dir
 import shutil
 shutil.copyfile(src, dst) // copy file
 shutil.copytree(src_dir, dst_dir) // dopy dir
+shutil.move(src, dst) // rename, move file like mv
 
 # execute system/shell command
 import subprocess as sp

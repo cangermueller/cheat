@@ -24,6 +24,10 @@ binary_crossentropy
 
 # Layers
 l.trainable = False // freeze layer -> not updated
+l.previous // previous layer
+l.input_shape (None, n)
+l.output_shape
+l.get_config()
 
 ## Dense
 core.Dense(nunits, ...)
@@ -92,6 +96,15 @@ output shape:
 return_sequences=False // only return last hidden state
 truncate_gradient=-1 // only compute gradient over last x steps
 
+## LSTM
+activation='tanh'  // activation h'
+inner_activation='hard_sidmoid' // activation gates
+
+## GRU
+activation='sigmoid'  // activation h'
+inner_activation='orthogonal' // activation gates
+
+
 
 
 # regularizer
@@ -128,6 +141,10 @@ m.fit(x, y, ...)
     batch: 10 11 12 | 1 2 3 | 7 8 9 | 4 5 6
       * Train on contiguous chunks
       * For HDF5
+  verbose=1
+    0: no output
+    1: progress bar
+    2: no progress bar
 m.predict(x)  // predict_proba()
 m.predict_proba()
 m.predict_classes()  // [0, 1, 2]
@@ -145,17 +162,17 @@ model_from_json(), model_from_yaml  // from keras.models import model_from_json
 
 
 # Graph model
-m = models.Graph()
-m.inputs // dict of input layers
+m.nodes['x']  // access Keras layer node by id
+m.nodes['x'].get_output() // Theano output node
+m.inputs // dict of Keras input layers
 m.input_order // ordered input names
-m.input_config // dict with name, dtype, input_shape of inputs
-m.outputs // dict of output nodes
+m.outputs // dict of Keras nodes
 m.output_order // order output names
-m.optimizer
-m.get_inputs() // dict of Theano tensors
-m.get_outputs() // dict of Theano outputs
+m.get_input() // dict of Theano tensors
+m.get_output() // dict of Theano tensors
 m.get_params() // shared parameters of all layers
 m.get_weights() // all weights (numpy arrays)
+m.optimizer
 
 ## Example
 m.add_input(name='x', ndim=2)

@@ -7,6 +7,7 @@
   - // stage file
   D // vim-diff
   cc  // commit changes
+:Gdiff [revision] // diff revision
 :Gwrite // write and stage
 :Gedit, :Gsplit, :Gvsplit, :Gtabedit <revision>  // open revision for editing
 :Ggrep git-grep // git grep; \cw for quickfix window

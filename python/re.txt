@@ -11,8 +11,14 @@ m.start()
 m.end()
 
 
-re.match(pattern, string, flags)  // match at beginning of string
-re.search(pattern, string, flags)  // find pattern anywhere
+re.match(pattern, string, flags)
+  * must match at beginning
+  * 'abc' does not match 'xxx abc xxx'
+  * 'xxx' does not match 'xxx abc xxx'
+re.search(pattern, string, flags)
+  * pattern must partially match anywhere
+  * 'abc' matches 'xxx abc xxx'
+  * same as re.search(^pattern, ...)
 for m in re.finditer(pattern, string)  // like search, but iter of all hits
 re.findall(pattern, string) // all matches as str in array
 re.split(p, s)  // split by p; s.split(p) does not support re

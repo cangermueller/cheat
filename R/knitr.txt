@@ -170,3 +170,11 @@ test_fun()
 
 #+ chunk_name, cache=T, fig.width=10, ...
 d <- dat$mat %>% transmute(x=a, y=a*2)
+
+
+== Extra wide figures
+<style>
+img {
+    max-width: none;
+}
+</style>

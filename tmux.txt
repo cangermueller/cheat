@@ -14,6 +14,7 @@ j, k  // previous, next window
 p // previous window
 & // kill window
 . // change index of window
+D // detach clients -> zoom, dots
 
 
 # Windows
@@ -26,7 +27,7 @@ move-window -t 1
 kill-window -a // close all other windows
 
 # Panes
-; // last pane
+P, ; // last pane
 space // next pane layout
 alt+[1234]  // select pane layout
 {}  // rotate panes; { counter clock

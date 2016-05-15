@@ -127,3 +127,11 @@ attr['a'] = np.arange(10)
 s = [x.encode() for x in ['a', 'b', 'c']
 [fg].create_dataset(data=s)
 [fg].attrs['columns'] = s
+
+# Bug: large file
+if group in out_file:
+  del out_file[group]
+
+# Copy groups between files
+for k in src_file.keys():
+  src_file.copy(k, dst_file)

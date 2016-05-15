@@ -12,6 +12,10 @@
 -r  // readable
 -w  // writeable
 -x  // executable
+## Integer comparison
+-eq // equal
+-ne // not equal
+## String comparision
 s1 == s2 // strings equal
 s1 != s2 // strings unequal
 !expr  // not
