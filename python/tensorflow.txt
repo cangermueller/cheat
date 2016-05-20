@@ -2,3 +2,98 @@
 Rename to right Python version
 mv tensorflow-0.8.0-cp34-cp34m-linux_x86_64.whl tensorflow-0.8.0-cp35-cp35m-linux_x86_64.whl
 pip install -U tensorflow-0.8.0-cp35-cp35m-linux_x86_64.whl
+
+# Misc
+tf.reset_default_graph()  // clears everything
+
+# Tensor / Variable
+x.get_shape().as_list()
+x = tf.Variable(init, ...)
+  init = value [1, 2, 3] or Tensor
+x.eval(sess) // get value of variable
+assign_op = x.assign(value); sess.run(assign_op) // assign, set value variable
+x.name // var:0
+x.op.name // var
+
+## Namespace variables
+with tf.variable_scope('layer1'):
+  w = tf.get_variable('w', shape, dtype='float32',
+                      initializer=tf.random_normal_initializer()
+                      collections=[tf.GraphKeys, 'filters'],
+  b = tf.get_variable('b', shape,
+                      initializer=tf.zeros_initializer, // not brackets!
+                      collections=[tf.GraphKeys, 'biases']
+with tf.variable_scope('layer1', reuse=True):
+  tf.get_variable('w').eval(sess) // retrieve value of variable
+tf.get_collection_ref('bias') // return all variables from collection
+
+## scopes
+tf.variable_scope(...) // ops + variables
+tf.name_scope(...) // ops
+
+# Initializer
+tf.constant_initializer(value)
+tf.random_uniform_initializer(a, b) // [a, b]
+tf.random_normal_initializer(mean, std)
+tf.zeros_initializer // no ()
+
+
+# Get all variables
+for v in tf.all_variables():
+  print(v.name)
+
+# Save model
+saver = tf.Saver()
+saver.save(session, 'model.ckp')
+saver.restore(session, 'model.ckp')
+
+
+# conv2d
+tf.nn.conv2d(x, filter, strides, padding)
+  x = rf.reshape(x, [-1, height, width, nb_channel])
+  x = tf.placeholder('float32', [None, height, width, nb_channel])
+  filter = tf.Variable(tf.random.normal([height, width, nb_in-channel, nb_out-channel])
+  strides = [1, height, width, 1] // 1 over samples and channels
+  padding = 'SAME' (preserve dim by zero-padding), 'VALID' without zero-padding
+
+# pooling
+tf.nn.max_pool(x, k=[1, k, k, 1], strides=[1, k, k, 1], padding='SAME')
+
+# dropout
+rf.nn.dropout(x, keep_prob=0.7) // dropout with 0.3
+
+# Interactive session
+sess = tf.InteractiveSession()
+op = tf.initialize_all_variables()
+op.run()
+v = tf.Variable(...)
+v.eval()
+
+# control_dependencies
+* evaluates op1 and op2 before opx is evaluated
+with tf.control_dependencies([op1, op2]):
+  opx = other_opp
+
+# tf.ExponentialMovingAverage
+ema = tf.ExponentialMovingAverage(decay)
+
+def update_averages():
+  _ = ema.apply([mu, sigma]) // op that will eval mu and sigma, and add to avg
+  with tf.control_dependencies([_]): // first execute _
+    return (tf.identity(mu), tf.identify(sigma)) // return updated mu, sigma
+
+
+# Tensorboard
+tf.scalar_summary(name, tf.reduce_mean(x))
+  name=x.op.name + '/mean' // should be x/mean
+tf.histogram_summary(name, x)
+  name=x.op.name  // should be just x
+tf.image_summary('images', x, max_images=3)
+
+
+summaries = tf.merge_all_summaries() // creates summary op
+writer = tf.SummaryWriter('/tmp/tensorflow', sess.graph)
+
+## evaluation
+s = sess.run(summaries)
+writer.add_summary(s)

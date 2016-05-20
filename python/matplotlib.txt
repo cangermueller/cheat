@@ -124,8 +124,8 @@ linewidth
 import matplotlib.cm as cm
 cmap = cm.rainbow  // color map class
 cmap([0.0, 0.5, 1.0])
-  * return colors for different values
-  * default range: [0;1]
+  * return colors for different values in range ! [0, 1] !
+cm.Set1([0.1, 0.5, 0.7]) // must in in range [0, 1]!
 cm.rainbow(linspace(0, 1, n)) // return n colors from rainbow palette
 
 ## Normalize
