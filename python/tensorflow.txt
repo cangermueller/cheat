@@ -134,3 +134,13 @@ tf.device(name): // assign to certain device instead of choosing automatically
   /gpu:0 // 1st gpu
   /job:worker/taskX // assign to task X
 tf.Session(config=tf.ConfigProto(log_device_placement=True)) // log device placement by run
+
+# IO
+1. Feeding from file
+sess.run(x, feed_dict={external_data})
+
+2. Reading from file
+train.match_filenames_once
+train.string_input_producer
+
+filename_queue = train.string_input_producer(['file1.np', 'file2.np'])
