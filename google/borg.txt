@@ -1,0 +1,57 @@
+borgcfg [options] cmd
+  --vars 'a=1,b=2' // passed to borg file
+  up
+  down
+  reload // down + up
+borg help
+
+
+
+%task%
+%port%
+
+
+
+# running 5 tasks
+replicas = 5
+requirements {
+  autopilot = true
+}
+
+# running tasks with different args
+replicas = len(task_args.message) // as many tasks as parameters
+
+args {
+  message=%message%
+}
+
+task_args {
+  message = ['a', 'b', 'c']
+}
+
+
+# templates
+import temp_file.borg // import template
+template job myjob_temp {
+  ...
+}
+
+job myjob1 = myjob_temp {
+  // overwrite args
+}
+
+
+# service
+* group jobs with same resource allocation
+service name {
+  allocation alloc {
+  }
+
+  job job1 {
+    alloc = alloc
+  }
+
+  job job2 {
+    alloc = alloc
+  }
+}

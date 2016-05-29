@@ -1,0 +1,4 @@
+# dynamic import
+with adhoc_import.Google3CitcClient('toy'):
+  from google3.experimental.colab.example.adhoc_import import birthday
+    birthday = reload(birthday)

@@ -1,0 +1,4 @@
+# Dependencies
+:in_same_build
+//package/sub/sub2  // depend on target sub2 in sub2
+//package/sub/sub2:target // target in sub2

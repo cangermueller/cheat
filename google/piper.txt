@@ -1,0 +1,23 @@
+prodaccess // run every 20 hours
+
+
+g4 citc CLIENT // create client
+g4 listclients // list clients
+g4 citc -d CLIENT // delete client
+g4d CLIENT // go to client directory
+
+g4 p // pending changes
+g4 change // create change list
+g4 reopen // adds all newly modified files to changelist
+
+g4 changes -u USER -m M -s comitted // last M changes of USER with status commited
+g4 mail -m USER // send changes to user
+g4 commit // commit changes
+
+g4 revert FILE // revert changes of file
+g4 revert * // revert changes of all files in PWD
+g4 revert -c change // revert selected change
+
+g4 lint // lint code
+g4 sync // pull changes
+g4 diff FILE
