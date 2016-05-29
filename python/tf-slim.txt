@@ -1,0 +1,17 @@
+with slim.arg_scope([conv2d, fc], stddev=0.01, weightdecay=0.01):
+  * call following operations with same args
+ops.conv2d(x, nb_filter, [size, size], scope='conv1')
+ops.maxpool(x, [size, size], scope='pool1')
+ops.flatten(x, scope='flatten')
+opts.fc(x, nb_output, 'fc1')
+ops.dropout(x, 0.5, scope='dropout1)
+ops.repeat_op(x, op, nb_repeat, op_params, scope='conv1')
+ops.batch_norm(x)
+
+# Variables
+variables.get_all_variables() // all defined variables
+variables.get_variables_by_names(...)
+  weights, biases 
+
+  
+

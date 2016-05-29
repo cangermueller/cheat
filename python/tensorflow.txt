@@ -97,3 +97,14 @@ writer = tf.SummaryWriter('/tmp/tensorflow', sess.graph)
 ## evaluation
 s = sess.run(summaries)
 writer.add_summary(s)
+
+# IO
+1. Feeding from file
+sess.run(x, feed_dict={external_data})
+
+2. Reading from file
+train.match_filenames_once
+train.string_input_producer
+
+filename_queue = train.string_input_producer(['file1.np', 'file2.np'])
+
