@@ -58,9 +58,6 @@ scatter(x, y, color='black', s=20, marker=matplotlib.markers?)
 bar(x, y, width=barwidth) // vertical bars
 barh(x, y, height=barheight)  // horizontal bars
 imshow(image) // plot image (mxn array) values/heatmap
-contour(x, y, z, color=, cmap=)
-  x, y are vectors defining range
-  z is function value
 plot_surface(x, y, z, cmap=)  // from mpl_toolkits.mplot3d.axes3d import Axes3D
 hist(x, bins=n, normed=False, cumulative=False)
 vlines(x, vmin, vmax)
@@ -152,9 +149,16 @@ imshow(I, cmap='binary')
 I is m x n x 3
 imshow(I)
 
+## grid of images
+fig = plt.figure(figsize=(nrows * size, ncols * size))
+grid = ImageGrid(fig, 111,  # similar to subplot(111)
+                 nrows_ncols=(nrows, ncols),
+                 axes_pad=0.05, add_all=True, label_mode='L')
+for ax in grid:
+    x = np.random.rand(100, 100)
+    ax.imshow(x)  
 
-
-# colorbar
+#colorbar
 fig.colorbar(im, orientation='horizontal')
   * Don't know how to do specific for each axis
   orientation='horizontal'
@@ -184,5 +188,12 @@ from scipy.stats import gaussian_kde
 fun = gaussian_kde(samples)
 x = np.linspace(0, 1, 100)
 y = fun(x)
+
+# contour plot
+* http://matplotlib.org/examples/pylab_examples/contour_demo.html
+c = ax.contour(x, ...)
+  x is W x H density matrix
+  colors='w' // white contour lines
+ax.clabel(c, fontsize=9, inline=1) // add label to contour lines
 
 
