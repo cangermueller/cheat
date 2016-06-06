@@ -1,0 +1,4 @@
+# Screenshot
+Print // entire screen
+Alt + print // active region
+Accessories -> screenshot

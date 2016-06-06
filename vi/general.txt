@@ -1,3 +1,14 @@
+# Joining / concatenating lines
+J // with space
+gJ // without space
+
+# Recording mode
+q[0-9,a-z] // start recording mode which is saved to @[0-9a-x]
+:%s/foo/bar/g // execute commands that are recorded
+...
+q // stop recording
+@x // replay recording x
+
 # Edit key bindings
 R   // start replace mode
 ## change
@@ -262,7 +273,9 @@ set rtp+=~/.vim/bundle/plugin # extend runtime path
 ## Resize
 = // same size
 + // increase height
+  :resize +x
 - // decrease height
+  :resize -x
 < // decrease width
 > // increase width
 ## Rotation
@@ -276,14 +289,16 @@ set rtp+=~/.vim/bundle/plugin # extend runtime path
 * help preview
 * :pedit file
 * C-W z: close preview window
-## location window
-:lopen
-:lclose
-:lnext
 ## quickfix window
+* list of messages
 :copen
 :close
 :cnext
+## location window
+* list of positions
+:lopen
+:lclose
+:lnext
 
 # Visual mode
 * range: 

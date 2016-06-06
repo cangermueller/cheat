@@ -83,6 +83,7 @@ def fun(a, b=1, *args, **kwargs):
   fun2(*args, **kwargs) // not fun2(args, kwargs)!
 *args // tuple of unnamed args; args[1]
 **kwargs  // dict of names args; kwargs.keys()
+fun(*list)  // convert list to args
 fun(**dict)  // convert dict to kwargs
 
 

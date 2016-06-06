@@ -1,0 +1,16 @@
+deps: '//sstable/python:pysstable'
+
+from sstable.python import sstable
+
+with sstable.Builder(path) as builder:
+  builder.Add('key', pb.SerializeToString())
+
+sstable = sstable.SSTable(path)
+for k, v in sstable.iteritems():
+  print(k, v)
+iteritems(), iterkeys(), itervalues()
+get('key') // none is not existing
+
+sstable = sstable.ShardedSSTable('base_%-0100.sst')
+* same methods as SSTable
+filenames = gfile.GenerateShardedFilenames('base@0100')

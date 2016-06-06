@@ -1,0 +1,103 @@
+ -c optpygen file.py > file.py
+
+
+# blaze
+py_binary (
+  name = 'hello',
+  srcs = ['hello.py'],
+  deps = ['//pyglib']
+  )
+
+py_test (
+  name = 'hello_test',
+  srcs = ['hello_test.py'],
+  deps = [':hello', '//pyglib', '//testing/pybase']
+  size = 'small'
+  )
+
+blaze build :hello  // symlinks file; needs to be run only once
+blaze run :hello
+blaze run :hello -- --helloarg arg
+
+## testing
+blaze test :hello_test
+  --test_output=error
+
+## par files
+* exportable to other machines with GRE
+* GRE = Google Runtime Environment (v3): basic libraries (gnu, C++, etc)
+
+blaze build :hello.par
+./hello.par // run
+./hello.par --unpack_par_and_exit
+-c opt // C optimization
+--copt -g0 // C command line options
+
+
+# pyglib
+* package with basic libraries
+* app: command line parsing
+* subcommand: RPC, os.system(cmd)
+* stringutil: string parsing
+
+## Flags
+--help // help target
+--helpfull // help of all imported libraries
+
+flags.DEFINE_integer(name, default, descr)
+flags.DEFINE_string()
+
+flags.RegisterValidator(name, lambda x: x > 0, message='Error')
+
+FLAGS = flags.FLAGS
+FLAGS.name
+
+
+# Style guide
+go/styleguide
+gpylint path/file.py
+  --help msg=C123
+buildifier BUILD // format BUILD file
+
+from module import submodule
+Do not import functions, but only modules
+
+
+# logging
+from from googl3.pyglib import logging
+logging.info/debug/warn/error/fatal(...)
+logging.debug('msg %d %f', d, f) // string formatting internally
+logging.use_python_logging()
+  * log to stderr
+  * default
+logging.use_cpp_logging()
+  * log to /usr/local/google/tmp
+--log_dir dir  // change default log dir
+--logtostderr
+--alsologtostderr
+
+# debugging
+/blaze-bin/../file.py --run_with_pdb
+
+# Testing
+* import testing.pybase.googletest
+* extents unittest
+
+py_test {
+  name = 'app_test',
+  srcs = 'app_test.py',
+  deps = [:app, //pyglib, //testing/pybase]
+}
+
+class TestApp(googletest.TestCase): {
+  def testMethod(): {
+    self.assertEqual(...)
+  }
+}
+
+if __name__ == '__main__':
+  googletest.main()
+
+blaze test :target
+blaze test :all // all targets
+blaze-bin/path TestApp.testMethod // select test

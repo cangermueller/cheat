@@ -10,10 +10,12 @@ tf.reset_default_graph()  // clears everything
 x.get_shape().as_list()
 x = tf.Variable(init, ...)
   init = value [1, 2, 3] or Tensor
-x.eval(sess) // get value of variable
+sess.run(x) or x.eval(sess) // get value of variable
 assign_op = x.assign(value); sess.run(assign_op) // assign, set value variable
 x.name // var:0
 x.op.name // var
+tf.convert_to_tensor(np.ones(3, 4), dtype='float32') // convert array to tensor
+tf.expand_dims(t, dim) // insert single dimension/axis at dim in tensor
 
 ## Namespace variables
 with tf.variable_scope('layer1'):
@@ -41,11 +43,23 @@ tf.zeros_initializer // no ()
 # Get all variables
 for v in tf.all_variables():
   print(v.name)
+for o in sess.graph.get_operations(): // more operations than variables
+  print(o.name)
 
-# Save model
-saver = tf.Saver()
-saver.save(session, 'model.ckp')
+# Retrieve objects
+for _ in tf.all_variables(): // Variables defined by tf.Variable
+  tf.get_default_graph().get_tensor_by_name(_.name)
+for _ in graph.get_operations(): // Operations and placeholders
+  graph.get_operation_by_name(_.name)
+
+# Saving variables
+saver = tf.Saver(...)
+  {'v1': v1, 'v2': v2} // select variables to store
+  max_to_keep=5 // max # checkpoints if global_step is used
+saver.save(session, 'model.ckp', ...)
+  global_step=0...1 // progress, e.g. epoch
 saver.restore(session, 'model.ckp')
+tf.train.latest_checkpoint(dir) // get path (string) of latest checkpoint file in dir
 
 
 # conv2d
@@ -64,10 +78,9 @@ rf.nn.dropout(x, keep_prob=0.7) // dropout with 0.3
 
 # Interactive session
 sess = tf.InteractiveSession()
-op = tf.initialize_all_variables()
-op.run()
-v = tf.Variable(...)
-v.eval()
+operations = tf.initialize_all_variables()
+operations.run() // instead of sess.run(operations)
+variable.eval() // intead of sess.run(variable)
 
 # control_dependencies
 * evaluates op1 and op2 before opx is evaluated
@@ -98,6 +111,37 @@ writer = tf.SummaryWriter('/tmp/tensorflow', sess.graph)
 s = sess.run(summaries)
 writer.add_summary(s)
 
+# Graphs
+g0 = tf.get_default_graph() // returns default graph
+g = tf.Graph()
+with g.as_default():
+  a = tf.Variable(...) // variable of g, not g0
+assert a.graph is g
+assert a.graph is not g0
+
+with g.as_default():
+  sess = tf.Session() // will use g
+  sess.run(op_in_g)
+
+tf.Session(graph=graph)
+tf.InteractiveSession(graph=graph)
+
+
+variable.get_graph()
+session.get_graph()
+
+# QueueRunners
+coord = tf.train.Coordinator()
+threads = tf.train.start_queue_runners(sess, coord)
+
+# Devices
+tf.device(name): // assign to certain device instead of choosing automatically
+  /cpu:0 // 1st cpu
+  /cpu:1 // 2nd cpu
+  /gpu:0 // 1st gpu
+  /job:worker/taskX // assign to task X
+tf.Session(config=tf.ConfigProto(log_device_placement=True)) // log device placement by run
+
 # IO
 1. Feeding from file
 sess.run(x, feed_dict={external_data})
@@ -107,4 +151,12 @@ train.match_filenames_once
 train.string_input_producer
 
 filename_queue = train.string_input_producer(['file1.np', 'file2.np'])
+
+# Optimizer
+opt = tf.train.AdamOptimizer()
+opt.compute_gradients(loss, variables=None)
+  * returns [(gradient, variable_name), ...]
+  variables=tf.Variable(...)   // wrt. certain tf Variables
+opt.apply_gradients(g)
+
 

@@ -1,0 +1,62 @@
+* Fast, efficient binary compression, RPC calls
+
+# file.proto
+syntax = '2.0';
+option py_api_version = 2; // optional options
+import 'other.proto'; // import messages from other protocol buffer
+
+message Person {
+  optional string first_name = 1;
+  optional string last_name = 2;
+  repeated int32 values = 3
+  }
+
+message Group {
+  optional string name = 100;  // order does not matter
+  repeated Person people = 1;
+  }
+
+# Data types
+* https://engdoc.corp.google.com/eng/howto/protocolbuffers/developerguide/language.shtml?cl=head#scalar
+string
+int32
+float
+bool
+bytes
+map<string, int32> // string -> int32 hashmap
+
+
+# BUILD file
+
+proto_library (
+  name  = 'data',
+  srcs = ['data.proto']
+  )
+
+py_proto_library (
+  name = 'data_py_pb2', // _py_ needed, and will be removed
+  deps = [':data']
+  api_version = 2.0
+  )
+
+# Python API
+import data_pb2
+
+group = data_pb2.Group()
+assert not group.HasField('name')
+group.name = 'Group1'
+assert group.HasField('name')
+person = = group.people.add()
+person.first_name = 'foo'
+person.values.append(1)
+person.values.append(2)
+
+## Message methods
+HasField(x) // if field is initialized
+ClearField(x)
+Clear() // clear all field
+IsInitialized() // if all required fields are initialized
+ParseFromString(string)
+SerializeToString()
+CopyFrom(other) // copy all fields from other message
+ListFields() // lists keys + values
