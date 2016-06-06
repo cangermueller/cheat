@@ -21,11 +21,24 @@ mkdir /path
   %ttl=30d // time to life
   %gc=2h // garbage collection
 cp
+rm -R // rm -r
 snapshot file file_snapshot // copy file with read permissions
 rename a b
 
-# SSTable
-* file format that stores key -> N x value pairs in file
-* files often shared file -> file-01-of-0N
-* good for: map reduce / fast lookups (binary search)
+# gfile
+go/gfile-doc
+from pyglib import gfile
+gfile.GFile // thread safe, slow
+gfile.FastGFile // not thread safe, fast
 
+with gfile.GFile(file, 'w') as f:
+  data = f.read()
+  f.write('Hello')
+gfile.Exists(file)
+gfile.Remove(file)
+gfile.ListDirectory(path)
+gfile.MkDir(path)
+
+py_binary {
+  deps = [//pyglib, //pyglib:gfile]
+  }

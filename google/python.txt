@@ -1,4 +1,4 @@
-pygen file.py > file.py
+ -c optpygen file.py > file.py
 
 
 # blaze
@@ -65,13 +65,16 @@ Do not import functions, but only modules
 
 # logging
 from from googl3.pyglib import logging
-logging.INFO/DEBUG/WARN/ERROR/FATAL(...)
-logging.DEBUG('msg %d %f', d, f) // string formatting internally
+logging.info/debug/warn/error/fatal(...)
+logging.debug('msg %d %f', d, f) // string formatting internally
 logging.use_python_logging()
   * log to stderr
   * default
 logging.use_cpp_logging()
   * log to /usr/local/google/tmp
+--log_dir dir  // change default log dir
+--logtostderr
+--alsologtostderr
 
 # debugging
 /blaze-bin/../file.py --run_with_pdb
@@ -98,21 +101,3 @@ if __name__ == '__main__':
 blaze test :target
 blaze test :all // all targets
 blaze-bin/path TestApp.testMethod // select test
-
-# Colussus
-go/gfile-doc
-from pyglib import gfile
-gfile.GFile // thread safe, slow
-gfile.FastGFile // not thread safe, fast
-
-with gfile.GFile(file, 'w') as f:
-  data = f.read()
-  f.write('Hello')
-gfile.Exists(file)
-gfile.Remove(file)
-gfile.ListDirectory(path)
-gfile.MkDir(path)
-
-py_binary {
-  deps = [//pyglib, //pyglib:gfile]
-  }

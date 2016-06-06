@@ -15,7 +15,7 @@ assign_op = x.assign(value); sess.run(assign_op) // assign, set value variable
 x.name // var:0
 x.op.name // var
 tf.convert_to_tensor(np.ones(3, 4), dtype='float32') // convert array to tensor
-tf.expand_dims(t, dim) // insert single dimension at dim in tensor
+tf.expand_dims(t, dim) // insert single dimension/axis at dim in tensor
 
 ## Namespace variables
 with tf.variable_scope('layer1'):
@@ -46,8 +46,11 @@ for v in tf.all_variables():
 for o in sess.graph.get_operations(): // more operations than variables
   print(o.name)
 
-# Get tensor
-graph.get_tensor_by_name(name)
+# Retrieve objects
+for _ in tf.all_variables(): // Variables defined by tf.Variable
+  tf.get_default_graph().get_tensor_by_name(_.name)
+for _ in graph.get_operations(): // Operations and placeholders
+  graph.get_operation_by_name(_.name)
 
 # Saving variables
 saver = tf.Saver(...)
@@ -120,6 +123,10 @@ with g.as_default():
   sess = tf.Session() // will use g
   sess.run(op_in_g)
 
+tf.Session(graph=graph)
+tf.InteractiveSession(graph=graph)
+
+
 variable.get_graph()
 session.get_graph()
 
@@ -144,3 +151,12 @@ train.match_filenames_once
 train.string_input_producer
 
 filename_queue = train.string_input_producer(['file1.np', 'file2.np'])
+
+# Optimizer
+opt = tf.train.AdamOptimizer()
+opt.compute_gradients(loss, variables=None)
+  * returns [(gradient, variable_name), ...]
+  variables=tf.Variable(...)   // wrt. certain tf Variables
+opt.apply_gradients(g)
+
+

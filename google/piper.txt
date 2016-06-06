@@ -5,6 +5,8 @@ g4 citc CLIENT // create client
 g4 listclients // list clients
 g4 citc -d CLIENT // delete client
 g4d CLIENT // go to client directory
+  @alias // @alias name /research/... // alias in ~/.g4d
+
 
 g4 p // pending changes
 g4 change // create change list

@@ -11,6 +11,24 @@ borg help
 %port%
 
 
+# basic job
+job hello_word {
+  binary = "../../../blaze-bin/research/.../hello_word.par",
+  args = {
+    in_file = "input.h5",
+    out_file = "output.h5"
+    }
+  runtime = {
+    cell = "is"
+    }
+  requirements {
+    cpu = 10,
+    gpu = 5,
+    ram = 32GB
+    }
+}
+
+
 
 # running 5 tasks
 replicas = 5

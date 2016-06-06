@@ -10,9 +10,19 @@
 \== // format line
 
 # piper
-,pd // change pwd to piper dir
+,pd  = :PiperChangeDirectory // change pwd to piper dir
   research
   //google3/research
+  @alias
 ,po // open file; does not change pwd
-,pf // select from files in pwd
+,pf // show active files (edited, pending)
 
+# g4
+G4Pending
+G4Lint
+  ,no / ,nc
+G4Diff
+
+# outline-window
+GoogleOutlineWindow ,oo
+QuickOutline <regex> ,oO

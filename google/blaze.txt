@@ -1,4 +1,51 @@
+# build
+blaze build TARGET
+  -c opt // C optimization
+  --copt -g0 // C command line options
+
+# run
+blaze run :hello
+blaze run :hello -- --helloarg arg
+
+# test
+blaze test :hello_test
+  --test_output=error
+
+# par files
+* exportable to other machines with GRE
+* GRE = Google Runtime Environment (v3): basic libraries (gnu, C++, etc)
+
+blaze build :hello.par
+./hello.par // run
+./hello.par --unpack_par_and_exit
+
 # Dependencies
 :in_same_build
 //package/sub/sub2  // depend on target sub2 in sub2
 //package/sub/sub2:target // target in sub2
+
+py_binary (
+  name = 'hello',
+  srcs = ['hello.py'],
+  deps = ['//pyglib']
+  )
+
+py_test (
+  name = 'hello_test',
+  srcs = ['hello_test.py'],
+  deps = [':hello', '//pyglib', '//testing/pybase']
+  size = 'small'
+  )
+
+# Controlling visibility
+package_group (
+    name = 'attention',
+        '//research/biology/cad/learning/attention/...'
+        ]
+    )
+
+package(
+    default_visibility = [ // must be package group, not target
+        ":attention"
+        ]
+    )
