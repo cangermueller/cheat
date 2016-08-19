@@ -1,21 +1,6 @@
-# blaze (blazevim)
-\Bb // build
-\Bt // test
-\Bl // show logs
-\Be // load error
-\Bd // build target
-
 # Code formatting (codefmt)
 \=b // format file
 \== // format line
-
-# piper
-,pd  = :PiperChangeDirectory // change pwd to piper dir
-  research
-  //google3/research
-  @alias
-,po // open file; does not change pwd
-,pf // show active files (edited, pending)
 
 # g4
 G4Pending

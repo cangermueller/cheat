@@ -1,15 +1,43 @@
+borg help
 borgcfg [options] cmd
   --vars 'a=1,b=2' // passed to borg file
-  up
+  up [job_regex] // job_regex like '*tensorboard*' to select jobs
   down
   reload // down + up
-borg help
+  runlocal // run local
+borg canceljob --borg=ok [job] // job is name or job id
 
 
+# Misc
+GCU = Google Compute Units (CPU usage unit on sigma)
+x = 'hello %%port' // twice %% to mask, escape %
+cond(vars.gpu, true, false)
 
-%task%
-%port%
 
+# running multiple tasks
+replicas = 5
+requirements {
+  autopilot = true // uses as many CPU as the task requires
+}
+
+# running tasks with different args
+replicas = len(task_args.message) // as many tasks as parameters
+args {
+  message=%message%
+}
+task_args {
+  message = ['a', 'b', 'c']
+}
+
+
+# scheduling
+scheduling {
+  priority = 119
+    * not continuous, but different groups:
+    0 - 25
+    24 - 119
+    120 - 200
+    >
 
 # basic job
 job hello_word {
@@ -26,50 +54,4 @@ job hello_word {
     gpu = 5,
     ram = 32GB
     }
-}
-
-
-
-# running 5 tasks
-replicas = 5
-requirements {
-  autopilot = true
-}
-
-# running tasks with different args
-replicas = len(task_args.message) // as many tasks as parameters
-
-args {
-  message=%message%
-}
-
-task_args {
-  message = ['a', 'b', 'c']
-}
-
-
-# templates
-import temp_file.borg // import template
-template job myjob_temp {
-  ...
-}
-
-job myjob1 = myjob_temp {
-  // overwrite args
-}
-
-
-# service
-* group jobs with same resource allocation
-service name {
-  allocation alloc {
-  }
-
-  job job1 {
-    alloc = alloc
-  }
-
-  job job2 {
-    alloc = alloc
-  }
 }

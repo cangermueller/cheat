@@ -5,17 +5,59 @@ pip install -U tensorflow-0.8.0-cp35-cp35m-linux_x86_64.whl
 
 # Misc
 tf.reset_default_graph()  // clears everything
+tf.py_func(fun, tensor) // wrap Python function
+tf.truediv(x, y) // division
+tf.minimum(x, y) // element-wise minimum; see also reduce_min()
+tf.reduce_min(t, axis)
+tf.reduce_max(t, axis)
+tf.maximum(x, y) // element-wise maximum; see also reduce_min()
+tf.train.exponential_decay(var, step, steps_per_decay, decay_rate, ...)
+ * var = var * decay, every steps_per_decay
+  staircase=True // decay as discrete intervals
+
+# Creating tenors
+tf.ones((3, 4))
+tf.ones_like(t) // creates tensor of ones with same shape and dtype as t
+tf.zeros((3, 4))
+tf.zeros_like(t)
+tf.fill((3, 4), value)
+tf.constant(value, dtype=tf.float32, shape=(3, 4))
+tf.range(min, max)
+tf.linspace(min, max)
+
+
+# Transformations
+rf.reshape(x, [-1, 16])
+tf.concat(axis, [x1, x2]) // concat tensors
+tf.tile(x, [1, 2]) // copy columns twice
+tf.expand_dims(x, dim) // insert single dimension/axis at dim in tensor
+tf.squeeze(x, squeeze_dims=[]) // squeeze all 1 dim axis, or select axis
+
+# Reductions
+tf.reduce_sum(t, axis)
+tf.reduce_prod(t, axis)
+tf.reduce_mean(t, axis)
+tf.reduce_all(t, axis) // logical AND
+tf.reduce_any(t, axis) // logical OR
+tf.reduce_min(t, axis)
+tf.reduce_max(t, axis)
+
+## Conversion
+tf.convert_to_tensor(array, dtype='float32') // np.array, list, scalar -> tensor
+tensor.eval() // tensor -> array
+tf.cast(t, dtype=tf.float32) // change dtype of tensor
+
 
 # Tensor / Variable
 x.get_shape().as_list()
 x = tf.Variable(init, ...)
   init = value [1, 2, 3] or Tensor
+  trainable=True // set False to exclude from training
 sess.run(x) or x.eval(sess) // get value of variable
 assign_op = x.assign(value); sess.run(assign_op) // assign, set value variable
 x.name // var:0
 x.op.name // var
-tf.convert_to_tensor(np.ones(3, 4), dtype='float32') // convert array to tensor
-tf.expand_dims(t, dim) // insert single dimension/axis at dim in tensor
+tf.get_variable('var', initializer=tf.constant_initializer(value)) // initialize with value
 
 ## Namespace variables
 with tf.variable_scope('layer1'):
@@ -29,6 +71,18 @@ with tf.variable_scope('layer1', reuse=True):
   tf.get_variable('w').eval(sess) // retrieve value of variable
 tf.get_collection_ref('bias') // return all variables from collection
 
+# Collections
+* container for variables identified by string
+v = tf.get_variable('v', collections=['c1'])
+  * adds variable to collection 'c1'
+  * creates c1 if non-existing
+tf.add_to_collection('c1', tensor) // add any tensor to collection
+tf.get_collection('c1') // [v]; returns list of all variables in collection
+k = tf.GraphKeys() // default collection names
+  .VARIABALES
+  .TRAINABLE_VARIABLES
+  .GLOBAL_STEP
+
 ## scopes
 tf.variable_scope(...) // ops + variables
 tf.name_scope(...) // ops
@@ -40,17 +94,21 @@ tf.random_normal_initializer(mean, std)
 tf.zeros_initializer // no ()
 
 
-# Get all variables
-for v in tf.all_variables():
-  print(v.name)
-for o in sess.graph.get_operations(): // more operations than variables
-  print(o.name)
 
 # Retrieve objects
-for _ in tf.all_variables(): // Variables defined by tf.Variable
-  tf.get_default_graph().get_tensor_by_name(_.name)
+## Variables
+for _ in tf.all_variables():
+  print(_.name)
+
+## Operations and tensors
 for _ in graph.get_operations(): // Operations and placeholders
-  graph.get_operation_by_name(_.name)
+  print(_.name)
+  * 'name:0' will be first output
+graph.get_operation_by_name('inception_v3/inception_v3/conv0/Relu') // operation, not output tensor!
+graph.get_tensor_by_name('inception_v3/inception_v3/conv0/Relu:0') // output tensor
+sess.run('inception_v3/inception_v3/conv0/Relu:0', feed_dict=) // Evaluate tensor by name
+
+
 
 # Saving variables
 saver = tf.Saver(...)
@@ -97,12 +155,14 @@ def update_averages():
 
 
 # Tensorboard
+## General
+tensorboard --logdir path // path containes [train,test_eval,train_eval] dirs
+
 tf.scalar_summary(name, tf.reduce_mean(x))
   name=x.op.name + '/mean' // should be x/mean
 tf.histogram_summary(name, x)
   name=x.op.name  // should be just x
 tf.image_summary('images', x, max_images=3)
-
 
 summaries = tf.merge_all_summaries() // creates summary op
 writer = tf.SummaryWriter('/tmp/tensorflow', sess.graph)
@@ -160,3 +220,26 @@ opt.compute_gradients(loss, variables=None)
 opt.apply_gradients(g)
 
 
+# Transformations
+tf.slice(tensor, [x, y], [size_x, size_y]) // slice block at (x, y) of size
+tf.gather(tensor, indices)
+  indices=[1, 2] // tensor[1], tensor[2] // selects rows
+tf.gather_nd(tensor, indices)
+  indices=[[x1, y1], [x2, y2]] // selects elements at x1, y1
+
+
+# Operations
+tf.nn.xw_plus_b(x, w, b) // x * w + b
+
+# Image operations
+resize_images(image, width, height, ...)
+  method=tf.image.ResizeMethod.BILINEAR
+crop_center(image, 0.5) // image in 3d; shape of results [?, ?, 3]
+pad_to_bounding_box(image, offset_x, offset_y, width, height)
+  offset_[xy]: # rows that are filled with 0 left/above
+  width, height: size of results image
+sample_distorted_bounding_box // samples multiple bbox from single 3d image
+extract_glimpse(input, size, offset, ...) // extracts glimpses; fills rest with noise
+  input: 4d tensor [batch_size, width, height, channels]
+  size: [glimpse_width, glimpse_height]
+  offset: 2d tensor [batch_size, x_offset - y_offset]

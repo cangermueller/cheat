@@ -35,9 +35,14 @@ with gfile.GFile(file, 'w') as f:
   data = f.read()
   f.write('Hello')
 gfile.Exists(file)
+gfile.IsDirectory(dir)
 gfile.Remove(file)
-gfile.ListDirectory(path)
-gfile.MkDir(path)
+gfile.ListDir(path) // directory content as list like os.listdir
+gfile.Glob('/dir/*.jpg')
+gfile.MkDir(path) // single dir
+gfile.MakeDirs(path) // tree of dirs
+gfile.Copy(src_path, dst_path, overwrite=True)
+.RecursivelyCopyDir(src_path, dst_path, overwrite=False) // copies dir recursively
 
 py_binary {
   deps = [//pyglib, //pyglib:gfile]

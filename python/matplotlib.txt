@@ -16,9 +16,6 @@ ax.hist(np.random.randn(100), color='green')
 plt.show()  // REQUIRED!
 
 
-fig.savefig()
-fig.show()  // only in python shell with %pylab
-
 # Global functions
 show()  // open plot
 close() // close plot
@@ -40,7 +37,6 @@ xlabel(), ylabel()
 xlim(), ylim(), axis([xmin, xmax, ymin, ymax])
 grid()
 tight_layout()  // reduce space between subplots
-show(), savefig()
 ax = add_axes([left, bottom, width, height]) // create additional axes; [0;1] relative to figure
 
 # plotting functions
@@ -63,6 +59,7 @@ hist(x, bins=n, normed=False, cumulative=False)
 vlines(x, vmin, vmax)
 text(x, y, text, fontsize=12, ha='center', va='center', rotation=45, bbox=)
   x, y scalars, not array!
+  fontweight='bold'
 annotate('text', xy=(x, y), xytext=(x, y), bbox=, arrowprops=, coords=) // x, y are scalars!
 for x, y, label in zip(all_x, all_y, all_labels):
   annotate(label, xy=(x, y), ha='left', va='bottom')
@@ -125,6 +122,12 @@ cmap([0.0, 0.5, 1.0])
 cm.Set1([0.1, 0.5, 0.7]) // must in in range [0, 1]!
 cm.rainbow(linspace(0, 1, n)) // return n colors from rainbow palette
 
+## Seaborn
+* https://stanford.edu/~mwaskom/software/seaborn/tutorial/color_palettes.html
+seaborn.color_palette('Set1', 8) // 8 colors of Seaborn Set1 palette
+'Dark2'
+'RdBu'
+
 ## Normalize
 cmap = cm.rainbow
 norm = colors.Normalize(vmin=, vmax=)
@@ -152,6 +155,7 @@ I is m x n x 3
 imshow(I)
 
 ## grid of images
+from mpl_toolkits.axes_grid1 import ImageGrid
 fig = plt.figure(figsize=(nrows * size, ncols * size))
 grid = ImageGrid(fig, 111,  # similar to subplot(111)
                  nrows_ncols=(nrows, ncols),
@@ -198,3 +202,27 @@ c = ax.contour(x, ...)
   x is W x H density matrix
   colors='w' // white contour lines
 ax.clabel(c, fontsize=9, inline=1) // add label to contour lines
+
+# savefig
+fig.savefig(path, ...)
+  format='png'  // jpeg not supported
+  bbox_inches='tight' // remove white boarder
+
+# Drawing shapes, rectangles, polygons
+from matplotlib import patches
+
+## Rectangle
+rect = patches.Rectangle((x, y), width, height, ...)
+  (x, y) is top-right corner; (0, 0) is top-right of image
+  fill=False
+  color='r'
+  linewidth=2
+ax.add_patch(rect)
+
+## Polygon
+poly = patches.Poly(corners, ...)
+  points=[[x1, y1], [x2, y2], ...]
+  fill=True
+ax.add_patch(poly)
+
+
