@@ -28,6 +28,7 @@ gq  // reindent line
 ## Rope
 :let g:pymode_rope=1  // must be activated
 <c-c>rr // rename word under curser
+<c-c>g // goto definition
 :PymodeRopeUndo
 :PymodeRopeNewProject // create new project (done automatically)
 

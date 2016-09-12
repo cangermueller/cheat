@@ -2,6 +2,10 @@
 DIR="$HOME/.bin-libevent"
 ./configure CFLAGS="-I$DIR/include" LDFLAGS="-L$DIR/lib" --prefix=/home/ca426/opt/stow/tmux-2.0
 
+# x11 ssh tunnel
+Can't open display X
+export DISPLAY='echo $DISPLAY right after login'
+
 # key bindings
 O // close other
 r // source conf
@@ -25,6 +29,8 @@ p // previous window
 swap-window -t 0 // rearrange windows
 move-window -t 1  
 kill-window -a // close all other windows
+> // move window
+< // rename window
 
 # Panes
 P, ; // last pane

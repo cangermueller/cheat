@@ -1,0 +1,17 @@
+# dynamic import
+from colabtools import adhoc_import
+
+# a
+adhoc_import.Initialize()
+import ...
+
+# b
+with adhoc_import.Google3():
+  import ...
+
+# c
+* Must be executed again to reload module
+* autoreload does not seem to work
+with adhoc_import.Google3CitcClient('toy'):
+  import google3... as x
+  x = reload(x) 

@@ -22,6 +22,9 @@ keysize=1.0
 key.title='title'
 key.xlab='xlab'
 key.ylab='ylab'
+
+# ticks font size
+cexRow=1.0, cexCol=1.0
   
 # Return value
 rowDendrogram
@@ -36,5 +39,9 @@ lmar=rbind(c(4, 3), c(2, 1))  // position matrix
   * sec row: row dendo / heatmap
 lhei=c(row1, row2)  // height of rows
 lwid=c(col1, col2)  // width of columns
+
+# Order rownames/colnames
+rownames(data)[rev(dendro$rowInd)]
+
 
 

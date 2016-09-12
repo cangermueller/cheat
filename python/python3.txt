@@ -103,3 +103,6 @@ import six
 for k, v in six.iteritems(d)  // iterator
 for v in six.itervalues(d)  // iterator
 for k in six.iterkeys(d)  // iterator
+
+## Misc
+from __future__ import division

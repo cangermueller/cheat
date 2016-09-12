@@ -1,0 +1,13 @@
+* Each record is string
+* Dependencies: //file/base:pyrecordio
+
+from google3.file.base import recordio
+
+with recordio.RecordReader(path) as reader:
+  for record in reader:
+    print(record)
+
+with recordio.RecordWriter(path, 'a') as writer:
+  writer.WriteRecord(record)
+
+

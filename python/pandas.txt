@@ -148,7 +148,7 @@ c1 < 10 // select by value; requires data_columns=True
 ### rhdf5
 * supports different data types
 * columns are arrays! : num [1:222092(1d)] 
-  -> as.vector(d[,c])
+  -> unlist(d[,c])
 store.put('df', df, format='t', data_columns=True)
 df <- h5read('file.h5', '/df/table')
 df <- h5read('file.h5', 'df')$table
