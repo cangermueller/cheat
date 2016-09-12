@@ -222,6 +222,7 @@ loadtxt('data.csv', sep=',')
 .ravel()  // flatten(); return reference
 .squeeze(axis=None) // remove single axis, e.g 3x1 -> 3
 a[:, newaxis] // vector to column vector
+a = np.expand_dims(a, axis=1) // add axis to 1d vector
 a.sqeeze()  // remove 1 dims, e.g. column vector to vector
 hstack((a, b))  // concat left - right
 vstack((a, b))  // concat top - down

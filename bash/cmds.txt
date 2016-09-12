@@ -61,11 +61,13 @@ quit
 gzip -c infile > outfile  // different src/dst
 
 # convert
-* convert IN OUT
-* -density 300 // 300 dpi
-* -resize 50%
-* - size 400x100
-* convert -delay 50 *.png animation.gif
+ convert IN OUT
+ -density 300 // 300 dpi
+ -resize 50%
+ - size 400x100
+convert -delay 50 *.png animation.gif
+convert *.png -append all.png // concatenate
+
 
 # od (octal dump)
 * od -t c // translate to character
@@ -78,3 +80,6 @@ gzip -c infile > outfile  // different src/dst
 # hd (hexdump) -> better use od
 * hd -c // character
 * hd -b // byte
+
+# xargs
+ls | xargs -Ix cmd x // cmd will be executed n times with different x

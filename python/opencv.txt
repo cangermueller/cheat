@@ -1,0 +1,6 @@
+img = imread('file.png') // read image and store a np.array
+
+# Converting color channels
+img_conv = cvtColor(img, CV_X2Y) // CV_X2Y specifies conversion
+CV_BGR2RGB // BGR (default format) -> RGB, W X H X 3
+CV_BGR2GRAY // W X H X 0

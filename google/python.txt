@@ -46,21 +46,15 @@ blaze build :hello.par
 
 flags.DEFINE_integer(name, default, descr)
 flags.DEFINE_string()
+flags.DEFINE_bool(verbose) == DEFINE_boolean
+  --verbose // True
+  --verbose=false // False
+  --verbose=0 // False
+  --verbose=1 // False
+  --noverbose // False
+  --verbose false // True, equal sign required!
 
-flags.RegisterValidator(name, lambda x: x > 0, message='Error')
 
-FLAGS = flags.FLAGS
-FLAGS.name
-
-
-# Style guide
-go/styleguide
-gpylint path/file.py
-  --help msg=C123
-buildifier BUILD // format BUILD file
-
-from module import submodule
-Do not import functions, but only modules
 
 
 # logging

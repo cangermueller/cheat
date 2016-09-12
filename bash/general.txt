@@ -69,6 +69,7 @@ ${file.tar.gz##*.} // gz
 ${#s} // length
 ${s:from:length}  // substr
 ${s/pattern/replace}
+${s//pattern/replace} // replace all
 sadasd
 
 

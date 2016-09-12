@@ -81,6 +81,7 @@ interp1d(x, y, kind='linear')
 # Convolution
 scipy.signal.convolve(x, k, mode='full')
 * convolution over x with kernel k
+
 ## full
 * size: n + k - 1
 k k k             k k k
@@ -93,3 +94,10 @@ k k k         k k k
 * size: n - k + 1
 k k k             k k k
 x x x x x  -> x x x x x
+
+## Other filters
+import scipy.ndimage.filters
+gaussian_filter(x, [size, size]) // convolve with size x size Gaussian kernel
+gaussian_laplace(...)
+...
+

@@ -38,14 +38,18 @@ py_test (
   )
 
 # Controlling visibility
+* Create package group in source BUILD
+* Includes all targets in that directory
 package_group (
-    name = 'attention',
-        '//research/biology/cad/learning/attention/...'
+    name = 'attention_group',
+    packages = [
+        "//research/biology/cad/learning/attention/..."
         ]
     )
 
+* Give package group visibility in target BUILD
 package(
     default_visibility = [ // must be package group, not target
-        ":attention"
+        "//research/biology/cad/learning/attention:attention_group"
         ]
     )
