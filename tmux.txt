@@ -1,5 +1,5 @@
 # install
-DIR="$HOME/.bin-libevent"
+DIR="$HOME/opt"
 ./configure CFLAGS="-I$DIR/include" LDFLAGS="-L$DIR/lib" --prefix=/home/ca426/opt/stow/tmux-2.0
 
 # x11 ssh tunnel
