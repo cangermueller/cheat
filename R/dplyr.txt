@@ -34,6 +34,7 @@ starts_with('prefix')
 ends_with('suffix')
 contains('substr')
 matches('pattern')
+matches('(c1|c2)') // one of these patterns
 one_of('c1', 'c2') // select by vector, select_
 
 # filter
@@ -89,7 +90,10 @@ slice(1)  // select single group member
   head(3) // first 3 record (does not always work!)
 top_n(3, id) // select top n ordered by id in DESCENDING order
   * returns MULTIPLE records, if id not unique!
+d %>% group_by(id) %>% arrange(col) %>% slice(1) %>% ungroup
+  * select unique record with max/min value in col
 sample_n(3) // sample three records of each group
+  * n <= nrow(d)!
 sample_frac(0.5)  // sample 50% of records from each group
 distinct  // unique members; more efficient than unique
 
@@ -146,6 +150,7 @@ fun_()
 filter_('c1 > 10')
 rename_('new'='old')
 arrange_('c1', 'desc(c2)')
+s = lapply(strings, as.symbol); groupby_(.dots=s)
 ## columns
 idx <- match(c('c1', 'c2'), data)
 data %>% select(idx)

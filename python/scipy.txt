@@ -3,6 +3,7 @@ dist = scipy.stats. // Generate RNG
   randint(low, high)
   norm(loc, scale)
   bernoulli,binom,gamma}()
+  uniform(loc, scale) // uniform [loc; loc + scale]
 .rvs(size=n)  // draw n samples
 .pdf(x)
 .cdf(x)
@@ -80,6 +81,7 @@ interp1d(x, y, kind='linear')
 # Convolution
 scipy.signal.convolve(x, k, mode='full')
 * convolution over x with kernel k
+
 ## full
 * size: n + k - 1
 k k k             k k k
@@ -92,3 +94,10 @@ k k k         k k k
 * size: n - k + 1
 k k k             k k k
 x x x x x  -> x x x x x
+
+## Other filters
+import scipy.ndimage.filters
+gaussian_filter(x, [size, size]) // convolve with size x size Gaussian kernel
+gaussian_laplace(...)
+...
+

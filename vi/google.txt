@@ -1,0 +1,13 @@
+# Code formatting (codefmt)
+\=b // format file
+\== // format line
+
+# g4
+G4Pending
+G4Lint
+  ,no / ,nc
+G4Diff
+
+# outline-window
+GoogleOutlineWindow ,oo
+QuickOutline <regex> ,oO

@@ -1,18 +1,29 @@
 # Magics
 %pylab  // start pylab mode
 
-# python script / console
-## within ipython session
+# _tkinter.TclError: couldn't connect to display "localhost:117.0"
+import matplotlib
+matplotlib.use('pdf')
+import matplotlib.pyplot as plt // AFTER matplotlib.use(...)!
+
+# Interactive / Python Script / Console
+## Script
+import matplotlib
+matplotlib.use('macosx') // Other backend of linux
+import matplotlib.pyplot as plt // after use!
+
+x = np.arange(10)
+y = x * 2
+fig, ax = plt.subplots()
+ax.plot(x, y)
+plt.show()   // shows figure
+
+## Within ipython session
 %pylab
 %run script.py
-## as stand-alone script
-fig, ax = plt.subplots(figsize=(10, 6)) // figsize is total size (not subplots)
-ax.hist(np.random.randn(100), color='green')
-plt.show()  // REQUIRED!
 
 
-fig.savefig()
-fig.show()  // only in python shell with %pylab
+
 
 # Global functions
 show()  // open plot
@@ -35,7 +46,6 @@ xlabel(), ylabel()
 xlim(), ylim(), axis([xmin, xmax, ymin, ymax])
 grid()
 tight_layout()  // reduce space between subplots
-show(), savefig()
 ax = add_axes([left, bottom, width, height]) // create additional axes; [0;1] relative to figure
 
 # plotting functions
@@ -53,14 +63,12 @@ scatter(x, y, color='black', s=20, marker=matplotlib.markers?)
 bar(x, y, width=barwidth) // vertical bars
 barh(x, y, height=barheight)  // horizontal bars
 imshow(image) // plot image (mxn array) values/heatmap
-contour(x, y, z, color=, cmap=)
-  x, y are vectors defining range
-  z is function value
 plot_surface(x, y, z, cmap=)  // from mpl_toolkits.mplot3d.axes3d import Axes3D
 hist(x, bins=n, normed=False, cumulative=False)
 vlines(x, vmin, vmax)
 text(x, y, text, fontsize=12, ha='center', va='center', rotation=45, bbox=)
   x, y scalars, not array!
+  fontweight='bold'
 annotate('text', xy=(x, y), xytext=(x, y), bbox=, arrowprops=, coords=) // x, y are scalars!
 for x, y, label in zip(all_x, all_y, all_labels):
   annotate(label, xy=(x, y), ha='left', va='bottom')
@@ -74,7 +82,7 @@ set_ylabel('y')
 set_xlim([start, end])
 axis([xmin, xmax, ymin, ymax])
 set_axis_off()  // turn axis off
-grid()
+grid(..)
 set_xscale('log')
 set_xticks([1, 2, 3])  // set position of ticks
 set_xticklabels(['A', 'B', 'C'])  // set labels of ticks
@@ -86,7 +94,11 @@ ax.plot(ax.get_xlim(), ax.get_ylim(), ls='--', c='0.3') // diagonal line
 # legend
 plot(x, y, label='curve1')
 plot(x, y, label='curve2')
-legend(loc='best,center right,lower right')
+legend(...)
+  loc=best, upper [left|center|right], lower [lcr], right, center
+  ncol=
+  mode='expand'
+
 
 
 # coordinate transformations
@@ -115,9 +127,15 @@ linewidth
 import matplotlib.cm as cm
 cmap = cm.rainbow  // color map class
 cmap([0.0, 0.5, 1.0])
-  * return colors for different values
-  * default range: [0;1]
+  * return colors for different values in range ! [0, 1] !
+cm.Set1([0.1, 0.5, 0.7]) // must in in range [0, 1]!
 cm.rainbow(linspace(0, 1, n)) // return n colors from rainbow palette
+
+## Seaborn
+* https://stanford.edu/~mwaskom/software/seaborn/tutorial/color_palettes.html
+seaborn.color_palette('Set1', 8) // 8 colors of Seaborn Set1 palette
+'Dark2'
+'RdBu'
 
 ## Normalize
 cmap = cm.rainbow
@@ -130,9 +148,11 @@ colors = mapper.to_rgba(values)
 * plot 2d matrix in the way it is in memory (X[0,0] top/left)
 matshow(M, ...) // simple; no interpolation
 imshow(M, ...)  // complex; interpolation
-  interpolation='nearest,none'
+  * colors
+  interpolation=None, nearest, bilinear, spline16, ...
   cmap='RdBu', 'RdBu_R', 'binary', cm.RuBu
   aspect='auto', 10, 100 // adjust width/height
+grid(axis='both', linestyle='') // no grid
 
 ## grey scale image (mnist)
 I is m x n
@@ -143,9 +163,18 @@ imshow(I, cmap='binary')
 I is m x n x 3
 imshow(I)
 
+## grid of images
+from mpl_toolkits.axes_grid1 import ImageGrid
+fig = plt.figure(figsize=(nrows * size, ncols * size))
+grid = ImageGrid(fig, 111,  # similar to subplot(111)
+                 nrows_ncols=(nrows, ncols),
+                 axes_pad=0.05, add_all=True, label_mode='L')
+for ax in grid:
+    x = np.random.rand(100, 100)
+    ax.imshow(x)
 
-
-# colorbar
+## Colorbar
+im = ax.imshow(...)
 fig.colorbar(im, orientation='horizontal')
   * Don't know how to do specific for each axis
   orientation='horizontal'
@@ -175,5 +204,34 @@ from scipy.stats import gaussian_kde
 fun = gaussian_kde(samples)
 x = np.linspace(0, 1, 100)
 y = fun(x)
+
+# contour plot
+* http://matplotlib.org/examples/pylab_examples/contour_demo.html
+c = ax.contour(x, ...)
+  x is W x H density matrix
+  colors='w' // white contour lines
+ax.clabel(c, fontsize=9, inline=1) // add label to contour lines
+
+# savefig
+fig.savefig(path, ...)
+  format='png'  // jpeg not supported
+  bbox_inches='tight' // remove white boarder
+
+# Drawing shapes, rectangles, polygons
+from matplotlib import patches
+
+## Rectangle
+rect = patches.Rectangle((x, y), width, height, ...)
+  (x, y) is top-right corner; (0, 0) is top-right of image
+  fill=False
+  color='r'
+  linewidth=2
+ax.add_patch(rect)
+
+## Polygon
+poly = patches.Poly(corners, ...)
+  points=[[x1, y1], [x2, y2], ...]
+  fill=True
+ax.add_patch(poly)
 
 

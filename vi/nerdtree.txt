@@ -1,10 +1,18 @@
-? // toogle help
-p // go to parent
-P // go to root
+# Opening
+o // show in current
+go // show in current no switch
+i, gi // split horizontally
+s, gs  // split vertically
+e // explore directory
+
+
+# Directories
 r // refresh cursor dir
+R // refresh recursively
 C // set root to selected item
-cd  // change pwd to selected dir
-m // show menu
+cd  // change :pwd to selected dir
+CD // change dir to :pwd
+m // show menu for editing
 I // show hidden files
 
 # Bookmarks

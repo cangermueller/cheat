@@ -1,7 +1,11 @@
-# Checking streams
+# Reading from stdin / stderrr
 not sys.stdout.isatty() // file.py | cmd; file.py > out
 not sys.stderr.isatty() // file.py 2> err
 not sys.stdin.isatty()  // cmd | file.py
+if not sys.stdin.isatty():
+  for line in sys.stdin:
+    ...
+  lines = [x.strip() for x in sys.stdin.readlines()] // 'line1\n', 'line2\n'
 
 # file
 ## Reading content
@@ -51,10 +55,12 @@ os.chdir(dir) // change working directory
 import glob
 glob.glob('dir/*.py')
 os.remove(file) // remove/delete file
-os.rmdir(dir) // remove/delete dir
+os.rmdir(dir) // remove/delete EMPTY dir; see shutil.rmtree
 import shutil
 shutil.copyfile(src, dst) // copy file
 shutil.copytree(src_dir, dst_dir) // dopy dir
+shutil.move(src, dst) // rename, move file like mv
+shutil.rmtree(path) // remove dir with content
 
 # execute system/shell command
 import subprocess as sp
@@ -89,8 +95,8 @@ import tempfile
 fd, name = mkstemp(...) // name is abs filename; fd is file descriptor
   prefix='abc'
   suffix='.h5'
-  dir='./my_tmp
-path = mkdtemp(dir=, prefix=, suffix=)  // create temp dir and return rel path
+  dir='/tmp'
+path = mkdtemp(dir=, prefix=, suffix=, dir=)  // create temp dir and return rel path
 
 
 # String file

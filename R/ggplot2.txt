@@ -58,7 +58,15 @@ theme_classic()
 theme_light()
 theme_minimal()
 theme_grey()
-theme(panel.backgroud=element_blank())
+theme(...)
+  # Transparent background
+  panel.background=element_rect(fill="transparent", colour = NA),
+  plot.background=element_rect(fill="transparent", colour = NA),
+  plot.margin=unit(c(top, right, bottom, left), 'cm')
+  axis.title.y=element_text(margin=margin(0, 20, 0, 0))
+  axis.title.x=element_text(margin=margin(20, 0, 0, 0))
+    * top, right, bottom, left
+
 
 # ggdendro
 plot_hclust <- function(hc) {
@@ -81,9 +89,6 @@ geom_errorbar(x=, ymin=, ymax=)
 geom_ribbon(x=, ymin=, ymax=) // fill between lines
 geom_area(x=, y=) // fill underneath line
 
-# Transparent background
-theme(plot.background=element_rect(fill='transparent', color=NA))
-
 # Text
 geom_text(aes(label=sprintf('%f', value)), hjust=, vjust=, size=, angle=)
 vjust=-.2, hjust=0  // align top right
@@ -97,15 +102,20 @@ ggtitle(title)
 
 # Axis
 coord_cartesian(xlim=c(min, max), ylim=c(min, max)) // zoom, do not discard points
-scale_x_continuous(limis=c(min, max), breaks=, labels=) // xlim (points discarded), breaks, labels axis
+scale_x_continuous(limis=c(min, max), ...)
+  * points not discarded compared with xlim
+  breaks= // major ticks
+  minor_breaks=seq(min(d$x), max(d$x), by=1) // minor ticks
   breaks=rev(seq(0, 1, len=4)), labels=seq(0, 1, 0.25)  // reverse axis
 xlim(min, max)  // discard points
 xlab('x'), ylab('y')
 theme(
-  axis.title=element_blank(), axis.title.x=, axis.title.y= // no axis labels
+  axis.title=element_blank(), // xlab, ylab
+  axis.title.x=element_text(vjust=-1) // move xlab down
+  axis.title.y=element_text(hjust=-1) // move ylab left
+  axis.text.x=element_blank() // xticks
   axis.text.x=element_text(angle=-90))  // rotate axis ticks labels
   axis.text.x=element_text(angle=35, hjust=1)) // rotate and offset
-  axis.text.x=element_blank() // no xlabs
 element_text(...)
   angle=
   vjust=0, hjust=0
@@ -124,8 +134,13 @@ scale_color_brewer(palette='Set1')
 scale_color_manual(values=c('g1'='red', 'g2'='blue'))
 scale_color_gradient(low='black', high='red')
 scale_fill_gradient2(low='blue', mid='white', high='red', midpoint=0.5)
+## brewer red/blue
+scale_color_gradient2(low='#0571b0', mid='#f7f7f7', high='#ca0020')
 scale_fill_gradientn(colors=brewer.pal(7, 'Spectral')) // see brewer.txt
+scale_fill_continuous(limits=c(0, 1)) // set color range
 scale_size_discrete(range=c(3, 1, 2))
+scale_size(range=c(1, 6)) // adjust min/max size of points
+scale_alpha(range=c(0.1, 1)) // adjust min/max alpha
 
 ## default color palette
 scale_fill_hue(), scale_fill_brewer() // default colors
@@ -135,17 +150,30 @@ gg_color_hue <- function(n) {
 }
 
 # Legend
-theme(legend.position='bottom', legend.direction='horizontal')  // global legend settings
-geom_point(show_guide=FALSE)  // turn all legends of points off
+theme( // global settings
+  legend.position='bottom',
+  legend.direction='horizontal'
+  legend.box='horizontal' // stack color,size,shape ... horizontally
+  legend.key.width=unit(2, 'cm')
+  ) 
+theme(legend.position='none') // no legend
 geom_points() + guides(size=FALSE)  // turn specific legends off
 scale_fill_discrete(guide=FALSE) // turn specific legends off
 guides(color=guide_legend(...), size=guide_legend(...)) // change legend format
   guide_legend(title='New title', nrow=, ncol=, keywidth=, ...) // change legend format
   guides(color=guide_legend(ncol=7), size=guide_legend(title='# CpGs')) +
+guide_legend(...) // discrete
+guide_colorbar(...) // continuous
+  title=
+  barheight=3
+  label.position='right' // yticks
+  label.theme=element_text(angle=0, size=8)
+  nrow=, ncol=,
+  keywidth=
+  override.aes = list(size=10)  // point size
+  
+  
 
-scale_fill_continuous(limits=c(0, 1)) // set color range
-scale_size(range=c(1, 6)) // adjust min/max size of points
-scale_alpha(range=c(0.1, 1)) // adjust min/max alpha
 
 
 # Multiple overlapping plots
@@ -192,10 +220,6 @@ grid.arrange(...)
   * size depends on dev() size
   * format = file extension
 
-= geom="smooth"
-* method="loess", span=0.1
-* method="lm", formula=y~x , formula=y~I(x^2)
-
 = geom="histogram"
 * qplot(var, geom="histogram")
 * qplot(var, ..density.., geom="histogram") // show density instead of counts
@@ -218,24 +242,6 @@ facet_wrap(~var, ...)
 facet_grid(xvar~.)
 facet_grid(xvar~yvar)
 
-* p <- ggplot()
-* p + layer(geom="geom_point", geom_params=list(col="darkblue"))
-* p + geom_point(col="darkblue")
-* Mapping to variables: 
-  * geom_point(aes(color=factor)), geom_point(aes(col="darkblue"))
-  * qplot(color=factor)
-* Setting to single values:
-  * geom_point(color="darkblue")
-  * qplot(color=I("darkblue"))
-
-== Grouping
-* library(nlme)
-* ggplot(Oxboys, aes(age, height)) + geom_line()  // Not grouped by subject
-* ggplot(Oxboys, aes(age, height, group=Subject)) + geom_line()  // grouped by subject
-* group=1 // sets grouping to complete data; overwrites default grouping
-  * ggplot(Oxboys, aes(age, height, group=Subject)) + geom_line() + geom_smooth(aes(group=1), lwd=2)
-  * ggplot(data=dia, aes(x=cut)) + geom_histogram(aes(y=..density.., group=1))
-
 # geom_bar
 aes(x=ptpn22, fill=t1d) // count number of TRUE / FALSE
 stat='identity'
@@ -246,7 +252,8 @@ position=
 
 # geom_smooth
 aes(group=sample) // line for each sample
-method=loess,lm
+method=auto,loess,lm
+  * Use method='loess' to change span=x, method.args=list(degree=y)
 span=0.75 // loess span
 se=F  // no confidence interval
 level=0.95  // confidence level
@@ -270,6 +277,12 @@ ggplot(pannos, aes(x=anno, y=auc)) +
   geom_boxplot(aes(fill=model), alpha=0.3) +
   geom_point(aes(fill=model, color=sample), size=1.5,
     position=position_jitterdodge(jitter.width=0, jitter.height=0, dodge.width=0.9))
+
+# geom_point(...)
+  shape=21, color='black', fill='red' // dot with black border
+
+
+
 
 # Nature Figures
 * ps, eps, tif, ai

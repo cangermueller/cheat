@@ -12,11 +12,25 @@
 -r  // readable
 -w  // writeable
 -x  // executable
+## Integer comparison
+-eq // equal
+-ne // not equal
+## String comparision
 s1 == s2 // strings equal
 s1 != s2 // strings unequal
 !expr  // not
 expr -a expr  // and
 expr -o expr  // or
+
+# Integer comparision
+$num1 -ge $num2 // >=
+$num1 -gt $num2 // >
+$num1 -le $num2 // <=
+$num1 -lt $num2 // <
+
+# Floating point comparison
+echo $num1 '>' $num2 | bc -l // returns 1 or 0
+if [ $(echo $num1 '>' $num2 | bc -l) -eq 1 ]
 
 # extended test
 [[ ... ]]
@@ -32,3 +46,4 @@ $s =~ regex // regex matched anyware
   . // single character
   ? // single character
   * // multiple characters
+

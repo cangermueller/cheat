@@ -1,6 +1,9 @@
 # misc
 theano.test() // test theano installation
 
+# bug: convolution dimension mismatch
+check cuda version
+
 
 # installation
 ## ebi

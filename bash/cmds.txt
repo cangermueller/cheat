@@ -22,6 +22,9 @@ get remote_file // download remove file
 delete remote_file
 quit
 
+# wget
+-O destination_file
+
 # tree
 * -L  maxlevels
 * -d  // only directories
@@ -56,3 +59,27 @@ quit
 
 # gzip
 gzip -c infile > outfile  // different src/dst
+
+# convert
+ convert IN OUT
+ -density 300 // 300 dpi
+ -resize 50%
+ - size 400x100
+convert -delay 50 *.png animation.gif
+convert *.png -append all.png // concatenate
+
+
+# od (octal dump)
+* od -t c // translate to character
+* od -t d1  // translate one byte to signed integer
+* od -t u1  // translate one byte to unsigned integer
+* od -t x1  // translate one byte to hex
+* od -t dI  // translate four bytes to integer
+* od -t c -t u1 // translate to character and unsigned integer
+
+# hd (hexdump) -> better use od
+* hd -c // character
+* hd -b // byte
+
+# xargs
+ls | xargs -Ix cmd x // cmd will be executed n times with different x

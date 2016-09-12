@@ -80,6 +80,7 @@ d = [fg].create_dataset(path, ...)
   compression_opts=4  // compression level, default=4
   maxshape=(None, 100)  // resizeable dataset
 
+
 ## Examples
 d[:i, :j] = value // Assign value to parts
 f = [fg].create_dataset('d1', data=d1)   // initialize with data
@@ -100,6 +101,14 @@ d[0] = (1, 1.2, 'Christof')
 chunks=None // no chunking by default
 chunks=True // auto chunking
 chunks=(n,m) // chunk size n x m; tuple, not list or int required !!
+
+## Resizeable datasets
+ds = f.create_dataset(name, shape=(nb_row,...), maxshape=(nb_max,...)
+  * maximum nb_row rows at beginning, can later be increased with resize(...)
+  * size is not resized automatically
+  * maxshape is max that can be used in resize(...)
+ds.resize((nb_new_row, ...)) // increase or decreases size
+
 
 # delete dataset
 del f['/group/dataset']
@@ -127,3 +136,11 @@ attr['a'] = np.arange(10)
 s = [x.encode() for x in ['a', 'b', 'c']
 [fg].create_dataset(data=s)
 [fg].attrs['columns'] = s
+
+# Bug: large file
+if group in out_file:
+  del out_file[group]
+
+# Copy groups between files
+for k in src_file.keys():
+  src_file.copy(k, dst_file)

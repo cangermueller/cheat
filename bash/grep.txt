@@ -1,6 +1,9 @@
 grep pattern file1 file2  // print files containing pattern
 grep pattern dir1 dir2 -R // all files in dir1 or dir2
 grep -e pattern1 -e pattern2  // multiple pattern
+  * pattern1 OR pattern2
+  * Use pattern1.*pattern2 or multiple grep cmds for AND
+
 -i  // ignore case
 -c  // count matches
 -v  // invert matches

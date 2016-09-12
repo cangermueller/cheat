@@ -16,4 +16,11 @@ LIKE  // allows patters (LIKE 'Test%'); slow
   _ // any character
 
 # Show tables
-SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
+SELECT name FROM sqlite_master WHERE type='table';
+
+# Copy from other database
+ATTACH 'src.sql' as src;
+INSERT INTO table SELECT * FROM src.table;
+
+# Update values
+UPDATE table SET field=value WHERE cond;

@@ -1,36 +1,7 @@
-== pROC
-* Slower than pROC, but easier to use
-* Visualization, confidence interval, hypothesis test
-* roc <- roc(p, y)
-  * roc@sens
-  * roc@spec
-  * roc@thres
-* plot.roc(roc, ...)
-  * ci=F  // confidence interval
-  * print.auc=F // print auc
-  * print.thres=F // print predictor threshold
-    * TRUE  // threshold that maximizes sens+spec
-    * 0.5 // p=0.5
-* plot.ci(ci, ...)
-  * type="bar"  // bars
-  * type="shape"  // filled shape
-* ci(roc, ...)  // compute confidence interval
-  * type="se" // sensitivity
-  * type="sp" // specificity
-  * type="auc"  // auc
-  * method="bootstrap"  // bootstrap confidence interval
-  * method="delong" // delong approximation based on U-statistic -> faster than bootstrap
-* roc.test(...)
-  * roc.test(roc1, roc2)
-  * roc.test(response, pred1, pred2)
-  * method="bootstrap"
-  * method="delong"
-  * alternative="two.sided, less, greater"
-
 == ROCR
 * Faster than pROC!
 * Different curves: TPR/FPR, Sens/Spec
-* ROC threshold can colored
+* ROC threshold can be colored
 * Statistics: AUC, MCC, ...
 * No confidence intervals, hypothesis tests
 
@@ -52,6 +23,39 @@ auc_score <- function(y, yp) {
   h <- unlist(ROCR::performance(pred, 'auc')@y.values)
   return (h)
 }
+
+== pROC
+* Very slow, only use to get p-values/confidence
+* Only compute TPR,TNR, not precision, etc.
+* Visualization, confidence interval, hypothesis test
+* roc <- roc(p, y, ...)
+  ci=T  // confidence is T by default; seems to have no impact on speed
+  algorithm=2 // way faster than algorithm=1 (default)
+  * roc@sens
+  * roc@spec
+  * roc@thres
+* plot.roc(roc, ...)
+  * ci=T  // true by default
+  * print.auc=F // print auc
+  * print.thres=F // print predictor threshold
+    * TRUE  // threshold that maximizes sens+spec
+    * 0.5 // p=0.5
+* plot.ci(ci, ...)
+  * type="bar"  // bars
+  * type="shape"  // filled shape
+* ci(roc, ...)  // compute confidence interval
+  * type="se" // sensitivity
+  * type="sp" // specificity
+  * type="auc"  // auc
+  * method="bootstrap"  // bootstrap confidence interval
+  * method="delong" // delong approximation based on U-statistic -> faster than bootstrap
+* roc.test(...)
+  * roc.test(roc1, roc2)
+  * roc.test(response, pred1, pred2)
+  * method="bootstrap"
+  * method="delong"
+  * alternative="two.sided, less, greater"
+
 
 == OptimalCutpoints
 * library(OptimalCutpoints)
