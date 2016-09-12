@@ -6,18 +6,22 @@ import matplotlib
 matplotlib.use('pdf')
 import matplotlib.pyplot as plt // AFTER matplotlib.use(...)!
 
-# python script / console
-## within ipython session
+# Interactive / Python Script / Console
+## Script
+import matplotlib
+matplotlib.use('macosx') // Other backend of linux
+import matplotlib.pyplot as plt // after use!
+
+x = np.arange(10)
+y = x * 2
+fig, ax = plt.subplots()
+ax.plot(x, y)
+plt.show()   // shows figure
+
+## Within ipython session
 %pylab
 %run script.py
-## as stand-alone script
-fig, ax = plt.subplots(figsize=(10, 6)) // figsize is total size (not subplots)
-ax.hist(np.random.randn(100), color='green')
-plt.show()  // REQUIRED!
 
-
-fig.savefig()
-fig.show()  // only in python shell with %pylab
 
 # Global functions
 show()  // open plot
