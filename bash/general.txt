@@ -31,6 +31,7 @@ service NAME COMMAND
   stop
   start
   restart
+service --status-all // list all services
 
 # open ports
 sudo netstat -tulpn
