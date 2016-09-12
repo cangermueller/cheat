@@ -6,6 +6,11 @@ python [args]
 
 # Install
 ./configure --enable-shared --prefix=$STOW/python3.4.2
+## $HOME/opt is a directory error
+* Modify Makefile
+OPT=		-DNDEBUG /homes/angermue/opt
+-->
+OPT=		-DNDEBUG
 
 # Suppress warnings
 import warnings
