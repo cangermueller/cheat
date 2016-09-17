@@ -1,0 +1,23 @@
+?ctrlp-mappings
+
+c-p // open
+c-c // exit
+c-f, c-b // cycle between modes
+c-d // filename only
+c-r // regex mode
+c-[jk] // up, down
+c-[np] // next, previous pattern
+F5 // refresh cache
+F7 // delete (marked) entries from MRU list
+:cd path // change working directory
+
+../ // go one dir up
+
+# Opening
+c-t // tab
+c-v // vertical split
+c-x // horizontal split
+c-z // mark files for opening
+
+CtrlPBookmarkDir
+CtrlPBookmarkDirAdd

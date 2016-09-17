@@ -1,4 +1,21 @@
-# Copying path finder/terminal
+# Misc
+ctrl-shift-power // lock screen
+^ = ctrl
+
+
+# Finder
+rm ~/Library/Preferences/com.apple.finder.plist* // Delete folder view settings
+find / -name '.DS_Store' -type f -delete // Delete all .DS_Store files
+
+## Default view
+Size: 52x52
+Grid: half slider
+Text: 11
+Arrange: name
+Sort: kind
+
+
+## Copying path finder/terminal
 terminal -> finder
   open .
 finder -> terminal
@@ -23,8 +40,6 @@ open -a firefox index.html
 dir="/Applications/X.app/Contents/MacOS"
 sudo mkdir -p $dir
 sudo cp bin $dir
-
-^ = ctrl
 
 # currencies
 ^ + shift + 2 // euro
@@ -88,7 +103,35 @@ cmd+shift+a // copy short
 shift+enter // insert next author
 
 # Word
-cmd-opt-z // go back to last position
+* Tools -> Customize keyboard
+
+## Navigation
+shift-cmd-v // paste special
+opt-cursor // navigate
+shift-opt-cursor // switch pages
+opt-delete // delete word
+opt-shift-delee // delete word forward
+
+## Find, replace, gogo
+cmd-f // find
+cmd-shift-f // find dialog
+cmd-shift-r // replace dialog
+opt+cmd+g // goto menu
+shift+cmd+s // save as
+
+## Changing
+cmd-z // undo
+cmd-shift-z // redo
+
+## Formatting
+cmd-b // bold
+cmd-i // italic
+cmd-opt-[123] // apply heading
+
+
+
+
+
 
 ## Advanced search
 Attachment content
