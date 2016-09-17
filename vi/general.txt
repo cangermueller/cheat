@@ -17,7 +17,10 @@ q // stop recording
 R   // start replace mode
 ## change
 I   // insert at beginning
+a   // insert at next position
 A   // insert at end
+o   // insert next line
+O   // insert previous line
 c^  // change till first character of line
 c0  // change till beginning of line
 C   // change till end of line
@@ -29,6 +32,7 @@ d0  // delete until beginning of line
 D   // delete until end of line
 X   // delete character before cursor
 x   // delete character after cursor
+
 
 
 # diff files
@@ -153,13 +157,12 @@ middle mouse  // insert
 <c-w> // delete left word
 <c-h> // delete left character
 <c-u> // delete until beginning of line
-<c-j> // wrap line
-<c-m> // wrap line
+<s-j> // wrap line
 <c-d> // left indent <
 <c-t> // right indent >
 <c-r> i: insert from buffer 0 to command line
 
-# Normal mode key bindings
+# Scrolling
 <c-f> // scroll down page
 <c-b> // scroll up page
 <c-d> // scroll down block
@@ -167,6 +170,9 @@ middle mouse  // insert
 <c-y> // scoll up single
 <c-e> // scoll down single
 <c-r> // redo change
+H // top of page
+M // middle of page
+L // bottom of page
 
 # Scrolling
 z.  // to middle
@@ -252,13 +258,13 @@ let $e = 1  // write to environment variable
 let &o = 1  // write option
 
 ## Types
-buffer-variable    b:     Local to the current buffer.                          
-window-variable    w:     Local to the current window.                          
-tabpage-variable   t:     Local to the current tab page.                        
-global-variable    g:     Global.                                               
-local-variable     l:     Local to a function.                                  
-script-variable    s:     Local to a :source'ed Vim script.                     
-function-argument  a:     Function argument (only inside a function).           
+buffer-variable    b:     Local to the current buffer.
+window-variable    w:     Local to the current window.
+tabpage-variable   t:     Local to the current tab page.
+global-variable    g:     Global.
+local-variable     l:     Local to a function.
+script-variable    s:     Local to a :source'ed Vim script.
+function-argument  a:     Function argument (only inside a function).
 vim-variable       v:     Global, predefined by Vim.
 
 # Options
@@ -305,7 +311,7 @@ set rtp+=~/.vim/bundle/plugin # extend runtime path
 :lnext
 
 # Visual mode
-* range: 
+* range:
   * '<: start line
   * '>: end line
   * `<: start character
