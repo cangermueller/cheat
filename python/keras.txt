@@ -3,6 +3,46 @@
 w0 = model.get_weights()
 model.set_weights(w0)
 
+# Container
+c = Container(inputs, outputs, name=None)
+
+## Attributes
+inputs // list of input tensors
+input_names // names of input tensors
+outputs // list of output tensors
+output_names // names of output tensors
+
+## Methods
+get_weights()
+summary()
+
+
+# Model(Container)
+## Methods
+m = Model(optimizer, loss)
+m = Model(inputs=, outputs=)
+
+
+# Layer
+## Attributes
+name
+input / output
+trainable
+
+## Methods
+set_weights(weights)
+get_weights()
+call(x)
+count_params()
+
+
+# Functional API
+x = kl.Input(shape=(512,))
+y = kl.Dense(...)(x)
+m = Model(input=[x], output=[y])
+
+
+
 # Data
 from keras.datasets import (mnist, cifar10, imdb, ...)
 (X_train, y_train), (X_test, y_test) = data.load_data()

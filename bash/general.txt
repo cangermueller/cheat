@@ -1,7 +1,8 @@
 # Redirection
-echo Foo 1>&2 // stdout to error
-1>&2 echo foo 1>&2 // same as before
-1>&2 cat file
+x>&y // forward x to y
+echo 'Error' 1>&2 // stdout to stderr
+1>&2 echo 'Error' // same as before
+module avail 2>&1 | less // pipe stderr
 
 # Multi-line string
 var="line1\n
@@ -19,9 +20,6 @@ cat /etc/redhat-release
 
 # chmod, chown
 -R  // recursively
-
-# date
-date '+%y%m%d_%H%M%S'
 
 # loop over stdin
 cmd | while read line; do

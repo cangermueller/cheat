@@ -17,7 +17,7 @@ ReplaceUndo
 
 # Options
 \vyr  // toggle recursive mode
-\vyu  // swith to user mode
+\vyu  // switch to user mode
 \vyr  // switch to buffer mode
 \vs   // replace word under cursor (custom)
 
