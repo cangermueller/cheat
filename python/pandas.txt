@@ -20,7 +20,7 @@ d.assign(
   b=20,
   c=lambda x: x.a / x.b // function of other variables
   )
-  
+
 # Operations
 df.corr(...)  // correlation matrix
 df.apply(fun, axis=0) // apply function over axis
@@ -121,7 +121,7 @@ store.select_as_multiple(['t1', 't2'])  // read all chunks
 ### Selecting groups
 * better: h5py
 g = store['/group']
-g._v_name // name 
+g._v_name // name
 g._v_children // all children
 g._v_groups // all sub-groups
 g._v_parent // parent
@@ -147,7 +147,7 @@ c1 < 10 // select by value; requires data_columns=True
 
 ### rhdf5
 * supports different data types
-* columns are arrays! : num [1:222092(1d)] 
+* columns are arrays! : num [1:222092(1d)]
   -> unlist(d[,c])
 store.put('df', df, format='t', data_columns=True)
 df <- h5read('file.h5', '/df/table')
@@ -296,7 +296,7 @@ id | id2 | value
   1     1       5
         =>
       id2
-    id1 0  1 
+    id1 0  1
       0 3  4
       0 2  5
 df.pivot_table(index='id1', columns='id2', values='value')
@@ -308,7 +308,7 @@ df.pivot(index='id1', columns='id2')['value']
 ## Unstacked -> stacked
 pd.melt(df, id_vars='id1', var_name='id2', value_name='value')
 pd.melt(df, ...) // matrix -> list
-  id_vars= // columns that stay as they are 
+  id_vars= // columns that stay as they are
   var_name= // name of new key columns
   value_name= // name of new value column
 pd.melt(['a', 'b', 'c'], id_vars='a', var_name='id', value_name='value')
@@ -322,7 +322,7 @@ d = pd.concat([d1, d2])
   1   1   3003379   1   CSC2_3B
 dmatrix = pd.pivot_table(index=['chromo', 'pos'], columns='sample', values='value')
        sample  CSC2_3B   CSC2_3C
-  chromo  pos     
+  chromo  pos
   1   3003339        1   NaN
       3003379        1   NaN
       3003582        1   NaN
@@ -423,7 +423,7 @@ nth(0) == first()
 nth(-1) == last()
 nth(0, dropna='any')  // take first record without any nan
 agg == aggregate
-agg(np.mean)  // apply function to each column
+agg(np.mean)  // apply function to each column; must return unique value!
 agg([np.mean, np.std]) // apply multiple functions to columns
 agg({'c1': fun1, 'c2': fun2}) // apply different functions to columns
   * NOTE: returned column order is arbitrary!

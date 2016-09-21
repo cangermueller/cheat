@@ -42,7 +42,7 @@ stat_summary(...)
   fun.ymax=fun
   fun.data=fun
   geom=''
-ggplot(aes(x, y)) + 
+ggplot(aes(x, y)) +
   stat_summary(fun.y=mean, geom='point')  // plot mean
   stat_summary(fun.ymin=min, fun.ymax=max, geom='ribbon') // shade area
   stat_summary(fun.data='mean_cl_boot', geom='errorbar')
@@ -100,8 +100,14 @@ position=position_dodge(h=1, w=1) // avoid overplotting
 labs(title=title)
 ggtitle(title)
 
+# Zooming, ylim, range
+ylim(min, max) + stat_smooth(...)
+  * discards points first, then applies stat_smooth
+coord_cartesian(ylim(min, max)) + stat_smooth(...)
+  * applies stat_smooth first
+  * use for zooming only
+
 # Axis
-coord_cartesian(xlim=c(min, max), ylim=c(min, max)) // zoom, do not discard points
 scale_x_continuous(limis=c(min, max), ...)
   * points not discarded compared with xlim
   breaks= // major ticks
@@ -155,7 +161,7 @@ theme( // global settings
   legend.direction='horizontal'
   legend.box='horizontal' // stack color,size,shape ... horizontally
   legend.key.width=unit(2, 'cm')
-  ) 
+  )
 theme(legend.position='none') // no legend
 geom_points() + guides(size=FALSE)  // turn specific legends off
 scale_fill_discrete(guide=FALSE) // turn specific legends off
@@ -171,8 +177,8 @@ guide_colorbar(...) // continuous
   nrow=, ncol=,
   keywidth=
   override.aes = list(size=10)  // point size
-  
-  
+
+
 
 
 

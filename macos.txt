@@ -130,22 +130,11 @@ cmd-opt-[123] // apply heading
 
 
 
-
-
-
-## Advanced search
-Attachment content
-Creator // Author
-
 # brewer
 update  // update brewer
 list  // list all installed packages
 search name // search package
 install name  // install package
-
-
-
-
 
 
 # issues
@@ -156,3 +145,5 @@ Bundle 'jalvesaq/R-Vim-runtime'
 Bundle 'vim-scripts/Vim-R-plugin'
 
 
+# Thunderbird
+cmd-shift-a // insert attachment

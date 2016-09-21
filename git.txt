@@ -1,9 +1,21 @@
+# Adding local repository to GitHub
+Create new repository on GitHub
+git remote add origin https://github.com/cangermueller/deepcpg2.git
+git push -u origin master
+
 # Merging
 <<<<<<< HEAD
 Stuff in own branch
 =======
 Stuff in merged branch
 >>>>>>> ca35f63885df20778cad7a40c9e26e222c380ee2
+
+# Branches
+checkout -b new_branch // create and switch to new branch from current one
+checkout HEAD~2 -b new_branch // checkout certain version as new branch
+checkout 213123 // checkout in temp branch
+branch -m new // rename current branch to new
+branch -d name // delete branch
 
 # Misc
 status -u // show untracked files

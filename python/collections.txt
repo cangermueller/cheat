@@ -1,7 +1,22 @@
-import collections
-
 # OrderedDict
-d = OrderedDict([('a', 1'), ('b', 2)])
-for k, v in d.items()
-k = list(d.keys())
-v = list(d.values())
+from collection import OrderedDict
+d = OrderedDict()
+d['a'] = 1; d['b'] = 2; d.keys() == ['a', 'b'] // Order depends on insert time
+d.popitem() // removed last inserted item
+
+# deque
+d = deque([1, 2, 3])
+append(x) // append single item right
+appendleft(x)
+extend(x) // append multiple items
+extendleft(x)
+pop() // remove right
+popleft()
+rotate(n)
+
+# Counter
+c = Counter()
+c['a'] // 0 if not existing
+c[a'] += x // increase by x, even if non-existing
+
+

@@ -8,8 +8,9 @@
   D // vim-diff
   cc  // commit changes
 :Gdiff [revision] // diff revision
-:Gwrite // write and stage
 :Gedit, :Gsplit, :Gvsplit, :Gtabedit <revision>  // open revision for editing
+  -> See Key mapping below
+:Gwrite // write and stage
 :Ggrep git-grep // git grep; \cw for quickfix window
 :Glog // log of current file in quickfix
 :Gbrowse  // open current file in browser
