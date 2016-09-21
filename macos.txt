@@ -110,7 +110,8 @@ shift-cmd-v // paste special
 opt-cursor // navigate
 shift-opt-cursor // switch pages
 opt-delete // delete word
-opt-shift-delee // delete word forward
+opt-shift-delete // delete word forward
+cmd-shift-return // page break
 
 ## Find, replace, gogo
 cmd-f // find

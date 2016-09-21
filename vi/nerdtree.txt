@@ -14,6 +14,7 @@ cd  // change :pwd to selected dir
 CD // change dir to :pwd
 m // show menu for editing
 I // show hidden files
+e // explore selected directory
 
 # Bookmarks
 B // show bookmarks

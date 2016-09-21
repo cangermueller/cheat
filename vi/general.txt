@@ -1,3 +1,6 @@
+# Misc
+V // select entire line
+
 # Running shell
 :sh // starts shell; <c-d> to quit shell
 !cmd
