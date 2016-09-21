@@ -14,8 +14,15 @@
                 tests
 export PYTHONPATH=~/research/name:$PYTHONPATH
 
+
 # Relative import
+from __future__ import absolute import // needed for Python2
+from . import module // import module in CWD
+from .module import fun // import function in module in CWDmodule
+
+## Outside packages
 sys.insert(0, path.join(path.dirname(path.abspath(__file__)), '../biseq'))
+
 
 
 # Package hierarchy
@@ -24,7 +31,7 @@ sys.insert(0, path.join(path.dirname(path.abspath(__file__)), '../biseq'))
 * package: contains modules
 * modules: contains classes, functions
 pkg/
-  __init__.py 
+  __init__.py
     // must exist, but can be empty
     // executed when pkg is imported: import pkg
   __main__.py // optional, run by 'python pkg'
@@ -39,21 +46,11 @@ import pkg.spkg1.module
 import pkg.spkg2.module
 import pkg.module
 
-# Intra-package references
-* https://docs.python.org/2/tutorial/modules.html#intra-package-references
-pkg/
-  module.py
-  spkg1/
-    module11.py
-    module12.py
-  spkg2/
-    module21.py
-    module22.py
 
-## Implicit import
-import module12 // from module11; check 1) spkg1, 2) pkg, 3) sys.path
-
-## Explicit import
-from . import module12 // from module11
-from .. import spkg1  // import spkg1 from module11
-import ..spkg2 module21 // import spkg2.module21 from module11
+# Tools
+virutalenv  // create virtualenv
+virtualenvwrapper // manage several virtualenvs
+tox // run tests in different virtualenv
+versioneer  // automizes update version numbers
+sphinx  // documentation
+pyscaffold  // automatically creates package structure

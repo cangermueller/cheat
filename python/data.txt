@@ -41,6 +41,14 @@ for key, value in d.items():
 for key in d.iterkeys():
 for value in d.itervalues():
 
+# OrderedDict
+-> See collections.txt
+from collection import OrderedDict
+d = OrderedDict()
+d['a'] = 1; d['b'] = 2; d.keys() == ['a', 'b'] // Order depends on insert time
+d.popitem() // removed last inserted item
+d.move_to_end('a') // move item to the end
+
 # Sets
 s = set() // empty set; {} is hash!!
 s = {1, 2, 3}
@@ -55,6 +63,9 @@ x in s
 s | t // union; like [1, 2] + [3, 4] to concat lists
 s & t // intersection
 s.copy()
+s.add(3) // not +!
+s.union(s2) <=> s | s2 // not +!
+s.difference(s2) <=> s - s2
 
 # Tuples
 * sorted, immunable -> can be member of a set

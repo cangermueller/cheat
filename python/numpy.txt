@@ -235,8 +235,9 @@ tile(M, (3, 4)) // copy M 3x4
 ## Rolling, moving elements/values
 roll(a, steps, axis=0)  // rolls VALUES
 roll([1, 2, 3], 1) -> [3, 1, 2]
-rollaxis(a, axis, start=0)  // rolls AXES
-rollaxis(np.ones((3, 4, 2)), 1, 0) -> ((4, 2, 3))
+rollaxis(a, axis, start=0)  // moves axis to start
+rollaxis(np.ones((3, 4, 2)), 1, 0) -> ((4, 3, 2))
+rollaxis(np.ones((8, 3, 5, 6)), 3, 1) -> ((8, 6, 3, 5))
 swapaxes(a, a1 a2)  // swap axis a1 and a2
   swapaxes((m x n), 0, 1) --> (n x m)
 

@@ -27,7 +27,7 @@ p // previous window
 & // kill window
 . // change index of window
 swap-window -t 0 // rearrange windows
-move-window -t 1  
+move-window -t 1
 kill-window -a // close all other windows
 > // move window
 < // rename window
@@ -41,7 +41,7 @@ q // show pane numbers
 :swap-pane .p // swap current pane with p
 :swap-pane w.p  // swap current pane with p in window w
 c-o // swap with other clock-wise
-opt-1 // space equally vertically
+opt0 // space equally vertically
 opt-2 // space equally horizontally
 ! // break pane
 join-pane -t 1  // join pane
