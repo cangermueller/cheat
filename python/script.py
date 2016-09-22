@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
-import argparse
-import sys
-import logging
 import os.path as pt
+import sys
+
+import argparse
+import logging
 
 __dir = pt.dirname(pt.realpath(__file__))
 # sys.path.insert(0, pt.join(__dir, '../module'))
