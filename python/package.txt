@@ -16,6 +16,7 @@ export PYTHONPATH=~/research/name:$PYTHONPATH
 
 
 # Relative import
+* Does not work for scripts -> import base package required first
 from __future__ import absolute import // needed for Python2
 from . import module // import module in CWD
 from .module import fun // import function in module in CWDmodule
