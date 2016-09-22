@@ -75,7 +75,7 @@ l = [1, 2, 3]
 s = {l} // error
 s = {t} // no error
 
-# Strings
+# Strings, str
 '%d %.2f' % (10, 12.2)
 '{1} {0} {a2} {a1:d}'.format(1, 2, a1=10, a2=9) // more complex than %
 '{0} {1}'.format(*tuple)  // unpack from tuple
