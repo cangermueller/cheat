@@ -165,7 +165,7 @@ middle mouse  // insert
 <c-t> // right indent >
 <c-r> i: insert from buffer 0 to command line
 
-# Scrolling
+# Jumping, scrolling
 <c-f> // scroll down page
 <c-b> // scroll up page
 <c-d> // scroll down block
@@ -178,7 +178,7 @@ M // middle of page
 L // bottom of page
 
 # Scrolling
-z.  // to middle
+z., zz  // to middle
 zt  // to top
 zb  // to bottom
 zh, zH, zl, zL, zs  // horizontally
