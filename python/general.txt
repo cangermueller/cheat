@@ -128,3 +128,28 @@ import pkg.module
 # Bit operations
 -> Same as in C
 ~, |, &, <<, >>
+
+# Genenerators / iterators
+* Iterator is general concept
+* Generator is one form (yield) of iterator
+* Iterator: class with __iter__(self), __next__(self)
+* Generator: yield
+
+## Iterator
+* As class:
+  def __iter__(self):
+   self.i = 0
+   return self
+  def __next__(self):
+    if self.i == n:
+      raise StopIteration()
+    v = self.values[self.i]
+    self.i += 1
+    return v
+
+## Generator
+def myiter(n):
+  i = 0
+  while i < n:
+    i += 1
+    yield i
