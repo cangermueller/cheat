@@ -349,7 +349,7 @@ pd.concat([d1, d2], axis=0, ...) // join data.frames on indices
 pd.merge(a, b, ...) // join on common columns
   on=['c1', 'c2'] // set columns explicitly; overlap otherwise
   how='left'  // right, outer, inner
-  rsuffix, lsuffix  // if overlapping columns names
+  suffixes=['_x', '_y']  // suffixes appended for overlapping column names
   left_index=True, right_index=True // join on indices instead of columns -> like a.join(b)
 
 # Joining 2 DataFrames on indices

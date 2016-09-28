@@ -9,7 +9,12 @@
 
 # Commands
 Grep Pattern
+  -R // recursive
+  -w // whole word search
   -E pa\?\$ // -E for regex
+  -i  // case-insensitive
+  -m nb_hit // maximum # hits
+
 Replace what by
 Replace /what/by/
 Replace /num?y/numpy/
@@ -20,4 +25,3 @@ ReplaceUndo
 \vyu  // switch to user mode
 \vyr  // switch to buffer mode
 \vs   // replace word under cursor (custom)
-

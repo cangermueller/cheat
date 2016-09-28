@@ -7,28 +7,41 @@
   - // stage file
   D // vim-diff
   cc  // commit changes
+:Gblame // show last diffs
+  D // resize until date column
+  O // open in tab
+  o // open in horizontal split
+:Glog // show last commits and allow to browse through them
 :Gdiff [revision] // diff revision
+:Gedit // open file in worktree
+:Gedit - // open head
+:Gedit ~ // previous commit
+:Gedit ~2 // commit before previous
+
+
+
+
 :Gedit, :Gsplit, :Gvsplit, :Gtabedit <revision>  // open revision for editing
   -> See Key mapping below
 :Gwrite // write and stage
 :Ggrep git-grep // git grep; \cw for quickfix window
-:Glog // log of current file in quickfix
 :Gbrowse  // open current file in browser
 
 # Revisions
-code.py // file in worktree
+* e.g. :Gedit ~
+~ // HEAD (last version)
+~2 // 2nd last version
 HEAD: // tree of HEAD
 HEAD^:code.py // child of HEAD
 master^:code.py // master branch
-- // HEAD of current file
 ^ // ancestor of current file
-~1  // 1 commit ago
 
 # Key mappings in git objects
 - // go to tree
-under cursor
-  <CR>  // HEAD
-  o // HEAD split
-  O // HEAD tab
-  S // HEAD vsplit
-  ~ // previous commit
+~ // previous commit
+C // go to commit of current file
+<CR>  // HEAD
+D // show diff
+o // HEAD split
+O // HEAD tab
+S // HEAD vsplit

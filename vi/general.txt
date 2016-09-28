@@ -1,6 +1,13 @@
 # Misc
 V // select entire line
 
+# Path expansion
+<c-r>=expand('%:p')<cr>
+%:t // relative file name
+%:p // absolute file name
+%h:p  // absolute directory
+
+
 # Running shell
 :sh // starts shell; <c-d> to quit shell
 !cmd

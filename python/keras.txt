@@ -37,6 +37,7 @@ set_weights(weights)
 get_weights()
 call(x)
 count_params()
+summary() // short model summary
 
 
 # Functional API
@@ -260,3 +261,19 @@ probas_to_classes() // reverse to_categorical
 
 ## io_utils
 HDF5Matrix(path, dataset, start, end) // View on subset of matrix
+
+
+# Applications
+* Builds standard model, which can be initialized with pretrained weights
+* VGG16, VGG19, Inception, Resnet
+
+from keras.applications.inception import InceptionV3
+model = InceptionV3(weights='imagenet') // Usual model
+  weights=None  // initialize randomly
+  weights='imagenet' // use pretrained imagenet weights
+
+
+# Datasets
+* stored in ~/.keras/datasets
+from keras.datasets import mnist
+(X_train, y_train), (X_test, y_test) = mnist.load_data()
