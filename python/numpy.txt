@@ -289,8 +289,8 @@ random.randn(x, y, y) // ndarray form N(0, 1)
 random.randint(low, high, size)
 random.uniform(low, hight, size)
 random.normal(mean, std, size)
-np.shuffle(array) // shuffle entries inplace
-np.random.choice(array, size, replace=False)  // sample (without) replacement from array
+random.shuffle(array) // shuffle entries inplace
+random.choice(array, size, replace=False)  // sample (without) replacement from array
 
 ## Random state
 rng = np.random.RandomState(0)
