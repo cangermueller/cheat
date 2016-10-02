@@ -9,6 +9,7 @@ c = Container(inputs, outputs, name=None)
 ## Attributes
 inputs // list of input tensors
 input_names // names of input tensors
+input_shape // shape of input tensors
 outputs // list of output tensors
 output_names // names of output tensors
 
