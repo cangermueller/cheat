@@ -67,12 +67,21 @@ class Child(Parent):
 def static():
   // Class.static() or object.static()
   // no self (class) argument
-  // like static C++ 
+  // like static C++
 
 @classmethod
 def static(self):
   // Class.static() or object.static()
   // has self (class) argument
+
+
+@property // getter
+def value(self):
+  return self._value
+
+@value.setter // setter
+def value(self, new):
+  self._value = new
 
 
 # Multiple constructors
@@ -84,7 +93,17 @@ class Class:
   def from_data(cls, filename):
     data = read(filename)
     cls(data)
-    
+
+
+# Abstract classes
+from abc import ABCMeta, abstractmethod
+
+class MyClass(metaclass=ABCMeta):
+
+  @abstractmethod
+  def method(self, ...):  // at least one method must be decorated abstract
+    pass
+
 
 # Generator
 class Generator(object):

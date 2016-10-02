@@ -1,19 +1,36 @@
-# Misc
-## Reinitializing weights
+ Misc
+######
+K._BACKEND // tf / th
+K.floatx()  // default float precision
+
+Reinitializing weights
+======================
 w0 = model.get_weights()
 model.set_weights(w0)
 
-# Container
+Getting shape of tensors and layers
+===================================
+* tensor: x.get_shape()  // only for TensorFlow
+* layer: l.output_shape() // after it has been called with xx = l(x)
+
+
+
+
+
+Container
+#########
 c = Container(inputs, outputs, name=None)
 
-## Attributes
+Attributes
+==========
 inputs // list of input tensors
 input_names // names of input tensors
 input_shape // shape of input tensors
 outputs // list of output tensors
 output_names // names of output tensors
 
-## Methods
+Methods
+=======
 get_weights()
 summary()
 layers() // list of layers
@@ -21,60 +38,71 @@ get_layer(name) // layer by name
 output_layers() // last layers
 layers_by_depths[i] // ith layer
 
-# Model(Container)
-## Methods
+
+Model(Container)
+################
+
+Attributes
+==========
+optimizer
+  .lr.set_value(0.01)
+  lr.get_value()
+stop_training // True if early stopping
+
+Methods
+=======
 m = Model(optimizer, loss)
 m = Model(inputs=, outputs=)
 
+Saving model
+============
+model.save(path) // configs and weights to HDF5
+  -> keras.models.load_model(path)
+model.save_weights(path)
+  -> model.load_weights(path)
+model.get_weights() // weights as numpy arry
+model.get_layer('name').get_weights() // weights of layer
+model.to_json(), keras.model
+  -> keras.models.model_from_json(json)
+model.to_yaml()
 
-# Layer
-## Attributes
+
+Layers
+######
+
+Functional API
+==============
+x = kl.Input(shape=(512,))
+y = kl.Dense(...)(x)
+m = Model(input=[x], output=[y])
+
+Attributes
+==========
 name
 input / output
 trainable
 
-## Methods
+Methods
+=======
 set_weights(weights)
 get_weights()
+get_config()
 call(x)
 count_params()
 summary() // short model summary
 
 
-# Functional API
-x = kl.Input(shape=(512,))
-y = kl.Dense(...)(x)
-m = Model(input=[x], output=[y])
+Core
+====
+Reshape((3, 4)) // reshapes layer with 3*4 features to (3, 4)
+Permute((2, 1)) // changes dimensions (n, 3, 4) to (n, 4, 3)
+merge((l1, l2), mode='concat', concat_axis=1, ...) // lerges layers
+* Same as K.concatenate((l1, l1), axis=1)
+Merge(...) // merges models
 
 
-
-# Data
-from keras.datasets import (mnist, cifar10, imdb, ...)
-(X_train, y_train), (X_test, y_test) = data.load_data()
-* mnist: digit classification
-* cifar10: small image classification
-* cifar100: large image classification
-* imdb: text sentiment classification
-  X_ij = rank frequency word j in movie description i
-  y_i = sentiment movie (0=positive, 1=negative
-* reuters: text topic classification
-  X_ij = rank frequency word j in description i
-  y_i = topic 0-45
-
-# loss
-m.compile(loss=)
-categorical_crossentropy
-binary_crossentropy
-
-
-# Layers
-l.trainable = False // freeze layer -> not updated
-l.previous // previous layer
-l.input_shape (None, n)
-l.output_shape
-l.get_config()
-
-## Dense
+Dense
+=====
 core.Dense(nunits, ...)
   activation='relu'
   W_regularizer='l1', regularizer
@@ -83,7 +111,8 @@ core.Dense(nunits, ...)
   input_shape=(x,) // same as input_dim, but tuple
 
 
-## Convolution
+Convolution
+===========
 convolutional.Convolution2D(nkernels, ninput_channels, m, n, ...)
   * input: samples x channels x rows x columns
   * output: samples x nkernels x rows' x columns'
@@ -105,11 +134,13 @@ convolutional.Convolution1D(input_dim, nb_filters, input_len)
 convolutional.MaxPooling2D(...)
   poolsize=(2,2)
 
-## Visualizing filters
+Visualizing filters
+===================
 filters = m.layers[i].get_weights()[0]  // get filters
   num_filters x input_dim x filter_len x 1  // Convolution1D
 
-### border modes
+border modes
+============
 scipy.signal.convolve(x, k, mode='full')
 * convolution over x with kernel k
 >> full
@@ -126,14 +157,16 @@ k k k             k k k
 x x x x x  -> x x x x x
 
 
-# Embedding layers
+Embedding layers
+================
 embedding(input_dim, output_dim)
 * Transforms nsamples x seq_len --> nsamples x seq_len x output_dim
 * input_dim is maximum integer (word index) in input vector
 * Y = X W, where X is one-hot encoding of words
 
 
-# Recurrent layers
+Recurrent layers
+================
 input shape: nsamples x ntimesteps x input_dim
 output shape:
   nsamples x output_dim if return_sequences == False
@@ -141,101 +174,19 @@ output shape:
 return_sequences=False // only return last hidden state
 truncate_gradient=-1 // only compute gradient over last x steps
 
-## LSTM
+LSTM
+----
 activation='tanh'  // activation h'
 inner_activation='hard_sidmoid' // activation gates
 
-## GRU
+GRU
+---
 activation='sigmoid'  // activation h'
 inner_activation='orthogonal' // activation gates
 
 
-
-
-# regularizer
-import keras.regularizer
-l1, l2, l1l2
-
-# initializer
-import keras.initializers
-glorot_uniform
-normal
-uniform
-
-
-# Model
-m.optimizer // Optimizer, e.g. Adam
-  .lr.set_value(0.01)
-  .lr.get_value()
-m.stop_training // True if early stopping
-
-# Sequential model
-m = models.Sequential()
-m.add(layers.core.Dense())
-m.add(layers.core.Activation())
-m.compile(optimizer=, loss=)
-m.fit(x, y, ...)
-  nb_epoch=100
-  validation_data=(X_test, y_test)
-  show_accuracy=False
-  callbacks=[callback1, ...]  // see callbacks
-  class_weight={0: 1, 1: 1}
-  sample_weight=w // w has same length as y
-  batch_size=128
-  shuffle=[True, False, 'batch']
-    batch: 10 11 12 | 1 2 3 | 7 8 9 | 4 5 6
-      * Train on contiguous chunks
-      * For HDF5
-  verbose=1
-    0: no output
-    1: progress bar
-    2: no progress bar
-m.predict(x)  // predict_proba()
-m.predict_proba()
-m.predict_classes()  // [0, 1, 2]
-m.evaluate(X, y, show_accuracy=False) // loss (+ accuracy)
-m.layers[i]   // access Theano layer i
-
-# Saving model
-model.save(path) // configs and weights to HDF5
-  -> keras.models.load_model(path)
-model.save_weights(path)
-  -> model.load_weights(path)
-model.get_weights() // weights as numpy arry
-model.get_layer('name').get_weights() // weights of layer
-model.to_json(), keras.model
-  -> keras.models.model_from_json(json)
-model.to_yaml()
-  -> keras.models.model_from_yaml(yaml)
-
-
-# Graph model
-m.nodes['x']  // access Keras layer node by id
-m.nodes['x'].get_output() // Theano output node
-m.inputs // dict of Keras input layers
-m.input_order // ordered input names
-m.outputs // dict of Keras nodes
-m.output_order // order output names
-m.get_input() // dict of Theano tensors
-m.get_output() // dict of Theano tensors
-m.get_params() // shared parameters of all layers
-m.get_weights() // all weights (numpy arrays)
-m.optimizer
-
-## Example
-m.add_input(name='x', ndim=2)
-m.add_node(name='h1', input='x', layer=)
-m.add_node(name='z1', input='h1', activation='softmax')
-m.add_node(name='y1', input='z1')
-m.compile(loss={'y1': 'categorical_crossentropy'}, opt='adam')
-m.predict({'x': X_train})
-m.fit(...)
-  class_weight={'y': {0: 1, 1: 1}}
-  sample_weight={'y1': w1, 'y2': w2}
-
-
-
-# Callbacks
+Callbacks
+=========
 import keras.callbacks
 CallBack  // base class
 EarlyStopping
@@ -244,27 +195,30 @@ LearningRateScheduler
 
 
 
-# Preprocessing
-## Sequence
-from keras.preprocessing import sequence as s
-y = s.pad_sequences(seqs, maxlen, ...)
-  * seqs is list of n sequences with different length
-  * y is n x maxlen numpy array
-
-
-
-# Utils
+Utils
+#####
 import keras.utils
 
-## np_utils
+data_utils
+==========
+get_file(fname, url) // downloads file into cache directory
+
+np_utils
+========
 to_categorical([0, 1, 2], 3)  --> [[0 0 0] [0 1 0] [1 0 0]]
 probas_to_classes() // reverse to_categorical
+convert_kernel(kernel) // converts single kernel from TF <-> Theano
+layer_utils.convert_all_kernels_in_model(model) // converts all kernels
 
-## io_utils
+io_utils
+========
 HDF5Matrix(path, dataset, start, end) // View on subset of matrix
 
 
-# Applications
+
+
+Applications
+############
 * Builds standard model, which can be initialized with pretrained weights
 * VGG16, VGG19, Inception, Resnet
 
@@ -274,7 +228,19 @@ model = InceptionV3(weights='imagenet') // Usual model
   weights='imagenet' // use pretrained imagenet weights
 
 
-# Datasets
+
+Data
+####
 * stored in ~/.keras/datasets
-from keras.datasets import mnist
-(X_train, y_train), (X_test, y_test) = mnist.load_data()
+from keras.datasets import (mnist, cifar10, imdb, ...)
+(X_train, y_train), (X_test, y_test) = data.load_data()
+
+* mnist: digit classification
+* cifar10: small image classification
+* cifar100: large image classification
+* imdb: text sentiment classification
+  X_ij = rank frequency word j in movie description i
+  y_i = sentiment movie (0=positive, 1=negative
+* reuters: text topic classification
+  X_ij = rank frequency word j in description i
+  y_i = topic 0-45
