@@ -508,7 +508,8 @@ s.index = [0.1, 0.2, 0.3] // index does not need to be str
 s[0.1]  // 1
 for key, value in s.items():
   print(key, value)
-s.to_frame(col_name)
+s.to_frame(col_name) // Series to DataFrame columns
+  s.to_frame(col_name).T // Series to DataFrame row
 s.tolist()  // to list()
 s.to_frame()  // to DataFrame; name --> column
 s.values  // to np.array
@@ -702,5 +703,3 @@ a.values - b.values // broadcast numpy
 * better readability
 f(g(df, arg_g=1), arg_f=2)
 df.pipe(g, arg_g=1).pipe(f, arg_f=2)
-
-
