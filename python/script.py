@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 
-import os.path as pt
+import os
 import sys
 
 import argparse
 import logging
 
-__dir = pt.dirname(pt.realpath(__file__))
-# sys.path.insert(0, pt.join(__dir, '../module'))
+#  __dir = os.path.dirname(os.path.realpath(__file__))
+# sys.path.insert(0, os.path.join(__dir, '../module'))
 
 
 class App(object):
 
     def run(self, args):
-        name = pt.basename(args[0])
+        name = os.path.basename(args[0])
         parser = self.create_parser(name)
         opts = parser.parse_args(args[1:])
         return self.main(name, opts)
@@ -25,7 +25,7 @@ class App(object):
             description='Description')
         p.add_argument(
             'in_file',
-            help='HDF path where chromosome seqs can be found')
+            help='Input file')
         p.add_argument(
             '-o', '--out_file',
             help='Output file')
