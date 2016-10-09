@@ -46,9 +46,14 @@ for value in d.itervalues():
 -> See collections.txt
 from collection import OrderedDict
 d = OrderedDict()
+d = OrderedDict([('a', 1), ('b', 2)]) // Initialize in this order
+d = OrderedDict(zip(['a', 'b'], [1, 2])) // Same as before
+d = OrderedDict([(key, default) for key in ['a', 'b']]) // Init by default
+
 d['a'] = 1; d['b'] = 2; d.keys() == ['a', 'b'] // Order depends on insert time
 d.popitem() // removed last inserted item
 d.move_to_end('a') // move item to the end
+
 
 # Sets
 s = set() // empty set; {} is hash!!

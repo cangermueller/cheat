@@ -113,7 +113,7 @@ opt-delete // delete word
 opt-shift-delete // delete word forward
 cmd-shift-return // page break
 
-## Find, replace, gogo
+## Find, replace, goto
 cmd-f // find
 cmd-shift-f // find dialog
 cmd-shift-r // replace dialog
@@ -129,6 +129,9 @@ cmd-b // bold
 cmd-i // italic
 cmd-opt-[123] // apply heading
 
+# Thunderbird
+cmd-shift-a // insert attachment
+
 
 
 # brewer
@@ -138,13 +141,12 @@ search name // search package
 install name  // install package
 
 
-# issues
+# Bugs
+
+## vim
 sudo port install vim @7.4.729_1+gtk2+huge+perl+python27+x11
   +python34 // causes segfault
 
-Bundle 'jalvesaq/R-Vim-runtime'
-Bundle 'vim-scripts/Vim-R-plugin'
-
-
-# Thunderbird
-cmd-shift-a // insert attachment
+## pip, port
+* 'can not import pkg_resources'
+* reinstall pip / setuptools

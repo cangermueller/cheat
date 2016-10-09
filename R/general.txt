@@ -6,39 +6,11 @@ options(name=value) // set
 results <- tryCatch(f(), error = function(x) return (y))
   * return f(), or y if f() fails
 
-# Representing missing values
-* NA
-  * missing value
-  * c(1, NA) // integer NA
-  * c(TRUE, NA) // logical NA
-* NULL
-  * NULL object
-  * c(1, NULL)  // c(1)
-  * class(NULL) == 'NULL'
-* f = function(a, b)
-  * if (missing(b)) { ... }
-* NaN 
-  - Not a number
-  - 0 / 0
-  - class: numeric
-* Inf: 1 / 0
-
-# Misc
-suppressWarnings(...) // no warnings
-!is.na(suppressWarnings(is.numeric(s))) // check if string is numeric
-
-# Environment variables
-Sys.getenv(env)
-Sys.setenv(env)
-
-# Logical operators
-[T T T] &  [T F F] -> [T F F]  // element wise
-[T T T] && [T F F] -> T  // only first element
-
 # Packages
 * install.packages("name", dep=T): install package from CRAN
 * download.file("http://www.lepem.ufc.br/jaa/colorout_1.0-0.tar.gz", destfile = "colorout_1.0-0.tar.gz")
 * install.packages("colorout_1.0-0.tar.gz", type = "source", repos = NULL)
+* devtools::install_github('jalvesaq/colorout')
 * installed.packages()
 * available.packages()
 * remove.packages('pkg')  // uninstall package
@@ -56,6 +28,35 @@ Sys.setenv(env)
 * system.file("name", package="package")  // Find file in package directory
 * R.version // version VARIABLE
 * sessionInfo() // show R and packages versions
+
+# Representing missing values
+* NA
+  * missing value
+  * c(1, NA) // integer NA
+  * c(TRUE, NA) // logical NA
+* NULL
+  * NULL object
+  * c(1, NULL)  // c(1)
+  * class(NULL) == 'NULL'
+* f = function(a, b)
+  * if (missing(b)) { ... }
+* NaN
+  - Not a number
+  - 0 / 0
+  - class: numeric
+* Inf: 1 / 0
+
+# Misc
+suppressWarnings(...) // no warnings
+!is.na(suppressWarnings(is.numeric(s))) // check if string is numeric
+
+# Environment variables
+Sys.getenv(env)
+Sys.setenv(env)
+
+# Logical operators
+[T T T] &  [T F F] -> [T F F]  // element wise
+[T T T] && [T F F] -> T  // only first element
 
 # Rscript
 * Rscript main.R
@@ -102,7 +103,7 @@ Sys.setenv(env)
 * libraries() // list available libraries
 * vignette("name")  // show vignette: pdf + source code
   * vignette()  // show all available vignettes
-  * vignette("affy")  
+  * vignette("affy")
   * v <- vignette("affy"); edit(v)  // source code
 
 # Output
@@ -155,7 +156,7 @@ Sys.setenv(env)
 * Sys.getenv("DISPLAY") // get env variable
 * Sys.setenv(DISPLAY=":1.0")  // set env varibale
 * Sys.date(), Sys.time()
-* Sys.which("R")  
+* Sys.which("R")
 * Sys.sleep(10)
 
 # Environments
@@ -228,7 +229,7 @@ Sys.setenv(env)
 * droplevels(f) // drop unused levels
 * table(f)
 * as.vector, as.numeric // convert factor into vector
-* gl(2, 3, 9) 
+* gl(2, 3, 9)
   - generate factor with 2 classes, 3 repetitions and total length 6
   - 0 0 0 1 1 1 0 0 0
 * Changing order factor levels
@@ -247,4 +248,3 @@ Sys.setenv(env)
 * dim(v) = c(2, 5)  // convert vector into matrix
 * rownames(m) <- c(), colnames(m) <- c()
 * m[i, j, drop=F]  // always return matrix
-

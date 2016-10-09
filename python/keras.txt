@@ -2,6 +2,7 @@
 ######
 K._BACKEND // tf / th
 K.floatx()  // default float precision
+KERAS_BACKEND="tensorflow|theano" // env backend variable
 
 Reinitializing weights
 ======================
@@ -102,13 +103,26 @@ Merge(...) // merges models
 
 
 Dense
-=====
+-----
 core.Dense(nunits, ...)
   activation='relu'
   W_regularizer='l1', regularizer
   init='glorot_uniform', init
   input_dim=x // # previous units; required for first layer
   input_shape=(x,) // same as input_dim, but tuple
+
+Wrapper layers
+--------------
+* Layers that depend on other layers
+* Examples: TimeDistributed, Bidirectional, Attention
+l = Wrapper(layer)
+l(x)
+
+Lambda layers
+-------------
+* Helper function to write simple layers
+* l = Lambda(lambda x: x**2)
+
 
 
 Convolution
@@ -183,6 +197,7 @@ GRU
 ---
 activation='sigmoid'  // activation h'
 inner_activation='orthogonal' // activation gates
+
 
 
 Callbacks
