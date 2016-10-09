@@ -22,7 +22,7 @@ re.search(pattern, string, flags)
 for m in re.finditer(pattern, string)  // like search, but iter of all hits
 re.findall(pattern, string) // all matches as str in array
 re.split(p, s)  // split by p; s.split(p) does not support re
-re.sub(p, r, s) // subst ALL p in s by r
+re.sub(p, r, s) // subst ALL p in s by r and returns substituted string
   \1, \2, ... // backreference groups
   re.sub(r'(.)\1{2,}', r'\1', 'aaabbbccc')  // replace duplicate chars
 re.subn() // like sub, but return number of replacements
