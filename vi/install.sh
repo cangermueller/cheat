@@ -10,5 +10,4 @@
     --enable-gnome-check \
     --enable-multibyte \
     --with-x \
-    --prefix=$HOME/opt/stow/vim74
-
+    --prefix=$HOME/opt/stow/vim80

@@ -157,6 +157,8 @@ def update_averages():
 # Tensorboard
 ## General
 tensorboard --logdir path // path containes [train,test_eval,train_eval] dirs
+  --logdir m1:./model1/train,m2:model2/train
+  --port 6006
 
 tf.scalar_summary(name, tf.reduce_mean(x))
   name=x.op.name + '/mean' // should be x/mean

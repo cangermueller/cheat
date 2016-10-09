@@ -13,6 +13,14 @@ contains(re)  // contained regular expression
 find(str, start=0, end=len) // -1 if not find; start else
 lower()
 upper()
+split('_', expand=True) // split by pattern and return new frame
+  t = d.col.str.split('_', expand=True)
+  t.columns = ['a', 'b']
+  d = pd.concat([d, t])
+
+# Delete, exclude, drop columns
+d.drop(['c1', 'c2'], axis=1, inplace=True)
+
 
 # assign
 d.assign(
