@@ -33,7 +33,10 @@ gq  // reindent line
 :PymodeRopeNewProject // create new project (done automatically)
 
 # jedi
-* add package to PYTHONPATH if not found !
+## If package not found
+* Add to PYTHONPATH if not found !
+* modules must contain __init__.py
+
 c-space, c-x c-o // auto-completion
 \-K, K // show pydoc
 \-D // goto definition

@@ -19,4 +19,3 @@ def code(c):
 # Image
 ![alt_text](./image.png =800x600)
 <img src='logreg.png' width=600 height=400></img>
-

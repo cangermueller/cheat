@@ -22,7 +22,7 @@ file.exists()
 file.create()
 file.remove()
 file.info()
-file.path('/root', 'filename')  // combine path and filename
+file.path('/root', 'filename')  // join paths and filename
 basename(path)  // basename
 dirname(path) // dirname
 normalizePath(path) // absolute path; path must exist
@@ -59,4 +59,3 @@ readMat(file)
 * filename can be different
 saveRDS(d, filename)
 d2 <- readRDS(filename)
-

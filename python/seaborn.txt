@@ -69,8 +69,9 @@ g = FacetGrid(data, col='col_var', row='row_var', ...)
   hue='color_var'
   col_wrap=None // # columns
   size=3  // height of each grid in inches
+  aspect // width = size * aspect
   xlim=[0, 1], ylim=
-  legend_out=True // False to draw legend inside
+  legend_out=True // Draw legend outside
 g.map(sns.pointplot, xvar, yvar, linewidth=3, marker='o', ms=6) // lineplot
 g.add_legend()
 g.savefig('plot.pdf')
@@ -126,6 +127,7 @@ violinplot(data, ...)
 barplot(x, y, ...)
   data=
   hue=  // color
+  orient=[h|v]
 pointplot(x, y, ...)
   data=
   hue=  // color

@@ -29,7 +29,7 @@ nan // not a number
 inf // infinite
 a = array([1, nan, inf])
 a.dtype // float64
-isnan(a)
+isnan(a) // use this, not a != np.nan !!
 isinf(a)
 def complete_cases(a):
     return np.all(~np.isnan(a), axis=1)
@@ -201,6 +201,7 @@ max, min
 argmax(array, axis=), argmin  // maximum/minimum (along axis)
 maximum(a, b) // pairwise maximum of two arrays
 np.unique(a, ...)
+np.bincount(a) // counts frequency of each non-negative number in a
   return_counts=True  // count number of unique elements
 var(X, ddof=1)  // unbiased variance
 np.average(X, axis, weights)  // weighted mean
@@ -316,4 +317,3 @@ assert_array_equal(a, b)  // exact
 assert_array_less(a, b)
 assert_allclose(a, 1.9) // approx
 assert_allclose(a, b) // approx
-

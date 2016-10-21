@@ -16,6 +16,7 @@ checkout HEAD~2 -b new_branch // checkout certain version as new branch
 checkout 213123 // checkout in temp branch
 branch -m new // rename current branch to new
 branch -d name // delete branch
+branch -dr name // delete remote branch
 
 # Misc
 status -u // show untracked files
@@ -33,6 +34,7 @@ dir/
 
 # Remote repository
 remote  // show remote branches
+remote show hpc // show infos about remote hpc
 remote add name url
 fetch name  // update local branches -> see branch -r
 push name src_branch:dst_branch
@@ -43,6 +45,14 @@ push -u name r1:sync/r2
   * set upstream information -> pull will use name sync/r2
 push name --delete branch // delete remote branch
 pull name master  // pull master from name
+
+## Different pull / push branches
+[branch "master"]
+	remote = hpc
+	merge = refs/heads/sync/master
+[remote "hpc"]
+	url = hpc:~/research/bs/dev/160921_deepcpg-dev/src
+	fetch = +refs/heads/*:refs/remotes/hpc/*
 
 # Undo changes
 git checkout file.py  // single file
@@ -139,3 +149,5 @@ git rebase -i HEAD~5  // HEAD~5 point to last clean commit before change
 git rebase --abort
 git rebase --continue
 
+# Diff
+diff branch1..branch2 // diff between branches

@@ -30,6 +30,7 @@ params = {
   'n_estimator': [0, 1] // draw from array
 m = RandomizedSearchCV(rf, params, ...)
   n_iter=10
+  refit=True // refit on whole data at the end by default !!
 
 
 ## ParameterSampler
@@ -172,4 +173,3 @@ git rebase master
 
 # copy / clone model
 clone = sklearn.base.clone(model)
-

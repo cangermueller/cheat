@@ -103,33 +103,3 @@ class MyClass(metaclass=ABCMeta):
   @abstractmethod
   def method(self, ...):  // at least one method must be decorated abstract
     pass
-
-
-# Generator
-class Generator(object):
-  def __init__(n):  // construct
-  def __iter__(self): // initialize
-    return self
-  def __next__(self): // return next element
-    raise StopIteration()
-  def next(self): // Python2 backward compatibility
-      return self.__next__()
-
-for x in gen:
-  ...
-iter(gen) // calls __init__(); resets iterator
-x = next(gen) // calls __next__()
-
-
-# Iterator function --> yield to construct generator
-def fibonacci(n):
-    # proceed at yield() when function is called again
-    # function with yield() generators iterator if __next__() method
-    a = 0
-    b = 1
-    for i in range(n):
-        c = a + b
-        if i >= 1:
-            a = b
-            b = c
-        yield c

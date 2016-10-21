@@ -42,9 +42,7 @@ for key, value in d.items():
 for key in d.iterkeys():
 for value in d.itervalues():
 
-# OrderedDict
--> See collections.txt
-from collection import OrderedDict
+# collections.OrderedDict
 d = OrderedDict()
 d = OrderedDict([('a', 1), ('b', 2)]) // Initialize in this order
 d = OrderedDict(zip(['a', 'b'], [1, 2])) // Same as before
@@ -53,6 +51,12 @@ d = OrderedDict([(key, default) for key in ['a', 'b']]) // Init by default
 d['a'] = 1; d['b'] = 2; d.keys() == ['a', 'b'] // Order depends on insert time
 d.popitem() // removed last inserted item
 d.move_to_end('a') // move item to the end
+
+# collections.Counter
+c = OrderedDict()
+'x' in c  == False // new elements are not existing
+c['x'] == 0 // new elements are initialized with 0 and added on first usage
+c['x'] += 1 // does not need to be initialized with c['x'] = 0
 
 
 # Sets

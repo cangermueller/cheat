@@ -48,7 +48,9 @@ m.group(i) // value of group i
 m.start() // start, FUNCTION
 m.end() // end
 
-# Genenerators / iterators
+# Generators / iterators
+=> see iterator.txt
+
 * Iterator is general concept
 * Generator is one form (yield) of iterator
 * Iterator: class with __iter__(self), __next__(self)
@@ -88,4 +90,3 @@ def MakeInstance(self):
 
 class Class:
  ptr = 0  // static variable
-
