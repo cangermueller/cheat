@@ -1,5 +1,6 @@
 # Misc
 /usr/local/Cluster-Docs/SLURM/slurm_submit.darwin slurm_submit
+1 gpu hour = 6 cpu hours
 
 # Account
 mybalance   // how many hours are left
@@ -20,7 +21,9 @@ sbatch slurm_submit
   -o stdout.log (default: slurm*)
   -e stderr.log (default: stdout)
     using only -o: writes first stderr, and appends stdout at end of job
-  --nodes min[-max]
+  --ntasks // number of processes per node
+  --nodes min[-max] // number of nodes
+    => total # processes = # processes per node * # nodes
   --mem mem // memory in MB per node
   --mem-per-cpu mem // minimum memory in MB per CPU
   --mincpus n  // min # cpus per node
