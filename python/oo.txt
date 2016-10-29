@@ -23,6 +23,7 @@ __dict__
   * type(__dict__) == mappingproxy
   * type(dict(__dict)) == dict
   * o.__dict__['attr'] = value  // change attribute
+self.__class__.__name__ // Name of class as string
 
 
 # Private: double underscore

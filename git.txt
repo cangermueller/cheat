@@ -36,6 +36,7 @@ dir/
 remote  // show remote branches
 remote show hpc // show infos about remote hpc
 remote add name url
+remote remove NAME // delete remote rep. and all branches
 fetch name  // update local branches -> see branch -r
 push name src_branch:dst_branch
 push name master:child/master // push master to name/child/master

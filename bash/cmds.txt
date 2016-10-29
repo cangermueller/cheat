@@ -86,3 +86,8 @@ ls | xargs -Ix cmd x // cmd will be executed n times with different x
 
 # date
 date '+%y%m%d_%H%M%S'
+
+# less
+-S no line wrap
+:n // next file
+:p // previous file
