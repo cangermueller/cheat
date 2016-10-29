@@ -54,6 +54,7 @@ _oh
 dir() // all names in current scope
 locals()  // dictionary of local variables
 globals() // dictionary of global variables
+vars(module)['fun01'] // get function from module by name
 
 # generators
 * like iterators, but more efficients

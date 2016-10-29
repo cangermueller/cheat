@@ -16,7 +16,12 @@ Getting shape of tensors and layers
 
 
 
-
+Dependencies
+############
+       model.py       topology.py
+----------------------------------
+Sequential -> Model -> Container
+              Dense ->  Layer
 
 Container
 #########
@@ -54,6 +59,12 @@ Methods
 =======
 m = Model(optimizer, loss)
 m = Model(inputs=, outputs=)
+compile(
+  loss_weights={'out1': 2.0}
+    * list or dict
+    * missing outputs will get weight 1.0
+    * are not normalized: weight 100 -> loss * 100
+  )
 
 Saving model
 ============
@@ -259,3 +270,9 @@ from keras.datasets import (mnist, cifar10, imdb, ...)
 * reuters: text topic classification
   X_ij = rank frequency word j in description i
   y_i = topic 0-45
+
+
+
+Backend
+#######
+dot(x, y) // matrix multiplication
