@@ -51,11 +51,12 @@ basename $file
 readlink -f $file // absolute path; resolve symbolic links
 realpath $file  // on MAC; external program
 
-# Arrays
+# Arrays, split string into words
 a = (one two three)
 ${a[0]} // first element
 ${a[*]} // all elements
 ${#a[*]}  // length
+
 
 ## Accessing elements of list
 1)

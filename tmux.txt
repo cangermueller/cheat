@@ -13,6 +13,7 @@ r // source conf
 ## default
 ? // show keybindings
 s //  switch between sessions
+(,) // switch between sessions
 t // show clock
 j, k  // previous, next window
 p // previous window

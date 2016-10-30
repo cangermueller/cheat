@@ -20,4 +20,5 @@ c-x // horizontal split
 c-z // mark files for opening
 
 CtrlPBookmarkDir
-CtrlPBookmarkDirAdd
+CtrlPBookmarkDirAdd [directory] [title] // cwd if not directory provided
+<c-z> <F7> to delete selected bookmarks

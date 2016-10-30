@@ -9,9 +9,11 @@ Reinitializing weights
 w0 = model.get_weights()
 model.set_weights(w0)
 
-Getting shape of tensors and layers
+Getting shape of Keras tensor
 ===================================
-* tensor: x.get_shape()  // only for TensorFlow
+* tensor:
+  x._keras_shape // special attribute of Keras tensors
+  x.get_shape()  // only for TensorFlow
 * layer: l.output_shape() // after it has been called with xx = l(x)
 
 
@@ -29,17 +31,20 @@ c = Container(inputs, outputs, name=None)
 
 Attributes
 ==========
-inputs // list of input tensors
+input // single input tensor
+inputs // !list! of input tensors
 input_names // names of input tensors
 input_shape // shape of input tensors
+output // single output tensor
 outputs // list of output tensors
 output_names // names of output tensors
 
 Methods
 =======
 get_weights()
-summary()
-layers() // list of layers
+summary() // print summary; returns None
+count_params() // # parameters
+layers // list of layers
 get_layer(name) // layer by name
 output_layers() // last layers
 layers_by_depths[i] // ith layer
@@ -276,3 +281,4 @@ from keras.datasets import (mnist, cifar10, imdb, ...)
 Backend
 #######
 dot(x, y) // matrix multiplication
+permute_dimensions(x, [0, 2, 1]) // swap, reorder axes

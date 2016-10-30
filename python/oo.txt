@@ -12,19 +12,25 @@ __sub__   // a - b
 __cmp__   // a == b
 __call__(self, x)  // object(x); call object as function
 
-# Special variables
+# Special attributes
 __dir__
   * all object names: __init__, method(), __str__(), ...
   * dir(Class)
   * list()
 __dict__
-  * class variables: __doc__ (not methods)
+  * Class.__dict__ // meta info about class
+  * Class().__dict__ // member variables of class instance; different from class.__dict__
   * vars(Class)
-  * type(__dict__) == mappingproxy
-  * type(dict(__dict)) == dict
-  * o.__dict__['attr'] = value  // change attribute
 self.__class__.__name__ // Name of class as string
 
+# Attributes
+dir(object) // list names all attributes
+  __dict__ and additional information
+  __dict__ is one attribute
+o = Class()
+hasattr(o, 'a')
+getattr(o, 'a')
+setattr(o, 'a', v)
 
 # Private: double underscore
 __private_constant
@@ -34,13 +40,6 @@ __private_method
 import copy
 copy.copy(x)
 copy.deepcopy(x)
-
-# Getting, setting attributes
-o = Class()
-hasattr(o, 'a')
-getattr(o, 'a')
-setattr(o, 'a', v)
-dir(o)  // list attributes
 
 # overriding
 class Parent(object):
