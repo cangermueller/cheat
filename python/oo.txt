@@ -11,6 +11,9 @@ __add__   // a + b
 __sub__   // a - b
 __cmp__   // a == b
 __call__(self, x)  // object(x); call object as function
+  call() in Python2
+__next__(self) // next(x); iterator
+  next() in Python2
 
 # Special attributes
 __dir__

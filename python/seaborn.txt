@@ -106,8 +106,11 @@ g.plot_joint(fun_joint, ...)
 g.plot_marginals(fun_marginals, ...)
 
 
+# boxplot
+boxplot(data=, x=, y=, ...)
+violinplot(data=, x=, y=, ...)
 
-# boxplot with points
+## boxplot with points
 fig, ax = plt.subplots(figsize=(10, len(pa.anno.unique()) * 0.5));
 sns.boxplot(y='anno', x='auc', data=pa, orient='h', order=pam.anno, ax=ax)
 sns.stripplot(y='anno', x='auc', data=pa, orient='h', order=pam.anno) // add points

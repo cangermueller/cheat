@@ -38,12 +38,13 @@ root = ssh://ebi//homes/angermue/research/bs/dev/150515_predict
   * two //
   * ~ does not work!
 
-## Paths to synchronize 
+## Paths to synchronize
 path = current
 path = common
 path = .netscape/bookmarks.html
 
 ## Some regexps specifying names and paths to ignore
+* No way to discern between files as directories
 ignore = Name temp.*
 ignore = Name *~
 ignore = Name .*~

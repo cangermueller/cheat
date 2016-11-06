@@ -54,8 +54,10 @@ realpath $file  // on MAC; external program
 # Arrays, split string into words
 a = (one two three)
 ${a[0]} // first element
-${a[*]} // all elements
+${a[*]} // all elements -> convert to list again
 ${#a[*]}  // length
+${a[${#a[*]}-1]} // last element
+unset a[${#a[*]}-1] remove last element
 
 
 ## Accessing elements of list

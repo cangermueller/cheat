@@ -61,6 +61,19 @@ pca.inverse_transform(X)  // Y
 pca.explained_variance_
 
 # metrices
+multi-class
+-----------
+x belongs to exactly one of n classes
+y = [0, 3, 4, N, 0] // yi is class of sample i
+
+multi-label
+----------
+x can be belong to one or more classes
+y = [[1, 0, 1],   // cla 0 and 2
+     [0, 0, 1],   // cla 2
+     [1, 1, 1,]]  // cla 0, 1, 2
+
+
 import sklearn.metrices
 accuracy_score(true, pred)  // accuracy
 precision_score(true, pred) // precision
@@ -72,7 +85,6 @@ c = skm.confusion_matrix(y, z.round())
   fpr = c[0, 0] / c[0].sum()
 matthews_corrcoef(y, z.round())
 
-
 ## curves
 fpr, tpr, thr = roc_auc_curve(true, score)
 pre, recall, thr = precision_recall_curve(true, score)
@@ -82,6 +94,9 @@ pre, recall, thr = precision_recall_curve(true, score)
 confusion_matrix(true, pred)
 * rows: true
 * columns: predicted
+
+
+
 
 # parameter grid
 from sklearn.grid_search import ParameterGrid

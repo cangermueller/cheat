@@ -15,6 +15,9 @@ class Generator(object):
 
 Generator
 #########
+* Simplifies creation of iterators
+* g = generator(n) returns generator instance
+* next(g) executes g until yield
 
 def myiter(n):
   i = 0

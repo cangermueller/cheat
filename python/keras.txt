@@ -109,6 +109,14 @@ count_params()
 summary() // short model summary
 
 
+Initialization
+==============
+glorot_uniform: Xavier init (Glorot 2010); not scaled by 2
+glorot_normal
+he_uniform: scaled by 2; for ReLU (He et. al 2015)
+he_normal
+
+
 Core
 ====
 Reshape((3, 4)) // reshapes layer with 3*4 features to (3, 4)
@@ -280,5 +288,13 @@ from keras.datasets import (mnist, cifar10, imdb, ...)
 
 Backend
 #######
-dot(x, y) // matrix multiplication
+* dot product == scalar product == inner product: x^t * x
+* outer product: x * x^t
+* Hadamard product == element wise product: x_i * y_i
+dot(x, y) // matrix multiplication; dot product
+x * y // Hadamard product
 permute_dimensions(x, [0, 2, 1]) // swap, reorder axes
+sqrt(x) // square roor
+square(x) // x**2
+if not K.is_keras_tensor(input_tensor): // Tensor -> Keras Tensor
+    img_input = Input(tensor=input_tensor, shape=input_shape)

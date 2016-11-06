@@ -15,6 +15,8 @@ m = ma.masked_array([1, 2, 3], [0, 0, 1]) // 3 is masked
 m = ma.masked_values(n, 3)  // mask value 3 in numpy array
 m[i, j] = ma.masked // mask value
 m.data  // original data -> numpy array
+m.fill_value // masking value
+m[m.mask] = np.nan // change mask / fill value
 m.mask  // boolean mask; m.mask[i, j] == True for missing values
 m[~m.mask]  // return view on existing values
 m.compressed()  // return new numpy array only with existing values
@@ -141,6 +143,7 @@ ndarray((3, 4))
 ## attributes
 a.size  // # elements
 a.ndim  // # dimensions
+a.nbytes // # bytes
 a.shape
 a.dtype
 a.astype(float) // convert type
@@ -206,6 +209,7 @@ np.bincount(a) // counts frequency of each non-negative number in a
 var(X, ddof=1)  // unbiased variance
 np.average(X, axis, weights)  // weighted mean
   * weights must have lenght of axis
+np.digitize(v, [0, 0.5, 1]) // bin/discretize values into 2 bins
 
 ## io
 save('data.npy', data)  // binary npy format
@@ -249,7 +253,7 @@ b.any()
 b.all()
 b.nonzero()[0]  // indices where True
 np.where(b)[0]  // smae a nonzero
-np.in1d(a, b) // boolean mask, where True means that a is in b
+np.in1d(a, b) // boolean mask, where True means that a is in b; isin
 ### Bool to int indices // like R which (b > 0)
 i = x.nonzero()
   * indices where x != 0

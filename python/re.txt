@@ -4,6 +4,8 @@ r"string" // raw string
 
 m = re.search(pattern, string, flags)
 m is None // no match
+m.groups() // returns all groups as tuple
+  * length == number of (...) parts in re
 m.group() // everything
 m.group(0)  // everything
 m.group(1)  // group 1
