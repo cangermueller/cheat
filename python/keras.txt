@@ -298,3 +298,6 @@ sqrt(x) // square roor
 square(x) // x**2
 if not K.is_keras_tensor(input_tensor): // Tensor -> Keras Tensor
     img_input = Input(tensor=input_tensor, shape=input_shape)
+set_learning_phase(0)
+  * set phase to test (0) or train (1)
+  * must be executed before the model is loaded!

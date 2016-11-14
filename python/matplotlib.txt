@@ -70,6 +70,8 @@ text(x, y, text, fontsize=12, ha='center', va='center', rotation=45, bbox=)
   x, y scalars, not array!
   fontweight='bold'
 annotate('text', xy=(x, y), xytext=(x, y), bbox=, arrowprops=, coords=) // x, y are scalars!
+  fontsize=14
+  fontweight='bold'
 for x, y, label in zip(all_x, all_y, all_labels):
   annotate(label, xy=(x, y), ha='left', va='bottom')
 
@@ -233,5 +235,3 @@ poly = patches.Poly(corners, ...)
   points=[[x1, y1], [x2, y2], ...]
   fill=True
 ax.add_patch(poly)
-
-
