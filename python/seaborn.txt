@@ -203,3 +203,31 @@ ax.set(xlabel=, ylabel=) // changes labels
 grid = sns.FacetGrid(data=, col='dset', hue='output')
 grid.map(sns.pointplot, 'x', 'y')
 grid.axes[0, 0].set(xlabel=, ylabel)
+
+Scatter plot
+============
+matplotlib
+----------
+fig, ax = plt.subplots(figsize=(8, 6))
+scatter = ax.scatter(data[pc_x], data[pc_y], c=data['act_mean'], cmap='RdBu_r')
+ax.set_xlabel(pc_x)
+ax.set_ylabel(pc_y)
+fig.colorbar(scatter)
+if labels:
+    for i, row in data.iterrows():
+        ax.annotate('%d' % labels[i], xy=(row[pc_x], row[pc_y]))
+
+lmplot
+------
+grid = lmplot(x='x', y='y', data=data, ...)
+  fit_reg=False // no regression line
+  hue='color'
+  palette='RdBu' // color palette
+  legend=False // not legend if hue
+  size=5 // figure size
+grid.ax // get axis
+
+joint plot
+----------
+* does not support colors
+jointplot(x='x', y='y', data=data, ...)

@@ -9,6 +9,12 @@ np.resize(a, (3, 5)) // returns copy; fills with values/copies of a
 atleast_1d(a[0, 0])
 atleat_2d(a[0, :])
 
+# chararray / strings
+a = np.chararray((3, 3), ...)
+  itemsize=1 // length of strings
+a[0] = 'a'  // fill row with 'a'
+a[0].tostring().decode() // concatenate strings of row
+
 # Masked array
 import numpy.ma as ma
 m = ma.masked_array([1, 2, 3], [0, 0, 1]) // 3 is masked
@@ -177,14 +183,6 @@ concatenate((a, b, ...), axis=1)  // a, b must be 2d to be stacked as rows
 hstack((a, b, ...))
 vstack((a, b, ...))
 dstack((a, b))
-.sort() // sort inplace
-np.sort(a)  // sort outplace
-np.sort(a)[::-1]  // sort reverse
-.argsort()  // order
-## reverse argsort
-  a = x.argsort()
-  ar = np.empty(len(a))
-  ar[a] = np.arange(len(a))
 
 ## Operations
 a1 * a2 // pairwise multiplication
@@ -321,3 +319,17 @@ assert_array_equal(a, b)  // exact
 assert_array_less(a, b)
 assert_allclose(a, 1.9) // approx
 assert_allclose(a, b) // approx
+
+Sorting
+=======
+a.sort() // sort in-place
+np.sort(a) // sort out-of place
+np.sort(a)[::-1]  // sort reverse
+np.lexsort((b, a)) // sort two columns; first by b, then by a
+.argsort()  // order
+
+reverse argsort
+---------------
+a = x.argsort()
+ar = np.empty(len(a))
+ar[a] = np.arange(len(a))

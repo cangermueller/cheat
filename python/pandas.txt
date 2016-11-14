@@ -4,7 +4,8 @@ s = pd.Series(['1', 'ab', '10.0'])
 isdigit // integer
 isalpha // a-z
 isalnum // a-z0-9
-replace(x, y)
+replace(x, y, ...)
+  case=False // case insensitive
 slice_replace(from, to, replace)
 slice(from, to)
 pad(length, fillchar=' ') // extend length

@@ -3,19 +3,27 @@ ctrl-shift-power // lock screen
 ^ = ctrl
 
 
-# Finder
+Finder
+======
 rm ~/Library/Preferences/com.apple.finder.plist* // Delete folder view settings
 find / -name '.DS_Store' -type f -delete // Delete all .DS_Store files
 
-## Default view
+Shortcuts
+---------
+cmd-n // new window
+cmd-t // new tab at home
+ctrl-cmd-o  // open selected folder in new tab
+
+Default view
+------------
 Size: 52x52
 Grid: half slider
 Text: 11
 Arrange: name
 Sort: kind
 
-
-## Copying path finder/terminal
+Copying path finder/terminal
+----------------------------
 terminal -> finder
   open .
 finder -> terminal
