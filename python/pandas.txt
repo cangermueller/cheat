@@ -290,6 +290,7 @@ replace('\w+', '', regex=True)
 ?set_option // lists all options
 set_option('display.width', 150)
   display.width=80 // line width
+  display.max_colwidth=60 // max column width; longer will be truncated by ...
   display.precision=7
   display.max_rows=60
   display.max_columns=60
