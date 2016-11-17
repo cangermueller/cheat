@@ -4,13 +4,22 @@
 \q  // line new one
 \r<left>  // right part of line
 
+# Custom
+rj // head
+rk // dim
+rt // str
+rT // glimple
+rL // levels
+rl // list.files()
+R<x> // r<x> on beginning of line
+
 # Global
 \rq // close no save
 \rw // close save
 \rl // ls()
 \rr // clear console
 \rm // rm(list=ls())
-\r. // list.files() (c)
+\re // show example
 
 ctrl-o  // complete function
 \a  // complete function argument
