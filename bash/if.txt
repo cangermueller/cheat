@@ -8,6 +8,7 @@
   * check if variable is set
 -e  // file exists
 -f  // file exists
+-L // symbolic link exists
 -d  // directory exists
 -r  // readable
 -w  // writeable
@@ -46,4 +47,3 @@ $s =~ regex // regex matched anyware
   . // single character
   ? // single character
   * // multiple characters
-
