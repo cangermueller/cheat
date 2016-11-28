@@ -29,8 +29,10 @@
 *.pyx
 *.o
 *.html
+*.h5
 
 /python/nb/*.c
+/python/nb/mp*
 
 .Rproj*
 .Rhistory

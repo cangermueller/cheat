@@ -1,10 +1,20 @@
-# string functions
+Creating Data.Frame
+===================
+DataFrame({'id': [1, 2, 3], 'value': 10}) // from dict
+DataFrame(odict, columns=odict.keys()) // from ordered dict preserving order
+DataFrame([[11, 12],
+           [21, 22]]) // from (numpy) array
+
+
+String functions
+================
 s = pd.Series(['1', 'ab', '10.0'])
 >> s.str.fun. <<
 isdigit // integer
 isalpha // a-z
 isalnum // a-z0-9
-replace(x, y, ...)
+replace(what, by, ...)
+  * what can be regex, e.g. '^chr'
   case=False // case insensitive
 slice_replace(from, to, replace)
 slice(from, to)
