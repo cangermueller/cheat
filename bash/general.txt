@@ -70,7 +70,7 @@ set -- $l
 echo $1
 
 
-# Parameter Expansion
+# Parameter Expansion / Variables
 man bash -> Parameter Expansion
 ${!v*}  // expand variable name
 ${v:-value} // assign value if undefined

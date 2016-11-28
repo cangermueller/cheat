@@ -9,6 +9,15 @@ f: File
 g: group
 [fg]: File or group
 
+Indexing issues
+===============
+* Boolean mask only works if same shape as dset
+  dset[[True, True, False]] fails, if dset.ndim > 1
+  -> convert mask to indices with mask.nonzero()[0]
+* Indices for singe mask fails
+  dset[[0, 1]] fails, if dset.ndim > 1
+  dset[[0, 1], :] works, for dset.ndim == 2
+
 # Write numpy array
 f = File('file.h5', 'w')  // use 'a' to append, else overwrite
 if '/g1/d1' in f:
@@ -95,7 +104,7 @@ d[0] = (1, 1.2, 'Christof')
 
 ## Chunking
 * Default: data stored contiguously
-* chunks=(n, m): store data as chunks in random order on disk 
+* chunks=(n, m): store data as chunks in random order on disk
 * if data element is accessed, whole chunk is read into memory
 * required for resizing elememnts
 chunks=None // no chunking by default
