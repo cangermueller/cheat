@@ -20,6 +20,7 @@ re.match(pattern, string, flags)
 re.search(pattern, string, flags)
   * pattern must partially match anywhere
   * 'abc' matches 'xxx abc xxx'
+    -> '.*abc' not needed!
   * same as re.search(^pattern, ...)
 for m in re.finditer(pattern, string)  // like search, but iter of all hits
 re.findall(pattern, string) // all matches as str in array

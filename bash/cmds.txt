@@ -23,6 +23,7 @@ delete remote_file
 quit
 
 # wget
+-P destination_directory
 -O destination_file
 
 # tree

@@ -7,7 +7,7 @@ data %>% gather(key, value, selection)
   selection
     * other columns are not removed, but not gathererd
     col_start:col_end // include
-    -c1, -c2, -c(c1, c2) // exclude 
+    -c1, -c2, -c(c1, c2) // exclude
 data %>% gather(key, value, -c(chromo, start, end))
 
 # spread -> inverse gather
@@ -17,6 +17,7 @@ data %>% spread(key, value, ...)
   key // name key column (-> columns name)
   value // name value column (-> values)
   fill=NA // fill value for missing data
+  convert=T // automatically convert, e.g., factors to numerical
 
 # separate
 * splits column
