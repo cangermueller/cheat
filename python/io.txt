@@ -62,7 +62,7 @@ os.remove(file) // remove/delete file
 os.rmdir(dir) // remove/delete EMPTY dir; see shutil.rmtree
 import shutil
 shutil.copyfile(src, dst) // copy file
-shutil.copytree(src_dir, dst_dir) // dopy dir
+shutil.copytree(src_dir, dst_dir) // copy dir
 shutil.move(src, dst) // rename, move file like mv
 shutil.rmtree(path) // remove dir with content
 
