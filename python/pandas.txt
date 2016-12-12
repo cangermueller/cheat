@@ -85,6 +85,7 @@ to_csv(file, ...)
   mode='a'  // append
   float_format='%.2f'
 to_string // aligns columns; only use if to_csv() does not work
+  justify='left' // align columns left
 to_sql('table1')  // see SQL below
 
 # HDF

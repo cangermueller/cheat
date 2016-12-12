@@ -91,3 +91,6 @@ date '+%y%m%d_%H%M%S'
 -S no line wrap
 :n // next file
 :p // previous file
+
+# echo
+echo -e 'a\tb' // tabs

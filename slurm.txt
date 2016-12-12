@@ -1,6 +1,7 @@
 # Misc
 /usr/local/Cluster-Docs/SLURM/slurm_submit.darwin slurm_submit
 1 gpu hour = 6 cpu hours
+  practice: hours * 10
 
 # Account
 mybalance   // how many hours are left

@@ -14,6 +14,7 @@ x>&y // forward x to y
 echo 'Error' 1>&2 // stdout to stderr
 1>&2 echo 'Error' // same as before
 module avail 2>&1 | less // pipe stderr
+kill -INT $$ // exit function stack without existing script
 
 # Multi-line string
 var="line1\n

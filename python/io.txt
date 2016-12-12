@@ -41,6 +41,8 @@ extsep == '.' // character extension separator
 f.split(extsep)[0]  // split ext with multiple '.'
 basename(path)
 dirname(path)
+os.sep // path separtor -> '/' for Linux
+path.split(os.sep) // /dir1/dir2/dir3 -> dir1, dir2, dir3
 abspath(__file__)
 realpath()  // like abspath, but resolves symlinks
 expanduser('~')
@@ -50,6 +52,7 @@ getenv('HOME', ...) // environment variables
 
 # Misc
 os.listdir('.') // list all files in directory
+for root, dirs, files in os.walk(dirname) // traverse all files in dirname recursively
 os.getcwd()  // current working directory
 os.chdir(dir) // change working directory
 import glob
