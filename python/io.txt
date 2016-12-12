@@ -37,6 +37,7 @@ os.path
 join(a, b, c)
 splitext('/d/f.ext') -> ['/d/f', 'ext']
 splitexit(path)[0]  // remove extension
+path.split(os.extsep, 1) // file.abc.def -> [file, 'abc.def']
 extsep == '.' // character extension separator
 f.split(extsep)[0]  // split ext with multiple '.'
 basename(path)
