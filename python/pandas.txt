@@ -78,6 +78,7 @@ read_table(file, ...) / read_csv(file, ...)
   skiprows=0  // skip that many rows at beginning
   dtype={'c1': 'str', ...} // dtype of columns by name
   dtype={0: 'str', ...} // dtype of columns by index
+  compression='gzip' // compress
 to_csv(file, ...)
   sep=','
   index=True  // write index

@@ -1,3 +1,11 @@
+# Variable scopes
+var1=1 // global
+function fun {
+  local var1=100 // local
+  var1=101 // does not change global var1
+  }
+echo $var1 // 1
+
 # Template file
 * http://serverfault.com/questions/287688/templating-with-linux-in-a-shell-script/699377#699377
 source $config_file // with variables param1=10

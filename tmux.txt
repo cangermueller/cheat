@@ -38,12 +38,21 @@ P, ; // last pane
 space // next pane layout
 alt+[1234]  // select pane layout
 {}  // rotate panes; { counter clock
+c-o // rotate all panes
 q // show pane numbers
-:swap-pane .p // swap current pane with p
-:swap-pane w.p  // swap current pane with p in window w
+:swapp = swap-pane
+:swap-pane -t x -d // swap pane and do not change focus
+:swap-pane -t .p // swap current pane with p
+:swap-pane -t w.p  // swap current pane with p in window w
 c-o // swap with other clock-wise
-opt0 // space equally vertically
-opt-2 // space equally horizontally
+layouts: alt-i
+  alt-1: | | |
+  alt-2: - - -
+  alt-3: T
+  alt-4: |-
+  alt-5: _|
+  space // cycle through layouts
+
 ! // break pane
 join-pane -t 1  // join pane
 x // kill pane
@@ -54,3 +63,8 @@ arrows  // resize
 man page: KEY BINDINGS
 bind -r key command // must be repeated
 list-keys // show key bindings
+
+# Tmux Plugin Manager
+I // install new plugins
+U // update plugins
+alt-u // remove unused plugins

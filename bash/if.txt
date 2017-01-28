@@ -5,8 +5,8 @@ Test command
 * if command; then  // if command succeeds than
 -z "$v" // zero?
   * check if variable is unset
--n "$v" // non-zero?
-  * check if variable is set
+-n "$v" // is defined?
+  * True if 'v=', not 'v=0'
 -e  // file exists
 -f  // file exists
 -L // symbolic link exists

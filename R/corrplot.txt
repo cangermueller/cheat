@@ -6,6 +6,9 @@ order='original'
   hclust: hclust(as.dist(matrix)) // which is WRONG if matrix is correlation matrix
 addrect=5 // rectangles, only if order='hclust'
 tl.col='black'  // color labels
+tl.cex=1.0 // font size axis labels
+cl.cex=1.0 // font size color bar
+cl.pos='b' // color bar at bottom
 col=color_palette // c(col, col) do obtain full range
 cl.lim=c(0, 1)
 
@@ -24,8 +27,3 @@ plot(hclust(as.dist(1 - m)))
 # if m is distance matrix
 corrplot(m, is.corr=F)
 plot(hclust(as.dist(m)))
-
-# font size
-t = par(cex=0.8)
-corrplot(...)
-par(cex=t$cex)
