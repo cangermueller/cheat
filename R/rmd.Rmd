@@ -18,10 +18,19 @@ library(knitr)
 opts_chunk$set(echo=F, warning=F, message=F)
 ```
 
+```{r}
+options(xtable.type='html')
+```
+
 ```{r, include=F}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(xtable)
+```
+
+```{r}
+set.seed(0)
 ```
 
 ```{r}

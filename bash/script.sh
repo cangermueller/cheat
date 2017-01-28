@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -e
+shopt -s extglob
 
 check=1
 function run {

@@ -35,7 +35,7 @@ ignore 1 n  // ignore bp 1 n times
 # Navigation
 n // next list
 c // continue
-j[ump] 10 // jump to line 10 (back jumps possible)
+j[ump] 10 // jump to line 10; skip intermediate commands; back jumps possible
 r[eturn] // until return
 until // until end of frame -> after function
 l // show current line
@@ -50,3 +50,10 @@ pdef fun // show definition function
 
 # Info
 a, args // show arguments
+
+
+# ipdb ignore set_trace
+a) jump x // jump out of loop
+b)
+  def f(): pass
+  ipdb.set_trace = f

@@ -25,6 +25,7 @@ quit
 # wget
 -P destination_directory
 -O destination_file
+-r --no-parent // download directory recursively
 
 # tree
 * -L  maxlevels
@@ -60,6 +61,16 @@ quit
 
 # gzip
 gzip -c infile > outfile  // different src/dst
+
+# zip
+zip outfile.zip -r dir -x '*.sh' // -x, --exclude: exclude files
+-j // ignore directory structure
+
+# unzip
+-d out_dir // extract to specific directory, not cwd
+-o // overwrite existing files without asking
+-f // overwrite only older files
+-j // ignore directory structure in zip file
 
 # convert
  convert IN OUT

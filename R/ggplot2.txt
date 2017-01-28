@@ -99,6 +99,8 @@ position=position_dodge(h=1, w=1) // avoid overplotting
 # Title
 labs(title=title)
 ggtitle(title)
+  plot.title=element_text(size=rel(1.8), face='bold')
+
 
 # Zooming, ylim, range
 ylim(min, max) + stat_smooth(...)
@@ -161,6 +163,8 @@ theme( // global settings
   legend.direction='horizontal'
   legend.box='horizontal' // stack color,size,shape ... horizontally
   legend.key.width=unit(2, 'cm')
+  legend.box='vertical' // arrangement of multiple legends
+  legend.box.just='left' // align legends left
   )
 theme(legend.position='none') // no legend
 geom_points() + guides(size=FALSE)  // turn specific legends off
@@ -324,3 +328,8 @@ theme_pub <- function() {
   return (p)
 }
 ```
+
+# ggrepel
+library(ggrepel)
+geom_text_repel(aes(label=label), size=3, fontface='bold',
+                segment.color = 'grey50') +

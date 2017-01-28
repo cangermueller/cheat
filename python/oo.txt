@@ -14,6 +14,7 @@ __call__(self, x)  // object(x); call object as function
   call() in Python2
 __next__(self) // next(x); iterator
   next() in Python2
+__enter__, __exit__ // see context manager
 
 # Special attributes
 __dir__
@@ -106,3 +107,19 @@ class MyClass(metaclass=ABCMeta):
   @abstractmethod
   def method(self, ...):  // at least one method must be decorated abstract
     pass
+
+
+# Context manager
+def myfile(object):
+
+  def __init__(self, filename):
+    self.fh = open(filename, 'r')
+
+  def __enter__(self): // called at beginning of with statement
+    return self.fh
+
+  def __exit__(self): // called at end of with statement
+    self.fh.close()
+
+with myfile('file.txt'):
+  ...

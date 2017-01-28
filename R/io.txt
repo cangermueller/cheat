@@ -1,3 +1,8 @@
+# Compression
+gzfile(path) // decompresses file, if compressed
+read.table(gzfile('file.csv.gz')) // read compressed file
+read.table(gzfile('file.csv')) // also works for uncompressed files
+
 # Table
 read.table(filename, head=F, sep=" ", skip=0)
   head=T  // read header
@@ -59,3 +64,6 @@ readMat(file)
 * filename can be different
 saveRDS(d, filename)
 d2 <- readRDS(filename)
+
+# Execute comamnd
+system(cmd, ...)

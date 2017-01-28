@@ -1,22 +1,30 @@
 root = /home/bcpierce
 root = ssh://saul//home/bcpierce
 
+perms = 0 # ignore file attributes
+
 # path = current
 # path = common
 
-ignore = Name temp.*
 ignore = Name *~
 ignore = Name .*~
 ignore = Name *.o
 ignore = Name *.tmp
 ignore = Name __pycache__
 ignore = Name *.pyc
-ignore = Path .git*
-ignore = Name *.h5
-ignore = Name *.csv
+ignore = Name .git*
 ignore = Name .ipynb_checkpoints
+ignore = Name .DS_Store
+ignore = Name slurm*
+ignore = Name *.log
 
-ignore = Name unison.prf
+ignore = Name index_*
+ignore = Name *_cache
+ignore = Name *_files
+ignore = Name *rds
+ignore = Name .RData
+ignore = Name .Rhistory
+
 ignore = Path configs.sh
 ignore = Name index_*
 ignore = Name *.pkl
