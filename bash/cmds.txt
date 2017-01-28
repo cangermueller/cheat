@@ -95,3 +95,6 @@ date '+%y%m%d_%H%M%S'
 
 # echo
 echo -e 'a\tb' // tabs
+
+# ln
+ln -r abs_path target // make absolute path relative to target location

@@ -18,8 +18,9 @@ a[0].tostring().decode() // concatenate strings of row
 # Masked array
 import numpy.ma as ma
 m = ma.masked_array([1, 2, 3], [0, 0, 1]) // 3 is masked
+m = ma.masked_array([1, 2, 3], [True, False, True]) // 1, 3 are masked
 m = ma.masked_values(n, 3)  // mask value 3 in numpy array
-m[i, j] = ma.masked // mask value
+m[, j] = ma.masked // mask value
 m.data  // original data -> numpy array
 m.fill_value // masking value
 m[m.mask] = np.nan // change mask / fill value
@@ -32,6 +33,13 @@ np.mean(m)  // only for existing values
 np.log(m) // return masked array
 np.log(m).data  // return array
 
+## fill missing values
+a[np.isnan(a)] = value
+
+## functions
+nanmin, nanmax, nanmean, ...
+
+
 # nan/inf
 nan // not a number
 inf // infinite
@@ -41,12 +49,6 @@ isnan(a) // use this, not a != np.nan !!
 isinf(a)
 def complete_cases(a):
     return np.all(~np.isnan(a), axis=1)
-
-## fill missing values
-a[np.isnan(a)] = value
-
-## functions
-nanmin, nanmax, nanmean, ...
 
 
 
