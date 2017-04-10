@@ -1,3 +1,6 @@
+# HTTP server
+python -m http.server [port]
+
 # max/min integer
 min = -sys.maxsize
 max = sys.maxsize
@@ -55,7 +58,4 @@ d[0]() -> 9
 d = {}
 for i in range(10):
   d[i] = lambda x=i: x  // default variables are are evaluated with lambda is defined
-d[0]() -> 0 
-  
-  
-
+d[0]() -> 0

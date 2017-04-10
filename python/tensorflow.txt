@@ -1,8 +1,3 @@
-# Installation
-Rename to right Python version
-mv tensorflow-0.8.0-cp34-cp34m-linux_x86_64.whl tensorflow-0.8.0-cp35-cp35m-linux_x86_64.whl
-pip install -U tensorflow-0.8.0-cp35-cp35m-linux_x86_64.whl
-
 # Misc
 tf.reset_default_graph()  // clears everything
 tf.py_func(fun, tensor) // wrap Python function
@@ -92,6 +87,7 @@ tf.constant_initializer(value)
 tf.random_uniform_initializer(a, b) // [a, b]
 tf.random_normal_initializer(mean, std)
 tf.zeros_initializer // no ()
+tf.contrib.layers.xavier_initializer
 
 
 

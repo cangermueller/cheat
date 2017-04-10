@@ -1,0 +1,8 @@
+import gym
+
+env = gym.make('FrozenLake-v0')
+init_state = env.reset()
+next_state, reward, done, info = env.step(action)
+
+action_space.n // nb_action
+action_space.sample() // sample action

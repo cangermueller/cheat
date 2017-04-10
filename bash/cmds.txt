@@ -109,3 +109,7 @@ echo -e 'a\tb' // tabs
 
 # ln
 ln -r abs_path target // make absolute path relative to target location
+
+# pandoc
+pandoc --from markdown --to rst --output file.rst file.md
+pandoc -f markdown -to rst -o file.rst file.md

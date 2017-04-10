@@ -1,6 +1,10 @@
 # notebook extension
+https://github.com/Calysto/notebook-extensions/
+-> Follow instructions
+
 ipython install-nbextensions url/path
   --user  // install to ~/.ipython/nbextensions
+
 ## loading
 ### custom.js
 ~/.ipython/profile_default/static/custom/custom.js
@@ -148,7 +152,7 @@ c-s-t // new tab with existing kernel
 %magic {expression} // expand expression
 
 %pdoc // show python doc of object
-%pdef // show function (class) definition 
+%pdef // show function (class) definition
 %psource  // show source code
 %pfile object // show file that contains object
 %pycat file.py  // show syntax highlighted file
@@ -197,7 +201,7 @@ mymagic(1, 2) // a == 1 and b == 2
 %hist 100-105 // range line numbers
 %hist -g cmd  // all commands containing cmd
 %hist -f tmp -l 5 // save last 5 lines to tmp
-%rerun 1-5 6  
+%rerun 1-5 6
 %rerun -g cmd
 %rerun -l 5 // last 5 lines
 %macro name 100-105
@@ -233,7 +237,7 @@ name
 ## %save
 %save file 1-3 4  // save lines to file
 
-# rpy2 
+# rpy2
 http://nbviewer.ipython.org/github/ipython/ipython/blob/master/examples/notebooks/R%20Magics.ipynb
 %R rcode  // execute inline code
 %%R

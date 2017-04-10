@@ -1,6 +1,12 @@
 * setuptools = distutils + additional features
 * pyscaffold automatizes configuring setup.py
 
+# Uploading to PyPI
+* https://packaging.python.org/distributing/#uploading-your-project-to-pypi
+python setup.py sdist
+python setup.py bdist
+twine upload dist/*
+
 # Comamnds
 build
 install
@@ -32,7 +38,7 @@ setup(name='mf',
       packages=['mf'],
       classifiers = ['x', 'y'],
       setup_requires['scipy>=0.9'], // considered before install_requires
-      install_requires=['sklearn']
+      install_requires=['a', 'b', 'c'] // 'c' first, then 'b', ...
       )
 
 classifiers

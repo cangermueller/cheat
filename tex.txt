@@ -1,9 +1,74 @@
-# symbols
+\operatorname{ReLU}(...)
+\bar{x}_t // bar over x
+\hat{x} // < over x
+
+# Dots
+\ldots // ...
+\cdots // centered dots
+\ddots // diagonal dots
+\cdot // centered dot
+\odot // dot with circle around
+
+# Arrows
+\overrightarrow // -> above char
+\overleftarrow // <- above char
+
+# Space
+\quad, \qquad
+
+# Symbols
 ~: \textasciitilde
 
-# cite
+# Cite
 \citep{x} // [1]
-\citet{x} // Author name
+\citet{x} // Author name, [1]
+\citeauthor{x} // Author name
 
 \newcommand{Cmd}[2]{cmd#1cmd#s}
 
+# References
+\usepackage[...]{cleveref}
+  nameinlink // include name in hyper-link
+  noabbrev // always figure instead of fig.
+
+\cref{fig:figure} -> 'figure 1'
+\Cref{fig:figure} -> 'Figure 1'
+\cref{a,b} -> 'Figure a and b'
+
+## Customize label format
+\usepackage[nameinlink,noabbrev]{cleveref}
+\creflabelformat{equation}{#2#1#3} // lower-case
+\creflabelformat{Equation}{#2#1#3} // upper-case
+
+
+# Quotes
+`single quote'
+``double quote''
+-, --, --- // hyphen
+
+# Ungefaehr
+${\sim}60\%$
+${\approx}60\%$
+
+# input vs. include
+\input{file}
+  * copy-pastes file
+\include{file}
+  * adds \clearpage
+  * creates aux file -> faster
+  * but can not be nested
+
+# Align environment
+* aligned by &
+* \nonumber for no label
+\begin{align}
+  a&=... \nonumber \\
+\begin{end}
+
+# setspace
+\usagepackage{setspace}
+\singlespacing
+\onehalfspacing
+\doublespacing
+\begin{singlespace}
+\begin{spacing}{1.0}

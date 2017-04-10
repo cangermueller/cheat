@@ -24,10 +24,12 @@ $a =  // inline math
 <LocalLeader>lv  // view document
 :LatexTOC
 <LocalLeader>lv // open table of contents
+lt // table of content
 
 # Motions
 [[  // begin
 ]]  // end
-fn <F5> // change env
+<F5> // change env
+<F7> // wrap selection with environment
 % // move between () or \begin
 right option + () // jump between braces

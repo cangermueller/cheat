@@ -12,6 +12,7 @@ cmd-shift-b // bookmark window
 cmd-j // downloads
 cmd-shift-z // toggle zotero
 cmd-u // source code
+fn-opt-left // home
 
 # Tabs
 opt-cmd-left/right  // navigate tabs

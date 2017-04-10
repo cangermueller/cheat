@@ -2,8 +2,9 @@
 pandoc -f markdown README.md > README.html
 
 
-# Links
+# Links <a name='links></a>
 [Link](http://...)
+[Internal link](#links)   // internal link to Links section
 
 # Equations
 This in $\log(x + 1)$ inline

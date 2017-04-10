@@ -100,9 +100,14 @@ k = d.keys()  // return dict_keys(), like list (?)
 
 ## six
 import six
+from six.moves import range
+
 for k, v in six.iteritems(d)  // iterator
 for v in six.itervalues(d)  // iterator
 for k in six.iterkeys(d)  // iterator
+for i in range(10):
+
 
 ## Misc
 from __future__ import division
+from __future__ import print_function

@@ -7,6 +7,13 @@ V // select entire line
 %:p // absolute file name
 %h:p  // absolute directory
 
+# Folding
+zr, zR // open all folds (recursively)
+zm, zM // close all folds (recursively)
+za, zA // toggle
+zo, zO // open
+zc, zC // close
+
 
 # Running shell
 :sh // starts shell; <c-d> to quit shell

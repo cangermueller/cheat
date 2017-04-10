@@ -12,7 +12,7 @@ Shortcuts
 ---------
 cmd-n // new window
 cmd-t // new tab at home
-ctrl-cmd-o  // open selected folder in new tab
+ctrl-cmd-o  // open tab at current location
 
 Default view
 ------------
@@ -110,8 +110,13 @@ cmd+shift+c // copy long
 cmd+shift+a // copy short
 shift+enter // insert next author
 
-# Word
-* Tools -> Customize keyboard
+## Firefox
+cmd+shift+z // show zotero
+cmd+shift+s // save item with pdf (no way without pdf)
+
+# Word / Office
+* Shortcuts: ToolsCustomize keyboard
+* Templates: Preferences -> File Locations
 
 ## Navigation
 shift-cmd-v // paste special
@@ -137,6 +142,16 @@ cmd-b // bold
 cmd-i // italic
 cmd-opt-[123] // apply heading
 
+
+# Powerpoint / Office
+## Custom shortcut
+https://support.office.com/en-gb/article/Create-a-custom-keyboard-shortcut-for-Office-2016-for-Mac-6bbeb90e-96d9-4e03-b199-fc026ebdc321
+Preferences -> Keyboard -> Shortcuts -> App shortcuts -> Powerpoint
+Insert->Shape->Line
+
+
+
+
 # Thunderbird
 cmd-shift-a // insert attachment
 
@@ -158,3 +173,18 @@ sudo port install vim @7.4.729_1+gtk2+huge+perl+python27+x11
 ## pip, port
 * 'can not import pkg_resources'
 * reinstall pip / setuptools
+
+# Recovery / boot shortcuts
+cmd-r // recovery mode: disk disk, reinstall
+cmd-s // single user mode: shell
+opt // select boot devices
+D // hardware test
+
+
+# tmutil
+sudo tmutil [command]
+enable / distable
+startbackup
+addexclusions ~/Downloads
+  -p // ~/Downloads will remain in exclusions list, even if folder is moved
+listbackups

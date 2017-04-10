@@ -1,4 +1,82 @@
 See also python/sphinx.txt
 
-``inline_code``
-:func:`module.function` // cross-reference with intersphinx
+# Back-quotes
+`single` // no special meaning; for variables and files
+``double`` // for code
+
+# Converting markdown -> rst
+pandoc -s file.rst -o file.html
+pandoc -f markdown -to rst -o file.rst file.md
+
+# Links
+Header_ // link to Header
+
+# Headings
+=====
+Title
+=====
+
+--------
+Subtitle
+--------
+
+H1
+== // Like # H1 in markdown
+
+H2
+--
+
+H3
+~~
+
+
+# Links
+http://www.sphinx-doc.org/en/stable/markup/inline.html#cross-referencing-arbitrary-locations
+
+# Link to marks
+.. _mark: // define mark
+   // blank line required
+   * must be unique across documents
+   * can be used across documents
+
+:ref:`mark` // link to mark; title is next section header
+:ref:`My title <mark>`
+
+# Link to section
+* Use :ref: instead
+* Not unique across documents
+`Section header`_
+
+# Link to documents
+:doc:`file` // extension not needed
+:doc:`Title <file>`
+:doc:`../relative_file`
+:doc:`/absolute_file`
+
+# Math, Latex equations
+.. math::
+   \frac{ \sum_{t=0}^{N}f(t,k) }{N}
+:math:`\frac{ \sum_{t=0}^{N}f(t,k) }{N}`
+
+
+# Colored boxes
+http://openalea.gforge.inria.fr/doc/openalea/doc/_build/html/source/sphinx/rest_syntax.html#colored-boxes-note-seealso-todo-and-warnings
+.. note :: Foo bar
+.. seealso :: Foo bar
+.. warning :: Foo bar
+
+
+# figure / image
+.. image // without caption
+.. figure // with caption
+:scale: 50 % does not work!
+:width: can be used without :height:
+
+.. figure:: fig1.png
+   :width: 640 px
+   :align: left
+   :alt: DeepCpG model architecture and applications
+
+   **Figure title**
+
+   Figure caption.

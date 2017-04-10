@@ -168,6 +168,7 @@ imshow(I)
 ## grid of images
 from mpl_toolkits.axes_grid1 import ImageGrid
 fig = plt.figure(figsize=(nrows * size, ncols * size))
+  gridspec_kw={'height_ratios': [1, 2]} // to adjust size subplots
 grid = ImageGrid(fig, 111,  # similar to subplot(111)
                  nrows_ncols=(nrows, ncols),
                  axes_pad=0.05, add_all=True, label_mode='L')
