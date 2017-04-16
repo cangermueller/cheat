@@ -4,5 +4,14 @@ env = gym.make('FrozenLake-v0')
 init_state = env.reset()
 next_state, reward, done, info = env.step(action)
 
-action_space.n // nb_action
-action_space.sample() // sample action
+envs.registry.all() // list all envs
+
+# action_space
+n // nb_action
+sample() // sample action
+contains(x)
+
+# observation_space
+sample()
+low
+high

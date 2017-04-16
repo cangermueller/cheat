@@ -104,6 +104,15 @@ date '+%y%m%d_%H%M%S'
 :n // next file
 :p // previous file
 
+# zcommands
+* to inspect compressed (gzip, zip) files
+* https://www.cyberciti.biz/tips/decompress-and-expand-text-files.html
+zless, zmore, zcat
+zgrep
+zdiff file1 file2
+zipgrep pattern archive.zip // search pattern in all files in archive.zip
+
+
 # echo
 echo -e 'a\tb' // tabs
 

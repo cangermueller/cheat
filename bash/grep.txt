@@ -5,6 +5,7 @@ grep -e pattern1 -e pattern2  // multiple pattern
   * Use pattern1.*pattern2 or multiple grep cmds for AND
 
 -i  // ignore case
+-I // ignore binary files
 -c  // count matches
 -v  // invert matches
 -n  // show line number

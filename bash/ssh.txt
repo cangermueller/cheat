@@ -2,9 +2,9 @@
 * ProxyCommand: command which is executed when 'ssh host' is typed
 
 # ssh-copy-id
-cat ~/.ssh/id_dsa.pub | ssh host 'cat >> ~/.ssh/authorized_keys'
+cat ~/.ssh/id_rsa.pub | ssh HOST 'cat >> ~/.ssh/authorized_keys'
 
-# Port fowarding
+# Port forwarding
 * https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding
 * Local port forwarding:
   ssh -L 5901:dest:5900 hn01
@@ -18,3 +18,12 @@ cat ~/.ssh/id_dsa.pub | ssh host 'cat >> ~/.ssh/authorized_keys'
   ssh -D 1080 hn01
   -> current host becomes a SOCKS proxy listening on port 1080
   -> every connection x:y on localhost is forwarded to x:y on hn01
+
+
+# Permissions
+chmod 600 id_rsa
+chmod 644 id_rsa.pub
+drwx------  11 angermue  staff   374B Apr 10 19:31 .ssh
+-rw-------  1 angermue  staff   668B Mar 28 19:10 id_rsa
+-rw-r--r--  1 angermue  staff   609B Mar 28 19:10 id_rsa.pub
+-rw-r--r--  1 angermue  staff    26K Mar 28 19:10 known_hosts
