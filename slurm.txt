@@ -10,6 +10,7 @@ mybalance   // how many hours are left
 list  // currently loaded
 avail // available
 load name // load module
+unload name // unload module
 
 # sbatch
 SBATCH_ACCOUNT
