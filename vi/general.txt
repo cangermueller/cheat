@@ -1,11 +1,15 @@
 # Misc
 V // select entire line
+s/ /\r/g // substitute space by newline
 
 # Path expansion
 <c-r>=expand('%:p')<cr>
 %:t // relative file name
 %:p // absolute file name
 %h:p  // absolute directory
+
+# Python
+:python3 print(sys.path)
 
 # Folding
 zr, zR // open all folds (recursively)
@@ -121,7 +125,8 @@ c-x c-v // vim command line; !ht.. for bash command completion
 :vimgrep/pattern/[jg] f*
   j // do not jump to first match
   g // add line only once
-:vimgrep/pattern/[jg] **/*.py // search recursively
+:vimgrep /pattern/[jg] **/*.py // search recursively
+
 ## custom
 :vg --> vimgrep // cabbr
 \cw // open quickfix

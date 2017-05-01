@@ -152,7 +152,7 @@ matshow(M, ...) // simple; no interpolation
 imshow(M, ...)  // complex; interpolation
   * colors
   interpolation=None, nearest, bilinear, spline16, ...
-  cmap='RdBu', 'RdBu_R', 'binary', cm.RuBu
+  cmap='RdBu', 'RdBu_R', 'gray', 'binary', cm.RuBu
   aspect='auto', 10, 100 // adjust width/height
 grid(axis='both', linestyle='') // no grid
 

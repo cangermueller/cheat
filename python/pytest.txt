@@ -66,10 +66,6 @@ def cleandir(): // execute test tmp dor
 
 
 
-
-
-
-
 # setup, teardown
 class TestClass():
   def setup_class(self):
@@ -78,3 +74,8 @@ class TestClass():
   def teardown_class(self):
     print('Bye')
 
+
+# Test exceptions
+// myfun should through exception:
+with pytest.raises(ValueError):
+    myfun(1)

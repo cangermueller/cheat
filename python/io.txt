@@ -100,7 +100,7 @@ fd, name = mkstemp(...) // name is abs filename; fd is file descriptor
   prefix='abc'
   suffix='.h5'
   dir='/tmp'
-path = mkdtemp(dir=, prefix=, suffix=, dir=)  // create temp dir and return rel path
+path = mkdtemp(dir=, prefix=, suffix=)  // create temp dir and return rel path
 
 
 # String file

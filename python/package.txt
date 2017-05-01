@@ -1,3 +1,8 @@
+# Uploading package to PyPI
+python setup.py sdist
+python setup.py bdist
+twine upload dist/X
+
 # General
 * https://docs.python.org/2/tutorial/modules.html
 * import pkg.module // -> pkg.module.__name__ == module
@@ -55,3 +60,10 @@ tox // run tests in different virtualenv
 versioneer  // automizes update version numbers
 sphinx  // documentation
 pyscaffold  // automatically creates package structure
+
+
+# Versioning
+X.Y.Z
+X. MAJOR version when they make incompatible API changes,
+Y. MINOR version when they add functionality in a backwards-compatible manner, and
+Z. MAINTENANCE version when they make backwards-compatible bug fixes.

@@ -12,7 +12,7 @@ R // refresh recursively
 C // set root to selected item
 cd  // change :pwd to selected dir
 CD // change dir to :pwd
-m // show menu for editing
+m // show menu for editing (create, delete, move, copy)
 I // show hidden files
 e // explore selected directory
 

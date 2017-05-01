@@ -99,7 +99,10 @@ a[a > b]  // logical numpy array; not supported by default arrays
 a[::2]  // every second element
 (a > 1).nonzero() // return indices of values > 1
 A.take([1, 2], axis=0)  // select slices along axis; return copy!
-## keep dimension after slicing
+## keep dimension when slicing
+a = np.array([1, 2, 3])
+a[1] // 1
+a[1:2] // [1] <- use slice to keep dim!
 atleast_1d(a[0, 0])
 atleat_2d(a[0, :])
 

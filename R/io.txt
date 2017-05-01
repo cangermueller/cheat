@@ -1,3 +1,7 @@
+# Environment variables
+Sys.getenv(env)
+Sys.setenv(env)
+
 # Compression
 gzfile(path) // decompresses file, if compressed
 read.table(gzfile('file.csv.gz')) // read compressed file

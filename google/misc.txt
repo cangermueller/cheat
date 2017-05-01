@@ -1,6 +1,0 @@
-# Chromebook
-ctrl-alt brightnet_up/down // zoom
-ctrl-shift switch(above 6) // screenshot
-
-# Code search
-file type: lang:py

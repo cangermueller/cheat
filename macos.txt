@@ -164,6 +164,15 @@ search name // search package
 install name  // install package
 
 
+# Adobe reader
+cmd-left // previous position
+alt-left,right // next,previous page
+fn-left // first page
+fn-right // last page
+fn-up,down // scroll fast
+shift-cmd-n // go to page nr
+
+
 # Bugs
 
 ## vim

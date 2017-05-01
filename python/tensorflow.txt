@@ -27,7 +27,8 @@ rf.reshape(x, [-1, 16])
 tf.concat(axis, [x1, x2]) // concat tensors
 tf.tile(x, [1, 2]) // copy columns twice
 tf.expand_dims(x, dim) // insert single dimension/axis at dim in tensor
-tf.squeeze(x, squeeze_dims=[]) // squeeze all 1 dim axis, or select axis
+tf.squeeze(x, axis=[]) // squeeze all 1 dim axis, or select axis
+  axis=[1, 3, 4] // only squeeze these axis
 
 # Reductions
 tf.reduce_sum(t, axis)
@@ -117,13 +118,20 @@ sess.run('inception_v3/inception_v3/conv0/Relu:0', feed_dict=) // Evaluate tenso
 
 
 # Saving variables
-saver = tf.Saver(...)
+saver = tf.train.Saver(...)
   {'v1': v1, 'v2': v2} // select variables to store
   max_to_keep=5 // max # checkpoints if global_step is used
-saver.save(session, 'model.ckp', ...)
-  global_step=0...1 // progress, e.g. epoch
+saver.save(session, path='./dir/prefix', ...)
+  path: dirname + prefix; files written to '/dir/prefix00...'
+  global_step=int: index appended to `path`
 saver.restore(session, 'model.ckp')
-tf.train.latest_checkpoint(dir) // get path (string) of latest checkpoint file in dir
+
+## Example
+graph = build_graph() // must be build before
+sess = tf.Session()
+saver = tf.train.Saver()
+saver.restore(sess, './checkpoint/00') // restore previous model
+saver.save(sess, ./checkpoints/01') // save new model
 
 
 # conv2d

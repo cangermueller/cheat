@@ -1,3 +1,20 @@
+# Decorator
+* Takes a function `fun` and returns a function `decorator` that decorates `fun`
+def mult(fun):
+  def decorator(*args, **kwargs):
+    return fun(*args, **kwargs) * 2
+  return decorator
+
+* Decorator with arguments: build decorator given arguments
+def mult(fact):
+  def _mult(fun):
+    def decorator(*args, **kwargs):
+      return fun(*args, **kwargs) * fact
+    return decorator
+  return _mult
+
+
+
 # Arguments
 python [args]
 -m  module // load module
