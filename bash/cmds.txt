@@ -1,9 +1,7 @@
-
 # nice
 nice -n 10  // decrease priority
 nice -n -10  // increase priority
 nice -n [-20;20]
-
 
 # cut
 cut file
@@ -122,3 +120,21 @@ ln -r abs_path target // make absolute path relative to target location
 # pandoc
 pandoc --from markdown --to rst --output file.rst file.md
 pandoc -f markdown -to rst -o file.rst file.md
+
+# head
+head -n 3 // print 3 lines
+head -n -3 // print all until -3 (last three lines)
+head -n -1 // remove last line
+
+# tail
+tail -n 3 // last 3 lines
+tail -n +2 // print all lines starting at line 2
+tail -n -2 // print all lines starting at line -2 (from back)
+tail -n +2 // remove first line
+
+# identify
+* To show information about image
+identify -verbose myimage.jpg
+
+# shuf // shuffling lines in file
+cat file.txt | shuf

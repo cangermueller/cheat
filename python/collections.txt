@@ -2,6 +2,7 @@
 from collection import OrderedDict
 d = OrderedDict()
 d['a'] = 1; d['b'] = 2; d.keys() == ['a', 'b'] // Order depends on insert time
+d = OrderedDict([['a', 1], ['b', 2]]) // Initialize ordered via list of tuples
 d.popitem() // removed last inserted item
 
 # deque
@@ -18,5 +19,3 @@ rotate(n)
 c = Counter()
 c['a'] // 0 if not existing
 c[a'] += x // increase by x, even if non-existing
-
-

@@ -1,8 +1,15 @@
+# Install
+https://www.tensorflow.org/versions/r0.12/get_started/os_setup
+export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp27-none-linux_x86_64.whl
+pip install upgrade $TF_BINARY_URL
+
+
 # Misc
 tf.reset_default_graph()  // clears everything
 tf.py_func(fun, tensor) // wrap Python function
 tf.truediv(x, y) // division
 tf.minimum(x, y) // element-wise minimum; see also reduce_min()
+tf.product(x, y) // element-wise product
 tf.reduce_min(t, axis)
 tf.reduce_max(t, axis)
 tf.maximum(x, y) // element-wise maximum; see also reduce_min()
@@ -24,7 +31,12 @@ tf.linspace(min, max)
 
 # Transformations
 rf.reshape(x, [-1, 16])
-tf.concat(axis, [x1, x2]) // concat tensors
+tf.concat([v1, v2], axis)
+  * concat vectors without adding dimension
+  * if v1/v2.shape = [n,], then axis=1 does not work (use stack)
+tf.stack([v1, v2], axis=0)
+  * Add dimension compared to concat
+  * v1, v2 are vectors (shape=[n,]) -> result in [n, 2] for axis=1
 tf.tile(x, [1, 2]) // copy columns twice
 tf.expand_dims(x, dim) // insert single dimension/axis at dim in tensor
 tf.squeeze(x, axis=[]) // squeeze all 1 dim axis, or select axis

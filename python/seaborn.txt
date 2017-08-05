@@ -140,6 +140,8 @@ heatmap(data, ...)
   annot=False // print values in cells
   fmt='d|f' // annotation format
   cmap='RdBu_r'
+  xticklabels=
+  yticklabels=
 clustermap(data, ...) // heatmap + dendrogram
   cmap='RdBu_r'
   col_cluster=True  // cluster columns
