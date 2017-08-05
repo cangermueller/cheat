@@ -3,6 +3,10 @@ sed [options] EXPR [file]
   -n // suppress echoing lines while processing
   -e CMD1 -e CMD2 // chain multiple commands
 
+# Regex
+* digit: [[:digit:]] or [0-9] // \d does not work!!
+* s/^.+_c-([0-9]+_[^_]+).*$/\1/' // extract substring: use ^...$ to match entire line!
+
 # Substituting
 sed -E s/[0-9]+/>&</g // 123 -> >123<
 sed -E s/(group)xx/\1/ // d // (...) is group references by \1, \2, ...
@@ -57,5 +61,3 @@ sed -n '/^#/ ='
 
 # Translate characters
 sed 'y/abc/ABC/' test.txt // lower case -> upper case
-
-

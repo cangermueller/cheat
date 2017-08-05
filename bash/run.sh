@@ -5,7 +5,7 @@ shopt -s extglob
 
 check=1
 function run {
-  cmd=$@
+  local cmd=$@
   echo
   echo "#################################"
   echo $cmd

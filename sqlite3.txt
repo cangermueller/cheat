@@ -14,6 +14,7 @@ sqlite3 [options] db_file [sql_command]
 LIKE  // allows patters (LIKE 'Test%'); slow
   % // any sequence of >= 0 characters
   _ // any character
+IN ('v1', 'v2')
 
 # Show tables
 SELECT name FROM sqlite_master WHERE type='table';
@@ -24,3 +25,6 @@ INSERT INTO table SELECT * FROM src.table;
 
 # Update values
 UPDATE table SET field=value WHERE cond;
+
+# Delete rows
+DELETE FROM table WHERE condition

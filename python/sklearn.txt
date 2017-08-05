@@ -75,28 +75,31 @@ y = [[1, 0, 1],   // cla 0 and 2
 
 
 import sklearn.metrices
+
+## binary
+* true, pred is 1d array
 accuracy_score(true, pred)  // accuracy
 precision_score(true, pred) // precision
 recall_score(true, pred)  // TPR
 roc_auc_score(true, pred)
-classification_report(true, pred)
-c = skm.confusion_matrix(y, z.round())
+matthews_corrcoef(y, z)
+
+## multiclass
+* Use argmax to convert binary matrix to vector of class indices
+  y = y.argmax(axis=1)
+  z = z.argmax(axis=1)
+classification_report(y, z)
+  * String with precision, recall, f1-score for each class
+accuracy_score(y, z)
+c = confusion_matrix(y, z)
+  * rows are labels
+  * columns are predictions
   tpr = c[1, 1] / c[1].sum()
   fpr = c[0, 0] / c[0].sum()
-matthews_corrcoef(y, z.round())
 
 ## curves
 fpr, tpr, thr = roc_auc_curve(true, score)
 pre, recall, thr = precision_recall_curve(true, score)
-
-
-## confusion matrix
-confusion_matrix(true, pred)
-* rows: true
-* columns: predicted
-
-
-
 
 # parameter grid
 from sklearn.grid_search import ParameterGrid

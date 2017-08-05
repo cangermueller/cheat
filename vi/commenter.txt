@@ -1,8 +1,10 @@
 :tab help NERDCommenter
 
+<count>\cX
 \c<space> // toggle
 \ci // toggle individually
 \cc // comment
+5\cc // comment 5 next lines
 \cs // comment sexy
 \cu // uncomment
 \c$ // comment rest of line

@@ -17,7 +17,10 @@ source $config_file // with variables param1=10
 template=$(cat $template file) // contains "echo $param1"
 eval $template
 
-# Using aliases from scropt
+# Showing alias definition
+type ALIASNAME
+
+# Using aliases from source
 shopt -s expand_aliases
 source script.sh
 
@@ -45,8 +48,23 @@ cat /etc/redhat-release
 # chmod, chown
 -R  // recursively
 
-# loop over stdin
+# Loop over stdin
 cmd | while read line; do
+
+# Loop over lines in file
+while read line; do
+  ...
+done < file.txt
+
+# Loop over lines with spaces
+ifs=$IFS
+IFS=$'\n'
+while line in $string; do
+  ...
+done
+IFS=$ifs
+
+
 
 # services / demons
 service NAME COMMAND
@@ -120,12 +138,6 @@ EVENT:WORD  // !!:WORD
 !!:n  // nth word
 !!:n-$  // nth - end
 !!:n*  // nth - end
-
-
-# Removing first / last line
-head -n x   // first x lines
-tail -n x   // first x lines
-tail -n +x  // everything from line x
 
 # Debugging
 set -e  // exit on error

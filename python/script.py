@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import random
 import sys
 
 import argparse
@@ -33,6 +34,11 @@ class App(object):
             '-o', '--out_file',
             help='Output file')
         p.add_argument(
+            '--seed',
+            type=int,
+            default=0,
+            help='Seed of random number generator')
+        p.add_argument(
             '--verbose',
             help='More detailed log messages',
             action='store_true')
@@ -50,6 +56,9 @@ class App(object):
         else:
             log.setLevel(logging.INFO)
         log.debug(opts)
+
+        if opts.seed is not None:
+            random.seed(opts.seed)
 
         return 0
 

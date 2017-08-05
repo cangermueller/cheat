@@ -27,7 +27,7 @@ zc, zC // close
 J // with space
 gJ // without space
 
-# Recording mode
+# Recording mode / Macro
 q[0-9,a-z] // start recording mode which is saved to @[0-9a-x]
 :%s/foo/bar/g // execute commands that are recorded
 ...
