@@ -51,6 +51,7 @@ x = tf.Variable(init, ...)
   init = value [1, 2, 3] or Tensor
   trainable=True // set False to exclude from training
 sess.run(x) or x.eval(sess) // get value of variable
+value = x.value() // get value of variable as op
 assign_op = x.assign(value); sess.run(assign_op) // assign, set value variable
 x.name // var:0
 x.op.name // var
@@ -169,23 +170,23 @@ def update_averages():
 
 
 # Tensorboard
-## General
 tensorboard --logdir path // path containes [train,test_eval,train_eval] dirs
   --logdir m1:./model1/train,m2:model2/train
   --port 6006
 
-tf.scalar_summary(name, tf.reduce_mean(x))
-  name=x.op.name + '/mean' // should be x/mean
-tf.histogram_summary(name, x)
-  name=x.op.name  // should be just x
-tf.image_summary('images', x, max_images=3)
+writer = tf.summary.FileWriter(out_dir)
+s1 = tf.summary.scalar(name, tensor)
+s2 = tf.summary.histogram(name, tensor)
+merged = tf.summary.merge_all()
+merged = tf.summary.merge([s1, s2])
+summaries = sess.run(merged, feed_dict=...)
+writer.add_summary(summaries, global_step)
 
-summaries = tf.merge_all_summaries() // creates summary op
-writer = tf.SummaryWriter('/tmp/tensorflow', sess.graph)
 
-## evaluation
-s = sess.run(summaries)
-writer.add_summary(s)
+
+
+
+
 
 # Graphs
 g0 = tf.get_default_graph() // returns default graph
@@ -235,6 +236,18 @@ opt.compute_gradients(loss, variables=None)
   variables=tf.Variable(...)   // wrt. certain tf Variables
 opt.apply_gradients([(grad1, var1), (grad2, var2)])
 
+# Clipping gradients
+* tf.clip_by_norm(gradient, clip_norm) // clips single tensor
+* tf.clip_by_global_norm(t_list, clip_norm) // clips list of tensors by sum of gradients
+  - t_list[i] = t_list[i] * clip_norm / max(clip_norm, global_norm)
+  - global_norm = sqrt(sum([l2norm(t)**2 for t in t_list]))
+  - if global_norm > clip_norm, downscale by ratio
+  - better than clip_by_norm, but slower
+
+for idx, gradient in enumerate(gradients):
+  gradients[idx] = tf.clip_by_norm(gradient, max_norm)
+gradients, global_norm  = tf.clip_by_global_norm(gradients, global_norm)
+
 
 # Transformations
 tf.slice(tensor, [x, y], [size_x, size_y]) // slice block at (x, y) of size
@@ -259,3 +272,31 @@ extract_glimpse(input, size, offset, ...) // extracts glimpses; fills rest with 
   input: 4d tensor [batch_size, width, height, channels]
   size: [glimpse_width, glimpse_height]
   offset: 2d tensor [batch_size, x_offset - y_offset]
+
+
+# RNN
+* Use static_rnn or dynamic_rnn, not raw BasicLSTMCell!
+* tf.nn.dynamic_rnn: variable batch size (can be None) -> preferred!
+* tf.contrib.static_rnn: fixed number of time steps
+* Note: arguments of dynamic_rnn and static_rnn differ !!
+* tf.unstack: transforms tensor axis into list
+
+## dynamic_rnn
+* batch_size can be None
+* returns only final state!
+outputs, state = tf.nn.dynamic_rnn(cell, inputs, ...)
+  cell: RNNCell
+  inputs: tensor [batch_size, time_steps, features]
+  initial_state: tensor [batch_size, features]
+
+## static_rnn
+ outputs, states = rnn.static_rnn(cell, inputs, ...)
+  cell: RNNCell
+  inputs: list! -> tf.unstack(inputs), where first axis of inputs are time steps
+  initial_state: tensor [batch_size, nb_unit] for dtype
+
+tf.reset_default_graph()
+inputs = tf.placeholder(shape=[nb_step, batch_size, nb_feat], dtype=tf.float32)
+cell = tf.contrib.rnn.BasicLSTMCell(nb_unit)
+outputs, states = tf.contrib.rnn.static_rnn(cell, tf.unstack(inputs), dtype=tf.float32)
+q_values = slim.fully_connected(outputs, nb_action, activation_fn=None)
