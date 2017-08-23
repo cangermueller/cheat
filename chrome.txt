@@ -1,3 +1,4 @@
 c-link // open link next
 c-s-link // open link and switch
 c-opt-left/right // switch between tabs
+c-shift-m // switch profiles
