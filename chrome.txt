@@ -1,3 +1,15 @@
 c-link // open link next
 c-s-link // open link and switch
+shift-cmd-m // switch between profiles
+
+# Scrolling
+fn+left/right // top, bottom of page
+fn+up/down // up down one page
+space // scroll down one page
+shift-space // scroll up one page
+
+# Tabs / windows
 c-opt-left/right // switch between tabs
+c-[12] // select window by number
+c-9 // select last window
+c-shift-t // reopen last used tab
