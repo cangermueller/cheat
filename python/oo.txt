@@ -37,8 +37,9 @@ getattr(o, 'a')
 setattr(o, 'a', v)
 
 # Private: double underscore
-__private_constant
-__private_method
+__private_variable (or _private_variable)
+__private_constant (or _private_constant)
+__private_method (or _private_method)
 
 # Copying instances
 import copy

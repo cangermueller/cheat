@@ -30,7 +30,9 @@ tf.linspace(min, max)
 
 
 # Transformations
-rf.reshape(x, [-1, 16])
+tf.reshape(x, [-1, 16])
+tf.reshape(x, [-1]) // flatten
+
 tf.concat([v1, v2], axis)
   * concat vectors without adding dimension
   * if v1/v2.shape = [n,], then axis=1 does not work (use stack)

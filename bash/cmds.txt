@@ -138,3 +138,9 @@ identify -verbose myimage.jpg
 
 # shuf // shuffling lines in file
 cat file.txt | shuf
+
+# job control
+ps a // show processes
+pgrep // grep job id by name
+pkill // pgrep NAME | kill
+pkill -9 -n // kill newest process

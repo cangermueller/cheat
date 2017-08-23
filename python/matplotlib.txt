@@ -96,10 +96,11 @@ ax.plot(ax.get_xlim(), ax.get_ylim(), ls='--', c='0.3') // diagonal line
 # legend
 plot(x, y, label='curve1')
 plot(x, y, label='curve2')
-legend(...)
+legend(...) // plt.legend or ax.legend
   loc=best, upper [left|center|right], lower [lcr], right, center
   ncol=
-  mode='expand'
+  mode='expand' // horizontally
+  bbox_to_anchor=(1.1, 1.05) // to place legend outside plot
 
 
 

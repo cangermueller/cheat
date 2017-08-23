@@ -15,6 +15,13 @@ sns.plot()
 f, a = plt.subplots(figsize=(w, h))
 sns.plot(ax=x)
 
+# legend
+* Best to set `legend=False` and use matplotlib
+sns.pointplot(data=values, x='smooth', y='value', hue='cla',
+              legend=False)
+ax.set_ylabel(name)
+ax.legend(loc='upper right', title=None, mode='expand', ncol=5)
+
 
 # style
 set_style(...)  // grid style
