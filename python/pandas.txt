@@ -257,7 +257,6 @@ reindex(range(1990, 2000))  // adjust to new index
   * index=  // reindex index
   * fill_value=
   * method='nearest'  // use nearest value
-del df['col'] // delete column
 
 # Check if index contains value
 value in df.index
@@ -512,8 +511,8 @@ df.sort_values('column', ascending=True, inplace=False)  // sort by column(s)
 df.sort_index(axis=0, inplace=False)  // sort by row index
 df.sort_index(axis=1) // sort columns by names
 df.sort_index(by='column')  // sort by column -> like sort
-df.drop(['r1', 'r2'], axis=0) // delete rows
-df.drop(['c1', 'c2'], axis=1) // delete columns
+df.drop(['r1', 'r2'], axis=0, inplace=False) // delete rows
+df.drop(['c1', 'c2'], axis=1, inplace=False) // delete columns
 
 ## hdf5
 df.to_hdf('file', 'groupname')
@@ -534,10 +533,9 @@ s.index = [0.1, 0.2, 0.3] // index does not need to be str
 s[0.1]  // 1
 for key, value in s.items():
   print(key, value)
-s.to_frame(col_name) // Series to DataFrame columns
-  s.to_frame(col_name).T // Series to DataFrame row
+s.to_frame(col_name) // Series to DataFrame COLUMNS
+  s.to_frame(col_name).T // Series to DataFrame ROW
 s.tolist()  // to list()
-s.to_frame()  // to DataFrame; name --> column
 s.values  // to np.array
 
 # Categorical
@@ -577,17 +575,17 @@ Series.isin([1, 2, 3])
 columns.isin(['a', 'b'])  // works on indices
 index.isin([3, 4])
 ## query
+* Logical operations: and, or, in / &, |, ~
 query('col1 < col2 & col3 == "a")
-query('col < @local_var') // reference local variable
+local_var = 1; query('col < @local_var') // reference local variable
 query('col in [1, 2, 3]') // isin
+query('col not in [1, 2, 3]') // exclude
 query('col == [1, 2, 3]') // same as isin
 query('col1 in col2') // same as isin
-query('~ col in [1, 2]')  // ~ or not for negating
-a = "X"; query('chromo == @a') // reference variable
 
 ## Excluding / selecting columns
 df.loc[:, ~df.columns.isin(['col1', 'col2'])]
-df.drop(['col1', 'col2'], axis=1)
+df.drop(['col1', 'col2'], axis=1, inplace=False) // delete/remove columns
 df.loc[:, 'chromo':'end']  // select all between chromo and end
 df[[c for c in df.columns if c not in sel]]
 

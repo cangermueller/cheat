@@ -34,7 +34,7 @@ d = dict(a=1, b=2)
 d = dict(zip(['a', 'b'], [1, 2]))
 d.get(key, default=None)  // return value or default=None (not exception!!) if missing
   * does not insert key
-d.setdefault(key[, value]) // insert if not existing and return value)
+d.setdefault(key[, value]) // assigns `value` to `key` only if `key` does not exist yet and returns resulting value
 d.update(e) // adds other dict e to d inplace
 d.update(a=1, b=2) // adds items inplace
 for key, value in d.iteritems():

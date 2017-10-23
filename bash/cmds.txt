@@ -140,7 +140,11 @@ identify -verbose myimage.jpg
 cat file.txt | shuf
 
 # job control
-ps a // show processes
+ps a // show most processes
+ps ax // show all processes
+pstree
 pgrep // grep job id by name
+  -l // also show name
+  -a // also show full command
 pkill // pgrep NAME | kill
 pkill -9 -n // kill newest process

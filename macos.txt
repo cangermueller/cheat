@@ -1,6 +1,13 @@
 # Misc
-ctrl-shift-power // lock screen
+ctrl-shift-power // lock screen, sleep
 ^ = ctrl
+
+# Zooming
+Preferences -> Accessibility -> Zoom
+opt-cmd-= // zoom in
+opt-cmd-- // zoom out
+opt-cmd-8 // toggle zoom
+
 
 
 Finder

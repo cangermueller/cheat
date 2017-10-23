@@ -1,6 +1,21 @@
+c == cmd !!
+
+
+# Misc
+c-, // chrome settings
 shift-cmd-m // switch between profiles
 c-link // open link next
 c-s-link // open link and switch
+c-F // toggle fullscreen
+c-[left|right] // last, next page
+c-shift-h // load home page in current tab
+
+
+
+# Zoom
+c-+ // zoom in
+c-- // zoom out
+c-0 // zoom defaut
 
 # Scrolling
 fn+left/right // top, bottom of page
@@ -9,6 +24,7 @@ space // scroll down one page
 shift-space // scroll up one page
 
 # Tabs / windows
+c-[left click link] // open link in new tab
 c-opt-left/right // switch between tabs
 c-[12] // select window by number
 c-9 // select last window

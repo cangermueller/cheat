@@ -206,6 +206,7 @@ sum(a, 1) // sum horizontally (over columns)
 max, min
 argmax(array, axis=), argmin  // maximum/minimum (along axis)
 maximum(a, b) // pairwise maximum of two arrays
+clip(value, min, max) // clips value to min or max if outside (min, max)
 np.unique(a, ...)
 np.bincount(a) // counts frequency of each non-negative number in a
   return_counts=True  // count number of unique elements

@@ -2,6 +2,11 @@
 V // select entire line
 s/ /\r/g // substitute space by newline
 
+# Replacing, substituting, regex:
+\vPATTERN // very magic, no escaping necessary
+\mPATTER // magic (default)
+
+
 # Path expansion
 <c-r>=expand('%:p')<cr>
 %:t // relative file name
@@ -75,6 +80,7 @@ d`a // delete until position mark
 `0  // go to last edited file
 `1  // go to 2nd last edited file
 ``  // jump back
+c-6 or c-^ // toggle with last open file; same as :e #
 :marks  // list all marks
 :marks A, B // list selected marks
 
@@ -278,6 +284,11 @@ let a = 1
 let @a = 1  // write to register
 let $e = 1  // write to environment variable
 let &o = 1  // write option
+
+# Options
+set magic // set
+set nomagic // unset
+set nomagic? // show value
 
 ## Types
 buffer-variable    b:     Local to the current buffer.

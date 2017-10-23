@@ -43,6 +43,12 @@ ipython nbconvert --to latex --template article --post PDF nb.ipynb
 * select 'slideshow' in 'cell toolbar'
 ipython nbconvert --to slides --post serve nb.ipynb
 
+
+
+# Display
+from IPython.display import display
+display(data_frame) // nice output of DataFrame
+
 ## HTML
 from IPython.display import HTML
 HTML(url)
@@ -58,6 +64,7 @@ Image(path, ...)
 ## Videos
 from IPython.display import YouTubeVideo
 YouTubeVideo('ucJ2-5a2CAA', width=, height=)
+
 
 
 # Shell commands

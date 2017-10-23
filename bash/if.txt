@@ -3,7 +3,7 @@ Test command
 * help: CONDITIONAL EXPRESSIONS
 * test -e file == [ -e file ] // $? == 0 if file exists
 * if command; then  // if command succeeds than
--z "$v" // zero?
+-z "$v" // undefined?
   * check if variable is unset
 -n "$v" // is defined?
   * True if 'v=', not 'v=0'
@@ -47,11 +47,14 @@ Extended test
 =============
 [[ ... ]]
 a == 'test' // works, even if a=
-a == *'substring'* // check if a matches substring
+a == *substring* // check if a contains substring
+a == *suffix // check if a ends with suffix
 expr && expr  // and; a -
 expr || expr // or
 !expr // not
 $s =~ regex // regex matched anyware
+  if [[ $name =~ (board|worker|ps|exporter|eval) ]]; then
+    * Use without quotes!
   ^regex  // at beginning
   regex$  // at end
   [0-9A-Za-z] // range

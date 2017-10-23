@@ -125,10 +125,21 @@ linewidth
 (0.5, 0.5, 0.0) // 50% red + 50% green
 '#ff0000' // red
 
+## get color by bnames
+from matplotlib import colors
+colors.cnames['green'] // returns hex
+colors.hex2color(hex) // converts hex to RGB
+colors.hex2color(colors.cnames['green']) // convert green to RGB
+
+
 ## color maps
 'RdBu', 'RdBu_R', 'binary'  // access by string
 import matplotlib.cm as cm
 cmap = cm.rainbow  // color map class
+cmap.RdBu is cm.get_cmap('RdBu') // get cmap by name
+cmap(x)
+ * map x \in [0, 1] to [r,g,b,1]
+ * if x is array, adds axis with colors, e.g. 2D probs -> 4D heatmap
 cmap([0.0, 0.5, 1.0])
   * return colors for different values in range ! [0, 1] !
 cm.Set1([0.1, 0.5, 0.7]) // must in in range [0, 1]!
@@ -145,6 +156,11 @@ cmap = cm.rainbow
 norm = colors.Normalize(vmin=, vmax=)
 mapper = cm.ScalarMappale(cmap=cmap, norm=norm)
 colors = mapper.to_rgba(values)
+
+## Plotting and saving images
+ax.imshow(image)
+ax.axis('off') // no axis
+fig.savefig(out_file, bbox_inches='tight', transparent=True) // remove border/margin
 
 
 # imshow / matshow for images / heatmap
@@ -219,7 +235,8 @@ ax.clabel(c, fontsize=9, inline=1) // add label to contour lines
 # savefig
 fig.savefig(path, ...)
   format='png'  // jpeg not supported
-  bbox_inches='tight' // remove white boarder
+  bbox_inches='tight' // remove white boarder/marging
+  transparent=True // transparent background
 
 # Drawing shapes, rectangles, polygons
 from matplotlib import patches

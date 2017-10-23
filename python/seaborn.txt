@@ -15,11 +15,10 @@ sns.plot()
 f, a = plt.subplots(figsize=(w, h))
 sns.plot(ax=x)
 
-# legend
-* Best to set `legend=False` and use matplotlib
-sns.pointplot(data=values, x='smooth', y='value', hue='cla',
-              legend=False)
-ax.set_ylabel(name)
+# Legend
+* Best: remove legend and add matplotlib axis
+sns.pointplot(data=values, x='smooth', y='value', hue='cla')
+ax.legend_.remove() // remove legend
 ax.legend(loc='upper right', title=None, mode='expand', ncol=5)
 
 
@@ -138,12 +137,14 @@ barplot(x, y, ...)
   data=
   hue=  // color
   orient=[h|v]
+  palette='RdBu'
 pointplot(x, y, ...)
   data=
   hue=  // color
 corrplot(data, ...)
   method='pearson'
 heatmap(data, ...)
+  data: matrix-like numpy array or DataFrame
   annot=False // print values in cells
   fmt='d|f' // annotation format
   cmap='RdBu_r'
@@ -215,6 +216,9 @@ grid.axes[0, 0].set(xlabel=, ylabel)
 
 Scatter plot
 ============
+
+
+
 matplotlib
 ----------
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -231,12 +235,23 @@ lmplot
 grid = lmplot(x='x', y='y', data=data, ...)
   fit_reg=False // no regression line
   hue='color'
+  col='columns' // split into columns
   palette='RdBu' // color palette
   legend=False // not legend if hue
   size=5 // figure size
+  scatter_kws={"s": 100} // point size
 grid.ax // get axis
 
 joint plot
 ----------
 * does not support colors
 jointplot(x='x', y='y', data=data, ...)
+  kind={scatter,reg,kde,resid,hex}
+  scatter_kws={"s": 100} // point size
+
+Annotating points
+-----------------
+ax = plt.gca()
+for row in meta.iterrows():
+  row = row[1]
+  ax.annotate(row['head'], xy=(row['precision'], row['delta_log']), xytext=(3, 3), textcoords='offset points')

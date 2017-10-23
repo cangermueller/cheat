@@ -36,4 +36,3 @@ log.info('Info msg')
 log.warn('Warn message')
 log.error('Error msg')
 log.critical('Critical message')
-

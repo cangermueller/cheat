@@ -3,6 +3,9 @@ Create new repository on GitHub
 git remote add origin https://github.com/cangermueller/deepcpg2.git
 git push -u origin master
 
+# Storing user,pass,auth
+git config credential.helper store
+
 # Merging
 <<<<<<< HEAD
 Stuff in own branch
