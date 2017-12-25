@@ -1,8 +1,11 @@
 # Uploading package to PyPI
+* configs in ~/.pypirc
 python setup.py sdist
 python setup.py bdist
 python setup.py bdist_wheel
 twine upload dist/X
+  deepcpg-1.0.5.tar.gz // source package
+  deepcpg-1.0.5-py3-none-any.whl // binary
 
 # General
 * https://docs.python.org/2/tutorial/modules.html

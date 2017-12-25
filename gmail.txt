@@ -1,0 +1,22 @@
+shift-? // show shortcuts
+c // compose message
+d // compose in tab
+[jk] // previous, next
+[np] // previous, next message in selected message
+x // select message
+*-[ru] // select read/unread messages
+shift-return // open in tab
+u // jump back to inbox
+# // delete message
+/ // search messages
+r // reply
+a // reply all
+f // forward
+shift-u // mark as unread
+z // undo last action
+
+cmd-shift-8 // bullet points
+
+# Search filter
+is:{unread,read,important,starred}
+in:{sent,inbox}

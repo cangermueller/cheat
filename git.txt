@@ -16,7 +16,8 @@ checkout HEAD~2 -b new_branch // checkout certain version as new branch
 checkout 213123 // checkout in temp branch
 branch -m new // rename current branch to new
 branch -d name // delete branch
-branch -dr name // delete remote branch
+branch -dr origin/keras2 // delete remote branch locally
+push origin --delete keras2 // delete remote branch on github
 
 # Misc
 status -u // show untracked files

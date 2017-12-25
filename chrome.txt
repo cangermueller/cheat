@@ -1,6 +1,7 @@
 shift-cmd-m // switch between profiles
 c-link // open link next
 c-s-link // open link and switch
+shift-dn-delete // delete single autocompleted URL
 
 # Scrolling
 fn+left/right // top, bottom of page
