@@ -107,6 +107,12 @@ p = ParameterGrid({'a': [...], 'b': [...]})
 for pp in p:
   model.set_params(**pp)
 
+## regression
+mean_squared_error(y, z, w)
+mean_absolute_error(y, z, w)
+r2_score(y, z, w)
+explained_variance_score(y, z, w)
+
 
 
 

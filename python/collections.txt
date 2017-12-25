@@ -19,3 +19,13 @@ rotate(n)
 c = Counter()
 c['a'] // 0 if not existing
 c[a'] += x // increase by x, even if non-existing
+
+# namedtuple
+* Like tuple p = (1, 2) but enables accessing fields by names
+* Values can not be modified (like tuple)
+* Similar to constant struct
+
+Params = namedtuple("Params", ["a", "b"])
+p =  Params(1, 2)
+print(p.a)
+print(p.b)

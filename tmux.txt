@@ -6,6 +6,9 @@ DIR="$HOME/opt"
 Can't open display X
 export DISPLAY='echo $DISPLAY right after login'
 
+# Misc
+Copy on double-click: opt + double click
+
 # key bindings
 O // close other
 r // source conf

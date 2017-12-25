@@ -36,3 +36,11 @@ re.subn() // like sub, but return number of replacements
 re.I  // insensitive
 re.M  // multi line; ^ is beginning of line, not string
 re.S  // single line; . matches \n
+
+
+# Grep lines from file
+file = open(...)
+for line in file:
+  m = re.search('.../([^/]+)/...')
+  if m:
+    lines.append(m.group(1))

@@ -36,6 +36,13 @@ hasattr(o, 'a')
 getattr(o, 'a')
 setattr(o, 'a', v)
 
+
+# Checking type and inheritance
+import inspect
+inspect.isclass(MyClass) // check if object is class like isinstance
+issubclass(MyClass, BaseClass) // check if MyClass inherits at some point from BaseClass
+
+
 # Private: double underscore
 __private_variable (or _private_variable)
 __private_constant (or _private_constant)

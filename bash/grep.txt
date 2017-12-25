@@ -1,5 +1,5 @@
 grep pattern file1 file2  // print files containing pattern
-grep pattern dir1 dir2 -R // all files in dir1 or dir2
+grep pattern -r dir1 dir2 // all files in dir1 or dir2 recursively
 grep -e pattern1 -e pattern2  // multiple pattern
   * pattern1 OR pattern2
   * Use pattern1.*pattern2 or multiple grep cmds for AND
@@ -15,7 +15,7 @@ grep -e pattern1 -e pattern2  // multiple pattern
 --exclude PATTERN // exclude files
 --exclude-dir PATTERN // exclude dir
 
-## pattern
+# Pattern
 -G  // basic; default; does not support ranges
 -E  // extended -> egrep
 -P  // perl
@@ -23,3 +23,9 @@ grep -e pattern1 -e pattern2  // multiple pattern
 ^,$
 [ab], [^ab], [[:alpha:]]
 ?, *, +, {min,max}
+
+
+# Recursion
+-r dir // do not follow symlinks
+-R dir // follow symlinks
+-r --include '*\.py' dir // all *.py files in dir

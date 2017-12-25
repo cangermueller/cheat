@@ -3,6 +3,12 @@ https://www.tensorflow.org/versions/r0.12/get_started/os_setup
 export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-0.12.1-cp27-none-linux_x86_64.whl
 pip install upgrade $TF_BINARY_URL
 
+# Pairwise comparison
+a == 0  does not perform pairwise comparision but checks if a is 0
+[0, 1, 0] == 0 // False
+tf.equal([0, 1, 0], 0) // [True, False, True]
+Same for tf.not_equal !=
+
 
 # Misc
 tf.reset_default_graph()  // clears everything
@@ -60,7 +66,17 @@ tf.cast(t, dtype=tf.float32) // change dtype of tensor
 
 
 # Tensor / Variable
-x.get_shape().as_list()
+tf.Variable(10, name='var')
+tf.get_variable('var', shape=(10), initializer=tf.constant_initializer(10))
+with tf.variable_scope('head1'):
+  sigma = tf.get_variable('sigma', shape=(10), initializer=tf.constant_initializer(10)) // sigma.name == 'head1/sigma'
+with tf.variable_scope('head1', reuse=True):
+  sigma = tf.get_variable('sigma') // retrieve/get existing variable; only work when created with get_variable, not Variable!
+sigma = tf.get_variable('head1/sigma') // same as before
+
+
+x.shape_as_list() // get shape
+x.get_shape().as_list() // get shape
 x = tf.Variable(init, ...)
   init = value [1, 2, 3] or Tensor
   trainable=True // set False to exclude from training
@@ -69,51 +85,56 @@ value = x.value() // get value of variable as op
 assign_op = x.assign(value); sess.run(assign_op) // assign, set value variable
 x.name // var:0
 x.op.name // var
-tf.get_variable('var', initializer=tf.constant_initializer(value)) // initialize with value
 
 ## Namespace variables
 with tf.variable_scope('layer1'):
+  // prepends 'layer1/' to variable names; same as using name='layer1/x'
   w = tf.get_variable('w', shape, dtype='float32',
                       initializer=tf.random_normal_initializer()
-                      collections=[tf.GraphKeys, 'filters'],
+                      collections=[tf.GraphKeys, 'filters'])
+  // w.name == 'layer1/a'
+
   b = tf.get_variable('b', shape,
                       initializer=tf.zeros_initializer, // not brackets!
                       collections=[tf.GraphKeys, 'biases']
-with tf.variable_scope('layer1', reuse=True):
-  tf.get_variable('w').eval(sess) // retrieve value of variable
-tf.get_collection_ref('bias') // return all variables from collection
-tf.trainable_variables() // returns variables across all scopes
-tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope='scope') // return trainable variables of 'scope'
-tf.get_variable_scope() // get current scope
-tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
-  scope=tf.get_variable_scope().name) // return trainable variables in current scope
 
-## scopes
-with tf.variable_scope('name'): // variables and ops
-  ...
+## Scope
+* Scope add adds just prefix to variable names (see below)
+
+with tf.variable_scope('head', ...): // variables and ops
+  a = tf.get_variable(0, name='a') // same as tf.Variable(0, name='head/a')
+  trainable=True
+  reuse=True // a = get_variable('name'); retrieve existing variable 'head/name'
+
 with tf.name_scope(...) // ops
-  ...
 tf.get_variable_scope() // return current variable scope
+
+
 
 
 # Collections
 * container for variables identified by string
+v = tf.Variable(0, 'v', collections=['c1'])
 v = tf.get_variable('v', collections=['c1'])
   * adds variable to collection 'c1'
   * creates c1 if non-existing
 tf.add_to_collection('c1', tensor) // add any tensor to collection
-tf.get_collection('c1') // [v]; returns list of all variables in collection
-k = tf.GraphKeys() // default collection names
-  .VARIABALES
-  .TRAINABLE_VARIABLES
-  .GLOBAL_STEP
+tf.get_collection_ref('c1')
+  * returns list with tensors in collection
+  * can be modified, e.g. via list.remove or list.append
 
-# Initializer
-tf.constant_initializer(value)
-tf.random_uniform_initializer(a, b) // [a, b]
-tf.random_normal_initializer(mean, std)
-tf.zeros_initializer // no ()
-tf.contrib.layers.xavier_initializer
+## tf.GraphKeys() // default collection names
+.VARIABLES
+
+.GLOBAL_VARIABLES // tf.global_variables(); shared across machines
+.MODEL_VARIABLES // tf.model_variables()
+.TRAINABLE_VARIABLES // tf.trainable_variables(); contained in GLOBAL_VARIABLES
+// Convention: GLOBAL_VARIABLES -> MODEL_VARIABLES -> TRAINABLE_VARIABLES
+// However, variables not automatically added to GLOBAL_VARIABLES when collection=[tf.GraphKeys.MODEL_VARIABLES]!
+
+.LOCAL_VARIABLES // tf.local_variables(); local on machine
+.SUMMARIES // used, e.g. by tf.summary.merge_all
+.GLOBAL_STEP
 
 
 
@@ -132,6 +153,17 @@ sess.run('inception_v3/inception_v3/conv0/Relu:0', feed_dict=) // Evaluate tenso
 
 
 
+
+
+
+# Initializer
+tf.constant_initializer(value)
+tf.random_uniform_initializer(a, b) // [a, b]
+tf.random_normal_initializer(mean, std)
+tf.zeros_initializer // no ()
+tf.contrib.layers.xavier_initializer
+
+
 # Saving variables
 saver = tf.train.Saver(...)
   {'v1': v1, 'v2': v2} // select variables to store
@@ -144,7 +176,7 @@ saver.restore(session, 'model.ckp')
 ## Example
 graph = build_graph() // must be build before
 sess = tf.Session()
-saver = tf.train.Saver()
+saver = tf.train.Saver() // only stores/restored variables that are in graph
 saver.restore(sess, './checkpoint/00') // restore previous model
 saver.save(sess, ./checkpoints/01') // save new model
 
@@ -224,6 +256,9 @@ session.get_graph()
 # QueueRunners
 coord = tf.train.Coordinator()
 threads = tf.train.start_queue_runners(sess, coord)
+coord.request_stop()
+coord.join(threads)
+sess.close()
 
 # Devices
 tf.device(name): // assign to certain device instead of choosing automatically
@@ -242,6 +277,12 @@ train.match_filenames_once
 train.string_input_producer
 
 filename_queue = train.string_input_producer(['file1.np', 'file2.np'])
+
+# Computing gradients
+[grad_x] = tf.gradients(loss, x)
+  * Gradient of loss wrt. x
+  * loss/x can be list of single tensor
+  * always returns list!
 
 # Optimizer
 opt = tf.train.AdamOptimizer()
@@ -314,3 +355,12 @@ inputs = tf.placeholder(shape=[nb_step, batch_size, nb_feat], dtype=tf.float32)
 cell = tf.contrib.rnn.BasicLSTMCell(nb_unit)
 outputs, states = tf.contrib.rnn.static_rnn(cell, tf.unstack(inputs), dtype=tf.float32)
 q_values = slim.fully_connected(outputs, nb_action, activation_fn=None)
+
+
+
+# arg_scope
+arg_scope = tf.contrib.framework.arg_scope
+* Most inner arg_scopre prevails:
+  with arg_scope([layers.dropout], is_training=False):
+    with arg_scope([layers.dropout], is_training=True):
+      net = layers.dropout(net) // is_training=True

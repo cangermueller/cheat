@@ -15,11 +15,10 @@ sns.plot()
 f, a = plt.subplots(figsize=(w, h))
 sns.plot(ax=x)
 
-# legend
-* Best to set `legend=False` and use matplotlib
-sns.pointplot(data=values, x='smooth', y='value', hue='cla',
-              legend=False)
-ax.set_ylabel(name)
+# Legend
+* Best: remove legend and add matplotlib axis
+sns.pointplot(data=values, x='smooth', y='value', hue='cla')
+ax.legend_.remove() // remove legend
 ax.legend(loc='upper right', title=None, mode='expand', ncol=5)
 
 
@@ -72,6 +71,7 @@ X_d // dark
 # Grids
 ## FacetGrid: facetting
 * => Most relevant
+* Integrated into lmplot (see below)
 g = FacetGrid(data, col='col_var', row='row_var', ...)
   hue='color_var'
   col_wrap=None // # columns
@@ -79,7 +79,9 @@ g = FacetGrid(data, col='col_var', row='row_var', ...)
   aspect // width = size * aspect
   xlim=[0, 1], ylim=
   legend_out=True // Draw legend outside
-g.map(sns.pointplot, xvar, yvar, linewidth=3, marker='o', ms=6) // lineplot
+  share[xy]=True // Same xlim, ylim
+p = g.map(sns.pointplot, xvar, yvar, linewidth=3, marker='o', ms=6) // lineplot
+  p.set_xlabels('xlabels') // xlabelS, not xlabel!
 g.add_legend()
 g.savefig('plot.pdf')
 g.axes[i, j] // matplotlib axes
@@ -114,15 +116,22 @@ g.plot_marginals(fun_marginals, ...)
 
 
 # boxplot
+* Rather unreliable and complicated to use!
 boxplot(data=, x=, y=, ...)
 violinplot(data=, x=, y=, ...)
+boxplot(...)
+  x='yaxis', y='xaxis' // plot horizontally; orient='h' does not seem to work
+  ax.set_xticklabels(ax.get_xticklabels(),rotation=60) // rotate labels
+  plt.ylim(-4, 4) // ax.set_ylim changes position of boxes!
+  palette='Set1'  // fill boxes
+  hue= // causes narrow boxes! Bug?
+  order=['b', 'c', 'a'] // change order of labels
+  showfliers=False // no outliers
 
 ## boxplot with points
 fig, ax = plt.subplots(figsize=(10, len(pa.anno.unique()) * 0.5));
 sns.boxplot(y='anno', x='auc', data=pa, orient='h', order=pam.anno, ax=ax)
 sns.stripplot(y='anno', x='auc', data=pa, orient='h', order=pam.anno) // add points
-sns.boxplot(...)
-  palette='Set1'  // fill boxes
 
 
 # different plot types
@@ -138,12 +147,14 @@ barplot(x, y, ...)
   data=
   hue=  // color
   orient=[h|v]
+  palette='RdBu'
 pointplot(x, y, ...)
   data=
   hue=  // color
 corrplot(data, ...)
   method='pearson'
 heatmap(data, ...)
+  data: matrix-like numpy array or DataFrame
   annot=False // print values in cells
   fmt='d|f' // annotation format
   cmap='RdBu_r'
@@ -177,6 +188,7 @@ distplot(x, ...)  // hist + kde
   hist=True
   kde=True
   kde_kw={'shade', True}
+  color=None
 jointplot(x='x', y='y', data=data)
   * 2d scatter plot with distributions at side
   kind='kde'
@@ -188,12 +200,7 @@ regplot(x, y, ...)
   * no hue=, cols=   <-> lmplot / factorplot
   data=None
   logistic=False
-lmplot(x, y, data, ...) // x continuous
-  col='col_var' // facet by column
-  row='row_var' // facet by row
-  hue='color_var'
-  logistic=False  // logistic regression
-  loess=False // loess fit
+lmplot(x, y, data, ...) // (see below)
 factorplot(x, y, ...) // x categorical
   data= // DataFrame
   col='col_var' // facet by column
@@ -215,6 +222,11 @@ grid.axes[0, 0].set(xlabel=, ylabel)
 
 Scatter plot
 ============
+* lmplot (no histograms on side)
+* jointplot(kind='scatter') (histograms on side)
+
+
+
 matplotlib
 ----------
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -228,15 +240,42 @@ if labels:
 
 lmplot
 ------
+* Supports facetting; don't use with FacetGrid!
 grid = lmplot(x='x', y='y', data=data, ...)
-  fit_reg=False // no regression line
   hue='color'
   palette='RdBu' // color palette
+  col='col_var' // facet by column
+  row='row_var' // facet by row
+  hue='color_var'
+  logistic=False  // logistic regression
+  loess=False // loess fit
+  fit_reg=False // no regression line
   legend=False // not legend if hue
   size=5 // figure size
+  scatter_kws={'s': 100}  // point size
+  scatter_kws={'color': 'royalblue'}  // color
+  scatter_kws={'alpha': 0.3}  // transparency
 grid.ax // get axis
+
+# Adding diagonal line
+ax = grid.ax
+ax.plot(ax.get_xlim(), ax.get_ylim(), ls="--", c=".3")
 
 joint plot
 ----------
 * does not support colors
-jointplot(x='x', y='y', data=data, ...)
+grid.jointplot(x='x', y='y', data=data, ...)
+  kind={scatter,reg,kde,resid,hex}
+  color='royalblue'
+  joint_kws={"s": 100} // point size
+  ratio=5 // ratio joint distribution vs. marginal distribution
+
+grid.set_axis_labels('xlabel', 'ylabel')
+ax = grid.ax_joint // get axis of joint plot
+
+Annotating points
+-----------------
+ax = plt.gca()
+for row in meta.iterrows():
+  row = row[1]
+  ax.annotate(row['head'], xy=(row['precision'], row['delta_log']), xytext=(3, 3), textcoords='offset points')

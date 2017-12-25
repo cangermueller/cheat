@@ -4,8 +4,11 @@ sed [options] EXPR [file]
   -e CMD1 -e CMD2 // chain multiple commands
 
 # Regex
-* digit: [[:digit:]] or [0-9] // \d does not work!!
-* s/^.+_c-([0-9]+_[^_]+).*$/\1/' // extract substring: use ^...$ to match entire line!
+digit: [[:digit:]] or [0-9] // \d does not work!!
+s/^.+_c-([0-9]+_[^_]+).*$/\1/' // extract substring: use ^...$ to match entire line!
+\s // whitespace
+\< // start of word
+\> // end of word
 
 # Substituting
 sed -E s/[0-9]+/>&</g // 123 -> >123<

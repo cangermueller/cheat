@@ -3,9 +3,9 @@ Test command
 * help: CONDITIONAL EXPRESSIONS
 * test -e file == [ -e file ] // $? == 0 if file exists
 * if command; then  // if command succeeds than
--z "$v" // zero?
+-z "$v" // True if undefined (v=)
   * check if variable is unset
--n "$v" // is defined?
+-n "$v" // True if defined, e.g. v=0,v=1
   * True if 'v=', not 'v=0'
 -e  // file exists
 -f  // file exists
@@ -25,6 +25,7 @@ String comparision
 ------------------
 s1 == s2 // strings equal
 s1 != s2 // strings unequal
+s1 == 'a'* // check if s1 starts with a
 s1 == *'s2'* // check if s1 contains s2 -> only with [[ ... ]]
 !expr  // not
 expr -a expr  // and
@@ -47,11 +48,14 @@ Extended test
 =============
 [[ ... ]]
 a == 'test' // works, even if a=
-a == *'substring'* // check if a matches substring
+a == *substring* // check if a contains substring
+a == *suffix // check if a ends with suffix
 expr && expr  // and; a -
 expr || expr // or
 !expr // not
 $s =~ regex // regex matched anyware
+  if [[ $name =~ (board|worker|ps|exporter|eval) ]]; then
+    * Use without quotes!
   ^regex  // at beginning
   regex$  // at end
   [0-9A-Za-z] // range

@@ -38,18 +38,24 @@ c // continue
 j[ump] 10 // jump to line 10; skip intermediate commands; back jumps possible
 r[eturn] // until return
 until // until end of frame -> after function
-l // show current line
+where // show current line
+l // list lines following the current line
+l start,end // list lines for given line numbers (can not be relative)
+l start,count // if count < start, interpreted as count, otherwise end
 where // stack trace
 up  // move current frame one layer up, execution point stays the same
+down // move current frame one layer down
 restart // restart from beginning using updated script; breakpoints are kept
 
 # Advances
 pfile file.py // show file content
 pfile object  // show source of object
 pdef fun // show definition function
+pdoc fun // show docstring of function or file
 
 # Info
 a, args // show arguments
+whatis object // show type of object
 
 
 # ipdb ignore set_trace

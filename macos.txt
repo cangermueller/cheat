@@ -1,6 +1,16 @@
 # Misc
-ctrl-shift-power // lock screen
+ctrl-shift-power // lock screen, sleep
 ^ = ctrl
+
+# Zooming
+Preferences -> Accessibility -> Zoom
+opt-cmd-= // zoom in
+opt-cmd-- // zoom out
+opt-cmd-8 // toggle zoom
+
+# Customize keyboard touch bar
+Finder -> View -> Customize touch bar
+
 
 
 Finder
@@ -97,6 +107,7 @@ ctrl - down // switch windows
 F11 // show desktop
 F12 // show dashboard
 ^-[12] // switch to desktop
+Double click window title // increase size of window
 
 # Screenshots
 cmd-shift-4 // select region
