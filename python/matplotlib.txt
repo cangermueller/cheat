@@ -101,6 +101,7 @@ legend(...) // plt.legend or ax.legend
   ncol=
   mode='expand' // horizontally
   bbox_to_anchor=(1.1, 1.05) // to place legend outside plot
+  title='Title'
 
 
 

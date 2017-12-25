@@ -9,6 +9,10 @@ c-s-link // open link and switch
 c-F // toggle fullscreen
 c-[left|right] // last, next page
 c-shift-h // load home page in current tab
+fn-shift-del // delete selected autocomplete URL
+
+# Google Drive
+* Add folder to multiple locations: select file -> shift-z -> add to
 
 
 

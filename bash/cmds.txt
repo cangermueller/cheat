@@ -98,7 +98,9 @@ ls | xargs -Ix cmd x // cmd will be executed n times with different x
 date '+%y%m%d_%H%M%S'
 
 # less
+* Flags (-S, -I, ...) can be typed while less is open
 -S no line wrap
+-I // case insensitive search
 :n // next file
 :p // previous file
 
@@ -148,3 +150,7 @@ pgrep // grep job id by name
   -a // also show full command
 pkill // pgrep NAME | kill
 pkill -9 -n // kill newest process
+
+
+# nslookup
+set q=mx // type in console; check mx record

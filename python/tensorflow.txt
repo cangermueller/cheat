@@ -75,7 +75,8 @@ with tf.variable_scope('head1', reuse=True):
 sigma = tf.get_variable('head1/sigma') // same as before
 
 
-x.get_shape().as_list()
+x.shape_as_list() // get shape
+x.get_shape().as_list() // get shape
 x = tf.Variable(init, ...)
   init = value [1, 2, 3] or Tensor
   trainable=True // set False to exclude from training
@@ -277,6 +278,12 @@ train.string_input_producer
 
 filename_queue = train.string_input_producer(['file1.np', 'file2.np'])
 
+# Computing gradients
+[grad_x] = tf.gradients(loss, x)
+  * Gradient of loss wrt. x
+  * loss/x can be list of single tensor
+  * always returns list!
+
 # Optimizer
 opt = tf.train.AdamOptimizer()
 opt.compute_gradients(loss, variables=None)
@@ -348,3 +355,12 @@ inputs = tf.placeholder(shape=[nb_step, batch_size, nb_feat], dtype=tf.float32)
 cell = tf.contrib.rnn.BasicLSTMCell(nb_unit)
 outputs, states = tf.contrib.rnn.static_rnn(cell, tf.unstack(inputs), dtype=tf.float32)
 q_values = slim.fully_connected(outputs, nb_action, activation_fn=None)
+
+
+
+# arg_scope
+arg_scope = tf.contrib.framework.arg_scope
+* Most inner arg_scopre prevails:
+  with arg_scope([layers.dropout], is_training=False):
+    with arg_scope([layers.dropout], is_training=True):
+      net = layers.dropout(net) // is_training=True

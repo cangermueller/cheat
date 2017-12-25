@@ -1,3 +1,9 @@
+# Infos / Memory usage
+df.info()
+df.info(memory_usage='deep')
+df.memory_usage()
+
+
 Creating Data.Frame
 ===================
 DataFrame({'id': [1, 2, 3], 'value': 10}) // from dict
@@ -48,6 +54,11 @@ df.apply(fun, axis=0) // apply function over axis
   axis=1 // over columns -> return value for each row
 
 # sample DataFrame
+df.sample(n, ...)
+  n=100 // number of samples
+  frac=0.1 // fraction of samples instead of n
+  replace=False // sample with/without replacemane
+  axis=0
 df.iloc[np.random.sample(df.index, n), :]
   np.random.sample(list, n) // sample n elements without replacement
 
@@ -237,7 +248,7 @@ set_index([columns], ...) // set row index
   drop=False  // retain column
   append=True // append to end
 reset_index(...)  // row index -> columns
-  level=
+  level= // reset only these levels; useful after groupby
   drop=True // do not add columns; only delete level
 d = d.sort_index(...) // sort df by non-hierarchical index; not inplace!
   axis=0
@@ -467,7 +478,8 @@ fun(d)
 apply(lambda df: pd.DataFrame({'f1':df.f1.min()}) // return min of f1
 apply(fun, *args, **kwargs)
 
-
+## Resetting index
+data.groupby(['col1', 'col2']).apply(fun).reset_index(levels=(0, 1))
 
 
 

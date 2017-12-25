@@ -3,9 +3,9 @@ Test command
 * help: CONDITIONAL EXPRESSIONS
 * test -e file == [ -e file ] // $? == 0 if file exists
 * if command; then  // if command succeeds than
--z "$v" // undefined?
+-z "$v" // True if undefined (v=)
   * check if variable is unset
--n "$v" // is defined?
+-n "$v" // True if defined, e.g. v=0,v=1
   * True if 'v=', not 'v=0'
 -e  // file exists
 -f  // file exists
@@ -25,6 +25,7 @@ String comparision
 ------------------
 s1 == s2 // strings equal
 s1 != s2 // strings unequal
+s1 == 'a'* // check if s1 starts with a
 s1 == *'s2'* // check if s1 contains s2 -> only with [[ ... ]]
 !expr  // not
 expr -a expr  // and
