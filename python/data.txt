@@ -64,18 +64,22 @@ s = set() // empty set; {} is hash!!
 s = {1, 2, 3}
 s = {x for x in range(3)}
 len(s)
-s.add(3)
-s.update({2, 3})
-s.update([2, 3])
-s.remove(10)   // inplace
+s.add(3) // add single element
+s.update({2, 3}) // join with set/list INPLACE
+s = s.union({2, 3}) // join with set/list OUTPLACE
+s.remove(10)   // remove single element INPLACE
 s.pop() // remove and return first element
+s.copy()
 x in s
+
+## OUTPLACE operations on sets (not single elements)
 s | t // union; like [1, 2] + [3, 4] to concat lists
 s & t // intersection
-s.copy()
-s.add(3) // not +!
 s.union(s2) <=> s | s2 // not +!
 s.difference(s2) <=> s - s2
+
+
+
 
 # Tuples
 * sorted, immunable -> can be member of a set

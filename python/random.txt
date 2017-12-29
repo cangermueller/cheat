@@ -2,3 +2,5 @@ import random
 
 seed(x) // set seed
 shuffle(x)  // shuffle list in-place
+xx = sample(x, len(x)) // shuffle list out-of-place
+sample(x, 3) // sample 3 elements
