@@ -39,6 +39,7 @@ add_argument('--no-verbose', action='store_false', dest='verbose')
 * choices=['red', 'green', 'blue']
 * dest='variable_name'  // use different variable name in namespace
   * use metavar='shown' for renaming positional arguments
+* required=True // make --arg required
 set_default(verbose=False)
 
 ## add_mutually_exclusive_group
@@ -78,3 +79,8 @@ if len(filenames) == 0 and not sys.stdin.isatty:
 * For grouping arguments in --help dialog
 g = p.add_argument_group('other arguments', description=None)
 g.add_argument(...)
+
+# Forwarding/passing unused args
+1. opts, unknown_opts = parser.parse_known_args(args[1:])
+2. p.add_argument('rest', nargs=argparse.REMAINDER)
+  * arg.parse.REMAINDER == '...', similar to '*'

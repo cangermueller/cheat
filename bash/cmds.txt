@@ -149,7 +149,7 @@ pgrep // grep job id by name
   -l // also show name
   -a // also show full command
 pkill // pgrep NAME | kill
-pkill -9 -n // kill newest process
+pkill -9 -n // kill only newest process
 
 
 # nslookup

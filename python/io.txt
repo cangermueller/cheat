@@ -52,6 +52,7 @@ realpath()  // like abspath, but resolves symlinks
 expanduser('~')
 getenv('HOME', ...) // environment variables
   default=
+user = getpass.getuser()
 
 
 # Misc
@@ -69,19 +70,22 @@ shutil.copytree(src_dir, dst_dir) // copy dir
 shutil.move(src, dst) // rename, move file like mv
 shutil.rmtree(path) // remove dir with content
 
+
+
+
 # execute system/shell command
+rv = os.system(cmd) // deprecated
+
 import subprocess as sp
-sp.call(['ls', '-l']) // returns exit state
+rv = sp.call(['ls', '-l'], ...) // returns exit state
+  ... // arguments passed to sp.Popen(...)
+
 ## capturing output
-sp.check_output(cmd)
-  * like Popen (below), but Exception if $? != 0
-sp.check_output(cmd, shell=True).decode().splitlines()
 sp.Popen(cmd, stdout=sp.PIPE).stdout.read()
 sp.Popen(cmd, shell=True, cwd=os.getcwd(), stdout=sp.PIPE).stdout.read().decode().splitlines()
+sp.check_output(cmd)  // like Popen, but Exception if $? != 0
+sp.check_output(cmd, shell=True).decode().splitlines()
 
-
-## deprecated
-os.system(cmd)  // returns exit status
 
 
 # check if exsits
@@ -120,3 +124,7 @@ cmpfiles(dir1, dir2, commom=[file1, file2]) // Compare files in directories
     a // list of files in common that are equal
     b // list of files in common that are unequal
     c // list of files in common that non-regular files
+
+
+# User input / ask confirmation
+return raw_input().lower() in ['y', 'yes']

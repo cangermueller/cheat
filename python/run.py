@@ -40,8 +40,8 @@ class App(object):
             help='Seed of random number generator')
         p.add_argument(
             '--verbose',
-            help='More detailed log messages',
-            action='store_true')
+            action='store_true',
+            help='More detailed log messages')
         p.add_argument(
             '--log_file',
             help='Write log messages to file')
