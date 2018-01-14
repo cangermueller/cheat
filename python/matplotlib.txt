@@ -103,6 +103,10 @@ legend(...) // plt.legend or ax.legend
   bbox_to_anchor=(1.1, 1.05) // to place legend outside plot
   title='Title'
 
+## legend outside
+ax.legend(title=None, ncol=1, loc='left',
+          bbox_to_anchor=(1.0, 1.0), *args, **kwargs)
+
 
 
 # coordinate transformations

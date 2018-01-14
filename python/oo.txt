@@ -74,6 +74,30 @@ class Child(Parent):
     super(Child, self).method() // call parent method
 
 
+
+# Static variables
+class MyClass(object):
+  value = 10
+
+c1 = MyClass()
+c1.value = 100
+print(MyClass.value) # 10
+print(c1.value) # 100
+-> Instances inherit class variables, i.e. self.value is initialized with Class.value
+-> c1.value instance specific
+
+MyClass.value = 11
+print(MyClass.value) # 11
+print(c1.value) # 100
+-> MyClass.value is class specific!
+
+c1.__class__.value = 200
+print(MyClass.value) # 11
+print(c1.value) # 100
+-> c1.__class__.value = x is same as MyClass.value = x
+
+
+
 # Decorators
 @staticmethod
 def static():

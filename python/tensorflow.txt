@@ -49,6 +49,7 @@ tf.tile(x, [1, 2]) // copy columns twice
 tf.expand_dims(x, dim) // insert single dimension/axis at dim in tensor
 tf.squeeze(x, axis=[]) // squeeze all 1 dim axis, or select axis
   axis=[1, 3, 4] // only squeeze these axis
+tf.transpose(x, perm=[1, 0, 2]) // exchange axis 0 and 1
 
 # Reductions
 tf.reduce_sum(t, axis)

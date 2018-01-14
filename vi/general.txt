@@ -14,9 +14,11 @@ runtime ftplugin/man.vim
 
 # Path expansion
 <c-r>=expand('%:p')<cr>
+:echo expand('%:p')
 %:t // relative file name
 %:p // absolute file name
 %h:p  // absolute directory
+pwd // cwd path
 
 # Python
 :python3 print(sys.path)

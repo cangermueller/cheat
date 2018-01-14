@@ -26,7 +26,7 @@ slice_replace(from, to, replace)
 slice(from, to)
 pad(length, fillchar=' ') // extend length
 startswith(string)  // starts with string (not re!)
-contains(re)  // contained regular expression
+contains(re)  // contained regular expression/regex
 find(str, start=0, end=len) // -1 if not find; start else
 lower()
 upper()
