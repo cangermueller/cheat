@@ -160,8 +160,9 @@ https://support.office.com/en-gb/article/Create-a-custom-keyboard-shortcut-for-O
 Preferences -> Keyboard -> Shortcuts -> App shortcuts -> Powerpoint
 Insert->Shape->Line
 
-
-
+## Saving object settings
+Right click -> Set as default
+Design -> Save Currrent Theme: Save in proposed ~/Library default path (not drive)
 
 # Thunderbird
 cmd-shift-a // insert attachment
