@@ -126,6 +126,9 @@ shift+enter // insert next author
 
 ## Firefox
 cmd+shift+z // show zotero
+
+
+
 cmd+shift+s // save item with pdf (no way without pdf)
 
 # Word / Office
@@ -157,17 +160,22 @@ cmd-i // italic
 cmd-opt-[123] // apply heading
 
 
-# Powerpoint / Office
+# Powerpoint, pptx / Office
 ## Custom shortcut
 https://support.office.com/en-gb/article/Create-a-custom-keyboard-shortcut-for-Office-2016-for-Mac-6bbeb90e-96d9-4e03-b199-fc026ebdc321
 Mac Preferences -> Keyboard -> Shortcuts -> App shortcuts -> Powerpoint
 Insert->Shape->Line
 
-# Storing themes
+## Storing themes
 Location: ~/Library/Group Containers/*.Office/User Content.localized
 Design -> Expand menu -> Save current theme (can see location)
 
+## Saving object settings
+Right click -> Set as default
+Design -> Save Currrent Theme: Save in proposed ~/Library default path (not drive)
 
+## Shortcuts
+shift-cmd-s // align center
 
 
 
