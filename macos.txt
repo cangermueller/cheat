@@ -1,6 +1,9 @@
 # Misc
 ctrl-shift-power // lock screen, sleep
 ^ = ctrl
+fn + arrow up/down // page up/down
+fn + left // home key
+fn + right // end key
 
 # Zooming
 Preferences -> Accessibility -> Zoom
@@ -157,8 +160,13 @@ cmd-opt-[123] // apply heading
 # Powerpoint / Office
 ## Custom shortcut
 https://support.office.com/en-gb/article/Create-a-custom-keyboard-shortcut-for-Office-2016-for-Mac-6bbeb90e-96d9-4e03-b199-fc026ebdc321
-Preferences -> Keyboard -> Shortcuts -> App shortcuts -> Powerpoint
+Mac Preferences -> Keyboard -> Shortcuts -> App shortcuts -> Powerpoint
 Insert->Shape->Line
+
+# Storing themes
+Location: ~/Library/Group Containers/*.Office/User Content.localized
+Design -> Expand menu -> Save current theme (can see location)
+
 
 
 

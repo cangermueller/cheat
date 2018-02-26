@@ -149,6 +149,7 @@ for _ in graph.get_operations(): // Operations and placeholders
   print(_.name)
   * 'name:0' will be first output
 graph.get_operation_by_name('inception_v3/inception_v3/conv0/Relu') // operation, not output tensor!
+op.graph // graph of op
 graph.get_tensor_by_name('inception_v3/inception_v3/conv0/Relu:0') // output tensor
 sess.run('inception_v3/inception_v3/conv0/Relu:0', feed_dict=) // Evaluate tensor by name
 

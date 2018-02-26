@@ -124,6 +124,12 @@ a[[0, 1, 2, 3], [[0, 1, 2], [2, 1, 0]]
   a[1, [1, 1]]
   a[2, [2, 0]]
 
+
+## Iterating and modifying values
+for idx, value = np.ndenumerate(array):
+  a[idx] = value + 1
+
+
 # Broadcasting
 A = np.random.rand(3, 5)
 b = np.arange(5)

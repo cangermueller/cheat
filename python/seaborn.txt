@@ -42,11 +42,11 @@ set(...)
 
 
 # colors
-cols = color_palette(name, length)
-set_palette(name)
-with sns.set_palette(...): // change locally
+cols = color_palette(name, length) // get colors
+sns.palplot(sns.color_palette('Set1', len(legend_order))) // plot palette
+set_palette(name) // set palette globally
+with sns.set_palette(...): // set palette locally
   ...
-palplot()
 choose_colorbrewer_palette(...)
 
 ## Default palettes
@@ -61,6 +61,8 @@ choose_colorbrewer_palette(...)
   'sequential', 'divergent', 'qualitative'
 Set1, Set2
 RdBu, RdYlBu, RdYlGn
+color_palette = sns.color_palette('Set1', len(legend_order))
+sns.set_palette(color_palette)
 
 ## Sequential colors
 Reds, Greens, Blues, ...
@@ -86,6 +88,7 @@ g.add_legend()
 g.savefig('plot.pdf')
 g.axes[i, j] // matplotlib axes
 g.axes[i, j].set(xlabel=, ylabel=)  // like matplotlib
+g.set_[xy]labels(...) // set_xlabels instead of set_xlabel!
 
 
 ## PairGrid: trellis plot

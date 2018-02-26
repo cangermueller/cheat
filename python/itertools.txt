@@ -1,0 +1,24 @@
+import itertools
+
+# Examples
+for value in cycle(iter):
+  print(value)
+  * cycle over iter until it is exhausted
+  * loop infinitely over list
+
+for value in repeat(10, 3): // repeat 10 three times
+
+
+# Creating infinite iterators
+* Return iterators, not list!
+cycle(iter) // cycle of iter infinitely
+repeat(value, n) // repeat value n times
+count(10, [2]) // 10, 12, 14, ...
+
+
+# Functions that create new iterators
+ifilter(lambda x: ..., iter) // filter iterator
+imap(lambda x: x + 1, iter)
+islice(iter, start_index, stop_index)
+takewhile(lambda x: x < 4, xrange(10)) // return elements until lambda is true
+izip(iter1, iter2) // like zip, put return tuple

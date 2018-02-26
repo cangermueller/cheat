@@ -375,9 +375,18 @@ df.unstack() // last level becomes column ~ pivot_table
 pd.concat([d1, d2], axis=0, ...) // join data.frames on indices
   axis=1  // concat columns
   join='outer'  // 'inner'
-  ignore_index=True // create new index 0:nrows
+  ignore_index=True
+    * index of `axis` will be set to [0,...,n]
+    * drops column name if axis=1
   keys=['d1', 'd2'] // create Multiindex with these outer level values
   names=['outer', 'inner']  // names of levels in Multiindex
+
+## Stacking two frames like np.concat
+* Make sure than index is equal
+a.index = range(len(a))
+b.index = a.index
+ab = pd.concat((a, b), axis=1)
+
 
 # Joining 2 DataFrames on COLUMNS
 pd.merge(a, b, ...) // join on common columns
@@ -538,17 +547,23 @@ dropna(...)  // drop columns with nan
 isnull(), notnull()
 
 
+
 # Series
 s = Series([1, 2, 3], index=['a', 'b', 'c'], name='name')
+s.index == s.keys() // index values like columns in DataFrame
 s['a'], s.a
 s.index = [0.1, 0.2, 0.3] // index does not need to be str
 s[0.1]  // 1
+for value in s: // iterate over values, not indices
+  print(value)
 for key, value in s.items():
   print(key, value)
 s.to_frame(col_name) // Series to DataFrame COLUMNS
   s.to_frame(col_name).T // Series to DataFrame ROW
 s.tolist()  // to list()
 s.values  // to np.array
+
+
 
 # Categorical
 Categorical(list('bbbcc'), categories=['a', 'b', 'c', 'f'], ordered=False)

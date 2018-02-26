@@ -96,11 +96,14 @@ ls | xargs -Ix cmd x // cmd will be executed n times with different x
 
 # date
 date '+%y%m%d_%H%M%S'
+%F // date: 2018-01-29
+%T // time: 20:15:00
 
 # less
 * Flags (-S, -I, ...) can be typed while less is open
 -S no line wrap
 -I // case insensitive search
++G // jumps to end after opening
 :n // next file
 :p // previous file
 
@@ -154,3 +157,29 @@ pkill -9 -n // kill only newest process
 
 # nslookup
 set q=mx // type in console; check mx record
+
+
+# htop
+~/.configs/htop/htoprc
+-u $USER // select default user
+-d 10 // delay updated in ten's of a second (10 for 1 sec)
+
+## Shortcuts
+space // tag (select) process
+U // untag all processes
+k // kill tagged processes -> use 9 to jump to 9
+l // trace library calls
+\ // filter by name
+/ // search by name
+<, > // select sort column
+I // invert sort order
+S // display settings
+
+## Columns
+M_SIZE (VIRT): total memory
+M_RESIDENT (RES): memory stack + data/text section
+M_SHARED (SHR): memory shared pages
+STATE (S): R=Running / S=Sleeping
+IO: IORR + IOWR
+IORR: IO read rate in bytes/s
+IOWR: IO write rate in bytes/s
