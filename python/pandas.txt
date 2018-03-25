@@ -102,6 +102,9 @@ to_string // aligns columns; only use if to_csv() does not work
   justify='left' // align columns left
 to_sql('table1')  // see SQL below
 
+
+
+
 # HDF
 df.to_hdf('/df', format='t', ...)
   format='f'  // (default), fixed format; fast read + write; no query
@@ -207,6 +210,14 @@ h5_read <- function(filename, group, ...) {
   d <- d %>% tbl_df %>% select(-index)
   return (d)
 }
+
+
+
+
+# feather
+* Good for exchanging data between R and Python
+* See feather.txt
+d.to_feather('data.feather')
 
 
 

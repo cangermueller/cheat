@@ -1,0 +1,17 @@
+# General
+* Apache
+* Good for exchanging data between Python and R
+* + Language agnostic
+* + Fast read/write
+* - No compression
+* - No indexing
+* - Format not standardized; might change -> not for long-term storage
+
+
+# Pandas
+d =  pd.DataFrame(np.random.rand(10, 3), columns=list('ABC'))
+d.to_feather('data.feather')
+
+# R
+library(feather)
+d = read_feather('data.feather')
