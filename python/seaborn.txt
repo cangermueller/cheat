@@ -1,4 +1,4 @@
-# misc
+# Misc
 http://nbviewer.ipython.org/github/koldunovn/py_klimacampus/blob/master/meeting_004/Seaborn.ipynb
 load_dataset(name)
   iris
@@ -7,13 +7,17 @@ load_dataset(name)
   exercise
   tips  // y=tip; x=mixed
 
-# size, width, height
+
+
+# Size, width, height
 * for axes-aware functions: regplot, boxplot, kdeplot
 * not: jointplot, lmplot, factorplot
 plt.figure(figsize=(w, h))
 sns.plot()
 f, a = plt.subplots(figsize=(w, h))
 sns.plot(ax=x)
+
+
 
 # Legend
 * Best: remove legend and add matplotlib axis
@@ -22,7 +26,8 @@ ax.legend_.remove() // remove legend
 ax.legend(loc='upper right', title=None, mode='expand', ncol=5)
 
 
-# style
+
+# Style
 set_style(...)  // grid style
   'whitegrid'
   'darkgrid'
@@ -41,7 +46,10 @@ set(...)
   font_scale=1.0
 
 
-# colors
+
+
+
+# Colors
 cols = color_palette(name, length) // get colors
 sns.palplot(sns.color_palette('Set1', len(legend_order))) // plot palette
 set_palette(name) // set palette globally
@@ -69,6 +77,201 @@ Reds, Greens, Blues, ...
 GnBu, RdBu
 X_r // reverse
 X_d // dark
+
+
+
+
+
+
+# Barplot
+barplot(x, y, ...)
+  data=
+  hue=  // color
+  orient=[h|v]
+  palette='RdBu'
+
+
+# Boxplot
+boxplot(data=, x=, y=, ...)
+  x='yaxis', y='xaxis' // plot horizontally; orient='h' does not seem to work
+  ax.set_xticklabels(ax.get_xticklabels(),rotation=60) // rotate labels
+  plt.ylim(-4, 4) // ax.set_ylim changes position of boxes!
+  palette='Set1'  // fill boxes
+  hue= // causes narrow boxes! Bug?
+  order=['b', 'c', 'a'] // change order of labels
+  showfliers=False // no outliers
+  vert=False  // horizontal
+violinplot(data=, x=, y=, ...)
+  * Same args as boxplot; Additional args:
+  inner=points,sticks,box // plot sample values
+  join_rm=True  // connect dots by lines
+
+## Boxplot with points
+fig, ax = plt.subplots(figsize=(10, len(pa.anno.unique()) * 0.5));
+sns.boxplot(y='anno', x='auc', data=pa, orient='h', order=pam.anno, ax=ax)
+sns.stripplot(y='anno', x='auc', data=pa, orient='h', order=pam.anno) // add points
+
+
+
+# Time series
+* plot time series with confidence (sample units)
+tsplot(data, ...)
+  data
+    data[units, timesteps, conditions]
+      * 3d array
+      * columns are time stamps
+      * rows are sample units (variance line)
+      * third dimension are conditions (different lines)
+    data.columns[time, value, unit, condition] // tidy DataFrame
+  time= // time column name (DataFrame)
+  value= // value column name (DataFrame)
+  unit= // unit column name (DataFrame)
+  condition= // condition column name (DataFrame); name of conditions (array)
+  color='hls' // colormap
+
+
+
+# Heatmap
+heatmap(data, ...)
+  data: matrix-like numpy array or DataFrame
+  annot=False // print values in cells
+  fmt='d|f' // annotation format
+  cmap='RdBu_r'
+  xticklabels=
+  yticklabels=
+
+
+# Correlation matrix / clustermap
+grid = clustermap(data, ...) // heatmap + dendrogram
+  col_cluster=True  // cluster columns
+  row_cluster=True  // cluster rows
+  col_colors= // column colors
+  row_colors= // row colors
+  mask=None // binary matrix of values that are no colored
+  figsize
+  kwargs // arguments passed to `sns.heatmap` (see above)
+    cmap='RdBu_r'
+    annot=True
+
+grid.ax_heatmap // axis heatmap
+  .set_[xy]label
+grid.ax_coldendrogram
+  .set_title(title)
+grid.ax_rowdendrogram
+
+
+# Histogram / density plot
+plt.hist(x) // matplotlib for simple histogram
+kdeplot(x, shade=T, bw=)  // only kde
+distplot(x, ...)  // hist + kde
+  hist=True
+  kde=True
+  kde_kw={'shade', True}
+  color=None
+jointplot(x='x', y='y', data=data)
+  * 2d scatter plot with distributions at side
+  kind='kde'
+
+
+# Regression
+ax = regplot(x, y, ...)
+  * no facetting; returns axis!
+  * plotting linear regression
+  * no hue=, cols=   <-> lmplot / factorplot
+  data=None
+  logistic=False
+
+grid = lmplot(x, y, data, ...) // (see below)
+  * facetting; returns grid!
+
+grid = factorplot(x, y, ...) // x categorical
+  data= // DataFrame
+  col='col_var' // facet by column
+  row='row_var' // facet by row
+  hue='color_var'
+  col_wrap=#columns
+  kind='auto', 'box', 'bar', 'point'
+
+
+# Lineplot
+ax = sns.pointplot(data=, x=, y=, hue=, ...)
+  linestyles=['-'] // styles for different hues; can not be variable!
+ax.set(xlabel=, ylabel=) // changes labels
+
+## Two lineplots side-by-side
+grid = sns.FacetGrid(data=, col='dset', hue='output')
+grid.map(sns.pointplot, 'x', 'y')
+grid.axes[0, 0].set(xlabel=, ylabel)
+
+
+
+
+
+# Scatter plot
+grid = lmplot(data=data, x='x', y=y', hue='class', size=5)
+grid = pairplot(data=data, x_vars='x', y_vars='y', hue='class', size=5)
+regplot
+  * does not support colors; no hue!
+jointplot(kind='scatter') (histograms on side)
+  * does not support colors; no hue!
+
+
+
+## matplotlib
+fig, ax = plt.subplots(figsize=(8, 6))
+scatter = ax.scatter(data[pc_x], data[pc_y], c=data['act_mean'], cmap='RdBu_r')
+ax.set_xlabel(pc_x)
+ax.set_ylabel(pc_y)
+fig.colorbar(scatter)
+if labels:
+    for i, row in data.iterrows():
+        ax.annotate('%d' % labels[i], xy=(row[pc_x], row[pc_y]))
+
+## lmplot
+* Supports facetting; don't use with FacetGrid!
+grid = lmplot(x='x', y='y', data=data, ...)
+  hue='color'
+  palette='RdBu' // color palette
+  col='col_var' // facet by column
+  row='row_var' // facet by row
+  hue='color_var'
+  logistic=False  // logistic regression
+  loess=False // loess fit
+  fit_reg=False // no regression line
+  legend=False // not legend if hue
+  size=5 // figure size
+  scatter_kws={'s': 100}  // point size
+  scatter_kws={'color': 'royalblue'}  // color
+  scatter_kws={'alpha': 0.3}  // transparency
+grid.ax // get axis
+
+## Adding diagonal line
+ax = grid.ax
+ax.plot(ax.get_xlim(), ax.get_ylim(), ls="--", c=".3")
+
+## joint plot
+* does not support colors
+grid.jointplot(x='x', y='y', data=data, ...)
+  kind={scatter,reg,kde,resid,hex}
+  color='royalblue'
+  joint_kws={"s": 100} // point size
+  ratio=5 // ratio joint distribution vs. marginal distribution
+
+grid.set_axis_labels('xlabel', 'ylabel')
+ax = grid.ax_joint // get axis of joint plot
+
+## Annotating points
+ax = plt.gca()
+for row in meta.iterrows():
+  row = row[1]
+  ax.annotate(row['head'], xy=(row['precision'], row['delta_log']), xytext=(3, 3), textcoords='offset points')
+
+
+
+
+
+
+
 
 # Grids
 ## FacetGrid: facetting
@@ -116,169 +319,3 @@ g = JointGrid(x, y, ...)
 g.plot(fun_joint, fun_marginals)
 g.plot_joint(fun_joint, ...)
 g.plot_marginals(fun_marginals, ...)
-
-
-# boxplot
-* Rather unreliable and complicated to use!
-boxplot(data=, x=, y=, ...)
-violinplot(data=, x=, y=, ...)
-boxplot(...)
-  x='yaxis', y='xaxis' // plot horizontally; orient='h' does not seem to work
-  ax.set_xticklabels(ax.get_xticklabels(),rotation=60) // rotate labels
-  plt.ylim(-4, 4) // ax.set_ylim changes position of boxes!
-  palette='Set1'  // fill boxes
-  hue= // causes narrow boxes! Bug?
-  order=['b', 'c', 'a'] // change order of labels
-  showfliers=False // no outliers
-
-## boxplot with points
-fig, ax = plt.subplots(figsize=(10, len(pa.anno.unique()) * 0.5));
-sns.boxplot(y='anno', x='auc', data=pa, orient='h', order=pam.anno, ax=ax)
-sns.stripplot(y='anno', x='auc', data=pa, orient='h', order=pam.anno) // add points
-
-
-# different plot types
-violinplot(data, ...)
-  * Use factorplot for facetting!
-  data  // 2d numpy array or data.frame; columns == boxes
-  (data.auc, data.group, ...) // x=data.group, y=data.auc
-  vert=False  // horizontal
-  order=  // order of boxes
-  inner=points,sticks,box // plot sample values
-  join_rm=True  // connect dots by lines
-barplot(x, y, ...)
-  data=
-  hue=  // color
-  orient=[h|v]
-  palette='RdBu'
-pointplot(x, y, ...)
-  data=
-  hue=  // color
-corrplot(data, ...)
-  method='pearson'
-heatmap(data, ...)
-  data: matrix-like numpy array or DataFrame
-  annot=False // print values in cells
-  fmt='d|f' // annotation format
-  cmap='RdBu_r'
-  xticklabels=
-  yticklabels=
-clustermap(data, ...) // heatmap + dendrogram
-  cmap='RdBu_r'
-  col_cluster=True  // cluster columns
-  row_cluster=True  // cluster rows
-  col_colors= // column colors
-  row_colors= // row colors
-tsplot(data, ...) // plot time series with confidence (sample units)
-  data
-    data[units, timesteps, conditions]
-      * 3d array
-      * columns are time stamps
-      * rows are sample units (variance line)
-      * third dimension are conditions (different lines)
-    data.columns[time, value, unit, condition] // tidy DataFrame
-  time= // time column name (DataFrame)
-  value= // value column name (DataFrame)
-  unit= // unit column name (DataFrame)
-  condition= // condition column name (DataFrame); name of conditions (array)
-  color='hls' // colormap
-
-
-# histogram / density plot
-plt.hist(x) // matplotlib for simple histogram
-kdeplot(x, shade=T, bw=)  // only kde
-distplot(x, ...)  // hist + kde
-  hist=True
-  kde=True
-  kde_kw={'shade', True}
-  color=None
-jointplot(x='x', y='y', data=data)
-  * 2d scatter plot with distributions at side
-  kind='kde'
-
-
-# regression
-regplot(x, y, ...)
-  * plotting linear regression
-  * no hue=, cols=   <-> lmplot / factorplot
-  data=None
-  logistic=False
-lmplot(x, y, data, ...) // (see below)
-factorplot(x, y, ...) // x categorical
-  data= // DataFrame
-  col='col_var' // facet by column
-  row='row_var' // facet by row
-  hue='color_var'
-  col_wrap=#columns
-  kind='auto', 'box', 'bar', 'point'
-
-
-# Lineplot
-ax = sns.pointplot(data=, x=, y=, hue=, ...)
-  linestyles=['-'] // styles for different hues; can not be variable!
-ax.set(xlabel=, ylabel=) // changes labels
-
-## Two lineplots side-by-side
-grid = sns.FacetGrid(data=, col='dset', hue='output')
-grid.map(sns.pointplot, 'x', 'y')
-grid.axes[0, 0].set(xlabel=, ylabel)
-
-Scatter plot
-============
-* lmplot (no histograms on side)
-* jointplot(kind='scatter') (histograms on side)
-
-
-
-matplotlib
-----------
-fig, ax = plt.subplots(figsize=(8, 6))
-scatter = ax.scatter(data[pc_x], data[pc_y], c=data['act_mean'], cmap='RdBu_r')
-ax.set_xlabel(pc_x)
-ax.set_ylabel(pc_y)
-fig.colorbar(scatter)
-if labels:
-    for i, row in data.iterrows():
-        ax.annotate('%d' % labels[i], xy=(row[pc_x], row[pc_y]))
-
-lmplot
-------
-* Supports facetting; don't use with FacetGrid!
-grid = lmplot(x='x', y='y', data=data, ...)
-  hue='color'
-  palette='RdBu' // color palette
-  col='col_var' // facet by column
-  row='row_var' // facet by row
-  hue='color_var'
-  logistic=False  // logistic regression
-  loess=False // loess fit
-  fit_reg=False // no regression line
-  legend=False // not legend if hue
-  size=5 // figure size
-  scatter_kws={'s': 100}  // point size
-  scatter_kws={'color': 'royalblue'}  // color
-  scatter_kws={'alpha': 0.3}  // transparency
-grid.ax // get axis
-
-# Adding diagonal line
-ax = grid.ax
-ax.plot(ax.get_xlim(), ax.get_ylim(), ls="--", c=".3")
-
-joint plot
-----------
-* does not support colors
-grid.jointplot(x='x', y='y', data=data, ...)
-  kind={scatter,reg,kde,resid,hex}
-  color='royalblue'
-  joint_kws={"s": 100} // point size
-  ratio=5 // ratio joint distribution vs. marginal distribution
-
-grid.set_axis_labels('xlabel', 'ylabel')
-ax = grid.ax_joint // get axis of joint plot
-
-Annotating points
------------------
-ax = plt.gca()
-for row in meta.iterrows():
-  row = row[1]
-  ax.annotate(row['head'], xy=(row['precision'], row['delta_log']), xytext=(3, 3), textcoords='offset points')
