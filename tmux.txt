@@ -33,8 +33,9 @@ p // previous window
 swap-window -t 0 // rearrange windows
 move-window -t 1
 kill-window -a // close all other windows
-> // move window
-< // rename window
+, // rename window
+< // rename session (custom)
+. // move window
 
 # Panes
 P, ; // last pane

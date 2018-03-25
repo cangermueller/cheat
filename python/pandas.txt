@@ -382,22 +382,35 @@ dlist = pd.melt(dmatrix.reset_index(), id_vars=['chromo', 'pos'], var_name='samp
 df.stack() // columns become Mutliindex ~ melt
 df.unstack() // last level becomes column ~ pivot_table
 
-# Concatenating DataFrame / Joining multiple DataFrames on indices
+# Concatenating DataFrame
+* Join by INDEX! (not columns as pd.merge)
 pd.concat([d1, d2], axis=0, ...) // join data.frames on indices
   axis=1  // concat columns
   join='outer'  // 'inner'
-  ignore_index=True // create new index 0:nrows
+  ignore_index=True
+    * index of `axis` will be set to [0,...,n]
+    * drops column name if axis=1
   keys=['d1', 'd2'] // create Multiindex with these outer level values
   names=['outer', 'inner']  // names of levels in Multiindex
 
+## Stacking two frames like np.concat
+* Make sure than index is equal
+a.index = range(len(a))
+b.index = a.index
+ab = pd.concat((a, b), axis=1)
+
+
 # Joining 2 DataFrames on COLUMNS
+* Join by COLUMNS! (not index as pd.concat)
 pd.merge(a, b, ...) // join on common columns
   on=['c1', 'c2'] // set columns explicitly; overlap otherwise
   how='left'  // right, outer, inner
   suffixes=['_x', '_y']  // suffixes appended for overlapping column names
   left_index=True, right_index=True // join on indices instead of columns -> like a.join(b)
 
+
 # Joining 2 DataFrames on indices
+* Similar to pd.concat
 a.join(b, ...)  // join on indices
   how='left'  // right, outer, inner
   rsuffix, lsuffix  // if overlapping columns names
@@ -443,7 +456,10 @@ g = df.groupby(['c1', 'c2'], ...)
   level=0 // group by level instead of column name
   sort=True // sort groups
   as_index=False  // use integers instead of group keys as index
-  group_keys=False  // only when calling apply: no not set index of concatenated output frame
+  group_keys=False
+    * only when calling apply
+    * do not set index of concatenated output frame
+    * -> grouping keys are dropped
 for name, group in groups:  // iterate over groups
 g.groups  // dictionary
   .keys() // group keys
@@ -489,8 +505,13 @@ fun(d)
 apply(lambda df: pd.DataFrame({'f1':df.f1.min()}) // return min of f1
 apply(fun, *args, **kwargs)
 
+## Avoid passing grouping columns to apply
+by = ['col1', 'col2']
+g[data.columns[~d.columns.isin(by)]].apply(fun)
+
 ## Resetting index
-data.groupby(['col1', 'col2']).apply(fun).reset_index(levels=(0, 1))
+by = ['col1', 'col2']
+data.groupby(by).apply(fun).reset_index(levels=range(len(by)))
 
 
 
@@ -549,17 +570,23 @@ dropna(...)  // drop columns with nan
 isnull(), notnull()
 
 
+
 # Series
 s = Series([1, 2, 3], index=['a', 'b', 'c'], name='name')
+s.index == s.keys() // index values like columns in DataFrame
 s['a'], s.a
 s.index = [0.1, 0.2, 0.3] // index does not need to be str
 s[0.1]  // 1
+for value in s: // iterate over values, not indices
+  print(value)
 for key, value in s.items():
   print(key, value)
 s.to_frame(col_name) // Series to DataFrame COLUMNS
   s.to_frame(col_name).T // Series to DataFrame ROW
 s.tolist()  // to list()
 s.values  // to np.array
+
+
 
 # Categorical
 Categorical(list('bbbcc'), categories=['a', 'b', 'c', 'f'], ordered=False)
@@ -592,6 +619,15 @@ loc[:, a & b] // boolean indexing by columns
 .loc[df.chromo.isisn(['x', 'y'])] // isin() for Series, and indicies
 d.where(d < 0, 10) // same shape as d; select d < 0 and set everything else to 10
 d.mask(d < 0) // inverse where; set everythink < 0 to NA
+
+
+## SettingWithCopyWarning
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+d.loc[row][col] = value // wrong; 2 __getitem__ operations; slow
+d.loc[row, col] = value // correct; 1 __getitem__ operation; fast
+
 
 ## isin(list)
 Series.isin([1, 2, 3])
@@ -734,7 +770,7 @@ d.loc[:, ['line1', 'line2']].plot(...)
 ## boxplot
 df.boxplot(..)
 vert=False  // horizontal
-color = dict(boxes='DarkGreen', whiskers ,medians, caps)
+color= dict(boxes='DarkGreen', whiskers ,medians, caps)
 by= // different categories become bars; subplots are columns
   columns=['c1', 'c2']  // create subplots for these columns
   df.groupby(by).boxplot()  == df.boxplot(by=by)

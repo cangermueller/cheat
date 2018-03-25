@@ -140,10 +140,12 @@ attr['a'] = 10
 attr['a'] = np.arange(10)
 
 # Storing strings
-* need to be byte-encode, unicode not supported
+* need to be byte-encode, unicode not supported!
 * dtype='S8' -> string of length 8
-s = [x.encode() for x in ['a', 'b', 'c']
-[fg].create_dataset(data=s)
+s = [x.encode() for x in ['a', 'b', 'c']]
+for idx, value in np.ndenumerate(s):
+  s[idx] = value.encode()
+[fg].create_dataset(data=s, dtype=s.dtype)
 [fg].attrs['columns'] = s
 
 # Bug: large file

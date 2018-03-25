@@ -64,21 +64,17 @@ s = set() // empty set; {} is hash!!
 s = {1, 2, 3}
 s = {x for x in range(3)}
 len(s)
+s.copy()
+
+## INPLACE operations
 s.add(3) // add single element
 s.update({2, 3}) // join with set/list INPLACE
-s = s.union({2, 3}) // join with set/list OUTPLACE
 s.remove(10)   // remove single element INPLACE
 s.pop() // remove and return first element
-s.copy()
-x in s
 
 ## OUTPLACE operations on sets (not single elements)
-s | t // union; like [1, 2] + [3, 4] to concat lists
-s & t // intersection
-s.union(s2) <=> s | s2 // not +!
-s.difference(s2) <=> s - s2
-
-
+s | t == s.union(t)
+s & t == s.intersection(t)
 
 
 # Tuples
@@ -115,3 +111,16 @@ c = array('c', 'Hello world')
 'i, I': signed/unsigned integer
 'l, L': signed/unsigned long
 'f, F': signed/unsigned float
+
+# Heap / Priority queue
+import heapq
+heap = [4, 2, 3]
+heapq.heapify(heap)
+  * transforms list into heap in-place -> heap[0] is minimum
+  * heap will remain list, i.e. isinstance(heap, list)
+  * use heapq.heapify(-heap) for max-heap
+heap = [(4, 'a'), (9, 'b')] // also works with tuples; first element used for sorting
+heapq.heappush(heap, value) // adds value to heap
+heapq.heappop(heap) // pops first element from heap
+heapq.nsmallests(n, iter) // return n smallest elements from any iterable (also non-heaps)
+heapq.nlargest(n, iter)
