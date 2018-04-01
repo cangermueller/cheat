@@ -318,6 +318,8 @@ vim-variable       v:     Global, predefined by Vim.
 set rtp+=~/.vim/bundle/plugin # extend runtime path
 
 # Windows
+## Misc
+* T: split out window as tab
 ## Opening
 * s: split horizontally
 * v: split vertically
