@@ -120,7 +120,8 @@ zipgrep pattern archive.zip // search pattern in all files in archive.zip
 echo -e 'a\tb' // tabs
 
 # ln
-ln -r abs_path target // make absolute path relative to target location
+-r abs_path target // make absolute path relative to target location
+-f // overwrite if existing
 
 # pandoc
 pandoc --from markdown --to rst --output file.rst file.md
