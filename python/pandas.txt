@@ -324,6 +324,7 @@ replace('\w+', '', regex=True)
 
 # pandas printoptions
 ?set_option // lists all options
+-1: infinite
 set_option('display.width', 150)
   display.width=80 // line width
   display.max_colwidth=60 // max column width; longer will be truncated by ...

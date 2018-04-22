@@ -55,6 +55,12 @@ list(string.letters[:10])
 sys.getsizeof(a)
 a.nbytes  // numpy memory
 
+# Free memory
+del my_var
+import gc
+gc.collect()
+
+
 # Special variables
 __name__  == module name, if imported as module
 __name__ == __main__, if executed as script
