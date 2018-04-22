@@ -231,16 +231,23 @@ with tf.control_dependencies([op1, op2]):
 
 # tf.ExponentialMovingAverage
 ema = tf.ExponentialMovingAverage(decay)
-ema.apply(vars)
+average_op = ema.apply(vars)
   * Create new vars_ema that are the EMA of vars
   * vars_ema are added to tf.get_collection(tf.GraphKeys.MOVING_AVERAGE_VARIABLES)
+
+average_var = ema.average(var)
+  * Return averaged version of var
+  * or None if ema.apply([var]) has not been applied / var not in EMA collection
 
 tf.moving_average_variables()
   * Same as tf.get_collection(tf.GraphKeys.MOVING_AVERAGE_VARIABLES)
 
 ema.variables_to_restore(var_list)
-  * If var in var_list has moving average variable, return that variable, otherwise var
-  * var_list by default tf.moving_average_variables() + tf.trainable_variables()
+  * var_list = moving_average_variables() + trainable_variables()
+  * Returns dict from restore names to variables
+  * If variable has EMA variable, will map to that variable
+  * Otherwise will map to non-EMA variable
+  * --> Tries to restore EMA variables if existing
 
 def update_averages():
   _ = ema.apply([mu, sigma]) // op that will eval mu and sigma, and add to avg
