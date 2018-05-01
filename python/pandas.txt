@@ -217,7 +217,10 @@ h5_read <- function(filename, group, ...) {
 # feather
 * Good for exchanging data between R and Python
 * See feather.txt
+* alternative: parquet
 d.to_feather('data.feather')
+d.to_parquet('data.parquet')
+
 
 
 

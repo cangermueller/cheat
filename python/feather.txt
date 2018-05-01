@@ -6,6 +6,7 @@
 * - No compression
 * - No indexing
 * - Format not standardized; might change -> not for long-term storage
+* Alternative: parquet
 
 
 # Pandas
