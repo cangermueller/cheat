@@ -1,19 +1,20 @@
 Test command
 ============
-* help: CONDITIONAL EXPRESSIONS
-* test -e file == [ -e file ] // $? == 0 if file exists
-* if command; then  // if command succeeds than
--z "$v" // True if undefined (v=)
-  * check if variable is unset
--n "$v" // True if defined, e.g. v=0,v=1
-  * True if 'v=', not 'v=0'
--e  // file exists
--f  // file exists
--L // symbolic link exists
--d  // directory exists
--r  // readable
--w  // writeable
--x  // executable
+if command; then  // if command succeeds; $? == 0
+if ! command; then  // if command fails; $? != 0
+
+test -e file == [ -e file ] // $? == 0 if file exists
+  -z "$v" // True if undefined (v=)
+    * check if variable is unset
+  -n "$v" // True if defined, e.g. v=0,v=1
+    * True if 'v=', not 'v=0'
+  -e  // file exists
+  -f  // file exists
+  -L // symbolic link exists
+  -d  // directory exists
+  -r  // readable
+  -w  // writeable
+  -x  // executable
 
 Integer comparison
 ------------------
