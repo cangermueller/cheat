@@ -184,3 +184,20 @@ STATE (S): R=Running / S=Sleeping
 IO: IORR + IOWR
 IORR: IO read rate in bytes/s
 IOWR: IO write rate in bytes/s
+
+
+
+# read / readline / interactive
+read [var]
+  * Reads input into variable $var
+  * If var not specified, reads into $REPLY
+  -n 1 // read only 1 charcter
+  -p "Message" // display prompt
+  -s // do not echo characters
+  -e // use readline
+  -t SEC // timeout in seconds
+
+read -e p 'Your name: '
+echo "Hello $REPLY"
+read -e -n 1 -p 'Yes [y] or no [n]?'
+echo $REPLY
