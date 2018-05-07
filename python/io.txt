@@ -128,3 +128,8 @@ cmpfiles(dir1, dir2, commom=[file1, file2]) // Compare files in directories
 
 # User input / ask confirmation
 return raw_input().lower() in ['y', 'yes']
+
+
+# Hostname
+import socket; socket.gethostname()
+os.getenv('HOSTNAME')
