@@ -196,9 +196,8 @@ https://helpx.adobe.com/acrobat/using/keyboard-shortcuts.html
 
 ## Navigation
 cmd-left // previous position
-alt-left,right // next,previous page
-fn-left // first page
-fn-right // last page
+opt-left,right // next, previous page
+fn-left,right // first, last pages
 fn-up,down // scroll fast
 shift-cmd-n // go to page nr
 
@@ -236,11 +235,6 @@ sudo port install vim @7.4.729_1+gtk2+huge+perl+python27+x11
 * 'can not import pkg_resources'
 * reinstall pip / setuptools
 
-# Recovery / boot shortcuts
-cmd-r // recovery mode: disk disk, reinstall
-cmd-s // single user mode: shell
-opt // select boot devices
-D // hardware test
 
 
 # tmutil
@@ -250,3 +244,18 @@ startbackup
 addexclusions ~/Downloads
   -p // ~/Downloads will remain in exclusions list, even if folder is moved
 listbackups
+
+
+
+# Recovery / boot shortcuts
+cmd-r // recovery mode: disk disk, reinstall
+cmd-s // single user mode: shell
+opt // select boot devices
+D // hardware test
+
+
+# Resetting SMC
+* https://support.apple.com/en-us/HT201295
+Shut down
+Connect to power adapter
+Hold shift-ctrl-opt-power for 10s
