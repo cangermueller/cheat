@@ -335,6 +335,9 @@ set rtp+=~/.vim/bundle/plugin # extend runtime path
 * t: top left
 * b: bottom right
 * p: previous
+* r: rotate forward
+* R: rotate backward
+* x: exchange
 * <1>w: one window forward
 * <1>W: one window backward
 
@@ -348,10 +351,6 @@ _ // zoom horizontally
   :resize -x
 < // decrease width
 > // increase width
-
-## Rotation
-* r: rotate
-* x: exchange
 
 ## Closing
 * q: close

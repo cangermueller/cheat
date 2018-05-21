@@ -213,6 +213,18 @@ cmd-e or right->properties
 
 
 
+# Evernote
+cmd-[1-9] // select shortcut by index
+cmd-[ // previous note
+cmd-] // next note
+cmd-shift-i // select note list
+cmd-, // preferences
+
+cmd-shift-u // toggle bullet
+
+
+
+
 
 # Bugs
 
