@@ -66,6 +66,9 @@ sudo cp bin $dir
 ^ + shift + 2 // euro
 ^ + 3 // pounds
 
+
+
+
 # iterm
 cmd - shift - T  // toggle show tabs in fullscreen mode
 cmd - t // new tab
@@ -90,6 +93,21 @@ cmd-^-b // open instant replay
 ## tmux integration
 tmux -CC  // start new session
 tmux -CC attach // attach to session
+
+## Misc
+Open in fullscreen: profiles -> windows -> style -> fullscreen
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Keyboard shortcuts
 cmd - n // new
