@@ -33,12 +33,15 @@ set_style(...)  // grid style
   'darkgrid'
   'ticks'
 with axes_style('whitegrid'): // change settings locally
+
 set_context(...)  // size, colors
   'notebook'  // default
   'paper'
   'talk'
   'poster'
   font_scale=1.0
+with plotting_context(...)
+
 set(...)
   context='notebook'
   style='darkgrid'

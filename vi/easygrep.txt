@@ -9,13 +9,13 @@
 
 # Commands
 Grep Pattern
-  -R // recursive
+  -R // search recursively staring from :pwd. Without: recursively starting from dir of current file
   -w // whole word search
   -E pa\?\$ // -E for regex
   -i  // case-insensitive
   -m nb_hit // maximum # hits
 
-Replace what by
+Replace what by // will ash for confirmation
 Replace /what/by/
 Replace /num?y/numpy/
 ReplaceUndo
