@@ -2,10 +2,12 @@ sed [options] EXPR [file]
   -E  // extended regex
   -n // suppress echoing lines while processing
   -e CMD1 -e CMD2 // chain multiple commands
+  'CMD1;CMD2' // chain multiple commands by semicolon
 
 # Regex
 digit: [[:digit:]] or [0-9] // \d does not work!!
 s/^.+_c-([0-9]+_[^_]+).*$/\1/' // extract substring: use ^...$ to match entire line!
+s/.../.../g // substitute all occurrences
 \s // whitespace
 \< // start of word
 \> // end of word
