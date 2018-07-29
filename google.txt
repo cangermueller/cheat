@@ -1,0 +1,23 @@
+# Email
+?: help
+j/k: up/down
+x: mark as selected
+.: menu option
+
+gi: goto inbox
+gs: goto sent
+
+*a: select all
+*n: deselect all
+*u: select unread
+
+shift-i: mark as read
+shift-u: mark as unread
+
+
+# Groups
+?: help
+j/k: up/down
+return: enter
+u: back
+o: open / collapse

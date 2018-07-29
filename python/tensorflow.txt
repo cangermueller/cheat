@@ -64,6 +64,7 @@ tf.reduce_max(t, axis)
 tf.convert_to_tensor(array, dtype='float32') // np.array, list, scalar -> tensor
 tensor.eval() // tensor -> array
 tf.cast(t, dtype=tf.float32) // change dtype of tensor
+tf.to_float(t) // cast to tf.float32
 
 
 # Tensor / Variable
@@ -78,6 +79,7 @@ sigma = tf.get_variable('head1/sigma') // same as before
 
 x.shape_as_list() // get shape
 x.get_shape().as_list() // get shape
+tf.rank(x) // rank as tensor; similar to len(shape_as_list); ndim does not exist
 x = tf.Variable(init, ...)
   init = value [1, 2, 3] or Tensor
   trainable=True // set False to exclude from training
@@ -404,3 +406,7 @@ arg_scope = tf.contrib.framework.arg_scope
   with arg_scope([layers.dropout], is_training=False):
     with arg_scope([layers.dropout], is_training=True):
       net = layers.dropout(net) // is_training=True
+
+
+# printing / logging
+var = tf.Print(var, [var], 'Values of var: ')

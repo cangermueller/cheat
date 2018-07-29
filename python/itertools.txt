@@ -22,3 +22,7 @@ imap(lambda x: x + 1, iter)
 islice(iter, start_index, stop_index)
 takewhile(lambda x: x < 4, xrange(10)) // return elements until lambda is true
 izip(iter1, iter2) // like zip, put return tuple
+
+
+# Misc
+product(['x1', 'x2'], [1, 2, 3]) // [('x1', 1), ('x1, 2'), ..., ('x2', 3)]

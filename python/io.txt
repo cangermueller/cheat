@@ -103,7 +103,7 @@ os.makedirs('d1/d2', exist_ok=True) // mkdir -p; exist_ok only Python3
 
 # Temporary files
 import tempfile
-fd, name = mkstemp(...) // name is abs filename; fd is file descriptor
+fd, path, name = mkstemp(...) // path is abs filename; fd is int file id
   prefix='abc'
   suffix='.h5'
   dir='/tmp'
