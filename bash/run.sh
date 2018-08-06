@@ -12,18 +12,22 @@ function is_debug {
   fi
 }
 
+function log {
+  (>&2 echo "$@")
+}
+
 check=1
 debug=$(is_debug $1)
 function run {
-  local cmd=$@
-  echo
-  echo "#################################"
-  echo $cmd
-  echo "#################################"
+  local cmd="$@"
+  log
+  log "#################################"
+  log $cmd
+  log "#################################"
   if [[ $debug -ne 1 ]]; then
     eval $cmd
     if [ $check -ne 0 -a $? -ne 0 ]; then
-      1>&2 echo "Command failed!"
+      log "Command failed!"
       exit 1
     fi
   fi

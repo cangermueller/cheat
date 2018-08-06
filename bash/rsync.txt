@@ -18,6 +18,17 @@ rsync src/ dst  // copies src/* into dst, not dst/src!
 # Options
 --delete  // delete in dest before transfer
 --delete-excluded // delete also excluded files
+--partial // resume incomplete sync
+-n, --dry-run // test without copying
+-r // recursive
+-a // (archive) preserves symbolic links, permissions, ...
+-z // compress
+-v // verbose
+-P // progress bar
+
+
+# Examples
+rsync -azP -r g2:~/backup/ ./backup // sync dirs
 
 # Filter extension
 rsync -r --include '*/' --include '*.html' --exclude '*' SRC DST  // in this order!

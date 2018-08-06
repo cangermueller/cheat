@@ -201,3 +201,7 @@ read -e p 'Your name: '
 echo "Hello $REPLY"
 read -e -n 1 -p 'Yes [y] or no [n]?'
 echo $REPLY
+
+
+# crontab
+crontab -e // edit schedule
