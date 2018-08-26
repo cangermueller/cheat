@@ -205,3 +205,11 @@ echo $REPLY
 
 # crontab
 crontab -e // edit schedule
+
+
+# Reverse engineering
+xxd // Hex editor
+hexdump // binary to hex
+strings // print strings in file
+file // tries to get file format
+diff, grep

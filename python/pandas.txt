@@ -91,6 +91,7 @@ read_table(file, ...) / read_csv(file, ...)
   dtype={'c1': 'str', ...} // dtype of columns by name
   dtype={0: 'str', ...} // dtype of columns by index
   compression='gzip' // compress
+  chunksize=100 // read in chunks with 100 rows (see below)
 to_csv(file, ...)
   sep=','
   index=True  // write index
@@ -103,6 +104,11 @@ to_string // aligns columns; only use if to_csv() does not work
 to_sql('table1')  // see SQL below
 
 
+# Reading large file / chunking
+reader = pd.read_X(..., chunksize=10)
+for chunk in reader:
+  assert len(chunk) <= 10
+chunk = reader.get_chunk(3)
 
 
 # HDF
@@ -729,6 +735,7 @@ pd.qcut(values, q, ...)  // same #obs in bins
   q=[0, 0.5, 1.0] -> q=2
 q = np.percentile(values, [25, 50, 75])
   * 25%, 50%, 75% percentile; not assignment!
+
 
 
 

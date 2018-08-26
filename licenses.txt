@@ -1,11 +1,28 @@
+* https://en.wikipedia.org/wiki/Comparison_of_free_and_open-source_software_licenses
+
 # No license
 * Copyright (see below)
 
-MIT < BSD < LGPL < GPL
+# Permissive license
+* Non copyleft
+* Can use difference license
+* Do what ever you want
+* "lets people do anything they want with your code as long as they provide
+  attribution back to you and don’t hold you liable."
+* E.g: MIT < BSD < Apache
+
+# Copyleft
+* Must use same license
+
+
+
+
+
+MIT < BSD < Apache < LGPL < GPL
+
+
 
 # MIT license
-* Do what ever you want
-* New product can be under any license
 * New product must mention the original license
   * Author name
 * Author can not be claimed for anything
@@ -13,6 +30,12 @@ MIT < BSD < LGPL < GPL
 # BSD license
 * MIT license +
 * Name author may not be mentioned in promotion (advertisement)
+
+# Apache
+* Permissive
+* License can be put under another license
+* License declaration must be preserved
+* If code modified, must add note to declaration that code was modified
 
 # GPL
 * New product must under GPL as well

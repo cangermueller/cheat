@@ -1,3 +1,8 @@
+# Flushing print / stdout
+for i in ...:
+  print(...)
+  sys.stdout.flush()
+
 # Decorator
 * Takes a function `fun` and returns a function `decorator` that decorates `fun`
 def mult(fun):

@@ -5,6 +5,11 @@ shopt -s expand_aliases // enable aliases in scripts
 shopt -s extglob // extended ls !(abc|cde) globs
 
 
+# Diff lines that are in file1 but not file2
+grep -F -x -v -f file2 file1
+
+
+
 # Terminate function on exception / error
 if [[ $? -ne 0 ]]; then
   kill -INT $$
