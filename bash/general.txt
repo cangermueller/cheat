@@ -1,6 +1,7 @@
 # Options
 stty -ixon  //disable <c-s> flow control
 set -e  // exit on error
+set +e  // do not exit on error
 shopt -s expand_aliases // enable aliases in scripts
 shopt -s extglob // extended ls !(abc|cde) globs
 
@@ -99,23 +100,23 @@ basename $file
 readlink -f $file // absolute path; resolve symbolic links
 realpath $file  // on MAC; external program
 
+
 # Arrays, split string into words
-a = (one two three)
+a=(one two three)
+a=($@) // strings to list
 ${a[0]} // first element
 ${a[*]} // all elements -> convert to list again
 ${#a[*]}  // length
 ${a[${#a[*]}-1]} // last element
 unset a[${#a[*]}-1] remove last element
+     |-> no '$' !
 
 
-## Accessing elements of list
-1)
-l="l1 l2 l3"
-a=($l)
-echo ${a[i]}
-2)
-set -- $l
-echo $1
+## Pop last element of list
+local args=($@)
+name=${args[${#args[*]}-1]}
+unset args[${#args[*]}-1]
+args=${args[*]}
 
 
 # Parameter Expansion / Variables

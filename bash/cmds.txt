@@ -93,6 +93,7 @@ convert *.png -append all.png // concatenate
 
 # xargs
 ls | xargs -Ix cmd x // cmd will be executed n times with different x
+-L 100 // x replaces by 100 args at per command
 
 # date
 date '+%y%m%d_%H%M%S'
@@ -187,7 +188,7 @@ IOWR: IO write rate in bytes/s
 
 
 
-# read / readline / interactive
+# read / readline / interactive / ask confirmatio
 read [var]
   * Reads input into variable $var
   * If var not specified, reads into $REPLY
@@ -213,3 +214,20 @@ hexdump // binary to hex
 strings // print strings in file
 file // tries to get file format
 diff, grep
+
+
+# Measure execution time
+time ./myscript.sh
+
+
+# tee
+-a // append
+cmd 2>&1 | tee log // redirect stderr
+
+
+# sort
+sort -t ',' -k 1 // sort by field
+
+## Ignore first list
+head -n 1 ./ukb21036.csv > ./ukb21036.csv.sorted
+tail -n +2 ./ukb21036.csv | sort -t , -k 1 >> ./ukb21036.csv.sort

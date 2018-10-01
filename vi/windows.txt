@@ -1,0 +1,54 @@
+# Windows
+
+## Misc
+* T: split out window as tab
+
+## Opening
+* s: split horizontally
+* v: split vertically
+
+## Navigation
+* j k: down, up
+* j k: down, up
+* 2h 2l: two left / two right
+* t: top left
+* b: bottom right
+* p: previous
+* r: rotate forward
+* R: rotate backward
+* x: exchange
+* <1>w: one window forward
+* <1>W: one window backward
+
+## Resize
+| // zoom vertically
+_ // zoom horizontally
+= // same size
++ // increase height
+  :resize +x
+- // decrease height
+  :resize -x
+< // decrease width
+> // increase width
+
+## Closing
+* q: close
+* o: close others
+* z: close quickfix
+
+## Preview window
+* help preview
+* :pedit file
+* C-W z: close preview window
+
+## quickfix window
+* list of messages
+:copen
+:close
+:cnext
+
+## location window
+* list of positions
+:lopen
+:lclose
+:lnext

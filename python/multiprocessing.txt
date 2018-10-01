@@ -1,3 +1,10 @@
+# General
+* For multiprocessing -> GIL problem
+* Provides poorly documented class for multithreading (see below)
+  -> Better: concorrent.futures
+
+
+# Examples
 import multiprocessing as mp
 import os
 
@@ -5,7 +12,7 @@ import os
 def hello_world():
     print('Hello I am %d' % os.getpid())
 
-ps = [mp.Process(target=hello_world) for i in range(5)]
+ps = [mp.Process(target=hello_world, args=(i,)) for i in range(5)]
 for p in ps:
     p.start() // not blocking
 for p in ps:
@@ -14,7 +21,23 @@ print('Done!')
 
 # Pools
 p = mp.Pool(processes=n)
-y = p.map(take_square, range(20))
+y = p.map(fun, args, chunksize=1)
+  * Does must be a list of scalars (not tuples; multiple arguments!)
+  * chunksize > 1 for speedup
+p.starmap(fun, args, chunksize=1)
+  * Same as `map`, but args can be list of tuples
+  * Only Python3
+p.close()
+
+## Passing multiple args to map with Python2
+def target_fun(a, b, c):
+  pass
+
+def target_fun_args(args):
+  target_fun(*args)
+
+p.map(target_fun_args, [(1, 2, 3), (3, 4, 5)], ...)
+
 
 # Queues
 q = mp.Queue()
@@ -36,3 +59,11 @@ def worker():
   lock.release()
 
 
+# Multithreading
+* Only basic features; poorly documented
+* Better: concurrent.futures
+
+from multiprocessing.pool import ThreadPool
+pool = ThreadPool(opts.num_processes)
+pool.map(convert_fda, in_files)
+pool.close()

@@ -138,22 +138,3 @@ return raw_input().lower() in ['y', 'yes']
 # Hostname
 import socket; socket.gethostname()
 os.getenv('HOSTNAME')
-
-
-# Working with binary files / data
-f = open(path, 'rb')
-b = f.read(num_bytes)
-  * Returns str() for python2
-  * Returns bytes()/b"xxx" for python3
-my_int = int.from_bytes(bytes, byteorder=sys.byteorder, signed=False)
-  * sys.byteorder in ['little', 'big']
-
-
-## Using struct for encoding / decoding
->>> import struct
->>> struct.pack('f', 3.141592654)
-b'\xdb\x0fI@'
->>> struct.unpack('f', b'\xdb\x0fI@')
-(3.1415927410125732,)
->>> struct.pack('4f', 1.0, 2.0, 3.0, 4.0)
-'\x00\x00\x80?\x00\x00\x00@\x00\x00@@\x00\x00\x80@'

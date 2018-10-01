@@ -10,7 +10,7 @@ import sys
 import argparse
 import logging
 
-#  __dir = os.path.dirname(os.path.realpath(__file__))
+# __dir = os.path.dirname(os.path.realpath(__file__))
 # sys.path.insert(0, os.path.join(__dir, '../module'))
 
 

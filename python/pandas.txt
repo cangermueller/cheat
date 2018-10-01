@@ -35,6 +35,10 @@ split('_', expand=True) // split by pattern and return new frame
   t.columns = ['a', 'b']
   d = pd.concat([d, t])
 decode('utf') // bytes -> unicode
+cat(sep=":', na_rep='') // concatenate values
+  sep=  // field separator
+  na_rep=None // if None, to sep is inserted / values ignored
+
 
 # Delete, exclude, drop columns
 d.drop(['c1', 'c2'], axis=1, inplace=True)
@@ -90,6 +94,7 @@ read_table(file, ...) / read_csv(file, ...)
   skiprows=0  // skip that many rows at beginning
   dtype={'c1': 'str', ...} // dtype of columns by name
   dtype={0: 'str', ...} // dtype of columns by index
+  dtype='str' // convert all columns to objects (strings)
   compression='gzip' // compress
   chunksize=100 // read in chunks with 100 rows (see below)
 to_csv(file, ...)

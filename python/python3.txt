@@ -107,7 +107,11 @@ for v in six.itervalues(d)  // iterator
 for k in six.iterkeys(d)  // iterator
 for i in range(10):
 
+six.PY2 / six.PY3 // check Python version
 
-## Misc
+
+## futures
 from __future__ import division
+from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import unicode_literals
