@@ -66,3 +66,7 @@ sed -n '/^#/ ='
 
 # Translate characters
 sed 'y/abc/ABC/' test.txt // lower case -> upper case
+
+
+# Substitute by newline
+tr , '\n'

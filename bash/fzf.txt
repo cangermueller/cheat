@@ -1,0 +1,28 @@
+# Key bindings
+tab / shift-tab // select items in multi-mode (fzf -m)
+
+# Bash key-bindings
+c-r // command search
+c-t // past selected items, e.g. as args
+alt-c // browse to selected folder
+CMD ** // starts fzf
+export **
+unset **
+ssh **
+kill **
+
+
+# Extended search mode
+* fzf --extended
+* Not the same as regex!
+^beginning
+end$
+.suffix$
+'exact-match
+!does-no-include
+!^does-not-start-with
+!does-not-end-with$
+
+
+# Misc
+fzf --preview 'head -n 100 {}' // preview mode

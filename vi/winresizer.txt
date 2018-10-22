@@ -1,0 +1,3 @@
+<c-e> r // resize mode
+<c-e> m // move mode
+<c-e> f // focus mode

@@ -211,9 +211,10 @@ install name  // install package
 
 # Adobe reader
 https://helpx.adobe.com/acrobat/using/keyboard-shortcuts.html
+* preferences -> general -> use single-key accelerators
+* preferences -> reader -> Only read the currently visible pages
 
-## Navigation
-cmd-left // previous position
+## Navigation cmd-left // previous position
 opt-left,right // next, previous page
 fn-left,right // first, last pages
 fn-up,down // scroll fast

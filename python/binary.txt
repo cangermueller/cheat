@@ -1,0 +1,68 @@
+f = open(path, 'rb')
+b = f.read(num_bytes)
+  * Returns str() for python2
+  * Returns bytes()/b"xxx" for python3
+
+
+
+# Interpreting bytes (py3) / str (py2)
+
+
+# bin <-> ascii
+chr(65) -> 'A'
+ord('A') -> 65
+
+# import struct
+
+## bytes -> X
+* Same tags for python2 and python3
+* python3 has some special tags, e.g. N for for size_t
+unpack(format, buffer) // returns tuple
+= // native (little default)
+< // little-endian (default)
+> // big-endian
+c  // char
+b, B  // int8, unsigned
+h, H  // int16, unsigned
+i, I  // int32, unsigned
+l, L  // int32, unsigned
+q, Q  // int64, unsigned
+f  // float32 (not unsigned)
+d  // float64 (not unsigned)
+
+
+## X -> bytes
+struct.pack('<3i', 65, 10, 13)
+  py2: 'A\x00\x00\x00\n\x00\x00\x00\r\x00\x00\x00'
+  py3: b'A\x00\x00\x00\n\x00\x00\x00\r\x00\x00\x00'
+         -------------
+            4 bytes
+  * ASCII characters are printed as single char
+  * Special characters:
+    \t, 9, tab
+    \n, 10, newline
+    \r, 13, return
+    \x 2 char hex code
+
+### Example
+>>> import struct
+>>> struct.pack('f', 3.141592654)
+b'\xdb\x0fI@'
+>>> struct.unpack('f', b'\xdb\x0fI@')
+(3.1415927410125732,)
+>>> struct.pack('4f', 1.0, 2.0, 3.0, 4.0)
+'\x00\x00\x80?\x00\x00\x00@\x00\x00@@\x00\x00\x80@'
+
+
+## str / bytes <-> unicode
+py2: str.decode('utf-8')
+py2: uni.encode() -> str
+py3: bytes.decode('utf-8')
+py3: uni.encode() -> bytes
+
+
+## Python3
+my_int = int.from_bytes(bytes, byteorder=sys.byteorder, signed=False)
+  * sys.byteorder in ['little', 'big']
+  * only Python3
+  * alternative: struct.unpack

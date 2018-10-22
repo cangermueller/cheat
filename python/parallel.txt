@@ -1,0 +1,25 @@
+# Existing packages
+* multiprocessing.txt
+  - for multiprocessing
+  - only basic/poorly documented features for multithreading
+* concurrent.futures
+  - Abstraction of multiprocessing
+  - For multiprocessing and multithreading
+  - Python3; not sure if it also works with Python2
+
+
+# GIL: Global Interpreter Lock
+* Avoids that Python code is interpreted in parallel by multiple threads
+* Is an issue for multithreading
+* Is not an issue for multitasking
+
+
+# concurrent.futures
+Executor // abstract class
+ThreadPoolExecutor // multithreading
+ProcessPoolExecutor // multiprocessing
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
+  executor.map(convert_fda_args,
+               itertools.product(args1, [arg2]),
+               chunksize=chunksize)

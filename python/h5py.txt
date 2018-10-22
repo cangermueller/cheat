@@ -98,8 +98,8 @@ d = f.create_dataset('d1', (10,), dtype=('i4, f4, a10'))  // structured array
 d[0] = (1, 1.2, 'Christof')
 
 [fg].create_dataset(...)
-  compression='gzip'
-  compression_opts=4  // compression level, default=4
+  compression=(gzip|lzw|szip) or compression level 0-9 (4 default)
+  compression_opts=4  // compression level for gzip, default=4
   maxshape=(None, 100)  // resizeable dataset
 
 ## Chunking

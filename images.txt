@@ -1,0 +1,32 @@
+# JPEG
+public
+lossly compression (different compression levels)
+
+# PNG
+public
+lossless compression
+vector graphics
+
+# GIF
+private (patented)
+lossless compression
+
+# TIFF
+raster graphics (pixels, rgb)
+pushed by Adobe
+supports different compressions: lossy like jpeg and lossless less lzw
+supports storing multiple images
+* as single slice, which can be organized in tree
+* does not support storing 3D tensor -> DICOM better
+Supports different color palettes: grayscale, rgb, cmyk
+Metadata (proprietary infos) can be stored as private tags
+
+# DICOM
+Standard for communicating medical data, in particular images
+Organizes as datasets
+Each datasets can have multiple attributes
+  * good for storing meta info, e.g. about patient
+One attribute can be nd tensor of pixels
+Images can be compressed by different lossy and lossless compression methods
+pydicom library
+3DSlicer for visualization

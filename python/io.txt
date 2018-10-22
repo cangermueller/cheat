@@ -1,3 +1,7 @@
+# Special variables
+os.getcwd()  // current working directory
+os.linesep // new line
+
 # Reading from stdin / stderrr
 not sys.stdout.isatty() // file.py | cmd; file.py > out
 not sys.stderr.isatty() // file.py 2> err
@@ -106,8 +110,9 @@ import tempfile
 fd, path, name = mkstemp(...) // path is abs filename; fd is int file id
   prefix='abc'
   suffix='.h5'
-  dir='/tmp'
+  dir=tempfile.gettempdir()
 path = mkdtemp(dir=, prefix=, suffix=)  // create temp dir and return rel path
+gettempdir() // '/tmp'
 
 
 # String file

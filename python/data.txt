@@ -92,16 +92,47 @@ s = {t} // no error
 '{0} {1}'.format(*tuple)  // unpack from tuple
 '{a}, {b}'.format(**dict) // unpack from dict
 '123'.isnumeric() // check if str is numeric
+
 ## Quotes
 s = "backslash \n is interpreted"
 s = 'backslash \n is interpreted'
 s = r'backslash not interpreted in raw strings'
 s = '''hello 'world'!'''
 s = """multiline string that can contain "quotes" """
+
 ## strings module
 import string
 string.ascii_letters
 string.ascii_uppercase
+
+
+## Testing if numeric
+def get_dtypes(values):
+  data = dict()
+  for value in values:
+    value = unicode(value)
+    data.setdefault('value', []).append(value)
+    data.setdefault('isnumeric', []).append(value.isnumeric())
+    data.setdefault('isdecimal', []).append(value.isdecimal())
+    data.setdefault('isdigit', []).append(value.isdigit())
+  data = pd.DataFrame(data, columns=['value', 'isnumeric', 'isdecimal', 'isdigit'])
+  return data
+
+dtypes = get_dtypes(['1', '123', '123.3', '123,3', '-12', '-12.3'])
+display(dtypes)
+
+value  isnumeric  isdecimal  isdigit
+    1       True       True     True
+  123       True       True     True
+123.3      False      False    False
+123,3      False      False    False
+  -12      False      False    False
+-12.3      False      False    False
+
+--> Only works for positive ints
+
+
+
 
 # array
 * like list, but restricts type

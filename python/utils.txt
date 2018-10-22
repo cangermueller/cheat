@@ -18,13 +18,28 @@ ar = np.empty(len(a))
 ar[a] = np.arange(len(a))
 
 
-# check if string is integer
+# Checking if string is numeric
+
+## check if string is positive integer
+* Use str.isdigit() == str.isnumeric() == str.isdecimal()
+* Python2: convert to unicode - unicode(str).isdecimal()
 '15'.isdigit() // True -> only positive
 '-15'.isdigit() // False
 
-# check if number is integer
+## Checking if number if float
+* Use exception or float
+try:
+  float(value)
+  return 'float32'
+except Exception as _:
+  return 'S32'
+
+
+## Differentiating between int and float
 def is_int(d):
     return d == round(d)
+
+
 
 
 # supressing warnings

@@ -1,0 +1,9 @@
+# From numpy array
+import PIL.Image
+image = PIL.Image.fromarray(array)
+array = np.asarray(image)
+
+# PIL.Image
+load('image.jpg')
+save('image.jpg')
+tobytes(encoder='raw') // encodes to raw bytes; compression unsupported
