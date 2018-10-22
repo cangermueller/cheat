@@ -155,6 +155,9 @@ grid = clustermap(data, ...) // heatmap + dendrogram
   kwargs // arguments passed to `sns.heatmap` (see above)
     cmap='RdBu_r'
     annot=True
+  metric=['euclidean', 'correlation', 'cosine', ...]
+  z_score=axis // normalize axis (0/1) mean/std
+  standard_scale=axis // min-max normalize axis
 
 grid.ax_heatmap // axis heatmap
   .set_[xy]label

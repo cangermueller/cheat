@@ -6,8 +6,7 @@ nice -n [-20;20]
 # cut
 cut file
 -d  \t // delimiter
--f a-b  // range
--f a-
+-f a-b  // range -f a-
 
 # ftp
 ftp ftp://ftpusr43:0afwmRLv@ftp2.babraham.ac.uk
@@ -206,6 +205,7 @@ echo $REPLY
 
 # crontab
 crontab -e // edit schedule
+MAILTO='cangermueller@gmail.com' // at top of crontab; send mail
 
 
 # Reverse engineering
@@ -231,3 +231,8 @@ sort -t ',' -k 1 // sort by field
 ## Ignore first list
 head -n 1 ./ukb21036.csv > ./ukb21036.csv.sorted
 tail -n +2 ./ukb21036.csv | sort -t , -k 1 >> ./ukb21036.csv.sort
+
+
+# temp file / dir
+mktemp "/tmp/XXXXXX" // temp file
+mktemp -d "/tmp/XXXXXX" // temp dir

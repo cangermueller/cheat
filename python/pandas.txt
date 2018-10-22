@@ -16,7 +16,10 @@ String functions
 ================
 s = pd.Series(['1', 'ab', '10.0'])
 >> s.str.fun. <<
-isdigit // integer
+isdigit, isnumeric, isdecimal // True if positive int
+  * False for -123, 123.3
+  * Same as '123'.isnumeric(), ...
+
 isalpha // a-z
 isalnum // a-z0-9
 replace(what, by, ...)
@@ -317,13 +320,23 @@ s[i] = np.nan, None // setting missing values; np.nan and None equivalent
 np.nan(s[i]), isnull(s[i])  // testing nan
 notnull() == not isnull()
 count() // # non-missing
-fillna(0)
-df.fillna(df.mean())  // fill with column means
+fillna(0) // fills na / null
+df.fillna(df.mean())  // fill / impute with column means
 df.fillna({'c2':10, 'c3':5})  // fill named columns
 dropna(...) // drop rows with at least one missing value
   axis=0  // drop incomplete rows (default)
   how='any' // if any entry is missing <-> how='all'
 
+
+## Replacing / masking missing values
+data.mask(data == 'nan', inplace=True)
+  * data can be Series or DataFrame
+  * works with integers and strings
+!! Don't use data[data == 'nan'] = np.nan
+  * np.nan converted to string 'nan'
+
+
+## Interpolation
 [1, np.nan, 3].interpolate() // -> [1, 1.5, 3]
   method='index'  // observations not equally spaced
 count(axis=)  // count # non-null elements
@@ -342,10 +355,21 @@ replace('\w+', '', regex=True)
 set_option('display.width', 150)
   display.width=80 // line width
   display.max_colwidth=60 // max column width; longer will be truncated by ...
-  display.precision=6
   display.max_rows=60
   display.max_columns=60
+  display.precision=6
+  display.float_format, lambda x: '%.3f' % x
 get_option('display.width')
+
+with option_context('display.max_rows', 10, 'display.max_columns', 5):
+  ...
+
+
+
+## defaults
+pd.set_option('display.width', 200)
+pd.set_option('display.max_colwidth', -1)
+pd.set_option('display.max_rows', 1000)
 
 # Reshaping
 ## Stacked -> unstacked
@@ -527,6 +551,9 @@ g[data.columns[~d.columns.isin(by)]].apply(fun)
 ## Resetting index
 by = ['col1', 'col2']
 data.groupby(by).apply(fun).reset_index(levels=range(len(by)))
+-> If apply() returns single row, return pd.Series instead of pd.DataFrame <-
+  * return pd.Series(stats)
+  * stats.reset_index()
 
 
 
