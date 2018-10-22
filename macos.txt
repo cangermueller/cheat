@@ -277,3 +277,4 @@ D // hardware test
 Shut down
 Connect to power adapter
 Hold shift-ctrl-opt-power for 10s
+Hold opt-cmd-p-r and press power to boot
