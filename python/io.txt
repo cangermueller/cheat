@@ -61,6 +61,8 @@ user = getpass.getuser()
 
 # Misc
 os.listdir('.') // list all files in directory
+  * lists basenames -> without dirname
+  * list with dirname: [pt.join(root, child) for child in os.listdir(roor)]
 for root, dirs, files in os.walk(dirname) // traverse all files in dirname recursively
 os.getcwd()  // current working directory
 os.chdir(dir) // change working directory

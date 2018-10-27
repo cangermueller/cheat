@@ -34,6 +34,11 @@ from .module import fun // import function in module in CWDmodule
 sys.insert(0, path.join(path.dirname(path.abspath(__file__)), '../biseq'))
 
 
+# Importing modules with special names
+csv_converter_utils = importlib.import_module(
+    'google3.medical.retina.db.import.ukbiobank.csv_converter_utils')
+
+
 
 # Package hierarchy
 * For structuring modules; avoiding name collisions
@@ -47,8 +52,7 @@ pkg/
   __main__.py // optional, run by 'python pkg'
   spkg1/
     __init__.py
-    module.py
-  spkg2/
+    module.py spkg2/
     __init__.py
     module.py
   module.py
