@@ -9,3 +9,4 @@
 \cu // uncomment
 \c$ // comment rest of line
 \cA // add comment at the end
+\ca // switch to alternative set of delimiters

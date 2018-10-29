@@ -26,28 +26,37 @@ class App(object):
         p = argparse.ArgumentParser(
             prog=name,
             formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-            description='Description')
+            description='Description.')
         p.add_argument(
             'in_file',
-            help='Input file')
+            help='Input file.')
         p.add_argument(
             '-o', '--out_file',
-            help='Output file')
+            help='Output file.')
+        p.add_argument(
+            '-t', '--test',
+            action='store_true',
+            help='Test without executing.')
         p.add_argument(
             '--seed',
             type=int,
             default=0,
-            help='Seed of random number generator')
+            help='Seed of random number generator.')
         p.add_argument(
             '--verbose',
             action='store_true',
-            help='More detailed log messages')
+            help='More detailed log messages.')
         p.add_argument(
             '--log_file',
-            help='Write log messages to file')
+            help='Write log messages to file.')
         return p
 
     def main(self, name, opts):
+    logging.basicConfig(filename=opts.log_file,
+                        level=logging.DEBUG if opts.verbose else logging.INFO,
+                        format='%(levelname)s (%(asctime)s): %(message)s')
+    if opts.verbose:
+      logging.debug(opts)
         logging.basicConfig(filename=opts.log_file,
                             format='%(levelname)s (%(asctime)s): %(message)s')
         log = logging.getLogger(name)
