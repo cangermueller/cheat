@@ -410,3 +410,42 @@ arg_scope = tf.contrib.framework.arg_scope
 
 # printing / logging
 var = tf.Print(var, [var], 'Values of var: ')
+
+
+
+
+# Estimator
+
+## Estimator
+* Build graph and session once train() / eval() is called
+estimator = Estimator(
+  model_fn= // model_fn that returns EstimatorSpec
+  params= // dict with params passed to train() / evaluate()
+  config= // RunConfig
+  model_dir=None // path to model dir
+)
+
+### Attributes
+.config // RunConfig
+.params // params dict
+.model_dir
+.latest_checkpoint() // function that returns path to latest checkpoint
+
+
+## EstimatorSpec
+def model_fn(features, labels, mode, params):
+  return EstimatorSpec(
+      mode=mode
+      loss=loss,
+      train_op=optimizer.minimize()
+    )
+
+## tf.estimator.inputs.numpy_input_fn(
+tf.estimator.inputs.numpy_input_fn(
+
+  x={'images': np.ones((batch, height, width, channels))}, // features
+  y=None, // labels
+  num_epochs=1,
+  shuffle=False)
+Returns input_fn where input_fn() returns (features(=x), labels(=y))
+.

@@ -1,12 +1,8 @@
 # Misc
 V // select entire line
-s/ /\r/g // substitute space by newline
 
-# Replacing, substituting, regex:
-\vPATTERN // very magic, no escaping necessary
-\mPATTER // magic (default)
 
-Man pages
+# Man pages
 Shift-K / <leader>K // open manpage over keyword
 runtime ftplugin/man.vim
 :Man less
@@ -379,3 +375,18 @@ endfunction
 map <leader>x :call MyFunc('abc')<cr>
 :exec 'tab new' MyFunc('abc') // use function output as argument
   :exec 'e abc' // executes string
+
+
+# Search, substitute, replace
+## Misc
+s/ /\r/g // substitute space by newline
+
+## Regex
+\vPATTERN // very magic, no escaping necessary
+%s/\v"(\d+)\.(\d+)\./"\1-\2./gc
+\mPATTER // magic (default)
+
+## Deleting / filtering lines that match pattern
+g/pattern
+g/pattern/d // delete
+g!/pattern/d  // delete lines that do not match pattern
