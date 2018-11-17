@@ -4,8 +4,8 @@
 * Copyright (see below)
 
 # Permissive license
-* Non copyleft
-* Can use difference license
+* Not copyleft
+* Can be put under different license
 * Do what ever you want
 * "lets people do anything they want with your code as long as they provide
   attribution back to you and don’t hold you liable."

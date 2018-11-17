@@ -1,0 +1,22 @@
+# Basic idea
+m = mock.patch.object(my_module, 'my_fun', my_fun_mock)
+m = mock.patch('my_module.my_fun', side_effect=['output1', 'output2'])
+  * as string
+  * side_effect is list of outputs for each call
+with mock.patch('my_module.my_fun', my_fun_mock): // start not required
+m.start()
+my_module.my_function() -> 'foo'
+
+
+# Example
+def _decode_jpeg_mock(...):
+  ...
+
+def test_ReadFda(self, ignored_tag, ignored_key):
+  with mock.patch.object(topcon_converter_utils, 'decode_jpeg',
+                         _decode_jpeg_mock):
+    ...
+
+@mock.patch.object(topcon_converter_utils, 'decode_jpeg', _decode_jpeg_mock):
+def test_ReadFda(self,  mock):
+  mock.return_value = 'hello'

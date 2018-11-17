@@ -70,7 +70,7 @@ sudo cp bin $dir
 
 
 # iterm
-cmd - shift - T  // toggle show tabs in fullscreen mode
+cmd - shift - t  // toggle show tabs in fullscreen mode
 cmd - t // new tab
 cmd - [123] // switch between tabs
 cmd - ^ - [123] // switch between windows
@@ -207,6 +207,15 @@ update  // update brewer
 list  // list all installed packages
 search name // search package
 install name  // install package
+
+
+# Preview
+cmd-[12] // change scroll
+c-cmd-h // highlight
+c-cmd-n // note
+c-cmd-u // underline
+c-cmd-t // text
+
 
 
 # Adobe reader
