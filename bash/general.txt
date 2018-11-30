@@ -56,7 +56,7 @@ line3"
 cat <<- EOF
 line1
 line1
-EOF
+EOF  // must be at the beginning of the line (no trailing spaces!)
 
 
 # Show linux version

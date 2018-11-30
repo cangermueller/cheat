@@ -3,21 +3,43 @@
 set -e
 shopt -s extglob
 
-function is_debug {
-  local args=$@
-  if [[ $args == "d" ]]; then
-    echo 1
-  else
-    echo 0
-  fi
+################################################################################
+# Parse arguments
+################################################################################
+
+mode=1
+
+function print_help {
+  cat <<-EOF
+  usage: $0 [argument [argument ...]]
+
+  Script to do something.
+
+  optional arguments:
+    -h, --help            Show this help message and exit.
+    -t, --test            Run in debug mode.
+EOF
 }
+
+# https://gist.github.com/jehiah/855086
+while [[ ${1:0:1} == - ]]; do
+  [[ $1 =~ ^-h|--help ]] && { print_help; return; };
+  [[ $1 == -- ]] && { shift; break; };
+  [[ $1 =~ ^-m|--mount$ ]] && { mode=1; shift 1; continue; };
+  [[ $1 =~ ^-u|--umount$ ]] && { mode=2; shift 1; continue; };
+  [[ $1 =~ ^-t|--test$ ]] && { debug=1; shift 1; continue; };
+  break;
+done
+
+################################################################################
+# Main
+################################################################################
 
 function log {
   (>&2 echo "$@")
 }
 
 check=1
-debug=$(is_debug $1)
 function run {
   local cmd="$@"
   log
@@ -32,3 +54,5 @@ function run {
     fi
   fi
 }
+
+run "ls /"
