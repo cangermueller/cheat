@@ -27,7 +27,7 @@ while [[ ${1:0:1} == - ]]; do
   [[ $1 == -- ]] && { shift; break; };
   [[ $1 =~ ^-m|--mount$ ]] && { mode=1; shift 1; continue; };
   [[ $1 =~ ^-u|--umount$ ]] && { mode=2; shift 1; continue; };
-  [[ $1 =~ ^-t|--test$ ]] && { debug=1; shift 1; continue; };
+  [[ $1 =~ ^-t|--test$ ]] && { is_debug=1; shift 1; continue; };
   break;
 done
 
@@ -46,7 +46,7 @@ function run {
   log "#################################"
   log $cmd
   log "#################################"
-  if [[ $debug -ne 1 ]]; then
+  if [[ $is_debug -ne 1 ]]; then
     eval $cmd
     if [ $check -ne 0 -a $? -ne 0 ]; then
       log "Command failed!"
