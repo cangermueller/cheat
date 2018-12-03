@@ -7,6 +7,7 @@ py.test dir // run all files in directory dir
 -k name // only tests named *name*
 -m 'not slow' // only tests not marked as slow
 -s  // disable capturing; -> print
+-p no:warnings // ignore all warnings
 -v  // verbose output
 --pdb // start pdb on error/exception !!!
 --cov // coverage test; pip install pytest-cov

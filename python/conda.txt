@@ -5,9 +5,21 @@ create // conda env create (see below)
 # conda env
 list // list (current) environments
 source activate NAME
-create -n NAME // create new
-create -n py27 python=2.7 anaconda // install py27 with all anaconda packages
 remove -n NAME
+
+## creating environment
+* use `conda create`, not `conda env create`!
+conda create --name NAME
+conda create py27 python=2.7 anaconda // install py27 with all anaconda packages
+
+# conda install
+PKG
+-n ENV PKG // install into ENV
+--file requirements.txt // install from requirements file
+--yes // skip confirmation
+pip install DIR // install package in DIR
+  -e // editable == development mode
+conda remove PKG // remove package
 
 # conda update
 conda // update conda
@@ -17,8 +29,3 @@ PKG // update PKG
 scikit-learn
 scikit-learn>=1.0
 scikit-*
-
-# conda install
-PKG
--n ENV PKG // install into ENV
-pip install // install with pip

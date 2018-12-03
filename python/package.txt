@@ -1,8 +1,21 @@
 # Uploading package to PyPI
-* configs in ~/.pypirc
-python setup.py sdist
-python setup.py bdist
-python setup.py bdist_wheel
+* https://github.com/pypa/setuptools/issues/941
+
+## ~/.pypirc
+[distutils]
+index-servers =
+    pypi
+
+[pypi]
+username: cangermueller
+password: <pass>
+
+## Uploading
+python setup.py bdist_wheel upload
+python setup.py sdist upload
+python setup.py bdist upload
+
+## Using twine (does not work anymore)
 twine upload dist/X
   deepcpg-1.0.5.tar.gz // source package
   deepcpg-1.0.5-py3-none-any.whl // binary
@@ -16,6 +29,7 @@ twine upload dist/X
   - $PYTHONPATH
   - sys.path
 * dir(module) // list names defined by module
+
 
 
 # Adding pkg to site path
