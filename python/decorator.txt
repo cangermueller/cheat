@@ -1,0 +1,30 @@
+# Function decorator without args
+* `decorator` is called when function declaration is created, e.g. a = fun
+
+def mult(fun):
+  def decorator(*args, **kwargs):
+    return fun(*args, **kwargs) * 2
+  return decorator
+
+
+# Function decorator with args
+def mult(fact):
+  def _mult(fun):
+    def decorator(*args, **kwargs):
+      return fun(*args, **kwargs) * fact
+    return decorator
+  return _mult
+
+
+# Class decorator with args
+
+def register(name):
+  """Decorator for registering models."""
+
+  def wrap(model_class):
+    if name in _MODELS:
+      raise ValueError('Duplicate model name "%s"!' % name)
+    _MODELS[name] = model_class
+    return model_class
+
+  return wrap

@@ -79,6 +79,7 @@ sigma = tf.get_variable('head1/sigma') // same as before
 
 x.shape_as_list() // get shape
 x.get_shape().as_list() // get shape
+x.get_shape().ndim // ndim as scalar
 tf.rank(x) // rank as tensor; similar to len(shape_as_list); ndim does not exist
 x = tf.Variable(init, ...)
   init = value [1, 2, 3] or Tensor
@@ -448,4 +449,101 @@ tf.estimator.inputs.numpy_input_fn(
   num_epochs=1,
   shuffle=False)
 Returns input_fn where input_fn() returns (features(=x), labels(=y))
-.
+
+
+
+
+
+
+# Dataset
+
+## Basics
+dset = tf.data.Dataset.from_tensor_slices([tensor1, tensor2])
+  * single tensor, list of tensors, or (list of) dict
+iter = dset.make_one_shot_iterator()
+data = iter.get_next()
+
+
+## Creating dataset
+tf.data.Dataset.from_tensor_slices // from tensor or numpy array
+tf.data.TextLineDataset(filenames) // each example is single line
+tf.data.experimental.CsvDataset(filenames, ...) // to parse columns of CSV files
+  * Same as TextLineDataset + tf.decode_csv
+zip((dset1, dset2)) // zips outputs of multiple datasets like Python zip
+list_files('path/*glob*') // returns dset of string filenames
+
+
+## Iterators
+
+### One-shot
+* Not initialized
+iter = make_one_shot_iterator()
+
+## Initializable iterator
+* Initialized
+* if input contains tf.Variables or tf.placeholder
+iter = make_initializable_iterator()
+sess.run(iter.initializer) #op to initializer
+
+## Reinitializable iterator
+* Two merge multiple dataset with the same structure
+iter = tf.data.Iterator.from_structure(
+  dset.output_types, dset.output_shapes)
+init1 = iter.make_initializable(dset)
+init2 = iter.make_initializable(dset2)
+sess.run([init1, init2])
+
+
+## Functions
+map(fun, num_parallel_calls=None) // applies fun to each element (sliced along axis=0)
+apply(fun) // applies fun to dataset; fun takes dataset and returns dataset;
+shuffle(buffer_size, seed=None, reshuffle_each_iteration=True)
+  * shuffles buffer_size consecutive elements
+  * bad shuffling if buffer_size small
+  * if batch() applied before, shuffles within each batch!
+repeat
+prefetch(buffer_size) // prefetch elements into memory
+  buffer_size=tf.contrib.data.AUTOTUNE
+take(num_elements) // takes num_elements from dataset
+batch(batch_size)
+padded_batch(batch_size, padded_shapes=[None])
+  * Pads all sequences in the same batch to the same (maximum) length
+  * Sequences in different batches can have different shapes
+
+
+## Other functions
+tf.data.Dataset.list_files('/path/input_files*').apply(
+  tf.data.experimental.parallel_interleave(
+    lambda dset: dset.map(_preprocess_fn),
+    cylce_lenth=num_threads,  # Number of parallel operations
+    sloppy=False,   # If True, faster but non-deterministic
+    )
+  )
+  * transforms dataset in parallel
+  * slices dataset into cylce_length and applies in parallel to each dset
+  * e.g. to process multiple input files in parallel
+
+
+## Order of functions
+map
+shuffle
+repeat
+prefetch
+
+
+
+# Eager executing
+tf.enable_eager_execution   // add beginning of code
+vn = np.random.rand(4, 2) // np.ndarray
+vt = tf.constant(vn) // tf.EagerTensor
+
+vt.numpy() // np.ndarray
+np.asarray(vt) // np.ndarray
+vn * vt // tf.EagerTensor
+tf.add(vn, 1)  // tf.EagerTensor
+np.add(vt, 1) // np.ndarray
+
+## Computing gradients
+with tf.GradientTape() as tape:
+  loss = loss_fun(labels, predicts)
+gradient = tape.gradient

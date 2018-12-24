@@ -1,11 +1,19 @@
-# Basic idea
+# Mocking a function
 m = mock.patch.object(my_module, 'my_fun', my_fun_mock)
-m = mock.patch('my_module.my_fun', side_effect=['output1', 'output2'])
+  * To mock my_model.my_fun
+  * 2nd argument is string!
+  * my_module can be module that is imported by module that is tested
+
+
+
+m.start()
+  * Starts mock
+
+m = mock.patch.object('my_module', my_fun, side_effect=['output1', 'output2'])
   * as string
   * side_effect is list of outputs for each call
-with mock.patch('my_module.my_fun', my_fun_mock): // start not required
-m.start()
-my_module.my_function() -> 'foo'
+
+with mock.patch.object('my_module', my_fun, my_fun_mock): // start not required
 
 
 # Example
@@ -17,6 +25,12 @@ def test_ReadFda(self, ignored_tag, ignored_key):
                          _decode_jpeg_mock):
     ...
 
+
 @mock.patch.object(topcon_converter_utils, 'decode_jpeg', _decode_jpeg_mock):
 def test_ReadFda(self,  mock):
   mock.return_value = 'hello'
+
+
+# Creating mock object
+object = mock.MagicMock()
+object.BindAndQuery.side_effect = [RETURN_1ST_CALL, RETURN_2ND_CALL]

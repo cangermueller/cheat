@@ -321,7 +321,7 @@ np.nan(s[i]), isnull(s[i])  // testing nan
 notnull() == not isnull()
 count() // # non-missing
 fillna(0) // fills na / null
-df.fillna(df.mean())  // fill / impute with column means
+df.fillna(df.mean())  // fill / impute with column means; inplace!
 df.fillna({'c2':10, 'c3':5})  // fill named columns
 dropna(...) // drop rows with at least one missing value
   axis=0  // drop incomplete rows (default)
@@ -363,8 +363,6 @@ get_option('display.width')
 
 with option_context('display.max_rows', 10, 'display.max_columns', 5):
   ...
-
-
 
 ## defaults
 pd.set_option('display.width', 200)

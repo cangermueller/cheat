@@ -37,7 +37,7 @@ n // next list
 c // continue
 j[ump] 10 // jump to line 10; skip intermediate commands; back jumps possible
 r[eturn] // until return
-until // until end of frame -> after function
+until [line] // until line or end of frame (after function)
 where // show current line
 l // list lines following the current line
 l start,end // list lines for given line numbers (can not be relative)
