@@ -40,23 +40,25 @@ for line in file:
 
 
 # File names
-os.path
-join(a, b, c)
-splitext('/d/f.ext') -> ['/d/f', 'ext']
-splitexit(path)[0]  // remove extension
-path.split(os.extsep, 1) // file.abc.def -> [file, 'abc.def']
-extsep == '.' // character extension separator
-f.split(extsep)[0]  // split ext with multiple '.'
+## Path expansion
 basename(path)
 dirname(path)
-os.sep // path separtor -> '/' for Linux
-path.split(os.sep) // /dir1/dir2/dir3 -> dir1, dir2, dir3
 abspath(__file__)
 realpath()  // like abspath, but resolves symlinks
 expanduser('~')
 getenv('HOME', ...) // environment variables
   default=
 user = getpass.getuser()
+
+
+## Splitting
+join(a, b, c)
+splitext('/d/f.ext') -> ['/d/f', 'ext']
+splitexit(path)[0]  // remove extension
+os.sep // path separtor -> '/' for Linux
+my_path.split(os.sep) // /dir1/dir2/dir3 -> dir1, dir2, dir3
+path.split(os.extsep) // /a/b/c/d -> (/a/b/c/, /d)
+
 
 
 # Misc
