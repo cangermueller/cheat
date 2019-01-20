@@ -25,8 +25,17 @@ Shortcuts
 ---------
 cmd-n // new window
 cmd-t // new tab at home
-ctrl-cmd-o  // open tab at current location
+cmd-i // get ifno
+
 cmd-<arrows> // navigate into forward/backward/up/down
+ctrl-cmd-o  // open tab at current location
+cmd-[123] // change view
+
+cmd-shift-h // home
+cmd-shift-d // desktop
+cmd-shift-g // go to
+
+cmd-shift-n // create new folder
 
 Default view
 ------------
