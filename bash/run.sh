@@ -16,18 +16,18 @@ function print_help {
   Script to do something.
 
   optional arguments:
-    -h, --help            Show this help message and exit.
+    -r, --remote          Run remotely.
     -t, --test            Run in debug mode.
+    -h, --help            Show this help message and exit.
 EOF
 }
 
 # https://gist.github.com/jehiah/855086
 while [[ ${1:0:1} == - ]]; do
+  [[ $1 =~ ^-r|--remote$ ]] && { remote=1; shift 1; continue; };
   [[ $1 =~ ^-h|--help ]] && { print_help; return; };
-  [[ $1 == -- ]] && { shift; break; };
-  [[ $1 =~ ^-m|--mount$ ]] && { mode=1; shift 1; continue; };
-  [[ $1 =~ ^-u|--umount$ ]] && { mode=2; shift 1; continue; };
   [[ $1 =~ ^-t|--test$ ]] && { is_debug=1; shift 1; continue; };
+  [[ $1 == -- ]] && { shift; break; };
   break;
 done
 

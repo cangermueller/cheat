@@ -223,6 +223,7 @@ var(X, ddof=1)  // unbiased variance
 np.average(X, axis, weights)  // weighted mean
   * weights must have lenght of axis
 np.digitize(v, [0, 0.5, 1]) // bin/discretize values into 2 bins
+a.ptp() == a.max() - a.min() // max-min; range
 
 ## io
 save('data.npy', data)  // binary npy format
@@ -309,6 +310,9 @@ random.uniform(low, hight, size)
 random.normal(mean, std, size)
 random.shuffle(array) // shuffle entries inplace
 random.choice(array, size, replace=False)  // sample (without) replacement from array
+  * array must be np.ndarray, not list with different datatypes
+  * return np.ndarray, not list
+  * use random.sample for sample from list
 
 ## Random state
 rng = np.random.RandomState(0)
