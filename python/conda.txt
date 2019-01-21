@@ -24,6 +24,7 @@ conda remove PKG // remove package
 # conda update
 conda // update conda
 PKG // update PKG
+--all // update all packages
 
 # conda search
 scikit-learn
