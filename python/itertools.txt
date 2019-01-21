@@ -17,6 +17,9 @@ count(10, [2]) // 10, 12, 14, ...
 
 
 # Functions that create new iterators
+accumulate(iter, operator)
+  import operator
+  accumulate([1, 2, 3], operator.sum) // [1, 3, 6]
 ifilter(lambda x: ..., iter) // filter iterator
 imap(lambda x: x + 1, iter)
 islice(iter, start_index, stop_index)

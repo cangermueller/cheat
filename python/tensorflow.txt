@@ -11,6 +11,7 @@ Same for tf.not_equal !=
 
 
 # Misc
+vector[:, None] // reshape vector to column vector; same as tf.reshape(vector, (-1, 1))
 tf.reset_default_graph()  // clears everything
 tf.py_func(fun, tensor) // wrap Python function
 tf.truediv(x, y) // division
@@ -547,3 +548,20 @@ np.add(vt, 1) // np.ndarray
 with tf.GradientTape() as tape:
   loss = loss_fun(labels, predicts)
 gradient = tape.gradient
+
+
+
+# Keras
+## losses
+tf.losses.softmax_crossentropy(labels, preds, ...)
+  labels  // one-hot encoded
+  preds  // logits
+tf.losses.sparse_softmax_crossentropy(labels, preds, ...)
+  labels  // indices; not one-hot encoded!; one dimensions less than preds
+  preds  // logits
+keras.losses.categorial_crossentropy(labels, preds, ...)
+  labels  // one-hot encoded
+  preds  // probs; not logits!
+  from_logits=False // if set to True, same as tf.losses.sparse_softmax_crossentropy
+keras.backend.sparse_categorical_crossentropy(labels, preds, ...)
+  * same as keras.losses.sparse_categorical_crossentropy

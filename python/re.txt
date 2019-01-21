@@ -27,6 +27,7 @@ re.fullmatch(pattern, string, flags
   * ^.*XXX.*$ unncessary
 for m in re.finditer(pattern, string)  // like search, but iter of all hits
 re.findall(pattern, string) // all matches as str in array
+len(re.findall(...)) // count
 re.split(p, s)  // split by p; s.split(p) does not support re
 re.sub(p, r, s) // subst ALL p in s by r and returns substituted string
   \1, \2, ... // backreference groups
@@ -52,3 +53,7 @@ for line in file:
 * Can clearly speed-up code!
 regex = re.compile(r'REGEX')
 regex.(match|search|fullmatch)
+
+
+# Not
+^((?!colab).)*$
