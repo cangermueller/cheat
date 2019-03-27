@@ -12,6 +12,7 @@ if not sys.stdin.isatty():
   lines = [x.strip() for x in sys.stdin.readlines()] // 'line1\n', 'line2\n'
 
 # file
+
 ## Reading content
 f = open(filename, 'rwa')
 with open(filename) as f: // will be closed at the end
@@ -22,6 +23,10 @@ for line in f:  // read line by line
 lines = open(filename).read().splitlines() // read all lines in array
 f.readlines() // read all lines in array()
 lines = [l.rstrip() for l in open(filename, 'r')]
+
+## Writing content
+f.write('\n'.join(lines))
+f.writelines(lines) // does not add '\n'; write() better!
 
 ## Misc
 f.close()

@@ -552,6 +552,11 @@ gradient = tape.gradient
 
 
 # Keras
+
+## Hierarchy
+Model -> Network -> Layer -> Checkpointable -> object
+
+
 ## losses
 tf.losses.softmax_crossentropy(labels, preds, ...)
   labels  // one-hot encoded
@@ -565,3 +570,25 @@ keras.losses.categorial_crossentropy(labels, preds, ...)
   from_logits=False // if set to True, same as tf.losses.sparse_softmax_crossentropy
 keras.backend.sparse_categorical_crossentropy(labels, preds, ...)
   * same as keras.losses.sparse_categorical_crossentropy
+
+
+
+# tf.contrib.framework.nest
+nest.map_structure(lambda x: x + 1, ({'a': 1, 'b': 2}, {'c': 3}))
+  -> ({'a': 2, 'b': 3}, {'c': 4})
+nest.flatten(({'a': 1, 'b': 2}, {'c': 3}))
+  -> [1, 2, 3]
+nest.assert_same_structure({'a': 1, 'b': {'b1': 1, 'b2': 2}},
+                           {'a': 10, 'b': {'b1': 10, 'b2': 20}})
+  * Keys must be the same, but values can be different
+
+
+
+## tf_agents.utils.nest_utils
+batch_nested_tensors(nested, specs=None) // add batch dimension
+  * specs optional
+unbatch_nested_tensors(nested, specs=None) // remove batch dimension
+stack_nested_tensors(nested) // concacts list of tensors along axis=0
+unstack_nested_tensors(nested, specs) // splits batched tensor into list
+get_outer_rank(nested, specs) // batch dimension
+get_outer_shape(nested, specs) // batch size, e.g. 3 for [3, 2, 4]

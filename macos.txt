@@ -231,7 +231,7 @@ c-cmd-t // text
 
 # Adobe reader
 https://helpx.adobe.com/acrobat/using/keyboard-shortcuts.html
-* preferences -> general -> use single-key accelerators
+* preferences -> general -> use single-key accelerators   !!!!!
 * preferences -> reader -> Only read the currently visible pages
 
 ## Navigation cmd-left // previous position
@@ -240,7 +240,7 @@ fn-left,right // first, last pages
 fn-up,down // scroll fast
 shift-cmd-n // go to page nr
 
-## Editing
+## Editing (must be enabled in perferences; see above!)
 U // highlight
 S // sticky note
 

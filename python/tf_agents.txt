@@ -1,0 +1,27 @@
+# Components
+
+## policies.policy_step
+* Return from policy.action()
+action // sampled action
+state // state of policy, e.g. RNN state
+info  // side information, e.g. log probs
+
+## environment.time_step
+* returned by environment at each time time
+* does not contain action (policy takes care of this)
+step_type
+reward
+observation
+discount
+
+## environment.trajectory
+* policy_step + time_step
+* trajectory.to_transition(trajectory)
+  * splits trajectory into time_step + policy_step + next_time_step
+step_type
+observation
+action
+policy_info
+reward
+discount
+next_step_type

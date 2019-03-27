@@ -92,14 +92,18 @@ Fix bug at line 88 caused by division of zero.
   * nested_rep does not have .git
   * submodules can be checked out from main_rep
 
+
+
 # Submodules
-* git submodule CMD
+
+## git submodule CMD
 * status  // status information
 * init // add entry for all modules in .gitmodules to .git/config
 * update  // checkout head
 * .git/modules  // configuration files, e.g. info/exclude
 
 ## Checkout all submodule
+* git clone --recurse-submodules
 * git submodule init
 * git submodule update
 
@@ -112,8 +116,10 @@ Fix bug at line 88 caused by division of zero.
 * git commit
 
 ## Removing submodule
-submodule deinit NAME
-rm NAME
+https://gist.github.com/myusuf3/7f645819ded92bda6677
+
+
+
 
 # tag
 tag -a -m 'First version' v0.1  // create annotated tag with message -m

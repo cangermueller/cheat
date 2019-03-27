@@ -79,9 +79,12 @@ x = x.astype(np.float16, ..)  // change dtype, return copy
 x.view(np.float16)  // change view on dtype
 
 ## Information data type
-np.iinfo(np.int32)
+np.finfo(np.float32) // for floating data types
+np.iinfo(np.int32)  // for integer data types
   .max // maximum value
   .min // minimum value
+  .eps // epsilon
+np.info(np.min) // information about class, functions, etc.
 
 
 # Structure array
@@ -321,8 +324,11 @@ rng.norm(0, 1, 10)
 rng.get_state()[1][0] // returns seed
 
 # correlation coefficient
+-> Scipy correlation better
 np.cov(x, y)  // covariance matrix
 np.corrcoef(x, y) // correlation matrix (not single coefficient!)
+  * x and y are vectors
+  * if x is matrix and y is None, computes correlation between all columns in x
 np.corrcoef(x, y)[0, 1] // correlation coefficient
 
 
@@ -360,3 +366,15 @@ quantile(values, range, ...)
   range: float or list between 0 and 1
 percentile(values, range, ...)
   range: float or list between 0 and 100
+
+
+
+# Discretize / digitize / quantize values
+
+def discretize(values, num_bins=4):
+  values = np.asarray(values)
+  bins = []
+  if num_bins > 1:
+    pct = np.linspace(0, 100, num=num_bins + 1)
+    bins = np.percentile(values, pct)
+  return np.digitize(values, bins)

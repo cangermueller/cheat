@@ -97,7 +97,7 @@ barplot(x, y, ...)
 # Boxplot
 boxplot(data=, x=, y=, ...)
   x='yaxis', y='xaxis' // plot horizontally; orient='h' does not seem to work
-  ax.set_xticklabels(ax.get_xticklabels(),rotation=60) // rotate labels
+  ax.set_xticklabels(ax.get_xticklabels(),rotation=60,ha='right') // rotate labels
   plt.ylim(-4, 4) // ax.set_ylim changes position of boxes!
   palette='Set1'  // fill boxes
   hue= // causes narrow boxes! Bug?
@@ -108,6 +108,8 @@ violinplot(data=, x=, y=, ...)
   * Same args as boxplot; Additional args:
   inner=points,sticks,box // plot sample values
   join_rm=True  // connect dots by lines
+  cut=2 // set to 0 to avoid extending the distribution past extreme points
+swarmplot(...) // plots individual dots
 
 ## Boxplot with points
 fig, ax = plt.subplots(figsize=(10, len(pa.anno.unique()) * 0.5));
@@ -143,6 +145,10 @@ heatmap(data, ...)
   xticklabels=
   yticklabels=
 
+## Correlation matrix
+c = frame.corr()
+heatmap(c, xticklabels=c.columns, yticklabels=c.columns, ...)
+
 
 # Correlation matrix / clustermap
 grid = clustermap(data, ...) // heatmap + dendrogram
@@ -164,6 +170,9 @@ grid.ax_heatmap // axis heatmap
 grid.ax_coldendrogram
   .set_title(title)
 grid.ax_rowdendrogram
+
+## Getting row/col labels
+row_labels = data.index[grid.dendrogram_row.reordered_ind]
 
 
 # Histogram / density plot
@@ -215,11 +224,19 @@ grid.axes[0, 0].set(xlabel=, ylabel)
 
 # Scatter plot
 grid = lmplot(data=data, x='x', y=y', hue='class', size=5)
-grid = pairplot(data=data, x_vars='x', y_vars='y', hue='class', size=5)
+
 regplot
   * does not support colors; no hue!
 jointplot(kind='scatter') (histograms on side)
   * does not support colors; no hue!
+
+## pairplot
+grid = pairplot(data=data, x_vars='x', y_vars='y', hue='class', height=5)
+  * data has format [var1, var2, var3] (not melted!)
+  vars=[var1, var2] // variables shown on x and y
+  [x|y]_vars=[var1, var2] // variables shown on either x or y
+  kind=(scatter|hist)
+  diag_kind=(kde|hist)
 
 
 
@@ -286,7 +303,7 @@ for row in meta.iterrows():
 g = FacetGrid(data, col='col_var', row='row_var', ...)
   hue='color_var'
   col_wrap=None // # columns
-  size=3  // height of each grid in inches
+  height=3  // height of each grid in inches
   aspect // width = size * aspect
   xlim=[0, 1], ylim=
   legend_out=True // Draw legend outside

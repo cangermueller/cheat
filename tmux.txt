@@ -6,6 +6,9 @@ DIR="$HOME/opt"
 Can't open display X
 export DISPLAY='echo $DISPLAY right after login'
 
+# Commands
+tmux kill-session -t session_name // kill session
+
 # Misc
 Copy on double-click: opt + double click
 

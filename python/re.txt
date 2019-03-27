@@ -4,14 +4,6 @@ r"string" // raw string
 
 m = re.search(pattern, string, flags)
 m is None // no match
-m.groups() // returns all groups as tuple
-  * length == number of (...) parts in re
-m.group() // everything
-m.group(0)  // everything
-m.group(1)  // group 1
-m.start()
-m.end()
-
 
 re.match(pattern, string, flags)
   * must match at beginning
@@ -30,9 +22,25 @@ re.findall(pattern, string) // all matches as str in array
 len(re.findall(...)) // count
 re.split(p, s)  // split by p; s.split(p) does not support re
 re.sub(p, r, s) // subst ALL p in s by r and returns substituted string
-  \1, \2, ... // backreference groups
+  re.sub(r'(.*\.)(solver)$', r'\g<1>\g<2>_cls', idx) // reference groups
   re.sub(r'(.)\1{2,}', r'\1', 'aaabbbccc')  // replace duplicate chars
 re.subn() // like sub, but return number of replacements
+
+
+# Groups
+m.groups() // returns all groups as tuple
+  * length == number of (...) parts in re
+m.group() // everything
+m.group(0)  // everything
+m.group(1)  // group 1
+m.start()
+m.end()
+
+## Groups dict
+m = re.search(r'^(?P<start>\d+)(-(?P<stop>\d+))?$', sel)
+d = m.groupdict()
+d['start'], d['stop']
+  * d['stop'] == None if missing
 
 
 

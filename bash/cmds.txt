@@ -236,3 +236,6 @@ tail -n +2 ./ukb21036.csv | sort -t , -k 1 >> ./ukb21036.csv.sort
 # temp file / dir
 mktemp "/tmp/XXXXXX" // temp file
 mktemp -d "/tmp/XXXXXX" // temp dir
+
+# reboot
+reboot

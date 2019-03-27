@@ -99,5 +99,18 @@ x x x x x  -> x x x x x
 import scipy.ndimage.filters
 gaussian_filter(x, [size, size]) // convolve with size x size Gaussian kernel
 gaussian_laplace(...)
-...
 
+
+# Correlation coefficient / correlation matrix / spearman
+* Example below
+* If y is None, computes correlations between columns of x
+
+import scipy.stats as sps
+
+x = np.random.rand(100)
+y = np.random.rand(100)
+
+r, pval = sps.spearmanr(x, y)
+  * returns named collection with r and pval
+r, pval = sps.pearsonr(x, y)
+  * returns tuple with r and pval

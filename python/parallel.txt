@@ -19,7 +19,19 @@ Executor // abstract class
 ThreadPoolExecutor // multithreading
 ProcessPoolExecutor // multiprocessing
 
+## map
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
   executor.map(convert_fda_args,
                itertools.product(args1, [arg2]),
                chunksize=chunksize)
+
+## submit
+* return future object f
+* all futures will be terminated after with
+* f.result(seconds=None)
+  * returns results after at most `seconds` (optional)
+  * blocking
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
+  for value in values:
+    f = e.submit(functools.parital(fun, value=value))

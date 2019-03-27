@@ -55,7 +55,8 @@ d.assign(
   )
 
 # Operations
-df.corr(...)  // correlation matrix
+df.corr(...)  // computes correlation between all columns
+  -> use scipy correlation features for correlating specific columns
 df.apply(fun, axis=0) // apply function over axis
   axis=0  // over rows -> return value for each column
   axis=1 // over columns -> return value for each row
@@ -76,6 +77,13 @@ df['c1'] = df['c1'].astype(str) // convert dtype column
 
 # Misc
 pd.crosstab(y, x) // contingency table
+df.filter(regex='e$') // select columns by regex.
+df.filter(['col1', 'col2'])
+df.filter(...)
+  items=['c1', 'c2'] // select by list of items (exact match)
+  regex='e$' // select by regex using re.search -> partial match
+  axis=None // =1 by default for DataFrame
+
 
 # IO
 to_pickle('file.pkl')
@@ -388,6 +396,7 @@ df.pivot(index='id1', columns='id2')['value']
   * Hierarchical column index with value column at level 0
 
 ## Unstacked -> stacked
+pd.melt(df, ...) or df.melt(...)
 pd.melt(df, id_vars='id1', var_name='id2', value_name='value')
 pd.melt(df, ...) // matrix -> list
   id_vars= // columns that stay as they are
@@ -532,6 +541,10 @@ d.groupby('key').transform(lambda x: x - x.mean())  // center each group
 
 ## Filter: select particular group (not single group members)
 d.groupby('key').filter(lambda x: x.a.mean() > 0) // select groups with a.mean() > 0
+
+## null / nan values
+* Are treated as unique values
+* Use df.fillna('x') to assign to unique value
 
 
 ## Apply: return DataFrame of any dimension
