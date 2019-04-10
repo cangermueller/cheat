@@ -99,6 +99,9 @@ date '+%y%m%d_%H%M%S'
 %F // date: 2018-01-29
 %T // time: 20:15:00
 
+# Changing time zone
+timedatectl set-timezone 'America/Los_Angeles'
+
 # less
 * Flags (-S, -I, ...) can be typed while less is open
 -S no line wrap
