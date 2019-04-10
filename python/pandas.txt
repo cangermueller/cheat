@@ -451,6 +451,10 @@ ab = pd.concat((a, b), axis=1)
 pd.merge(a, b, ...) // join on common columns
   on=['c1', 'c2'] // set columns explicitly; overlap otherwise
   how='left'  // right, outer, inner
+    left // all rows in a; None if values not in b -> use only keys from a
+    inner // removes rows in b that are also not in b -> use keys from a & b
+    outer // use union a | b of keys
+
   suffixes=['_x', '_y']  // suffixes appended for overlapping column names
   left_index=True, right_index=True // join on indices instead of columns -> like a.join(b)
 
