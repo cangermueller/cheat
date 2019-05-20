@@ -23,8 +23,10 @@ sns.plot(ax=x)
 * Best: remove legend and add matplotlib axis
 sns.pointplot(data=values, x='smooth', y='value', hue='cla')
 ax.legend_.remove() // remove legend
-ax.legend(loc='upper right', title=None, mode='expand', ncol=5)
-
+legend = ax.legend(loc='upper right', mode='expand', ncol=5, ...)
+  fontsize='x-large'
+  title='Title' // Set title; does not seem to work (see below)
+legend.texts[0].set_text('Solver') // Change legend.
 
 
 # Style
@@ -97,7 +99,7 @@ barplot(x, y, ...)
 # Boxplot
 boxplot(data=, x=, y=, ...)
   x='yaxis', y='xaxis' // plot horizontally; orient='h' does not seem to work
-  ax.set_xticklabels(ax.get_xticklabels(),rotation=60,ha='right') // rotate labels
+  ax.set_xticklabels(ax.get_xticklabels(), rotation=60, ha='right') // rotate labels
   plt.ylim(-4, 4) // ax.set_ylim changes position of boxes!
   palette='Set1'  // fill boxes
   hue= // causes narrow boxes! Bug?
@@ -186,6 +188,7 @@ distplot(x, ...)  // hist + kde
 jointplot(x='x', y='y', data=data)
   * 2d scatter plot with distributions at side
   kind='kde'
+  height=6
 
 
 # Regression
@@ -217,6 +220,17 @@ ax.set(xlabel=, ylabel=) // changes labels
 grid = sns.FacetGrid(data=, col='dset', hue='output')
 grid.map(sns.pointplot, 'x', 'y')
 grid.axes[0, 0].set(xlabel=, ylabel)
+
+## sns.lineplot
+sns.lineplot(data, x=x, y=y, hue=, size=, style=, ...)
+  ci=95: 95% confidence interval
+  n_boot=100: # bootstrap samples
+  n_estimator=np.mean: estimator
+
+### Changing line width
+with sns.plotting_context(rc={"lines.linewidth": 2.5}):
+  sns.lineplot
+
 
 
 
@@ -342,3 +356,9 @@ g = JointGrid(x, y, ...)
 g.plot(fun_joint, fun_marginals)
 g.plot_joint(fun_joint, ...)
 g.plot_marginals(fun_marginals, ...)
+
+
+# Changing font size
+with sns.plotting_context(font_scale=1.2)
+ax.set_xlabel(..., fontsize=20)
+ax.set_title(..., fontsize=20)

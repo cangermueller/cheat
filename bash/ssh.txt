@@ -19,6 +19,9 @@ cat ~/.ssh/id_rsa.pub | ssh HOST 'cat >> ~/.ssh/authorized_keys'
   -> current host becomes a SOCKS proxy listening on port 1080
   -> every connection x:y on localhost is forwarded to x:y on hn01
 
+## In ssh/config
+LocalForward 8888 localhost:8888
+
 
 # Permissions
 chmod 600 id_rsa

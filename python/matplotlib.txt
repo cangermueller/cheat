@@ -259,3 +259,8 @@ poly = patches.Poly(corners, ...)
   points=[[x1, y1], [x2, y2], ...]
   fill=True
 ax.add_patch(poly)
+
+
+# vertical / horizontal line
+axvline(x=)
+axhline(y=)

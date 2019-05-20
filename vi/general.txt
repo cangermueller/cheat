@@ -18,6 +18,7 @@ runtime ftplugin/man.vim
 %:r // remove extension
 %:p:r // absolute filename without extension
 pwd // cwd path
+:cd // change working directory
 
 # Python
 :python3 print(sys.path)

@@ -1,0 +1,22 @@
+import functools
+
+
+partial(fn, a=1, b=2)   // binds args, kwargs of given function
+  * return wrapped function, not fn!
+  * Use approach below for binding args, kwargs of class
+reduce(reduce_fn, values, initializer=None)
+  def reduce_fn(acc, value):
+    return acc + value
+  initializer=None // If None, uses values[0] to initialize acc
+
+
+# Binding parameters to class
+
+def partial_class(cls, *args, **kwargs):
+
+  class partial_class(cls):
+
+    __init__ = functools.partialmethod(cls.__init__, *args, **kwargs)
+
+  partial_class.__name__ = cls.__name__
+  return partial_class
