@@ -19,3 +19,4 @@ if __name__ == '__main__':
 
 # mocking
 See https://docs.python.org/3/library/unittest.mock.html
+-> $cp/mock.txt

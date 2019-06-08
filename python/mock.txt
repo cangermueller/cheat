@@ -1,3 +1,14 @@
+# Mocking-out objects
+mock.patch.object(reference, 'fun_name', [fun]):
+  reference: module / module.Class
+  fun: function to replace `reference.fun_name`
+  return_value=1: Change return value of fun_name
+
+
+@mock.patch // as decorator
+with mock.path  // as context
+
+
 # Mocking a function
 m = mock.patch.object(my_module, 'my_fun', my_fun_mock)
   * To mock my_model.my_fun
@@ -16,7 +27,7 @@ m = mock.patch.object('my_module', my_fun, side_effect=['output1', 'output2'])
 with mock.patch.object('my_module', my_fun, my_fun_mock): // start not required
 
 
-# Example
+# Example 1
 def _decode_jpeg_mock(...):
   ...
 
@@ -26,6 +37,20 @@ def test_ReadFda(self, ignored_tag, ignored_key):
     ...
 
 
+# Example 2
+
+class _MockEstimator():
+  pass
+
+def test_build_labeled_dataset_from_csv(self):
+  with mock.patch.object(inference_estimator, 'InfererEstimator',
+                          _MockEstimator):
+
+-> inference_estimator must be imported in test file
+-> replaces inference_estimator.InfererEstimator by _MockEstimator
+
+
+# Example 3
 @mock.patch.object(topcon_converter_utils, 'decode_jpeg', _decode_jpeg_mock):
 def test_ReadFda(self,  mock):
   mock.return_value = 'hello'
@@ -34,3 +59,10 @@ def test_ReadFda(self,  mock):
 # Creating mock object
 object = mock.MagicMock()
 object.BindAndQuery.side_effect = [RETURN_1ST_CALL, RETURN_2ND_CALL]
+
+
+
+# Example 4
+* Mock-out class method
+with mock.patch.object(apt.AptamerDNNProblem, '_load_inferrer'):
+  problem = apt.AptamerDNNProblem()

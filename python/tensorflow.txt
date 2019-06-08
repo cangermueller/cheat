@@ -78,6 +78,11 @@ with tf.variable_scope('head1', reuse=True):
 sigma = tf.get_variable('head1/sigma') // same as before
 
 
+# Shape
+x.shape == tf.get_shape() // static shape: shape at compile time
+tf.shape(x) -> Tensor // dynamic shape: actual shape in graph mode
+
+
 x.shape_as_list() // get shape
 x.get_shape().as_list() // get shape
 x.get_shape().ndim // ndim as scalar

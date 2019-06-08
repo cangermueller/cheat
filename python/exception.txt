@@ -2,25 +2,24 @@
 https://docs.python.org/2/library/exceptions.html
 BaseException // base for build-in errors
 Exception // base for non-build-in errors
-ValueError // for invalid arguments
-RuntimeError
+ValueError // for invalid arguments (length, ...)
+IndexError
+TypeError
 IOError
 NotImplementedError
+RuntimeError // does not fit into any other category
 
 try:
   raise Exception('error!')
-except RuntimeError:
-  handle runtime error
-else:
-  handle other error
-finally:
-  executed if error or no error
-
-try:
-  ...
-except:
-  Catch everything
-except (RuntimeError, IOError):  // catch multiple
-  ...
 except RuntimeError as e:
-  print(e)
+  handle runtime error
+except ValueError as e:
+  handle runtime error
+except (IOError, IndexError) as e:
+  handle either of these exceptions
+except:
+  catch everything (deprecated)
+else:
+  no exception
+finally:
+  always executed (with and without exception)
