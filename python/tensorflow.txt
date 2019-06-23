@@ -85,7 +85,7 @@ tf.shape(x) -> Tensor // dynamic shape: actual shape in graph mode
 
 x.shape_as_list() // get shape
 x.get_shape().as_list() // get shape
-x.get_shape().ndim // ndim as scalar
+x.get_shape().ndim // ndim as scalar (only in eager mode)
 tf.rank(x) // rank as tensor; similar to len(shape_as_list); ndim does not exist
 x = tf.Variable(init, ...)
   init = value [1, 2, 3] or Tensor

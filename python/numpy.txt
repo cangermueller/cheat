@@ -120,6 +120,9 @@ def array_to_matrix(x):
     v = np.vstack(v).T
     return v
 
+## select last dimension
+a[..., 1:3]   // a can be n-d
+
 
 ## Selecting for each row different columns
 a is 4 x 3
