@@ -586,6 +586,10 @@ nest.flatten(({'a': 1, 'b': 2}, {'c': 3}))
 nest.assert_same_structure({'a': 1, 'b': {'b1': 1, 'b2': 2}},
                            {'a': 10, 'b': {'b1': 10, 'b2': 20}})
   * Keys must be the same, but values can be different
+nest.is_sequence(1) // False
+nest.is_sequence('abc') // False
+nest.is_sequence({'a': 1, 'b': 2}) // True, since nested
+
 
 
 
