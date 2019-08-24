@@ -1,3 +1,17 @@
+# Asserts
+assert_called()
+assert_called_once()
+assert_called_with(*args, **kwargs) // the last call contains these args
+assert_called_once_with(*args, **kwargs) // called_once with these args
+assert_any_call(*args, **kwargs) // any called must had these args
+
+
+# Testing if call args contain
+args, kwargs = mock.call_args
+kwargs.contain(x)
+
+
+
 # Mocking-out objects
 mock.patch.object(reference, 'fun_name', [fun]):
   reference: module / module.Class
