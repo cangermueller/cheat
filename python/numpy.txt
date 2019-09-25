@@ -272,7 +272,7 @@ b.sum()
 b.any()
 b.all()
 b.nonzero()[0]  // indices where True
-np.where(b)[0]  // smae a nonzero
+np.where(b)[0]  // same a nonzero
 np.in1d(a, b) // boolean mask, where True means that a is in b; isin
 ### Bool to int indices // like R which (b > 0)
 i = x.nonzero()
@@ -333,6 +333,7 @@ np.corrcoef(x, y) // correlation matrix (not single coefficient!)
   * x and y are vectors
   * if x is matrix and y is None, computes correlation between all columns in x
 np.corrcoef(x, y)[0, 1] // correlation coefficient
+for pandas, use frame.corr(...)
 
 
 # testing

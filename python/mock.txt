@@ -80,3 +80,12 @@ object.BindAndQuery.side_effect = [RETURN_1ST_CALL, RETURN_2ND_CALL]
 * Mock-out class method
 with mock.patch.object(apt.AptamerDNNProblem, '_load_inferrer'):
   problem = apt.AptamerDNNProblem()
+
+# Example 5
+* Testing if method was called
+update_mock = mock.patch.object(
+  solver, '_update_model_based_parameters',
+  side_effect=solver._update_model_based_parameters).start()
+loss_infos = solver.train_with_model(
+  *solver.population.to_structures_and_rewards(), num_rounds=1)
+update_mock.assert_called_once()

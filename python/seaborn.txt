@@ -181,6 +181,7 @@ row_labels = data.index[grid.dendrogram_row.reordered_ind]
 plt.hist(x) // matplotlib for simple histogram
 kdeplot(x, shade=T, bw=)  // only kde
 distplot(x, ...)  // hist + kde
+  x: Series / vector -> does not support dataframe!
   hist=True
   kde=True
   kde_kw={'shade', True}
@@ -276,7 +277,8 @@ grid = lmplot(x='x', y='y', data=data, ...)
   loess=False // loess fit
   fit_reg=False // no regression line
   legend=False // not legend if hue
-  size=5 // figure size
+  height=5 // height of the plot
+  aspect=1.3 // width = aspect * height
   scatter_kws={'s': 100}  // point size
   scatter_kws={'color': 'royalblue'}  // color
   scatter_kws={'alpha': 0.3}  // transparency
