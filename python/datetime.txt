@@ -1,0 +1,2 @@
+from datetime import datetime
+datetime.now().strftime('%y%m%d')

@@ -242,3 +242,21 @@ mktemp -d "/tmp/XXXXXX" // temp dir
 
 # reboot
 reboot
+
+# ag / ack grep
+ag [options] PATTERN
+-i // insensitive
+-S // smart case; *on* by default
+-c // count number of matches per fiel
+--hidden // also search hidden files
+
+# rg / ripgrep
+rg [options] PATTERN
+-i // insensitive
+-S // smart case; *off* by default
+-c // count number of matches per fiel
+-t py // only search python files
+--hidden // also search hidden files
+-u // search all ignored files
+-uu // search all ignored and hidden files
+-uuu // search everything

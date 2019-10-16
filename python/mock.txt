@@ -89,3 +89,10 @@ update_mock = mock.patch.object(
 loss_infos = solver.train_with_model(
   *solver.population.to_structures_and_rewards(), num_rounds=1)
 update_mock.assert_called_once()
+
+
+# Wrapping a class
+object = MyClass()
+wrapped = mock.Mock(wraps=object)
+wrapped.foo() // will call object.foo if foo() is a method of object
+wrapped.bar() // will return default mock (?) if bar() is not a method of object

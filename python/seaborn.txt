@@ -80,6 +80,7 @@ sns.set_palette(color_palette)
 ## Sequential colors
 Reds, Greens, Blues, ...
 GnBu, RdBu
+coolwarm // alternative to RdBu
 X_r // reverse
 X_d // dark
 
@@ -154,6 +155,7 @@ heatmap(c, xticklabels=c.columns, yticklabels=c.columns, ...)
 
 # Correlation matrix / clustermap
 grid = clustermap(data, ...) // heatmap + dendrogram
+  data is matrix
   col_cluster=True  // cluster columns
   row_cluster=True  // cluster rows
   col_colors= // column colors

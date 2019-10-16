@@ -31,5 +31,3 @@ def __getstate__(self): // called on dump()
 def __setstate__(self, d):  // called on load()
   self.__dict__.update(d) // add values from d to __dict__
   self.__dict__['state'] = y  // add custom values
-
-
