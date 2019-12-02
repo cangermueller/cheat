@@ -387,3 +387,9 @@ def discretize(values, num_bins=4):
 # String formatting numpy arrray
 np.array2string(array, ...)
   threshold=80 // max number of characters before ... will be used
+
+
+# Test dtypes
+np.issubdtype(array, np.number) // test if int, float, ...
+np.floating
+np.integer

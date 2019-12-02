@@ -1,0 +1,8 @@
+https://devhints.io/vimscript#functions
+
+function! s:my_func() // s: means local to script
+function! MyFunc() // Global function must start with captial letter
+:call MyFunc() // call function
+
+execute "vsplit" . expand("%:p:h") // execute command
+normal "zt" // execute key stroke

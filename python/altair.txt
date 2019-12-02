@@ -1,0 +1,6 @@
+# Scales
+'param:Q'  // quantitative; float
+'param:N'  // nominal; categorical; unordered
+'param:O'  // ordinal; categorical; unordered
+'param:T'  // temporal; time
+'param:G'  // geo; maps

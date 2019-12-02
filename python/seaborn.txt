@@ -48,7 +48,7 @@ set(...)
   context='notebook'
   style='darkgrid'
   palette='hls'
-  font_scale=1.0
+  font_scale=1.0 // for changing the fontsize
 
 
 
@@ -80,12 +80,12 @@ sns.set_palette(color_palette)
 ## Sequential colors
 Reds, Greens, Blues, ...
 GnBu, RdBu
-coolwarm // alternative to RdBu
 X_r // reverse
 X_d // dark
 
-
-
+## Good
+coolwarm // alternative to RdBu
+hls
 
 
 

@@ -20,7 +20,7 @@ mock.patch.object(reference, 'fun_name', [fun]):
 
 
 @mock.patch // as decorator
-with mock.path  // as context
+with mock.patch  // as context
 
 
 # Mocking a function

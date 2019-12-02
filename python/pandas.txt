@@ -536,6 +536,8 @@ nth(0, dropna='any')  // take first record without any nan
 agg == aggregate
 agg(np.mean)  // apply function to each column; must return unique value!
 agg([np.mean, np.std]) // apply multiple functions to columns
+  * Returns multi-index columns
+  * use frame.columns = frame.columns.droplevel(0) to drop the top level
 agg({'c1': fun1, 'c2': fun2}) // apply different functions to columns
   * NOTE: returned column order is arbitrary!
 
@@ -782,6 +784,9 @@ pd.qcut(values, q, ...)  // same #obs in bins
   q=[0, 0.5, 1.0] -> q=2
 q = np.percentile(values, [25, 50, 75])
   * 25%, 50%, 75% percentile; not assignment!
+* Returns categorical series
+* Use series.cat.codes to map categories to ints
+
 
 
 

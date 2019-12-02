@@ -254,7 +254,7 @@ ag [options] PATTERN
 rg [options] PATTERN
 -i // insensitive
 -S // smart case; *off* by default
--c // count number of matches per fiel
+-c // count number of matches per file
 -t py // only search python files
 --hidden // also search hidden files
 -u // search all ignored files

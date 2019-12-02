@@ -2,6 +2,7 @@
 * `decorator` is called when function declaration is created, e.g. a = fun
 
 def mult(fun):
+  @functools.wraps(func) // returned function has same name as fun
   def decorator(*args, **kwargs):
     return fun(*args, **kwargs) * 2
   return decorator
@@ -28,3 +29,25 @@ def register(name):
     return model_class
 
   return wrap
+
+
+# Example
+
+def add(value=1):
+
+  def decorator(func):
+
+    @functools.wraps(func)
+    def _new_func(*args, **kwargs):
+      return func(*args, **kwargs) + value
+
+    return _new_func
+
+  return decorator
+
+
+@add(value=2)
+def mysum(a, b):
+  return a + b
+
+print(mysum(1, 2))

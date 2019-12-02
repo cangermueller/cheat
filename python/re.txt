@@ -64,4 +64,4 @@ regex.(match|search|fullmatch)
 
 
 # Not
-^((?!colab).)*$
+re.search('^((?!abc).)*$', 'cccabcccc')  // does not match
