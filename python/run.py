@@ -57,20 +57,10 @@ class App(object):
                         level=logging.DEBUG if opts.verbose else logging.INFO,
                         format='%(levelname)s (%(asctime)s): %(message)s')
     if opts.verbose:
-      logging.debug(opts)
-        logging.basicConfig(filename=opts.log_file,
-                            format='%(levelname)s (%(asctime)s): %(message)s')
-        log = logging.getLogger(name)
-        if opts.verbose:
-            log.setLevel(logging.DEBUG)
-        else:
-            log.setLevel(logging.INFO)
-        log.debug(opts)
+        logging.debug(opts)
 
-        if opts.seed is not None:
-            random.seed(opts.seed)
-
-        return 0
+    if opts.seed is not None:
+        random.seed(opts.seed)
 
 
 if __name__ == '__main__':

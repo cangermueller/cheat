@@ -74,3 +74,7 @@ d = {}
 for i in range(10):
   d[i] = lambda x=i: x  // default variables are are evaluated with lambda is defined
 d[0]() -> 0
+
+
+# Testing if object is iterable
+isinstance(value, collections.Iterable)

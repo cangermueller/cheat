@@ -260,3 +260,4 @@ rg [options] PATTERN
 -u // search all ignored files
 -uu // search all ignored and hidden files
 -uuu // search everything
+-g 'file_glob*py' // filter files by glob

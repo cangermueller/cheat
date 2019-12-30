@@ -304,6 +304,7 @@ reindex(range(1990, 2000))  // adjust to new index
   * index=  // reindex index
   * fill_value=
   * method='nearest'  // use nearest value
+droplevel(0) // drops level of multi-index; not in-place
 
 # Check if index contains value
 value in df.index
