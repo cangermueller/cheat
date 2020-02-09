@@ -1,10 +1,10 @@
 # Base exceptions
-https://docs.python.org/2/library/exceptions.html
+* https://docs.python.org/3/library/exceptions.html#concrete-exceptions
 BaseException // base for build-in errors
 Exception // base for non-build-in errors
 ValueError // for invalid arguments (length, ...)
-IndexError
-TypeError
+IndexError  // invalid index
+TypeError // invalid dtype
 IOError
 NotImplementedError
 RuntimeError // does not fit into any other category

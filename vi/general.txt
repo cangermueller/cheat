@@ -1,4 +1,5 @@
 # Misc
+https://devhints.io/vimscript
 V // select entire line
 
 

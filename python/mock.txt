@@ -1,9 +1,15 @@
+# Misc
+from absl.testing.absltest import mock
+
+
 # Asserts
+assert_not_called()
 assert_called()
 assert_called_once()
 assert_called_with(*args, **kwargs) // the last call contains these args
 assert_called_once_with(*args, **kwargs) // called_once with these args
 assert_any_call(*args, **kwargs) // any called must had these args
+mock.call_count
 
 
 # Testing if call args contain

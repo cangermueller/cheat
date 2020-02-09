@@ -18,6 +18,10 @@ ar = np.empty(len(a))
 ar[a] = np.arange(len(a))
 
 
+# Check if value is numeric
+np.isreal(value)
+
+
 # Checking if string is numeric
 
 ## check if string is positive integer

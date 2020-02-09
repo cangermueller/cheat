@@ -101,6 +101,7 @@ barplot(x, y, ...)
 boxplot(data=, x=, y=, ...)
   x='yaxis', y='xaxis' // plot horizontally; orient='h' does not seem to work
   ax.set_xticklabels(ax.get_xticklabels(), rotation=60, ha='right') // rotate labels
+    -> use fig.tight_layout() or plt.tight_layout() to prevent clipping of labels in PDF
   plt.ylim(-4, 4) // ax.set_ylim changes position of boxes!
   palette='Set1'  // fill boxes
   hue= // causes narrow boxes! Bug?
@@ -226,12 +227,14 @@ grid.axes[0, 0].set(xlabel=, ylabel)
 
 ## sns.lineplot
 sns.lineplot(data, x=x, y=y, hue=, size=, style=, ...)
+  size='var' // variable that adapts the width of lines
   ci=95: 95% confidence interval
   n_boot=100: # bootstrap samples
   n_estimator=np.mean: estimator
 
 ### Changing line width
-with sns.plotting_context(rc={"lines.linewidth": 2.5}):
+sns.set(rc={'lines.linewidth': 2.5}) // globally
+with sns.plotting_context(rc={"lines.linewidth": 2.5}): // locally
   sns.lineplot
 
 
