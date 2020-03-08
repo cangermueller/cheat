@@ -336,6 +336,8 @@ g.savefig('plot.pdf')
 g.axes[i, j] // matplotlib axes
 g.axes[i, j].set(xlabel=, ylabel=)  // like matplotlib
 g.set_[xy]labels(...) // set_xlabels instead of set_xlabel!
+for ax in g.axes: // rotate xlabel
+  ax.set_xticklabels(ax.get_xticklabels(), rotation=30, ha='right')
 
 
 ## PairGrid: trellis plot

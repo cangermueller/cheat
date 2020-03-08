@@ -4,3 +4,18 @@
 'param:O'  // ordinal; categorical; unordered
 'param:T'  // temporal; time
 'param:G'  // geo; maps
+
+
+
+# Themes
+* https://altair-viz.github.io/user_guide/configuration.html?highlight=theme#altair-themes
+* https://github.com/vega/vega-themes/
+t = alt.themes.get()  // get current theme
+t()
+
+alt.themes.names()  // show all available themes
+alt.themes.enable('excel')  // set theme
+
+
+# Change the xlim/ylim
+y=alt.Y(scale=alt.Scale(domain=(min, max), zero=False))

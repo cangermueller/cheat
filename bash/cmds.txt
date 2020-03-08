@@ -92,7 +92,8 @@ convert *.png -append all.png // concatenate
 
 # xargs
 ls | xargs -Ix cmd x // cmd will be executed n times with different x
--L 100 // x replaces by 100 args at per command
+-P N // run with N processes in parallel
+-L 100 // x replaced by 100 args per command
 
 # date
 date '+%y%m%d_%H%M%S'
@@ -261,3 +262,5 @@ rg [options] PATTERN
 -uu // search all ignored and hidden files
 -uuu // search everything
 -g 'file_glob*py' // filter files by glob
+-F search literal / no regex
+-l // show files only

@@ -6,3 +6,17 @@ function! MyFunc() // Global function must start with captial letter
 
 execute "vsplit" . expand("%:p:h") // execute command
 normal "zt" // execute key stroke
+
+
+# Define command that calls a function
+command! -nargs=+ -complete=command G4mod call G4mod(<q-args>)
+
+
+# Read line under cursor
+:echo getline('.')
+
+
+# Use echo for debugging
+:echo line('.')
+:echo getline('.')
+:echo split('abcXabc', 'X')

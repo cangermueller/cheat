@@ -70,3 +70,7 @@ sed 'y/abc/ABC/' test.txt // lower case -> upper case
 
 # Substitute by newline
 tr , '\n'
+
+# Substitute / replace in files recursively
+rg -t py -l -F tf.logging | xargs -Ix sed -i -E 's/tf.logging/logging/g' x
+   -i // modify files in-place

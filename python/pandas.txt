@@ -45,6 +45,8 @@ cat(sep=":', na_rep='') // concatenate values
 
 # Delete, exclude, drop columns
 d.drop(['c1', 'c2'], axis=1, inplace=True)
+d.drop(columns=['c1', 'c2'], ...)
+  errors='ignore' // don't raise exception if columns don't exist
 
 
 # assign
@@ -336,6 +338,18 @@ dropna(...) // drop rows with at least one missing value
   axis=0  // drop incomplete rows (default)
   how='any' // if any entry is missing <-> how='all'
 
+## Misc
+* Convention: Use np.nan for missing data, not None (also non-numeric data)
+* np.nan is faster than None (dtype=float instead of dtype=object)
+type(np.nan) -> float
+type(None) -> NoneType
+np.nan is np.nan
+np.nan is not None
+np.isnan(np.nan) -> True
+np.isnan(None) -> Error
+pd.isnull(np.nan) -> True
+np.isnull(None) -> True
+
 
 ## Replacing / masking missing values
 data.mask(data == 'nan', inplace=True)
@@ -580,8 +594,8 @@ data.groupby(by).apply(fun).reset_index(levels=range(len(by)))
 # Comparing DataFrames / testing
 df.all(axis=0)
 df.all().all()
-import pandas.util.testing as pt
-pt.assert_frame_equal(df1, df2)
+df.equals(df2)
+pd.testing.assert_frame_equal(df1, df2)
 
 # Sql
 import sqlite3 as sql // mysql, etc. supported as well
@@ -850,3 +864,7 @@ a.values - b.values // broadcast numpy
 * better readability
 f(g(df, arg_g=1), arg_f=2)
 df.pipe(g, arg_g=1).pipe(f, arg_f=2)
+
+
+# pd.testing
+assert_frame_equal(df1, df2, ...)

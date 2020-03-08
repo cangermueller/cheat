@@ -1,3 +1,8 @@
+# defaultdict
+defaultdict(list)['x'] == []
+defaultdict(int)['x'] == 0
+
+
 # OrderedDict
 from collection import OrderedDict
 d = OrderedDict()
