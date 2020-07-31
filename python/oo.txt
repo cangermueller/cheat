@@ -155,3 +155,46 @@ def myfile(object):
 
 with myfile('file.txt'):
   ...
+
+
+
+# Multi-class inheritance
+
+class A:
+  def __init__(self, domain, a=1):
+    self._domain = domain
+    self._a = a
+
+  def a(self):
+    return self._domain + self._a
+
+class B:
+  def __init__(self, domain, b=2):
+    self._domain = domain
+    self._b = b
+
+  def b(self):
+    return self._domain + self._b
+
+
+class C(B, A):
+  def __init__(self, domain, a=1, b=2):
+    super().__init__(domain, a=1, b=2) # Does not work since parent __init__ have different arguments
+    A.__init__(self, domain=domain, a=a)
+    B.__init__(self, domain=domain, b=b)
+
+
+## Diagram
+A  B
+ \/
+ C
+
+# Call order
+* Like in definition C(B, A)
+C -> B ->A
+
+
+# Calling __init__ (or other methods)
+* By default (without __init__), calles __init__ of all parent classes
+* super().__init__(*args, **kwargs) passes the same args to *all* parent classes
+* use A.__init__(self, ...) and B.__init__(self, ...) to pass different arguments to different parents

@@ -1,6 +1,7 @@
 * Iterator is general concept
 * Iterator: class with __iter__(self), __next__(self)
 * Generator is function with yield that internally becomes an iterators
+* Generator -- is a --> Iterator
 
 Iterator
 ########

@@ -10,13 +10,23 @@ DataFrame({'id': [1, 2, 3], 'value': 10}) // from dict
 DataFrame(odict, columns=odict.keys()) // from ordered dict preserving order
 DataFrame([[11, 12],
            [21, 22]]) // from (numpy) array
+pd.DataFrame.from_records([{'a': 1, 'b': 2}, {'a': 1, 'b': 2}])
+ == pd.DataFrame({'a': [1, 1], 'b': [2, 2]})
+pd.DataFrame.from_items([('a', [1, 2]), ('b', [2, 3])])  // from (key, [values]) pairs; values must be arrays
+
 
 
 String functions
 ================
+* object is the default dtype for string
+* Use dtype='string' or dtype=pd.StringDtype to explicitly mark Series as strings
+* Use frame.convert_dtypes() or convert all `object` types to `pd.StringDtype`
+
+
+* Use pd.stringdtype
 s = pd.Series(['1', 'ab', '10.0'])
 >> s.str.fun. <<
-isdigit, isnumeric, isdecimal // True if positive int
+isdigit == isnumeric == isdecimal // True if *positive int*
   * False for -123, 123.3
   * Same as '123'.isnumeric(), ...
 
@@ -24,12 +34,15 @@ isalpha // a-z
 isalnum // a-z0-9
 replace(what, by, ...)
   * what can be regex, e.g. '^chr'
+  * matches anywhere
+  * col.str.replace(r'.*_m-([^_]+).*', '\\1')
   case=False // case insensitive
 slice_replace(from, to, replace)
 slice(from, to)
 pad(length, fillchar=' ') // extend length
 startswith(string)  // starts with string (not re!)
-contains(re)  // contained regular expression/regex
+contains(re)  // == re.search
+match(re, case=True, flags=0) // == re.match
 find(str, start=0, end=len) // -1 if not find; start else
 lower()
 upper()
@@ -76,6 +89,7 @@ df.iloc[np.random.sample(df.index, n), :]
 df.dtypes // list dtypes
 df = df.astype(np.int32)  // convert dtype of DataFrame
 df['c1'] = df['c1'].astype(str) // convert dtype column
+df.select_dtypes(np.int32) // select all int columns
 
 # Misc
 pd.crosstab(y, x) // contingency table
@@ -282,6 +296,7 @@ rename(...)
   index={'old':'new'} // rename rows
   columns=lambda x: x + '_' // apply renaming function
   inplace=True
+rename_axis('key', axis=0) // rename index or columns; changes index.name
 set_index([columns], ...) // set row index
   drop=False  // retain column
   append=True // append to end
@@ -320,18 +335,16 @@ def flatten_columns(d):
 
 
 
-
-
-
-
 # Missing values
-np.nan, np.NAN, np.NaN  // pandas compatible
-pd.NaT  // Not a Time, for time series
-s[i] = np.nan, None // setting missing values; np.nan and None equivalent
-np.nan(s[i]), isnull(s[i])  // testing nan
+Use pd.NA: works with numeric and non-numeric values
+pd.isna(pd.NA) == pd.isna(None) == pd.isna(np.nan)
+np.nan only works for numeric values!
+pd.isnull is pd.isna  // same functions; alias
+
 notnull() == not isnull()
 count() // # non-missing
-fillna(0) // fills na / null
+fillna(0, ...) // fills na / null
+  inplace=False
 df.fillna(df.mean())  // fill / impute with column means; inplace!
 df.fillna({'c2':10, 'c3':5})  // fill named columns
 dropna(...) // drop rows with at least one missing value
@@ -386,11 +399,20 @@ get_option('display.width')
 
 with option_context('display.max_rows', 10, 'display.max_columns', 5):
   ...
+with pd.option_context('display.float_format', '{:,.2f}'.format):
+  display(fit_scores)
 
 ## defaults
 pd.set_option('display.width', 200)
 pd.set_option('display.max_colwidth', -1)
 pd.set_option('display.max_rows', 1000)
+
+
+## shot full dataframe
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', -1)
 
 # Reshaping
 ## Stacked -> unstacked
@@ -441,7 +463,10 @@ dlist = pd.melt(dmatrix.reset_index(), id_vars=['chromo', 'pos'], var_name='samp
 
 # Stacking, unstacking
 df.stack() // columns become Mutliindex ~ melt
-df.unstack() // last level becomes column ~ pivot_table
+df.unstack(..) // last level becomes column ~ pivot_table
+  * returns hierachrical index; use df.columns = df.colummns.get_level_values(0) to select one level
+  level=-1  // level of index that will become columns
+
 
 # Concatenating DataFrame
 * Join by INDEX! (not columns as pd.merge)
@@ -559,6 +584,11 @@ agg({'c1': fun1, 'c2': fun2}) // apply different functions to columns
 ## Transform: perform group specific modifications
 * return df must have same shape
 d.groupby('key').transform(lambda x: x - x.mean())  // center each group
+d['col'] = d.groupby('key')['col'].transform(...) // transform single column
+
+### Difference transform / apply
+* transform is applied to columns individually; apply on DataFrame
+* transform must return an Iterable of the same length; apply can return anything
 
 ## Filter: select particular group (not single group members)
 d.groupby('key').filter(lambda x: x.a.mean() > 0) // select groups with a.mean() > 0
@@ -586,6 +616,13 @@ data.groupby(by).apply(fun).reset_index(levels=range(len(by)))
 -> If apply() returns single row, return pd.Series instead of pd.DataFrame <-
   * return pd.Series(stats)
   * stats.reset_index()
+
+
+## Apply functions returns a dict of metrics
+def _apply_fun(df):
+  return pd.Series(collections.OrderedDict(metrics))
+
+df.groupby('key').apply(_apply_fun).reset_index()
 
 
 
@@ -635,13 +672,6 @@ df.drop(['c1', 'c2'], axis=1, inplace=False) // delete columns
 ## hdf5
 df.to_hdf('file', 'groupname')
 df = pd.read_hdf('file', 'groupname')
-
-# Missing values
-dropna(...)  // drop columns with nan
-  axis=0/1
-  how=any/all
-  inplace=F
-isnull(), notnull()
 
 
 
@@ -868,3 +898,7 @@ df.pipe(g, arg_g=1).pipe(f, arg_f=2)
 
 # pd.testing
 assert_frame_equal(df1, df2, ...)
+
+# replace / map
+series.map({'a': 1, 'b': 2}) // returns None for all unmapped values
+series.replace({'a': 1, 'b': 2}) // only replaces specified values

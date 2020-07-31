@@ -1,0 +1,5 @@
+loads(str, ...) -> dict
+  cls=JSONDecoder // custom decoder class
+
+dumps(object, ...) -> str
+  cls=JSONEncoder // custom encoder class

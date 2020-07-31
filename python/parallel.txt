@@ -20,6 +20,7 @@ ThreadPoolExecutor // multithreading
 ProcessPoolExecutor // multiprocessing
 
 ## map
+* Returns results in order!
 with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
   executor.map(convert_fda_args,
                itertools.product(args1, [arg2]),

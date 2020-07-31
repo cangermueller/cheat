@@ -23,6 +23,7 @@ accumulate(iter, operator)
 ifilter(lambda x: ..., iter) // filter iterator
 imap(lambda x: x + 1, iter)
 islice(iter, start_index, stop_index)
+islice(iter, 10) // yield first n elements
 takewhile(lambda x: x < 4, xrange(10)) // return elements until lambda is true
 izip(iter1, iter2) // like zip, put return tuple
 

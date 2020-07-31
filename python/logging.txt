@@ -1,10 +1,10 @@
 import logging
 
 # Levels
-DEBUG
-INFO
-WARN
-ERROR
+DEBUG=1
+INFO=0
+WARN=-1
+ERROR=-2
 
 # Config
 logging.basicConfig(

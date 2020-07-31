@@ -81,4 +81,4 @@ d[0]() -> 0
 
 
 # Testing if object is iterable
-isinstance(value, collections.Iterable)
+isinstance(value, collections.abc.Iterable)

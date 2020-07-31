@@ -94,6 +94,7 @@ convert *.png -append all.png // concatenate
 ls | xargs -Ix cmd x // cmd will be executed n times with different x
 -P N // run with N processes in parallel
 -L 100 // x replaced by 100 args per command
+-I@x@ echo @x@ // separator can be multiple characters long
 
 # date
 date '+%y%m%d_%H%M%S'

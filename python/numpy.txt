@@ -393,3 +393,8 @@ np.array2string(array, ...)
 np.issubdtype(array, np.number) // test if int, float, ...
 np.floating
 np.integer
+
+
+# mapping/indices
+row_indices, col_indices = np.unravel_index(indices_of_1d_array, (3, 4))
+  * Maps 1d indices to nd indices

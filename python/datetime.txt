@@ -1,2 +1,3 @@
 from datetime import datetime
-datetime.now().strftime('%y%m%d')
+datetime.now().strftime('%y%m%d_%H%M%S%f')
+  %f are milliseconds

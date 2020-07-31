@@ -166,6 +166,8 @@ colors = mapper.to_rgba(values)
 ax.imshow(image)
 ax.axis('off') // no axis
 fig.savefig(out_file, bbox_inches='tight', transparent=True) // remove border/margin
+plt.tight_layout() // apply to current figure(s)
+fig.set_tight_layout(True) // apply to specific figure
 
 
 # imshow / matshow for images / heatmap

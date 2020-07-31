@@ -58,7 +58,7 @@ user = getpass.getuser()
 
 ## Splitting
 join(a, b, c)
-splitext('/d/f.ext') -> ['/d/f', 'ext']
+splitext('/d/f.foo.ext') -> ['/d/f.foo, 'ext']  // removes last extension
 splitexit(path)[0]  // remove extension
 os.sep // path separtor -> '/' for Linux
 my_path.split(os.sep) // /dir1/dir2/dir3 -> dir1, dir2, dir3

@@ -30,3 +30,14 @@ c-shift-t // reopen last used tab
 
 # Google Drive
 * Add folder to multiple locations: select file -> shift-z -> add to
+
+
+# Reinstall from command line (Gog)
+close browser
+sudo mule remove google-chrome<version> (this is gotten from the check command earlier)
+reboot device
+sudo mule install google-chrome 80.0.3987.132
+
+
+# Reset settings
+chrome://settings/reset

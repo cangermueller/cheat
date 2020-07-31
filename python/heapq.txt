@@ -1,0 +1,15 @@
+# Heapq
+* Operates on a list; not separate data structure!
+* items are compared by usual comparator, e.g 1 > 2; (1, 'a') < (3, 'b')
+* Use dataclass for storing special structures: https://docs.python.org/3/library/heapq.html#priority-queue-implementation-notes
+
+
+items = [(3, 'a'), (1, 'b')]
+heapify(items)  // converts list inplace into heap
+ -> [(1, 'b'), (3, 'a')]
+  items.pop() -> (3, 'a')
+
+heappush(p, item)
+heappop(p, item)
+heappushpop(p, item)  // push + pop; more efficient than push/pop separately
+heapreplace(p, item)  // pop + push

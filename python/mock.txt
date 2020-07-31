@@ -13,38 +13,25 @@ mock.call_count
 
 
 # Testing if call args contain
+call_args // call args of last call
+call_args_list // call args of all call
 args, kwargs = mock.call_args
 kwargs.contain(x)
 
 
+# Patching
+mock.patch.object(module, 'object_name', ...)
+mock.patch.dict(module.my_dict, {'mock': 'dict}, ...)
+
 
 # Mocking-out objects
-mock.patch.object(reference, 'fun_name', [fun]):
+patcher = mock.patch.object(reference, 'fun_name', [fun]):
   reference: module / module.Class
   fun: function to replace `reference.fun_name`
   return_value=1: Change return value of fun_name
 
-
-@mock.patch // as decorator
-with mock.patch  // as context
-
-
-# Mocking a function
-m = mock.patch.object(my_module, 'my_fun', my_fun_mock)
-  * To mock my_model.my_fun
-  * 2nd argument is string!
-  * my_module can be module that is imported by module that is tested
-
-
-
-m.start()
-  * Starts mock
-
-m = mock.patch.object('my_module', my_fun, side_effect=['output1', 'output2'])
-  * as string
-  * side_effect is list of outputs for each call
-
-with mock.patch.object('my_module', my_fun, my_fun_mock): // start not required
+m = patcher.start()
+m.call_count
 
 
 # Example 1

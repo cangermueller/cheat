@@ -1,0 +1,54 @@
+# namedtuple
+* no default
+* no default values
+
+class MyClass(typing.NamedTuple):
+  a: int
+  b: List[int]
+
+
+
+# dataclasses
+
+from dataclasses import dataclass
+
+@dataclass
+class MyClass(object):
+  a: int
+  b: List[int]
+  c: int = 0 // optional
+
+  def extra_method(self):
+    pass
+
+
+dataclass(...)
+  frozen=True // make immutable
+
+def __post_init__(self):
+  // post-processing
+
+## Functions
+asdict(object) -> dict
+astuple(object)
+replace(object, **changes) // copy + apply changes
+
+
+
+# attr
+
+@attr.s(...)
+class MyClass(object):
+  a = attr.ib(..)
+
+
+attr.s(...)
+  frozen=False
+  slots=False
+  eq=True
+
+
+attrs.ib(...)
+  default=1
+  type=int
+  converter=lambda x: int(x)

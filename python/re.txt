@@ -18,7 +18,7 @@ re.fullmatch(pattern, string, flags
   * pattern must match entire string
   * ^.*XXX.*$ unncessary
 for m in re.finditer(pattern, string)  // like search, but iter of all hits
-re.findall(pattern, string) // all matches as str in array
+re.findall(pattern, string) // all matches as str in array (see below)
 len(re.findall(...)) // count
 re.split(p, s)  // split by p; s.split(p) does not support re
 re.sub(p, r, s) // subst ALL p in s by r and returns substituted string
@@ -65,3 +65,9 @@ regex.(match|search|fullmatch)
 
 # Not
 re.search('^((?!abc).)*$', 'cccabcccc')  // does not match
+
+
+# findall
+source = "Hello World Ker HAHA"
+re.findall('[\w]+', source)
+-> ['Hello', 'World', 'Ker', 'HAHA']

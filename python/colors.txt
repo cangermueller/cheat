@@ -1,0 +1,34 @@
+print("\033[1;32;40m Bright Green  \n")
+\033[  Escape code, this is always the same
+1 = Style, 1 for normal.
+32 = Text colour, 32 for bright green.
+40m = Background colour, 40 is for black.
+
+
+Styles:
+0: no effect
+1: bold
+2: underline
+3: negative1
+4: negative2
+
+Foreground:
+30: black
+31: red
+32: green
+33: yellow
+34: blue
+35: purple
+36: cyan
+37: white
+
+Background:
+4[same as foreground]
+
+
+# colorrama
+colorrama.Fore.(BLACK|RED|GREEN|...)
+colorrama.Back.(BLACK|RED|GREEN|...)
+colorrama.Style.(NORMAL|DIM|BRIGHT|RESET_ALL)
+
+print(Fore.RED + Style.BRIGHT, 'Hello', Style.RESET_ALL)

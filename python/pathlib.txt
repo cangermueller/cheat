@@ -1,0 +1,6 @@
+p = Path('~/tmp')
+
+# operators
+str(p) // -> '~/tmp'
+p.as_posix()  // -> '~/tmp'
+p / 'file.txt'

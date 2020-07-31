@@ -393,3 +393,8 @@ g/\v\/\/third_party\/py\/(ipdb|pudb)/d // / must be still escaped when using \v
 g/pattern
 g/pattern/d // delete
 g!/pattern/d  // delete lines that do not match pattern
+
+
+# Common erros
+# pymode lint error after package update
+find . -name \*.pyc -delete
