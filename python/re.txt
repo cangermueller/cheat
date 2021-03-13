@@ -43,6 +43,10 @@ d['start'], d['stop']
   * d['stop'] == None if missing
 
 
+# Not capturing groups
+r'(?:regex)
+
+
 
 # Flags
 re.I  // insensitive

@@ -23,3 +23,9 @@ else:
   no exception
 finally:
   always executed (with and without exception)
+
+
+# Getting the full stack trace as a string
+def get_current_stack_trace():
+  exc_type, exc_value, exc_tb = sys.exc_info()
+  return ''.join(traceback.format_exception(exc_type, exc_value, exc_tb))

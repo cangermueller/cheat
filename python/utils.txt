@@ -82,3 +82,14 @@ d[0]() -> 0
 
 # Testing if object is iterable
 isinstance(value, collections.abc.Iterable)
+
+
+# Getting the full stack trace as a string
+def get_current_stack_trace():
+  exc_type, exc_value, exc_tb = sys.exc_info()
+  return ''.join(traceback.format_exception(exc_type, exc_value, exc_tb))
+
+
+# getting source code of function
+import inspect
+inspect.getsource(my_fn)

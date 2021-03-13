@@ -9,6 +9,7 @@ class MyClass(typing.NamedTuple):
 
 
 # dataclasses
+https://docs.python.org/3/library/dataclasses.html#module-dataclasses
 
 from dataclasses import dataclass
 
@@ -17,16 +18,31 @@ class MyClass(object):
   a: int
   b: List[int]
   c: int = 0 // optional
+  d: dict = field(default_factory=dict) // initialize with empty dict
 
   def extra_method(self):
     pass
 
 
-dataclass(...)
+## dataclass(...)
   frozen=True // make immutable
 
-def __post_init__(self):
-  // post-processing
+
+## field(...)
+  init=True // whether to include the field in __init__
+  eq=True // whether to include the field in __eq__
+
+## __post_init__
+@dataclass
+class C:
+    a: float
+    b: float
+    c: float = field(init=False)
+
+    def __post_init__(self):
+        self.c = self.a + self.b
+
+
 
 ## Functions
 asdict(object) -> dict

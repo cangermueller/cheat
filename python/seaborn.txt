@@ -191,7 +191,7 @@ distplot(x, ...)  // hist + kde
   color=None
 jointplot(x='x', y='y', data=data)
   * 2d scatter plot with distributions at side
-  kind='kde'
+  kind='(hex|kde)'
   height=6
 
 

@@ -1,1 +1,5 @@
-Sequence:
+List: list
+Iterable: object with __iter__; does not support iterating with __getitem__
+Sequences: objects that iterate via __getitem__; ordered
+Tuple[str, int]: Tuple of two elements; Sequence / Iterable does not allow specifying the length!
+Tuple[str, ...]: Tuple of variable # elements

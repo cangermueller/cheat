@@ -1,7 +1,10 @@
-# Infos / Memory usage
+# Infos / Memory usage / efficiency
 df.info()
 df.info(memory_usage='deep')
 df.memory_usage()
+pd.to_numeric(values, ...) // tries to make values numeric
+  downcast='integer|signed|unsigned|float' // downcast to the smallest possible unit
+
 
 
 Creating Data.Frame
@@ -41,8 +44,13 @@ slice_replace(from, to, replace)
 slice(from, to)
 pad(length, fillchar=' ') // extend length
 startswith(string)  // starts with string (not re!)
-contains(re)  // == re.search
-match(re, case=True, flags=0) // == re.match
+fullmatch(re, ...) // matches full string
+match(re, case=True, flags=0) // == re.match; matches at beginning
+contains(re)  // == re.search; matches anywhere
+  na=None // to specify the result of NaN value
+extract('([a-b]+).*(\d+)', expand=True) // extract pattern and return df
+extract('(?P<name1>[a-b]+).*(?P<name2>\d+)', expand=True) // extract pattern and return df with columns 'name1' and 'name2'
+
 find(str, start=0, end=len) // -1 if not find; start else
 lower()
 upper()
@@ -303,16 +311,13 @@ set_index([columns], ...) // set row index
 reset_index(...)  // row index -> columns
   level= // reset only these levels; useful after groupby
   drop=True // do not add columns; only delete level
-d = d.sort_index(...) // sort df by non-hierarchical index; not inplace!
-  axis=0
+d = d.sort_index(...) // sort (hierarchical) index / columns
+  axis=0 // rows or columns
+  level=None // the level to be sorted; None means all levels
   ascending=True
-sortlevels(...) // sort hierarchical index
-  level=0
+swaplevel(0, 1, ...)  // swaps *two* levels
   inplace=False
-  ascending=True
-swaplevel(0, 1, ...)  // swap levels
-  inplace=False
-reorder_levels([1, 0], ...) // change order levels
+reorder_levels([1, 0], ...) // change order of *all* levels
   axis=0
 reindex(range(1990, 2000))  // adjust to new index
   * drop rows that are not indexed by new index
@@ -429,6 +434,7 @@ id | id2 | value
 df.pivot_table(index='id1', columns='id2', values='value')
   * use pivot_table instead of pivot
 df.pivot(index='id1', columns='id2')['value']
+  * does not support aggregating values unlike pivot_table
   * index, columns is single string, not list!
   * Hierarchical column index with value column at level 0
 
@@ -545,11 +551,13 @@ com.load_data('mtcars')
 g = df.groupby(['c1', 'c2'], ...)
   level=0 // group by level instead of column name
   sort=True // sort groups
-  as_index=False  // use integers instead of group keys as index
+  as_index=False
+    * adds default index (0, ..., N-1) instead of group index as index
+    * group_keys does not add an index!
   group_keys=False
     * only when calling apply
-    * do not set index of concatenated output frame
-    * -> grouping keys are dropped
+    * use to ignore group index
+    * reuses original index
 for name, group in groups:  // iterate over groups
 g.groups  // dictionary
   .keys() // group keys
@@ -902,3 +910,50 @@ assert_frame_equal(df1, df2, ...)
 # replace / map
 series.map({'a': 1, 'b': 2}) // returns None for all unmapped values
 series.replace({'a': 1, 'b': 2}) // only replaces specified values
+
+
+# onehot / dummy encoding
+pd.get_dummies(pd.Series(list('abac')))
+pd.DataFrame(dict(a=list('xyy'), b=list('yzy')))
+  * dummy-encodes each column (Series) and concatenates resulting dfs
+
+
+# Datetime frequencies
+B        business day frequency
+C        custom business day frequency
+D        calendar day frequency
+W        weekly frequency
+M        month end frequency
+SM       semi-month end frequency (15th and end of month)
+BM       business month end frequency
+CBM      custom business month end frequency
+MS       month start frequency
+SMS      semi-month start frequency (1st and 15th)
+BMS      business month start frequency
+CBMS     custom business month start frequency
+Q        quarter end frequency
+BQ       business quarter end frequency
+QS       quarter start frequency
+BQS      business quarter start frequency
+A, Y     year end frequency
+BA, BY   business year end frequency
+AS, YS   year start frequency
+BAS, BYS business year start frequency
+BH       business hour frequency
+H        hourly frequency
+T, min   minutely frequency
+S        secondly frequency
+L, ms    milliseconds
+U, us    microseconds
+N        nanoseconds
+
+
+# pd.to_datetime
+ Return type depends on input:
+  - list-like: DatetimeIndex
+  - Series: Series of datetime64 dtype
+  - scalar: Timestamp
+
+
+series = to_datetime(pd.Series(['2010-01-01', '2010-02-01', '2010-03-01']))
+series.dt // returns object to access datetime properties

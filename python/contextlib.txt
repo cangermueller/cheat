@@ -1,0 +1,17 @@
+
+# Example
+df = pd.DataFrame(np.ones((5, 2)))
+
+@contextlib.contextmanager
+def capture_size(values, msg='<X>'):
+  size_before = len(values)
+  yield // enter context; can return something
+  size_after = len(values)
+  diff = size_before / size_after
+  msg_diff = '%d/%d (%.1f%%)' % (diff, size_before, diff / size_before * 100)
+  tprint(msg.replace('<X>', msg_diff))
+  // not return value
+
+
+with capture_size(df, 'Dropped <X> rows.'):
+  df = df.iloc[:2]

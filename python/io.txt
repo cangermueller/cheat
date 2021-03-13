@@ -62,7 +62,7 @@ splitext('/d/f.foo.ext') -> ['/d/f.foo, 'ext']  // removes last extension
 splitexit(path)[0]  // remove extension
 os.sep // path separtor -> '/' for Linux
 my_path.split(os.sep) // /dir1/dir2/dir3 -> dir1, dir2, dir3
-path.split(os.extsep) // /a/b/c/d -> (/a/b/c/, /d)
+path.split(os.extsep) // /a/b/c/d -> (/a/b/c/, /d) // splitext all extensions
 
 
 

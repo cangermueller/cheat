@@ -77,6 +77,9 @@ zip outfile.zip -r dir -x '*.sh' // -x, --exclude: exclude files
 convert -delay 50 *.png animation.gif
 convert *.png -append all.png // concatenate
 
+# converting svg to pdf
+rsvg-convert -f pdf -o tsne.pdf tsne.svg
+
 
 # od (octal dump)
 * od -t c // translate to character

@@ -191,7 +191,7 @@ A  B
 
 # Call order
 * Like in definition C(B, A)
-C -> B ->A
+C -> B -> A
 
 
 # Calling __init__ (or other methods)

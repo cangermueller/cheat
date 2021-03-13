@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import os
 import random
 import sys
@@ -18,7 +14,14 @@ class App(object):
     name = os.path.basename(args[0])
     parser = self.create_parser(name)
     opts = parser.parse_args(args[1:])
+    self.opts = opts
     return self.main(name, opts)
+
+  def exec_shell(self, cmd):
+    if self.opts.test:
+      print(cmd)
+    else:
+      os.system(cmd)
 
   def create_parser(self, name):
     p = argparse.ArgumentParser(

@@ -89,3 +89,8 @@ object = MyClass()
 wrapped = mock.Mock(wraps=object)
 wrapped.foo() // will call object.foo if foo() is a method of object
 wrapped.bar() // will return default mock (?) if bar() is not a method of object
+
+
+# return_value vs side_effect
+return_value=1 // single value
+side_effect=[1, 2, 3] // iterable of values or function
