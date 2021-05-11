@@ -1,10 +1,18 @@
-# namedtuple
-* no default
-* no default values
+# typing.NamedTuple
 
 class MyClass(typing.NamedTuple):
   a: int
-  b: List[int]
+  b: int = 3
+
+
+## NamedTuple vs. dataclass
+* NamedTuple based on tuple(), dataclass on dict()
+ -> Compatible with TF
+ -> can be unpacked via *foo and converted to tuple via tuple(foo)
+* NamedTuple: less memory
+* NamedTuple: slightly higher access time
+* NamedTuple: does not support inheritance and other features like __post_init__
+
 
 
 
@@ -48,6 +56,9 @@ class C:
 asdict(object) -> dict
 astuple(object)
 replace(object, **changes) // copy + apply changes
+
+
+
 
 
 

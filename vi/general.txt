@@ -384,10 +384,20 @@ map <leader>x :call MyFunc('abc')<cr>
 s/ /\r/g // substitute space by newline
 
 ## Regex
-\vPATTERN // very magic, no escaping necessary
+\vPATTERN // very magic, no escaping necessary, except for
+ \ -> \\
+ . -> \.
+ { -> \{
+
 %s/\v"(\d+)\.(\d+)\./"\1-\2./gc
 g/\v\/\/third_party\/py\/(ipdb|pudb)/d // / must be still escaped when using \v
 \mPATTER // magic (default)
+
+
+# Non-greedy
+foo{-}bar  // instead of foo.+?bar
+
+
 
 ## Deleting / filtering lines that match pattern
 g/pattern

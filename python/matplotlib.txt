@@ -266,3 +266,8 @@ ax.add_patch(poly)
 # vertical / horizontal line
 axvline(x=)
 axhline(y=)
+
+
+# catplot, barplot, violinplot
+* Categorical plots: https://seaborn.pydata.org/generated/seaborn.catplot.html
+* hue='var', dodge=False: Avoid space between bars

@@ -1,3 +1,12 @@
+# Name convention
+filename # full file name; /dir1/dir2/file.txt
+dirname # full directory name; /dir1/dir2
+path # filename or direname
+basename # file.txt; or dir2 or /dir1/dir2
+
+
+
+
 # Special variables
 os.getcwd()  // current working directory
 os.linesep // new line

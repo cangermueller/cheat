@@ -304,6 +304,7 @@ rename(...)
   index={'old':'new'} // rename rows
   columns=lambda x: x + '_' // apply renaming function
   inplace=True
+set_axis(columns, axis=1) // set new columns (rename all columns)
 rename_axis('key', axis=0) // rename index or columns; changes index.name
 set_index([columns], ...) // set row index
   drop=False  // retain column

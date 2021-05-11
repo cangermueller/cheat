@@ -94,3 +94,16 @@ wrapped.bar() // will return default mock (?) if bar() is not a method of object
 # return_value vs side_effect
 return_value=1 // single value
 side_effect=[1, 2, 3] // iterable of values or function
+
+
+# decorator
+@mock.patch.object(other_lib.Class, 'method')
+def test_something(self):
+
+
+# setting up patcher in setUp()
+go/python-tips/032
+def setUp(self):
+  super().setUp()  #  If we override setUp, we must call super()!
+  self.mock_upload_meme = self.enter_context(mock.patch.object(
+      memegen_client, 'UploadMeme', autospec=True))
