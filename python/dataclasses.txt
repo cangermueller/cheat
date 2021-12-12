@@ -4,6 +4,16 @@ class MyClass(typing.NamedTuple):
   a: int
   b: int = 3
 
+  def __new__(cls, a, b): // only works with collections.namedtuple !!!
+    return cls(a + 1, b) # post init
+
+
+_asdict() # convert to dict
+_replace(a=1) # replaces attribute and returns new instance (not inplace)
+_make([4, 5]) # creates a new instance from a sequence
+_fields // ['a', 'b']
+_source // shows source code
+
 
 ## NamedTuple vs. dataclass
 * NamedTuple based on tuple(), dataclass on dict()

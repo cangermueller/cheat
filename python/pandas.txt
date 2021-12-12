@@ -410,15 +410,15 @@ with pd.option_context('display.float_format', '{:,.2f}'.format):
 
 ## defaults
 pd.set_option('display.width', 200)
-pd.set_option('display.max_colwidth', -1)
-pd.set_option('display.max_rows', 1000)
+pd.set_option('display.max_colwidth', None)
+pd.set_option('display.max_rows', 200)
 
 
 ## shot full dataframe
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
-pd.set_option('display.max_colwidth', -1)
+pd.set_option('display.max_colwidth', None)
 
 # Reshaping
 ## Stacked -> unstacked
@@ -844,10 +844,6 @@ q = np.percentile(values, [25, 50, 75])
 
 
 
-
-
-
-
 # plotting
 matplotlib.style.use('ggplot')
 NEW in pandas0.7
@@ -958,3 +954,12 @@ N        nanoseconds
 
 series = to_datetime(pd.Series(['2010-01-01', '2010-02-01', '2010-03-01']))
 series.dt // returns object to access datetime properties
+
+
+# filter
+* to filter index / columns
+filter(series_or_df, ...)
+  items_or_df=[1, 3] // select specific elements
+  like='source' // select all (columns) that contain 'source'
+  regex='^source.+' // select all (columns that match regex)
+  axis=1 // whether to filter columns (default) or index

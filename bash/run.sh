@@ -55,4 +55,4 @@ function run {
   fi
 }
 
-run "ls /"
+run "ls/"
