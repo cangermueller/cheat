@@ -37,3 +37,10 @@ def create(user_id: USER_ID, book_id: BOOK_ID):
 create(UserId(1), BookId(2)) // works
 create(BookId(1), UserId(2)) // fails
 create(1, 2) // works since UserId and BookId are sub-classes of int
+
+
+# casting
+* does not do anything
+* only signals the type checker that something as the desired type
+typing.cast(int, '12') == '12'
+type(typing.cast(int, '12')) == int

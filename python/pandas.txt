@@ -327,6 +327,8 @@ reindex(range(1990, 2000))  // adjust to new index
   * index=  // reindex index
   * fill_value=
   * method='nearest'  // use nearest value
+  * method='ffill' // forward-fill the previous value
+  * method='bfill' // backward-fill the next value
 droplevel(0) // drops level of multi-index; not in-place
 
 # Check if index contains value
@@ -963,3 +965,12 @@ filter(series_or_df, ...)
   like='source' // select all (columns) that contain 'source'
   regex='^source.+' // select all (columns that match regex)
   axis=1 // whether to filter columns (default) or index
+
+
+# testing
+pd.testing.assert_frame_equal(...
+  check_like=False: ignore the order of columns and indices (indices must be the same)
+  check_dtype=True: compare dtypes
+  check_exact=False: compare numbers exactly
+  atol=1e-8
+  rtol=1e-5
