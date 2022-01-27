@@ -297,6 +297,9 @@ i.droplevel(k) // remove level k
 # Index options
 .nlevels
 
+## Merge  / join hierarchical columns
+df.columns = df.columns.map('_'.join)
+
 
 # Index operations
 rename(...)
@@ -309,6 +312,7 @@ rename_axis('key', axis=0) // rename index or columns; changes index.name
 set_index([columns], ...) // set row index
   drop=False  // retain column
   append=True // append to end
+  axis=1  // replace columns
 reset_index(...)  // row index -> columns
   level= // reset only these levels; useful after groupby
   drop=True // do not add columns; only delete level
@@ -958,3 +962,21 @@ N        nanoseconds
 
 series = to_datetime(pd.Series(['2010-01-01', '2010-02-01', '2010-03-01']))
 series.dt // returns object to access datetime properties
+
+
+# Applying functions
+.apply(lambda row: row + 1, axis=1) // apply over rows or columns
+.applymap(lambda x: x + 1)  // apply on single elements
+.pipe(lambda df: df.iloc[:2])  // apply on entire dataframe
+
+
+# Replacing columns
+df.set_axis(new_columns, 1)
+
+
+# Query
+.query('a == a')  // remove NA values in column 'a'
+.dropna(subset=['a'])  // drop rows if NA in columns 'a'
+
+# eval
+eval('new_col = other_col + @local_var')
