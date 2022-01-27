@@ -1,5 +1,23 @@
-List: list
-Iterable: object with __iter__; does not support iterating with __getitem__
+# Iterable vs. Iterator vs. Generator
+Iterable <- Iterator <- Generator
+    ^------ Sequence <- List
+
+Iterable:
+ - has __iter__(self) method that returns an Iterator
+ - can be used in for loop like for x in iterable:  // returns iterator
+ - can be converted to Iterator by `iter(iterable)` // calls iterable.__iter__
+Iterator:
+ - An Iterable that also has a __next()__ method
+ - Examples:
+    * class with __iter__() and __next__() method
+    * enumerate, zip
+Generator:
+ - An Iterator constructed with a yield statement
+Sequence:
+ - An Iterable with a __getitem__() method
+ - Example: List, Tuple
+
+
 Sequences: objects that iterate via __getitem__; ordered; Sequence -> Iterable
 Tuple[str, int]: Tuple of two elements; Sequence / Iterable does not allow specifying the length!
 Tuple[str, ...]: Tuple of variable # elements
