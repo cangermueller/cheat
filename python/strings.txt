@@ -1,0 +1,25 @@
+* A string s = 'Hello world' is represented as a Unicode string
+* A unicode string is a sequence of Unicode code words
+* Each code word (character) is identified by a unicode integer
+* UTF-X is a way to encode a unicode string as a sequence of bytes
+  - UTF-8 is the default
+
+
+s = 'Angermüller' # unicode string with non-ascii character
+s.encode('utf-8')  # encode as bytes using UTF-8 encoding
+b'Angerm\xc3\xbcller'
+         xxx  // 1st byte (two digit hex)
+            xxx  // 1st byte (two digit hex)
+
+Example charcters: https://home.unicode.org/
+'\u0a6dXXX\xff'
+ \u----             // 4 character unicode hex
+          \x--      // 2 character unicode hex
+
+
+ord('A') == 65 // character to unicode
+chr(65) == 'A' // unicode to character
+hex(255) == '0xff'  // int to hex
+int('0xff', 0)  // hex string to int
+char(0xff) == 'ÿ'  // hex (no quotes!) to character
+chr(0x1f642) == smiley

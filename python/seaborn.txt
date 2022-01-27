@@ -97,14 +97,15 @@ barplot(x, y, ...)
   palette='RdBu'
 
 
-# Boxplot
+# Boxplot / catplot
 boxplot(data=, x=, y=, ...)
   x='yaxis', y='xaxis' // plot horizontally; orient='h' does not seem to work
   ax.set_xticklabels(ax.get_xticklabels(), rotation=60, ha='right') // rotate labels
     -> use fig.tight_layout() or plt.tight_layout() to prevent clipping of labels in PDF
   plt.ylim(-4, 4) // ax.set_ylim changes position of boxes!
   palette='Set1'  // fill boxes
-  hue= // causes narrow boxes! Bug?
+  hue=
+  dodge=True // set False to not shift different color levels
   order=['b', 'c', 'a'] // change order of labels
   showfliers=False // no outliers
   vert=False  // horizontal
@@ -183,7 +184,7 @@ row_labels = data.index[grid.dendrogram_row.reordered_ind]
 # Histogram / density plot
 plt.hist(x) // matplotlib for simple histogram
 kdeplot(x, shade=T, bw=)  // only kde
-distplot(x, ...)  // hist + kde
+displot(x, ...)  // hist + kde
   x: Series / vector -> does not support dataframe!
   hist=True
   kde=True
@@ -298,7 +299,9 @@ ax.plot(ax.get_xlim(), ax.get_ylim(), ls="--", c=".3")
 grid.jointplot(x='x', y='y', data=data, ...)
   kind={scatter,reg,kde,resid,hex}
   color='royalblue'
-  joint_kws={"s": 100} // point size
+  joint_kwargs=dict() // kwargs passed to underlying plotting function
+    {'s': 1} // point size if kind == 'scatter'
+    {'lowess': True, 'scatter_kws': {'s': 1}} // if kind == 'reg'
   ratio=5 // ratio joint distribution vs. marginal distribution
 
 grid.set_axis_labels('xlabel', 'ylabel')
