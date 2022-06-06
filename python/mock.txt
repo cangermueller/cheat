@@ -19,6 +19,10 @@ actual_calls = my_mock.mock_calls
 self.assertSequenceEqual(actual_calls, expected_calls)
   * calls match exactly
 
+## Matchers
+mock.ANY
+pymock/matchers.py
+
 
 # Testing if call args contain
 call_args // call args of last call

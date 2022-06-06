@@ -25,6 +25,7 @@ subject:foo
 subject:{foo bar} // must contain foo or bar
 subject:foo subject:bar // must contain foo and bar in any order
 subject:"foo bar"  // must contain "foo bar" in this order
+  * ignores special characters such as []!
 
 ## Or operator
 {from:foo@gmail.com from:bar@gmail.com}
@@ -36,3 +37,8 @@ to:foo@gmail to:bar@gmai.com
 ## Negation
 -{from:foo@gmail.com bar:@gmail.com}
 to:sequin@google.com -to:me
+
+
+## examples
+cc:<sir-research.google.com> // in cc
+list:<sir-research.google.com> // email list

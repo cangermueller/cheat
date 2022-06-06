@@ -72,6 +72,7 @@ dark
 ## Brewer palettes
 choose_colorbrewer_palette(...)
   'sequential', 'divergent', 'qualitative'
+tab10, tab20 // vega categetory10, category20
 Set1, Set2
 RdBu, RdYlBu, RdYlGn
 color_palette = sns.color_palette('Set1', len(legend_order))

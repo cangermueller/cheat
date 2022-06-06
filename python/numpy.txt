@@ -326,6 +326,22 @@ rng.rand(5, 10)
 rng.norm(0, 1, 10)
 rng.get_state()[1][0] // returns seed
 
+## SeedSequence
+.generate_state(n): generates n ints that can be used for seeding a RandomState
+.span(n): generated n new SeedSequences that an be used for seeding a default_rng
+* to generate a sequence of
+
+// seed RandomStates
+random_states = [np.random.RandomState(seed) for seed in seq.generate_state(2)]
+for _ in range(10):
+  print([random_state.randint(0, 10) for random_state in random_states])
+
+// seed default_rngs
+seq = np.random.SeedSequence(0)
+rngs = [np.random.default_rng(s) for s in seq.spawn(2)]
+for _ in range(10):
+  print([rng.uniform() for rng in rngs])
+
 # correlation coefficient
 -> Scipy correlation better
 np.cov(x, y)  // covariance matrix

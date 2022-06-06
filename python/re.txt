@@ -43,11 +43,6 @@ d['start'], d['stop']
   * d['stop'] == None if missing
 
 
-# Not capturing groups
-r'(?:regex)
-
-
-
 # Flags
 re.I  // insensitive
 re.M  // multi line; ^ is beginning of line, not string
@@ -75,3 +70,14 @@ re.search('^((?!abc).)*$', 'cccabcccc')  // does not match
 source = "Hello World Ker HAHA"
 re.findall('[\w]+', source)
 -> ['Hello', 'World', 'Ker', 'HAHA']
+
+
+# Capture groups
+
+## Exclude a sub-string that must exist (positive lookahead assertion)
+re.search(r'[^-]+(?=bar)', 'abcbar').group() -> abc; group() == group(0)
+re.search(r'[^-]+(?=bar)', 'abcba') // fails since string does not end with 'bar'
+
+## Ignore a group (non-capturing group)
+re.search(r'(set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('set', '1')
+re.search(r'(?:set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('1',)

@@ -64,12 +64,11 @@ class C:
 
 ## Functions
 asdict(object) -> dict
+  * creates a deep copy; use `vars(self).copy()` to create a shallow copy
 astuple(object)
+  * creates a deep copy
 replace(object, **changes) // copy + apply changes
-
-
-
-
+  * does not create a deep copy
 
 
 # attr
@@ -89,3 +88,22 @@ attrs.ib(...)
   default=1
   type=int
   converter=lambda x: int(x)
+
+
+# TypedDict
+* total=True is the default value
+
+class Foo(TypeDict):
+  a: int
+  b: int
+Foo(a=1, b=2)
+
+class Foo(TypeDict, total=False):
+  a: int
+  b: int
+Foo(a=1) // b does no appear when printed (None when using dataclasses)
+
+## Limitations
+* Does not allowing mixing optional and non-optional arguments
+* Does not support type checking using isinstance()
+* Does not support adding methods

@@ -8,6 +8,18 @@ import argparse
 import logging
 
 
+def execute_command(cmd, dry_run=False, capture=False):
+  print(cmd)
+  if dry_run:
+    return
+  elif capture:
+    return subprocess.check_output(cmd, shell=True).decode()
+  else:
+    status = os.system(cmd)
+    if status != 0:
+      raise RuntimeError(f'Command failed with error status {status}')
+
+
 class App(object):
 
   def run(self, args):
@@ -16,12 +28,6 @@ class App(object):
     opts = parser.parse_args(args[1:])
     self.opts = opts
     return self.main(name, opts)
-
-  def exec_shell(self, cmd):
-    if self.opts.test:
-      print(cmd)
-    else:
-      os.system(cmd)
 
   def create_parser(self, name):
     p = argparse.ArgumentParser(
@@ -35,9 +41,9 @@ class App(object):
       '-o', '--out_dir',
       help='Output directory.')
     p.add_argument(
-      '-t', '--test',
+      '-t', '--dry_run',
       action='store_true',
-      help='Test without executing.')
+      help='Whether to print commands without executing them.')
     p.add_argument(
       '--seed',
       type=int,

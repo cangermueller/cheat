@@ -293,12 +293,14 @@ i.levels[k] // unique index values at level k
   * only Multiindex
 i.get_level_values(k) // index values (not unique) at level k
 i.droplevel(k) // remove level k
+i.reorder_levels((1, 1)) // change the order of levels
 
 # Index options
 .nlevels
 
 ## Merge  / join hierarchical columns
 df.columns = df.columns.map('_'.join)
+df.columns = df.reorder_levels((1, 0)).columns.map('_'.join)
 
 
 # Index operations
@@ -440,8 +442,8 @@ id | id2 | value
       0 2  5
 df.pivot_table(index='id1', columns='id2', values='value')
   * use pivot_table instead of pivot
-df.pivot(index='id1', columns='id2')['value']
-  * does not support aggregating values unlike pivot_table
+df.pivot(index='id1', columns='id2')['value'] // pivot_table vs. pivot
+  * does not support aggregating values unlike pivot_table (no aggfunc arguemnt)
   * index, columns is single string, not list!
   * Hierarchical column index with value column at level 0
 
@@ -558,6 +560,7 @@ com.load_data('mtcars')
 g = df.groupby(['c1', 'c2'], ...)
   level=0 // group by level instead of column name
   sort=True // sort groups
+  dropna=True // whether to drop rows with NA keys
   as_index=False
     * adds default index (0, ..., N-1) instead of group index as index
     * group_keys does not add an index!
@@ -996,3 +999,45 @@ pd.testing.assert_frame_equal(...
   check_exact=False: compare numbers exactly
   atol=1e-8
   rtol=1e-5
+
+
+# Styling
+df.style.
+.format(
+  formatter=None // f'{{:.{precision}f}}'
+  precision=None
+
+.background_gradient(cmap='PuBu')
+.highlight_max(...)
+  axis=1
+  color='yellow'
+  probs=None // CSS style; if passed, color will be ignored
+  subset=None // list of columns to apply to
+.highlight_min()
+.apply(fn, axis=1)
+  def fn(values):
+    # Maps values to a CSS style
+    max_value = values.max()
+    return ['background-color:yellow' if v == max_value else '' for v in values]
+.applymap(fn) // applies to values independently
+.set_caption(caption)
+.bar(cmap='viridis', width=100, ...)
+.set_properties{**{'text-align': 'center'}) // set CSS attributes
+
+
+def show_corr(corr, metric='spearmanr', absolute=True, caption=None):
+  df  = corr.pivot(
+      index=['method_y', 'target_y'], columns=['method_x', 'target_x'],
+      values=metric)
+  if absolute:
+    df = df.abs()
+  return (
+      df
+      .style
+      .background_gradient(cmap='Spectral_r')
+      .format('{:.2f}')
+      .set_caption(caption)
+      .set_properties(**{'text-align': 'center', 'border': '1px solid black'})
+      .set_table_styles(
+          [{'selector': 'th', 'props': [('border', '1px solid black')]}])
+  )
