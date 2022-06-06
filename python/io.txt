@@ -147,3 +147,11 @@ return raw_input().lower() in ['y', 'yes']
 # Hostname
 import socket; socket.gethostname()
 os.getenv('HOSTNAME')
+
+
+# Reading user input
+## input
+age = input('How older are you?')
+## sys.stdin.readline()
+print('How old are you?')
+age = sys.stdin.readline()

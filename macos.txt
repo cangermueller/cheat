@@ -107,6 +107,7 @@ tmux -CC attach // attach to session
 ## Misc
 Open in fullscreen: profiles -> windows -> style -> fullscreen
 open . // open Finder from current pwd
+reset // fixes special characters when pasting text
 
 
 

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# sudo port install vim +huge +python37 +perl +ruby +gtk2
+
 # 200324
 ./configure \
     --with-features=huge \

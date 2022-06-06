@@ -250,7 +250,7 @@ zg  // add to good list
 --enable-multibyte --with-x --with-features=huge
 
 # Macport
-sudo port install vim @7.4.729_2 +huge +python34 +perl +ruby +gtk2
+sudo port install vim +huge +python37 +perl +ruby +gtk2
 
 # Installing bundles
 vim +BundleInstall +qall
