@@ -1,9 +1,9 @@
-# emacs key bindings  
+# emacs key bindings
 http://web.mit.edu/gnu/doc/html/features_7.html
 
 ## Navigation
 c-a // beginning line
-c-b // end of line
+c-e // end of line
 c-f // forward character
 c-b // backward charcter
 m-f // forward word
@@ -299,8 +299,7 @@ c-q // unlock terminal when frozen
 
 .---------------------------------------------------------------------------.
 | Peteris Krumins (peter@catonmat.net), 2007.10.30                          |
-| http://www.catonmat.net  -  good coders code, great reuse                 | 
+| http://www.catonmat.net  -  good coders code, great reuse                 |
 |                                                                           |
 | Released under the GNU Free Document License                              |
 '---------------------------------------------------------------------------'
-

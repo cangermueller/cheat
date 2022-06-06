@@ -11,6 +11,18 @@ assert_called_once_with(*args, **kwargs) // called_once with these args
 assert_any_call(*args, **kwargs) // any called must had these args
 mock.call_count
 
+# Comparing a sequence of mocks
+expected_calls = [mock.mock(1, b=2, c=mock.ANY), mock.mock(1, b=3, c=mock.Any)]
+my_mock.assert_has_calls(expected_calls, any_order=False)
+  * contains a subset of calls
+actual_calls = my_mock.mock_calls
+self.assertSequenceEqual(actual_calls, expected_calls)
+  * calls match exactly
+
+## Matchers
+mock.ANY
+pymock/matchers.py
+
 
 # Testing if call args contain
 call_args // call args of last call
@@ -89,3 +101,48 @@ object = MyClass()
 wrapped = mock.Mock(wraps=object)
 wrapped.foo() // will call object.foo if foo() is a method of object
 wrapped.bar() // will return default mock (?) if bar() is not a method of object
+
+
+# return_value vs side_effect
+return_value=1 // single value
+side_effect=[1, 2, 3] // iterable of values or function
+
+
+# decorator
+@mock.patch.object(other_lib.Class, 'method')
+def test_something(self):
+
+
+# setting up patcher in setUp()
+go/python-tips/032
+def setUp(self):
+  super().setUp()  #  If we override setUp, we must call super()!
+  self.mock_upload_meme = self.enter_context(mock.patch.object(
+      memegen_client, 'UploadMeme', autospec=True))
+
+
+# Changing default arguments
+def my_fun(a, b=1, c=2, **kwargs):  // my_fun.__defaults__ == (1, 2)
+  pass
+
+## Method 1
+mock.patch.object(module.my_fun, '__defaults__', (1, 3)): // change to c=3
+  ...
+
+## Method 2
+mock.patch.object(module, 'my_fun', functools.partial(module.my_fun, c=3))
+  ...
+
+
+# Mocking __call__ of class
+with mock.patch.object(my_lib.MyClass, '__call__', autospec=True) as m:
+  ...
+
+
+# autospec=True
+Default disabled (None). If True, arguments and return value if the mock will
+have the same type. Type is checked; exception if called with wrong type.
+
+
+# mocking a constant
+mock.patch.object(module, 'CONSTANT', new='42')

@@ -61,8 +61,8 @@ ns.c = 10
 
 # Sub-commands
 ap = argparse.ArgumentParser('Print content of file')
-sp = ap.add_subparsers()
-ap1 = sp.add_parser('cmd1')
+sp = ap.add_subparsers(dest='cmd') // cmd is used to identify sub-command
+ap1 = sp.add_parser('cmd1', help='Help of cmd1')
 ap1.add_argument('--cmd1-opt1')
 ap1.add_argument('--cmd1-opt2')
 ap2 = sp.add_parser('cmd2')

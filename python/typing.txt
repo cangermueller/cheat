@@ -1,1 +1,64 @@
+# Iterable vs. Iterator vs. Generator
+Iterable <- Iterator <- Generator
+    ^------ Sequence <- List
+
+Iterable:
+ - has __iter__(self) method that returns an Iterator
+ - can be used in for loop like for x in iterable:  // returns iterator
+ - can be converted to Iterator by `iter(iterable)` // calls iterable.__iter__
+Iterator:
+ - An Iterable that also has a __next()__ method
+ - Examples:
+    * class with __iter__() and __next__() method
+    * enumerate, zip
+Generator:
+ - An Iterator constructed with a yield statement
 Sequence:
+ - An Iterable with a __getitem__() method
+ - Example: List, Tuple
+
+
+Sequences: objects that iterate via __getitem__; ordered; Sequence -> Iterable
+Tuple[str, int]: Tuple of two elements; Sequence / Iterable does not allow specifying the length!
+Tuple[str, ...]: Tuple of variable # elements
+
+
+get_type_hints(function_or_class)  // extract type annotations as dict
+
+# pytype: disable=attribute-error
+
+
+# TypeVar
+* Templates / Generics
+* https://stackoverflow.com/questions/59933946/difference-between-typevart-a-b-and-typevart-bound-uniona-b
+
+FooOrBar = TypeVar('FooOrBar', Foo, Bar)
+def myfun(a: FooOrBar) -> FooOr Bar:
+  * Returns that same type passed as the input (Foo -> Foo; Bar -> Bar)
+
+FooOrBar = TypeVar('FooOrBar', bounds=Union[Foo, Bar])
+ * bounds allows passing any combination, e.g [Foo, Foo, Bar]
+ * Without bounds, only [Foo, Foo, Foo] or [Bar, Bar, Bar] allowed
+def return_last(a: List[FooOrBar]) -> FooOrBar:
+  return a[-1]
+
+
+# NewType
+* For defining new primitive types
+
+UserId = NewType('UserId', int)
+BookId = NewType('BookId', int)
+
+def create(user_id: USER_ID, book_id: BOOK_ID):
+  ...
+
+create(UserId(1), BookId(2)) // works
+create(BookId(1), UserId(2)) // fails
+create(1, 2) // works since UserId and BookId are sub-classes of int
+
+
+# casting
+* does not do anything
+* only signals the type checker that something as the desired type
+typing.cast(int, '12') == '12'
+type(typing.cast(int, '12')) == int

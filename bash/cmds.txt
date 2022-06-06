@@ -42,7 +42,9 @@ quit
 -regex "*/.EADME" // emacs regex whole path
 -type df  // directory of file
 -not -path '*/\.*'  // exclude hidden directories
--exec
+-exec cat {} \; // apply cat to each file separately
+   find .. | xargs -Ix cat x
+-exec cat {} +; // apply cat to all files
 -delete
 -ls
 
@@ -76,6 +78,9 @@ zip outfile.zip -r dir -x '*.sh' // -x, --exclude: exclude files
  - size 400x100
 convert -delay 50 *.png animation.gif
 convert *.png -append all.png // concatenate
+
+# converting svg to pdf
+rsvg-convert -f pdf -o tsne.pdf tsne.svg
 
 
 # od (octal dump)
@@ -265,3 +270,12 @@ rg [options] PATTERN
 -g 'file_glob*py' // filter files by glob
 -F search literal / no regex
 -l // show files only
+
+
+# split // split files into smaller size
+split -d -a 5 -l 10 data.csv outdir/data_ // split into files with 10 lines (at most; last can have fewer) each using numeric suffix
+-d  # numeric suffix
+-d -a 10  # numeric suffix of length 10
+-n l/10  # split by line into 10 files
+-n 10  # split into 10 files (not by line)
+-b 10K # split into files with 10kb size (not by line)

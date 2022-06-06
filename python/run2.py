@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import os
 import random
 import sys
@@ -12,12 +8,25 @@ import argparse
 import logging
 
 
+def execute_command(cmd, dry_run=False, capture=False):
+  print(cmd)
+  if dry_run:
+    return
+  elif capture:
+    return subprocess.check_output(cmd, shell=True).decode()
+  else:
+    status = os.system(cmd)
+    if status != 0:
+      raise RuntimeError(f'Command failed with error status {status}')
+
+
 class App(object):
 
   def run(self, args):
     name = os.path.basename(args[0])
     parser = self.create_parser(name)
     opts = parser.parse_args(args[1:])
+    self.opts = opts
     return self.main(name, opts)
 
   def create_parser(self, name):
@@ -32,9 +41,9 @@ class App(object):
       '-o', '--out_dir',
       help='Output directory.')
     p.add_argument(
-      '-t', '--test',
+      '-t', '--dry_run',
       action='store_true',
-      help='Test without executing.')
+      help='Whether to print commands without executing them.')
     p.add_argument(
       '--seed',
       type=int,

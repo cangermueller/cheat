@@ -1,14 +1,33 @@
-# namedtuple
-* no default
-* no default values
+# typing.NamedTuple
 
 class MyClass(typing.NamedTuple):
   a: int
-  b: List[int]
+  b: int = 3
+
+  def __new__(cls, a, b): // only works with collections.namedtuple !!!
+    return cls(a + 1, b) # post init
+
+
+_asdict() # convert to dict
+_replace(a=1) # replaces attribute and returns new instance (not inplace)
+_make([4, 5]) # creates a new instance from a sequence
+_fields // ['a', 'b']
+_source // shows source code
+
+
+## NamedTuple vs. dataclass
+* NamedTuple based on tuple(), dataclass on dict()
+ -> Compatible with TF
+ -> can be unpacked via *foo and converted to tuple via tuple(foo)
+* NamedTuple: less memory
+* NamedTuple: slightly higher access time
+* NamedTuple: does not support inheritance and other features like __post_init__
+
 
 
 
 # dataclasses
+https://docs.python.org/3/library/dataclasses.html#module-dataclasses
 
 from dataclasses import dataclass
 
@@ -17,22 +36,39 @@ class MyClass(object):
   a: int
   b: List[int]
   c: int = 0 // optional
+  d: dict = field(default_factory=dict) // initialize with empty dict
 
   def extra_method(self):
     pass
 
 
-dataclass(...)
+## dataclass(...)
   frozen=True // make immutable
 
-def __post_init__(self):
-  // post-processing
+
+## field(...)
+  init=True // whether to include the field in __init__
+  eq=True // whether to include the field in __eq__
+
+## __post_init__
+@dataclass
+class C:
+    a: float
+    b: float
+    c: float = field(init=False)
+
+    def __post_init__(self):
+        self.c = self.a + self.b
+
+
 
 ## Functions
 asdict(object) -> dict
+  * creates a deep copy; use `vars(self).copy()` to create a shallow copy
 astuple(object)
+  * creates a deep copy
 replace(object, **changes) // copy + apply changes
-
+  * does not create a deep copy
 
 
 # attr
@@ -52,3 +88,22 @@ attrs.ib(...)
   default=1
   type=int
   converter=lambda x: int(x)
+
+
+# TypedDict
+* total=True is the default value
+
+class Foo(TypeDict):
+  a: int
+  b: int
+Foo(a=1, b=2)
+
+class Foo(TypeDict, total=False):
+  a: int
+  b: int
+Foo(a=1) // b does no appear when printed (None when using dataclasses)
+
+## Limitations
+* Does not allowing mixing optional and non-optional arguments
+* Does not support type checking using isinstance()
+* Does not support adding methods

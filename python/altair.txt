@@ -19,3 +19,7 @@ alt.themes.enable('excel')  // set theme
 
 # Change the xlim/ylim
 y=alt.Y(scale=alt.Scale(domain=(min, max), zero=False))
+
+
+# Rotating axis labels / showing all labels
+alt.Axis(labelAngle=-60, labelLimit=999, labelOverlap=False)

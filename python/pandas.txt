@@ -1,7 +1,10 @@
-# Infos / Memory usage
+# Infos / Memory usage / efficiency
 df.info()
 df.info(memory_usage='deep')
 df.memory_usage()
+pd.to_numeric(values, ...) // tries to make values numeric
+  downcast='integer|signed|unsigned|float' // downcast to the smallest possible unit
+
 
 
 Creating Data.Frame
@@ -41,8 +44,13 @@ slice_replace(from, to, replace)
 slice(from, to)
 pad(length, fillchar=' ') // extend length
 startswith(string)  // starts with string (not re!)
-contains(re)  // == re.search
-match(re, case=True, flags=0) // == re.match
+fullmatch(re, ...) // matches full string
+match(re, case=True, flags=0) // == re.match; matches at beginning
+contains(re)  // == re.search; matches anywhere
+  na=None // to specify the result of NaN value
+extract('([a-b]+).*(\d+)', expand=True) // extract pattern and return df
+extract('(?P<name1>[a-b]+).*(?P<name2>\d+)', expand=True) // extract pattern and return df with columns 'name1' and 'name2'
+
 find(str, start=0, end=len) // -1 if not find; start else
 lower()
 upper()
@@ -285,9 +293,14 @@ i.levels[k] // unique index values at level k
   * only Multiindex
 i.get_level_values(k) // index values (not unique) at level k
 i.droplevel(k) // remove level k
+i.reorder_levels((1, 1)) // change the order of levels
 
 # Index options
 .nlevels
+
+## Merge  / join hierarchical columns
+df.columns = df.columns.map('_'.join)
+df.columns = df.reorder_levels((1, 0)).columns.map('_'.join)
 
 
 # Index operations
@@ -296,23 +309,22 @@ rename(...)
   index={'old':'new'} // rename rows
   columns=lambda x: x + '_' // apply renaming function
   inplace=True
+set_axis(columns, axis=1) // set new columns (rename all columns)
 rename_axis('key', axis=0) // rename index or columns; changes index.name
 set_index([columns], ...) // set row index
   drop=False  // retain column
   append=True // append to end
+  axis=1  // replace columns
 reset_index(...)  // row index -> columns
   level= // reset only these levels; useful after groupby
   drop=True // do not add columns; only delete level
-d = d.sort_index(...) // sort df by non-hierarchical index; not inplace!
-  axis=0
+d = d.sort_index(...) // sort (hierarchical) index / columns
+  axis=0 // rows or columns
+  level=None // the level to be sorted; None means all levels
   ascending=True
-sortlevels(...) // sort hierarchical index
-  level=0
+swaplevel(0, 1, ...)  // swaps *two* levels
   inplace=False
-  ascending=True
-swaplevel(0, 1, ...)  // swap levels
-  inplace=False
-reorder_levels([1, 0], ...) // change order levels
+reorder_levels([1, 0], ...) // change order of *all* levels
   axis=0
 reindex(range(1990, 2000))  // adjust to new index
   * drop rows that are not indexed by new index
@@ -321,6 +333,8 @@ reindex(range(1990, 2000))  // adjust to new index
   * index=  // reindex index
   * fill_value=
   * method='nearest'  // use nearest value
+  * method='ffill' // forward-fill the previous value
+  * method='bfill' // backward-fill the next value
 droplevel(0) // drops level of multi-index; not in-place
 
 # Check if index contains value
@@ -404,15 +418,15 @@ with pd.option_context('display.float_format', '{:,.2f}'.format):
 
 ## defaults
 pd.set_option('display.width', 200)
-pd.set_option('display.max_colwidth', -1)
-pd.set_option('display.max_rows', 1000)
+pd.set_option('display.max_colwidth', None)
+pd.set_option('display.max_rows', 200)
 
 
 ## shot full dataframe
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
-pd.set_option('display.max_colwidth', -1)
+pd.set_option('display.max_colwidth', None)
 
 # Reshaping
 ## Stacked -> unstacked
@@ -428,7 +442,8 @@ id | id2 | value
       0 2  5
 df.pivot_table(index='id1', columns='id2', values='value')
   * use pivot_table instead of pivot
-df.pivot(index='id1', columns='id2')['value']
+df.pivot(index='id1', columns='id2')['value'] // pivot_table vs. pivot
+  * does not support aggregating values unlike pivot_table (no aggfunc arguemnt)
   * index, columns is single string, not list!
   * Hierarchical column index with value column at level 0
 
@@ -545,11 +560,14 @@ com.load_data('mtcars')
 g = df.groupby(['c1', 'c2'], ...)
   level=0 // group by level instead of column name
   sort=True // sort groups
-  as_index=False  // use integers instead of group keys as index
+  dropna=True // whether to drop rows with NA keys
+  as_index=False
+    * adds default index (0, ..., N-1) instead of group index as index
+    * group_keys does not add an index!
   group_keys=False
     * only when calling apply
-    * do not set index of concatenated output frame
-    * -> grouping keys are dropped
+    * use to ignore group index
+    * reuses original index
 for name, group in groups:  // iterate over groups
 g.groups  // dictionary
   .keys() // group keys
@@ -835,10 +853,6 @@ q = np.percentile(values, [25, 50, 75])
 
 
 
-
-
-
-
 # plotting
 matplotlib.style.use('ggplot')
 NEW in pandas0.7
@@ -902,3 +916,128 @@ assert_frame_equal(df1, df2, ...)
 # replace / map
 series.map({'a': 1, 'b': 2}) // returns None for all unmapped values
 series.replace({'a': 1, 'b': 2}) // only replaces specified values
+
+
+# onehot / dummy encoding
+pd.get_dummies(pd.Series(list('abac')))
+pd.DataFrame(dict(a=list('xyy'), b=list('yzy')))
+  * dummy-encodes each column (Series) and concatenates resulting dfs
+
+
+# Datetime frequencies
+B        business day frequency
+C        custom business day frequency
+D        calendar day frequency
+W        weekly frequency
+M        month end frequency
+SM       semi-month end frequency (15th and end of month)
+BM       business month end frequency
+CBM      custom business month end frequency
+MS       month start frequency
+SMS      semi-month start frequency (1st and 15th)
+BMS      business month start frequency
+CBMS     custom business month start frequency
+Q        quarter end frequency
+BQ       business quarter end frequency
+QS       quarter start frequency
+BQS      business quarter start frequency
+A, Y     year end frequency
+BA, BY   business year end frequency
+AS, YS   year start frequency
+BAS, BYS business year start frequency
+BH       business hour frequency
+H        hourly frequency
+T, min   minutely frequency
+S        secondly frequency
+L, ms    milliseconds
+U, us    microseconds
+N        nanoseconds
+
+
+# pd.to_datetime
+ Return type depends on input:
+  - list-like: DatetimeIndex
+  - Series: Series of datetime64 dtype
+  - scalar: Timestamp
+
+
+series = to_datetime(pd.Series(['2010-01-01', '2010-02-01', '2010-03-01']))
+series.dt // returns object to access datetime properties
+
+
+# Applying functions
+.apply(lambda row: row + 1, axis=1) // apply over rows or columns
+.applymap(lambda x: x + 1)  // apply on single elements
+.pipe(lambda df: df.iloc[:2])  // apply on entire dataframe
+
+
+# Replacing columns
+df.set_axis(new_columns, 1)
+
+
+# Query
+.query('a == a')  // remove NA values in column 'a'
+.dropna(subset=['a'])  // drop rows if NA in columns 'a'
+
+# eval
+eval('new_col = other_col + @local_var')
+
+
+# filter
+* to filter index / columns
+filter(series_or_df, ...)
+  items_or_df=[1, 3] // select specific elements
+  like='source' // select all (columns) that contain 'source'
+  regex='^source.+' // select all (columns that match regex)
+  axis=1 // whether to filter columns (default) or index
+
+
+# testing
+pd.testing.assert_frame_equal(...
+  check_like=False: ignore the order of columns and indices (indices must be the same)
+  check_dtype=True: compare dtypes
+  check_exact=False: compare numbers exactly
+  atol=1e-8
+  rtol=1e-5
+
+
+# Styling
+df.style.
+.format(
+  formatter=None // f'{{:.{precision}f}}'
+  precision=None
+
+.background_gradient(cmap='PuBu')
+.highlight_max(...)
+  axis=1
+  color='yellow'
+  probs=None // CSS style; if passed, color will be ignored
+  subset=None // list of columns to apply to
+.highlight_min()
+.apply(fn, axis=1)
+  def fn(values):
+    # Maps values to a CSS style
+    max_value = values.max()
+    return ['background-color:yellow' if v == max_value else '' for v in values]
+.applymap(fn) // applies to values independently
+.set_caption(caption)
+.bar(cmap='viridis', width=100, ...)
+.set_properties{**{'text-align': 'center'}) // set CSS attributes
+
+
+def show_corr(corr, metric='spearmanr', absolute=True, caption=None):
+  df  = corr.pivot(
+      index=['method_y', 'target_y'], columns=['method_x', 'target_x'],
+      values=metric)
+  if absolute:
+    df = df.abs()
+  return (
+      df
+      .style
+      .background_gradient(cmap='Spectral_r')
+      .format('{:.2f}')
+      .set_caption(caption)
+      .set_properties(**{'text-align': 'center', 'border': '1px solid black'})
+      .set_table_styles(
+          [{'selector': 'th', 'props': [('border', '1px solid black')]}])
+  )

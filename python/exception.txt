@@ -23,3 +23,33 @@ else:
   no exception
 finally:
   always executed (with and without exception)
+
+
+# Getting the full stack trace as a string
+def get_current_stack_trace():
+  exc_type, exc_value, exc_tb = sys.exc_info()
+  return ''.join(traceback.format_exception(exc_type, exc_value, exc_tb))
+
+
+# Re-raising exception
+## No extra error message -> bare raise
+try:
+except BaseException:
+  do_somthing()
+  raise  # This location is not shown in the stack trace
+
+## Extra error message -> raise from
+try:
+except BaseException as e:
+  raise ValueError('Error occurred') from e
+
+
+## Suppress to root source message -> raise from None
+raise ValueError('Only this message is shown') from None
+
+
+## What not to do
+  raise e
+* Python3: shows the line of `raise e` in the stack although it is not needed
+           requires defining e
+* Python2: does not show the source error message
