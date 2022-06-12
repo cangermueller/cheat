@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# sudo port install vim +huge +python37 +perl +ruby +gtk2
+# sudo port install vim +huge +python39 +perl +ruby +gtk2
 
 # 200324
 ./configure \
