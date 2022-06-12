@@ -6,6 +6,7 @@ create // conda env create (see below)
 list // list (current) environments
 source activate NAME
 remove -n NAME
+activate NAME // change to environment
 
 ## creating environment
 * use `conda create`, not `conda env create`!
@@ -30,3 +31,8 @@ PKG // update PKG
 scikit-learn
 scikit-learn>=1.0
 scikit-*
+
+# Update python version
+conda create -n py39 python=3.9
+conda activate py39 // add to bashrc
+conda install numpy pandas scipy scikit-learn scikit-learn-intelex hdf5 ipython seaborn matplotlib
