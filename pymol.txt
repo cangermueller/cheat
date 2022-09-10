@@ -1,0 +1,54 @@
+# Using the mouse
+https://pymol.org/dokuwiki/doku.php?id=mouse:two_button
+zoom: right click + drag
+
+# Basics
+hide all
+show cartoon, vhh72
+select T103,  chain A and resi 99
+label select, "name"
+hide label // hide all labels
+hide everything, hetatm // hide molecules
+
+# General
+set seq_view, on // show sequence (1 == on, 0 == off for hide)
+bg_color white
+remove solvent  // removes hydrogens and water molecules (HOH)
+reinitialize  // delete objects and reinitialize session
+zoom 'visible'
+origin vhh72 // sets vhh72 as the center of rotation
+
+# Saving PDBs / Fasta
+save seq.fasta, 6waq and chain A // save sequence of chain A  to fasta file
+save seq.pdb, 6waq and chain A // save structure of chain A  to fasta file
+
+# Files
+pwd  // current directory
+ls
+cd
+
+# Coloring
+color atomic, not elem C  // color by element except C
+spectrum b, red_yellow_green_cyan_blue,  vhh, minimum=50, maximum=90  // color by PDB properties, e.g. pLDDT
+
+# Nice colors
+firebrick
+slate
+deepteal
+forest
+smuge
+
+# Settings
+get label_size // return default setting
+set label_size, 16
+set label_font_id, 7 // bold style
+
+# Python scripting
+python  // start interpreter
+python end // end interpreter
+run script.py
+
+# Special groups
+NME:  N-methyl-amin; capping group
+AME: Ammonium;  capping groups
+NAG: Glucopyranose; glucose like
