@@ -7,6 +7,11 @@ list // list (current) environments
 source activate NAME
 remove -n NAME
 activate NAME // change to environment
+conda config --set auto_activate_base false
+ * does not activate conda by default -> faster startup
+ * creates ~/.condarc
+ * add alias="conda activate py39" to bashrc
+
 
 ## creating environment
 * use `conda create`, not `conda env create`!

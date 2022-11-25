@@ -43,7 +43,7 @@ rand() % 100 // stdlib.h
 # namespaces
 namespace A { cost int value = 10;} --> A::value
 namespace B { cost int value = 20;} --> B::value
-using A::value --> value 
+using A::value --> value
 using namespace std // import everything from std
 
 
@@ -107,3 +107,41 @@ typedef int myint // rename type
 
 delete a = new; // delete reference
 delete a = new[]; // delete vector reference
+
+
+# absl::Status
+Status status = fun(...);
+if (status.ok()) {...}
+return absl::OkStatus();
+status.code() == absl::StatusCode::kOk
+if (absl::Status status = foo(...); status.ok()) {
+}
+
+## Chaining
+Status status = fun1(...)):
+status.Update(fun2(...))
+// Update overwrites ok() by errors but not errors by ok(), and preserves errors
+
+## Canonical status errors
+return absl::InvalidArgumentError
+return absl::NotFoundError
+return absl::DataLossError
+
+## absl::StatusOr
+StatusOr<Foo> foo = fun(...)
+if (foo.ok()) {...}
+foo.status()  // access statsu
+foo.value() // access value
+*foo // access value
+foo->FooMethod()  // access value
+foo.ValueOrDie()  // deprecated; do not use!
+
+## Checks
+CHECK_OK(status) << "Error"; // in production code
+DCHECK_OK(status) << "Error"; // in production code for debugging
+ASSERT_OK(status);  // in tests; following code is not executed
+EXPECT_OK(status);  // in tests; following code is executed
+
+## Propagating errors
+RETURN_IF_ERROR(fun(...)) << "Extra message";
+ASSIGN_OK_RETURN(std::unique_ptr<Foo> foo, GetFoo(...)) << "Extra message";

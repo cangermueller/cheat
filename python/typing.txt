@@ -22,8 +22,21 @@ Sequences: objects that iterate via __getitem__; ordered; Sequence -> Iterable
 Tuple[str, int]: Tuple of two elements; Sequence / Iterable does not allow specifying the length!
 Tuple[str, ...]: Tuple of variable # elements
 
+# Annotating a function with yield
+* Iterator[yield_type] suited in most cases
+* Generator[yield_type, send_type, return_type] can be when using different send, yield, return types
+* https://stackoverflow.com/questions/38419654/proper-type-annotation-of-python-functions-with-yield
 
-get_type_hints(function_or_class)  // extract type annotations as dict
+def my_iterator() -> Iterator[int]
+  for i in range(10):
+    yield i
+
+def echo_round() -> Generator[int, float, str]:
+    res = yield
+    while res:
+        res = yield round(res)
+    return 'OK'
+
 
 # pytype: disable=attribute-error
 
@@ -62,3 +75,42 @@ create(1, 2) // works since UserId and BookId are sub-classes of int
 * only signals the type checker that something as the desired type
 typing.cast(int, '12') == '12'
 type(typing.cast(int, '12')) == int
+
+
+# TypedDict
+* Mapping with type annotations
+
+class Foo(TypedDict):
+  a: int
+  b: Optional[int]
+
+
+f = Foo(a=1, b=2)
+type(f) -> dict
+isinstance(f, dict) -> true
+
+
+## total=False
+By default, all keys must be present, but `None` is okay if annotate as Optional
+
+f = Foo(a=1, b=None) // no error
+f = Foo(a=1) // error
+
+class Foo(TypedDict, total=False):
+  // Some keys can be missing
+  a: int
+  b: int
+
+f = Foo(a=1)  // no error
+
+
+# ClassVar
+* Marks a variable as class variable
+@dataclasses.dataclass
+class Data:
+  a: ClassVar[int] = 10
+  b: int = 20
+
+d = Data()
+d.a = 0 # failure since class variable
+d.b = 0 # no failure since instance variable
