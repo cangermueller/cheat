@@ -52,3 +52,10 @@ _ // zoom horizontally
 :lopen
 :lclose
 :lnext
+
+# shortcuts
+<c-w>c  // close the current window
+<c-w>2c  // close the 2nd window
+<c-w>o // close other windows
+<c-w>v // vertical split
+<c-w>s // horizontal split

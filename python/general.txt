@@ -166,3 +166,11 @@ def myiter(n):
   while i < n:
     i += 1
     yield i
+
+# assignment expression
+* https://peps.python.org/pep-0572/#syntax-and-semantics
+if (a:= foo()) > 3:
+  print(a)
+
+while (line:= f.readlines()):
+ print(line)

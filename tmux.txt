@@ -39,6 +39,7 @@ kill-window -a // close all other windows
 , // rename window
 < // rename session (custom)
 . // move window
+E // equalize size
 
 # Panes
 P, ; // last pane
@@ -51,6 +52,7 @@ q // show pane numbers
 :swap-pane -t x -d // swap pane and do not change focus
 :swap-pane -t .p // swap current pane with p
 :swap-pane -t w.p  // swap current pane with p in window w
+kill-panse -a // close all other panes
 c-o // swap with other clock-wise
 layouts: alt-i
   alt-1: | | |
