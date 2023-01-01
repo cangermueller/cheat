@@ -39,9 +39,9 @@ kill-window -a // close all other windows
 , // rename window
 < // rename session (custom)
 . // move window
-E // equalize size
 
-# Panes
+# Panes (within a window)
+E // equalize the size of panes
 P, ; // last pane
 space // next pane layout
 alt+[1234]  // select pane layout
