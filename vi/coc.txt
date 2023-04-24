@@ -1,0 +1,6 @@
+### coc-nvim ###
+
+# Extensions
+CocList extensions
+CocInstall coc-highlight
+CocUninstall coc-highlight

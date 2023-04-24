@@ -2,6 +2,13 @@
 from absl.testing.absltest import mock
 
 
+# Mock, MagicMock, autospec
+MagicMock() // accepts anything
+Mock() // does not accept anything, but with another signature
+Mock(..., autospec=True) // requires the same signature (recommended)
+mock.create_autospec(Class, instance=True)
+
+
 # Asserts
 assert_not_called()
 assert_called()
@@ -11,7 +18,22 @@ assert_called_once_with(*args, **kwargs) // called_once with these args
 assert_any_call(*args, **kwargs) // any called must had these args
 mock.call_count
 
-# Comparing a sequence of mocks
+
+# Comparing some arguments
+call_args // call args of last call
+call_args_list // call args of all call
+args, kwargs = mock.call_args
+kwargs.contain(x)
+
+
+# Comparing all arguments
+assert_called_with(*args, **kwargs) // the last call contains these args
+assert_called_once_with(*args, **kwargs) // called_once with these args
+assert_any_call(*args, **kwargs) // any called must had these args
+
+## Using mock.call
+assert_called_once_with(mock.Call(mock.Any, a=1, b=2))
+
 expected_calls = [mock.mock(1, b=2, c=mock.ANY), mock.mock(1, b=3, c=mock.Any)]
 my_mock.assert_has_calls(expected_calls, any_order=False)
   * contains a subset of calls
@@ -22,13 +44,7 @@ self.assertSequenceEqual(actual_calls, expected_calls)
 ## Matchers
 mock.ANY
 pymock/matchers.py
-
-
-# Testing if call args contain
-call_args // call args of last call
-call_args_list // call args of all call
-args, kwargs = mock.call_args
-kwargs.contain(x)
+https://callee.readthedocs.io/en/latest/guide/usage.html
 
 
 # Patching
@@ -137,11 +153,6 @@ mock.patch.object(module, 'my_fun', functools.partial(module.my_fun, c=3))
 # Mocking __call__ of class
 with mock.patch.object(my_lib.MyClass, '__call__', autospec=True) as m:
   ...
-
-
-# autospec=True
-Default disabled (None). If True, arguments and return value if the mock will
-have the same type. Type is checked; exception if called with wrong type.
 
 
 # mocking a constant

@@ -90,6 +90,15 @@ def get_current_stack_trace():
   return ''.join(traceback.format_exception(exc_type, exc_value, exc_tb))
 
 
+# Print calling stack trace without exception
+traceback.print_stack()
+stack_string = ''.join(traceback.format_stack()
+
+
 # getting source code of function
 import inspect
 inspect.getsource(my_fn)
+
+
+# Absolute path of current file
+os.path.dirname(os.path.realpath(__file__))
