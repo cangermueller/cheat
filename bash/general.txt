@@ -130,7 +130,10 @@ ${file.tar.gz#*.} // tar.gz
 ${file.tar.gz##*.} // gz
 ${#s} // length
 ${s:from:length}  // substr, starting from 0
-${s::-3}  // remove last 3 characters
+${s:0:3} == ${s::3} // first three letters
+${s:5} // starting from the 6ths letter
+${s::-1} // remove the last letter
+${s:(-3)} // last three letters
 ${s/pattern/replace}
 ${s//pattern/replace} // replace all
 sadasd

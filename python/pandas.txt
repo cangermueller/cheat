@@ -98,6 +98,15 @@ df.dtypes // list dtypes
 df = df.astype(np.int32)  // convert dtype of DataFrame
 df['c1'] = df['c1'].astype(str) // convert dtype column
 df.select_dtypes(np.int32) // select all int columns
+df.select_dtypes(np.number) // int and float (not bool)
+pd.api.types.is_float_dtype(array_or_dtype)
+pd.api.types.is_numeric_dtype
+pd.api.types.is_string_dtype
+pd.Series([False, True, pd.NA], dtype='boolean')
+  * experimental dtype that support NA
+  * dtype='bool' does not support NA
+series.dtype.name == 'bool' // compare by string name
+
 
 # Misc
 pd.crosstab(y, x) // contingency table
@@ -132,6 +141,7 @@ read_csv(file, ...)
   dtype='str' // convert all columns to objects (strings)
   compression='gzip' // compress
   chunksize=100 // read in chunks with 100 rows (see below)
+to_sql('table1')  // see SQL below
 to_csv(file, ...)
   sep=','
   index=True  // write index
@@ -139,9 +149,13 @@ to_csv(file, ...)
   mode='a'  // append
   float_format='%.2f'
   compression="gzip"/None // compress files
-to_string // aligns columns; only use if to_csv() does not work
+to_string(...) // aligns columns; only use if to_csv() does not work
+  index=False // no index
   justify='left' // align columns left
-to_sql('table1')  // see SQL below
+to_markdown(...)
+  index=False // no index
+  tablefmt=(simple|github|presto|grid|...)  // pypi.org/project/tabulate/
+
 
 
 # Reading large file / chunking
@@ -652,7 +666,6 @@ df.groupby('key').apply(_apply_fun).reset_index()
 df.all(axis=0)
 df.all().all()
 df.equals(df2)
-pd.testing.assert_frame_equal(df1, df2)
 
 # Sql
 import sqlite3 as sql // mysql, etc. supported as well
@@ -911,10 +924,6 @@ a.values - b.values // broadcast numpy
 f(g(df, arg_g=1), arg_f=2)
 df.pipe(g, arg_g=1).pipe(f, arg_f=2)
 
-
-# pd.testing
-assert_frame_equal(df1, df2, ...)
-
 # replace / map
 series.map({'a': 1, 'b': 2}) // returns None for all unmapped values
 series.replace({'a': 1, 'b': 2}) // only replaces specified values
@@ -1002,6 +1011,11 @@ pd.testing.assert_frame_equal(...
   atol=1e-8
   rtol=1e-5
 
+with self.assertRaises(AssertionError):
+  pd.testing.assert_frame_equal(...)  // not equal
+
+series1.equals(series2) // must be exactly equal, including the index values (not dtype)
+
 
 # Styling
 df.style.
@@ -1009,11 +1023,15 @@ df.style.
   formatter=None // f'{{:.{precision}f}}'
   precision=None
 
-.background_gradient(cmap='PuBu')
+.background_gradient(cmap='PuBu', ...)
+  axis=0: // colors normalized by min/max across rows (to show max of column)
+  axis=None // colors normalized over all data
+
 .highlight_max(...)
   axis=1
   color='yellow'
-  probs=None // CSS style; if passed, color will be ignored
+  props=None // CSS style; if passed, color will be ignored
+    props='font-weight: bold'
   subset=None // list of columns to apply to
 .highlight_min()
 .apply(fn, axis=1)
@@ -1022,7 +1040,7 @@ df.style.
     max_value = values.max()
     return ['background-color:yellow' if v == max_value else '' for v in values]
 .applymap(fn) // applies to values independently
-.set_caption(caption)
+.set_caption(caption) // title
 .bar(cmap='viridis', width=100, ...)
 .set_properties{**{'text-align': 'center'}) // set CSS attributes
 

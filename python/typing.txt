@@ -1,3 +1,16 @@
+# Misc
+from typing import TYPE_CHECKING
+if TYPE_CHECKING  // true if type checking is enabled
+
+
+# Iterable <- Collection <- Sequence
+Iterable: allows iterating only once (e.g. function with yield)
+Container: has __contains__
+|- Collection: allows iterating multiple times (e.g. set)
+  * Is also an iterable
+  |-Sequence: is ordered and allows using seq[i] (e.g. list, tuple)
+
+
 # Iterable vs. Iterator vs. Generator
 Iterable <- Iterator <- Generator
     ^------ Sequence <- List
@@ -41,12 +54,16 @@ def echo_round() -> Generator[int, float, str]:
 # pytype: disable=attribute-error
 
 
+# Passing a class
+foo_cls:  Type[Foo]
+
+
 # TypeVar
 * Templates / Generics
 * https://stackoverflow.com/questions/59933946/difference-between-typevart-a-b-and-typevart-bound-uniona-b
 
 FooOrBar = TypeVar('FooOrBar', Foo, Bar)
-def myfun(a: FooOrBar) -> FooOr Bar:
+def myfun(a: FooOrBar) -> FooOrBar:
   * Returns that same type passed as the input (Foo -> Foo; Bar -> Bar)
 
 FooOrBar = TypeVar('FooOrBar', bounds=Union[Foo, Bar])
@@ -54,6 +71,41 @@ FooOrBar = TypeVar('FooOrBar', bounds=Union[Foo, Bar])
  * Without bounds, only [Foo, Foo, Foo] or [Bar, Bar, Bar] allowed
 def return_last(a: List[FooOrBar]) -> FooOrBar:
   return a[-1]
+
+## invariance, covariance, contravariance
+* stackoverflow.com/q/61568462
+* only applicable to generics such as list[Base]
+* invariance (default): list[Derrived] can be only passed to list[Derived] (and Base to Base)
+* covariance=True: list[Derived] can be passed to list[Base]
+* contravariance=True: list[Base] can be passed to list[Derived]
+
+
+# TypeVarTuple
+* To specify an unbounded number of variables with a certain type
+* Can be only used inside tuple[...] with *Name.
+
+## Example1
+Value = TypeVar('Value', int, float)
+Values = TypeVarTuple('Values', int | float | str)
+
+def swap_first_last(values: tuple[Value, *Values]) -> tuple[*Values, Value]:
+  return (*values[1:], values[0])
+
+
+## Example2
+DType = TypeVar('Dtype', str, np.dtype)
+Shape = TypeVarTuple(Shape)
+
+class Array[Generic[DType, *Shape]]:
+
+  def __init__(dtype: DType, shape: tuple[*shape]):
+    self._array = np.empty(dtype=dtype, shape=shape)
+
+
+class Height:
+  ...
+
+array = Array[np.dtype, Height](np.float32, (3, Height(10))):
 
 
 # NewType
@@ -68,6 +120,21 @@ def create(user_id: USER_ID, book_id: BOOK_ID):
 create(UserId(1), BookId(2)) // works
 create(BookId(1), UserId(2)) // fails
 create(1, 2) // works since UserId and BookId are sub-classes of int
+
+
+# TypeAlias
+* Use to explicitly annotate a variable to be an alias
+* In particular usefor for forward references
+from foo import bar
+MyBar: TypeAlias = bar.Bar
+
+IntClass: TypeAlias[int] = 'Class[int]'
+T = TypeVar('T')
+class Class(Generic[T]):
+  @classmethod
+  def create_int_instance(cls) -> IntClass:
+    ...
+
 
 
 # casting
@@ -104,6 +171,25 @@ class Foo(TypedDict, total=False):
 f = Foo(a=1)  // no error
 
 
+# Protocol
+* For annotating complex callables for *args, or objects without clear base class (e.g. sklearn estimator)
+
+from typing_extensions import Protocol
+
+class ImportanceFn(Protocol):
+  """A function for computing importances given features x and labels y."""
+
+  def __call__(
+      self,
+      x: pd.DataFrame,
+      y: ArrayLike,
+      random_state: RandomState | None = None,
+      **kwargs,
+  ) -> pd.DataFrame:
+    ...
+
+
+
 # ClassVar
 * Marks a variable as class variable
 @dataclasses.dataclass
@@ -114,3 +200,47 @@ class Data:
 d = Data()
 d.a = 0 # failure since class variable
 d.b = 0 # no failure since instance variable
+
+# LiteralString
+def get_flags(platform: LiteralString):
+get_flags('vl') // okay
+plaform = 'vl'
+get_flags(platform) // fails; not a literal string
+
+
+
+# Literal
+* Can only be called with one of the specified values
+* Literal[ALLOWED_VALUES]
+* Literal[int] does not work
+
+def get_flags(platform: Literal[1, 2, 3]):
+  # can only be called with 1, 2, 3
+
+# Can be only called with 'pl' or 'pf'
+def get_flags(platform: Literal['pl', 'pf']):
+  # Can be only called with 'pl' or 'pf'
+
+
+# overload
+* Allows using different input/return type annotation
+* Only for type checking; only one implementation possible
+
+@overload
+def fn(a: int) -> list[int]:
+  ...
+
+@overload
+def fn(a: float) -> float:
+  ...
+
+def fn(a):
+  if isinstance(a, int):
+    return [a] * a
+  else:
+    return a
+
+
+# Callable
+Callable[..., Foo]  // Any number of input arguments
+Callable[[A, ..., Foo]  // A followed by any number of arguments

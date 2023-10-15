@@ -1,7 +1,5 @@
 import re
 
-r"string" // raw string
-
 m = re.search(pattern, string, flags)
 m is None // no match
 
@@ -44,9 +42,17 @@ d['start'], d['stop']
 
 
 # Flags
-re.I  // insensitive
-re.M  // multi line; ^ is beginning of line, not string
-re.S  // single line; . matches \n
+r'(?ism)...' // to express options in regex
+re.I | re.IGNORECASE // insensitive
+re.S | re.DOTALL // . matches also \n (it matches everything but . by default)
+re.M | re.MULTILINE // ^ matches also is beginning of a line, not only the entire string
+
+# Matching string over multiple lines
+* `.` does not match \n by default
+* Use either (.|\n)+ or re.DOTALL
+
+re.search('Foo(.|\n)+Bar', 'Foo\nXXXX\nBarXXXX')
+re.search('Foo.+Bar', 'Foo\nXXXX\nBarXXXX', re.DOTALL)
 
 
 # Grep lines from file
@@ -81,3 +87,24 @@ re.search(r'[^-]+(?=bar)', 'abcba') // fails since string does not end with 'bar
 ## Ignore a group (non-capturing group)
 re.search(r'(set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('set', '1')
 re.search(r'(?:set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('1',)
+
+## Named groups
+m = re.fullmatch(r'(--)?(?P<name>[^=]+)(=(?P<value>[^=]+))?', flag_string)
+m.group('name')
+m.group('value')  // None if missing
+m.groups()  // returns tuple of values
+.m.groupdict() returns dict mapping group names to group values
+.m.group('name')
+
+
+# Escaping / raw string
+* Enables using backslash '\' in string without escaping
+* Use in regex when it is necessary to match '\'
+print('123\345') // 123å
+print(r'123\345') // 123/345
+
+
+re.fullmatch(r'\d+\\\d+', r'123\456')  # matches
+re.fullmatch('\d+\\\d+', r'123\456')  # does not match (re is not r)
+re.fullmatch('\d+\\\\\d+', r'123\456')  # matches
+re.fullmatch('\d+ \d+', '123 456')  # r not required for \d, \s, or \w

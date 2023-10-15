@@ -40,4 +40,5 @@ scikit-*
 # Update python version
 conda create -n py39 python=3.9
 conda activate py39 // add to bashrc
-conda install numpy pandas scipy scikit-learn scikit-learn-intelex hdf5 ipython seaborn matplotlib
+conda install numpy pandas scipy scikit-learn hdf5 ipython seaborn matplotlib colorama
+pip install immutabledict ipdb

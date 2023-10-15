@@ -1,13 +1,16 @@
 # Base exceptions
 * https://docs.python.org/3/library/exceptions.html#concrete-exceptions
 BaseException // base for build-in errors
-Exception // base for non-build-in errors
-ValueError // for invalid arguments (length, ...)
-IndexError  // invalid index
-TypeError // invalid dtype
-IOError
-NotImplementedError
-RuntimeError // does not fit into any other category
+* SystemExit
+
+Exception // base for non-build-in errors (
+* ValueError // for invalid arguments (length, ...)
+* IndexError  // invalid index
+* KeyError  // (dict) key does not exist
+* TypeError // invalid dtype
+* IOError
+* NotImplementedError
+* RuntimeError // does not fit into any other category
 
 try:
   raise Exception('error!')
@@ -53,3 +56,8 @@ raise ValueError('Only this message is shown') from None
 * Python3: shows the line of `raise e` in the stack although it is not needed
            requires defining e
 * Python2: does not show the source error message
+
+
+# Avoid catchig BaseException (e.g. sys.exit)
+except Exception as e: // does not catch BaseException (okay)
+except: // does catch BaseException (never use)

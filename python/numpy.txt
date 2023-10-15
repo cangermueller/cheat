@@ -320,7 +320,15 @@ random.choice(array, size, replace=False)  // sample (without) replacement from 
   * return np.ndarray, not list
   * use random.sample for sample from list
 
-## Random state
+
+## Random generator
+rng = np.random.default_rng(0)
+rng.(uniform|integer|normal|choice|permutation|...)
+isinstance(rng, np.random.Generator) == True
+isinstance(rng, np.random.RandomState) == False
+isinstance(np.random.RandomState(), np.random.Generator) == False
+
+## Random state (deprecated)
 rng = np.random.RandomState(0)
 rng.rand(5, 10)
 rng.norm(0, 1, 10)
@@ -361,9 +369,10 @@ np.alltrue(a == 1.0)
 import numpy.testing as npt
 npt.assert_ // throw exception which is recognized by unittest
 assert_array_equal(a, b)  // exact
-assert_array_less(a, b)
+assert_array_less(a, b) // assert_array_greater does not exist
 assert_allclose(a, 1.9) // approx
 assert_allclose(a, b) // approx
+assert_almost_equal // deprecated; use allclose
 
 Sorting
 =======

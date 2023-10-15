@@ -3,10 +3,13 @@ from absl.testing.absltest import mock
 
 
 # Mock, MagicMock, autospec
-MagicMock() // accepts anything
+MagicMock() // accepts anything (also non-existing __len__, __getitem__)
 Mock() // does not accept anything, but with another signature
 Mock(..., autospec=True) // requires the same signature (recommended)
-mock.create_autospec(Class, instance=True)
+m = mock.create_autospec(Class, ...) // create mock with required signature (recommended)
+  spec_set=True (default False) // disallow assigning non-existing attributes
+  instance=True // whether to create an instance of the class. Otherwise m is a callable and m() creates an instance
+
 
 
 # Asserts
@@ -47,78 +50,6 @@ pymock/matchers.py
 https://callee.readthedocs.io/en/latest/guide/usage.html
 
 
-# Patching
-mock.patch.object(module, 'object_name', ...)
-mock.patch.dict(module.my_dict, {'mock': 'dict}, ...)
-
-
-# Mocking-out objects
-patcher = mock.patch.object(reference, 'fun_name', [fun]):
-  reference: module / module.Class
-  fun: function to replace `reference.fun_name`
-  return_value=1: Change return value of fun_name
-
-m = patcher.start()
-m.call_count
-
-
-# Example 1
-def _decode_jpeg_mock(...):
-  ...
-
-def test_ReadFda(self, ignored_tag, ignored_key):
-  with mock.patch.object(topcon_converter_utils, 'decode_jpeg',
-                         _decode_jpeg_mock):
-    ...
-
-
-# Example 2
-
-class _MockEstimator():
-  pass
-
-def test_build_labeled_dataset_from_csv(self):
-  with mock.patch.object(inference_estimator, 'InfererEstimator',
-                          _MockEstimator):
-
--> inference_estimator must be imported in test file
--> replaces inference_estimator.InfererEstimator by _MockEstimator
-
-
-# Example 3
-@mock.patch.object(topcon_converter_utils, 'decode_jpeg', _decode_jpeg_mock):
-def test_ReadFda(self,  mock):
-  mock.return_value = 'hello'
-
-
-# Creating mock object
-object = mock.MagicMock()
-object.BindAndQuery.side_effect = [RETURN_1ST_CALL, RETURN_2ND_CALL]
-
-
-
-# Example 4
-* Mock-out class method
-with mock.patch.object(apt.AptamerDNNProblem, '_load_inferrer'):
-  problem = apt.AptamerDNNProblem()
-
-# Example 5
-* Testing if method was called
-update_mock = mock.patch.object(
-  solver, '_update_model_based_parameters',
-  side_effect=solver._update_model_based_parameters).start()
-loss_infos = solver.train_with_model(
-  *solver.population.to_structures_and_rewards(), num_rounds=1)
-update_mock.assert_called_once()
-
-
-# Wrapping a class
-object = MyClass()
-wrapped = mock.Mock(wraps=object)
-wrapped.foo() // will call object.foo if foo() is a method of object
-wrapped.bar() // will return default mock (?) if bar() is not a method of object
-
-
 # return_value vs side_effect
 return_value=1 // single value
 side_effect=[1, 2, 3] // iterable of values or function
@@ -150,10 +81,41 @@ mock.patch.object(module, 'my_fun', functools.partial(module.my_fun, c=3))
   ...
 
 
-# Mocking __call__ of class
-with mock.patch.object(my_lib.MyClass, '__call__', autospec=True) as m:
+# mocking a constant
+mock.patch.object(module, 'CONSTANT', new='42')
+
+
+# mocking a class attribute
+mock.patch.object(module.Class, 'attribute', new='42')
+mock.patch.multiple(module.Class, attribute=42)
+
+
+# mocking multiple things in one call
+with mock.patch.multiple(Foo, A=2, B=3):
   ...
 
 
-# mocking a constant
-mock.patch.object(module, 'CONSTANT', new='42')
+# mocking a sequence of calls
+x = mock.Mock()
+y = mock.Mock()
+mocks = mock.Mock()
+mocks.attach_mock(x.SomeMethod, 'SomeMethod')
+mocks.attach_mock(y.OtherMethod, 'OtherMethod')
+
+x.SomeMethod('abc')
+y.OtherMethod()
+x.SomeMethod('xyz');
+
+mocks.assert_has_calls([mock.call.SomeMethod('abc'),
+                        mock.call.OtherMethod(),
+                        mock.call.SomeMethod('xyz')])
+
+
+# mocking abstract class methods
+with mock.patch.multiple(AbstractClass, __abstractmethods__={}):
+  _ = AbstractClass()
+
+
+# mock environment variable
+with mock.patch.dict(os.environ, {'foo': '1'}, ...):
+  clear=True // (default False) whether to clear the dict before setting values

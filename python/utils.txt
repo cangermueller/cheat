@@ -92,7 +92,7 @@ def get_current_stack_trace():
 
 # Print calling stack trace without exception
 traceback.print_stack()
-stack_string = ''.join(traceback.format_stack()
+stack_string = ''.join(traceback.format_stack())
 
 
 # getting source code of function

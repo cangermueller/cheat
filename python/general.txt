@@ -49,19 +49,6 @@ del my_var
 import gc
 gc.collect()
 
-
-# Special variables
-__name__  == module name, if imported as module
-__name__ == __main__, if executed as script
-## input history
-_i12, _iN
-_i, _ii, _iii
-_ih
-## output history
-_12, _N
-_, __, ___
-_oh
-
 # scope information
 dir() // all names in current scope
 locals()  // dictionary of local variables
@@ -174,3 +161,18 @@ if (a:= foo()) > 3:
 
 while (line:= f.readlines()):
  print(line)
+
+
+# Ellipsis / ... / three dots
+
+## Use as placeholder
+
+@abstractmethod
+def foo(self):
+  ... // same as `pass`
+
+def foo(self, arg: ...): // type annotation unclear
+
+
+## As type
+values: tuple[int, ...]

@@ -1,0 +1,51 @@
+
+from google3.pyglib import flags
+
+# General
+--help // help target
+--helpfull // help of all imported libraries
+
+# Argument
+flags.DEFINE_X('xid'...)
+  required=True // required flags
+  short_name='x' // alias -x instead of --xid
+
+# Definitions
+flags.DEFINE_integer(name, default, descr)
+flags.DEFINE_string()
+flags.DEFINE_bool(verbose) == DEFINE_boolean
+  --verbose // True
+  --verbose=false // False
+  --verbose=0 // False
+  --verbose=1 // False
+  --noverbose // False
+  --verbose false // True, equal sign required!
+flags.DEFINE_list('values') // comma separated list
+  * values must comma-separated
+  * use ", not ' to group values!
+  --values 'a,b,"c,d"'
+flags.spaceseplist(values) // space separated list
+  --values "a b c"
+flags.DEFINE_enum('method', 'm1', ['m1', 'm2', 'm3'], 'Method to be used.')
+flags.DEFINE_multi_integer('numbers', [1, 2, 3], 'List of numbers.')
+  --numbers 1 --number 2 --number 3
+  not `--numbers 1 2 3` or `--number 1,2,3`! -> Use spaceseplist instead
+flags.DEFINE_multi_[integer|float|enum|string]
+
+
+# Markers
+flags.mark_flag_as_required('imagesets')
+ * Does not raise exception if argument is empyty '', 0, False!
+
+
+# Validators
+flags.register_validator('my_version',
+                         lambda value: value % 2 == 0,
+                         message='--my_version must be divisible by 2')
+
+# Changing flag values
+flags.FLAGS[k].value = new_value
+
+# Extensions
+go/fancyflags
+go/config-flags

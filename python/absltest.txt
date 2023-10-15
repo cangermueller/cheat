@@ -1,0 +1,169 @@
+# Setting up / tearing down
+setUp() // called at the beginning of *each* (parameterized) test
+tearDown() // called at the end of *each* (parameterized) test
+
+def setUpModule(): // executed once when running foo_test.py
+  ...
+
+class FooTest():
+
+  def setUpClass(cls): // executed once per class
+    ...
+
+# Asserts
+third_party/py/unittest2/case.py
+with assertRaises(ValueError):
+  fun_that_raises_error()
+with assertRaisesRegex(ValueError, 'r.search regex'):
+  fun_that_raises_error()
+ with assertRaisesWithLiteralMatch(ValueError, 'Exact error message')
+
+assertIsInstance(object, cls)
+assertRegex(text, pattern)  // re.search
+assertNotRegex(text, pattern)
+
+
+assertEqual
+assertAlmostEqual(a, b, places=7, delta=None)
+  delta=1 // absolute difference at most 1
+assertLess
+assertLessEqual
+assertGreater
+assertGreaterEqual
+assertLen(values, expected_length)
+assertEmpty(value) // len(values) == 0
+assertIs // a is b
+assertIsNone, assertIsNotNone
+assertIn, assertNotIn
+assertListEqual // sorted
+assertCountEqual // unsorted
+assertSameElements // unsorted + allows duplicates
+assertSequenceEqual // checks if two iteratables are equal; sorted
+  * list(numpy) -> does not work with numpy array
+  * Supports nested lists; types must be equal
+    [[1], [2, 3]] == [[1], [2, 3]]
+    [[1], [2, 3]] != [[1], (2, 3)]
+assertSequenceAlmostEqual(a, b, places=None, ...)
+assertNoCommonElements(a, b)  // checks that a and b are disjoint
+
+assert(Dict|Set|Tuple)Equal
+assertDictContainsSubset // checks if dict constains other dict
+assertStartsWith(string, prefix) // test if prefix starts with prefix
+assert(Not)?(Starts|Ends)With
+assertSequenceStarts with // same as above but for any iteratable
+assertCommandSucceeds // runs command in shell and tests if it works
+assertBetween(value, min, max) // checks if value is in range (max inclusive)
+  assertAllInRange(value, min, max) for 2d (max inclusive)
+assertContainsSubset(expected_subset, actual_superset)
+assertContainsSubsequence(list, sub_list) // [0, 1, 0, 2, 0, 3] contains [1, 2, 3]
+assertContainsExactSubsequence(list, sub_list) // [0, 1, 0, 2, 0, 3] contains [1, 0, 2]
+
+## logs
+with self.assertLogs(level=logging.INFO) as logs:
+  ...
+self.assertRegex('\n'.join(logs.output), 'foo') // logs.output is list of lines
+
+
+## print
+mock_stdout = io.StringIO()
+with mock.patch('sys.stdout', mock_stdout):
+  analysis.analyze_flag_tuning_experiment(65365497)
+
+stdout = mock_stdout.getvalue()
+print(stdout)
+self.assertRegex(stdout, 'Speedup: 3.1834/3.0060 = 5.90%')
+
+
+
+## Testing that two dicts have the same order
+* go/python-tips/012#type-specific-assertions
+assertSequenceEqual(list(d1), list(d2))
+assertDictEqual(d1, d2)
+
+# assertEqual vs. assertDictEqual, assertListEqual, ...
+* assertEqual calls assertDictEqual automatically if both arguments are dict
+* Use assertDictEqual otherwise
+
+
+# tf.test.TestCase
+* https://www.tensorflow.org/api_docs/python/tf/test/TestCase
+assertAll(Less|Greater|Equal) // smaller than
+assertAllClose(x, y, atol, rtol)
+assertAllInRange(values, min, max, ...) // [min, max] are inclusive
+  open_lower_bound=False // whether > instead of >= min
+  open_upper_bound=False // whether < instead of <= max
+assertAllInSet(values, expected_set)
+
+
+# Filtering tests
+blaze test :hello_test
+  * Following flags only work with blaze test, not binary!
+  --test_filter=WeightingUtilsTest.testSetupWeightedLoss // select specific test
+  --test_filter='.*testSetup.*' // Regex do not seem to work!
+  --test_output=streamed // print to stderr instead of file
+
+
+# Temporary directory / files
+self.create_tempdir(dirname=None)
+  dirname: optional directory name
+  .full_path: dirname as string
+  .create_file(name=None, content=None)  # create file inside the tempdir
+     name: the basename; will be joined with dirname of the tempdir
+  .mkdir('sub1/sub2'):  Create sub-directory
+self.create_tempdir('/d1').mkdir('d2/d3').full_path  -> '/d1/d2/d3'
+self.create_tempdir('/d1').create_file(file_path='image.csv', my_image)
+
+self.create_file('bar.img', image)  # Creates 'bar.img' with content `image`
+  name: must a basename (not dirname)
+  content=None: optional file content
+  mode='w'
+
+
+# Parameterized
+
+## parameters
+@parameterized.parameters(
+  -1, -3, -4, -5
+)
+def testIsNegative(self, arg): // single argument
+  self.assertTrue(IsNegative(arg))
+
+parameterized.parameters( // tuples
+ (arg1, args2),
+)
+
+parameterized.parameters( // dicts
+ dict(arg1=1, args2=2),
+)
+
+
+## named_parameters
+
+parameterized.named_parameters( // tuples
+ ('test1', arg1, args2),
+)
+
+parameterized.named_parameters( // dicts
+ dict(testcase_name='test1', arg1=1, args2=2),
+)
+
+
+## cartesian product
+
+parameterized.product(
+  arg1=[1, 2, 3],
+  arg2=[True, False],
+)
+
+
+## parameterized class
+@parameterized.parameters(
+  (1, 2, 3),
+  (4, 5, 9)
+)
+class ArithmeticTest(parameterized.TestCase):
+  def testAdd(self, arg1, arg2, result):
+    self.assertEqual(arg1 + arg2, result)
+
+  def testSubtract(self, arg1, arg2, result):
+    self.assertEqual(result - arg1, arg2)

@@ -164,12 +164,13 @@ grid = clustermap(data, ...) // heatmap + dendrogram
   col_colors= // column colors
   row_colors= // row colors
   mask=None // binary matrix of values that are no colored
-  figsize
+  figsize=None //
   kwargs // arguments passed to `sns.heatmap` (see above)
     cmap='RdBu_r'
     annot=True
   metric=['euclidean', 'correlation', 'cosine', ...]
-  z_score=axis // normalize axis (0/1) mean/std
+  z_score=axis // normalize rows (0) or columns (1) mean/std
+    0: compute mean/std per row; applied to each row
   standard_scale=axis // min-max normalize axis
 
 grid.ax_heatmap // axis heatmap

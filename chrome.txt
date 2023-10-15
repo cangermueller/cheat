@@ -41,3 +41,7 @@ sudo mule install google-chrome 80.0.3987.132
 
 # Reset settings
 chrome://settings/reset
+
+
+# Search engine priority
+Disable "Improve search suggestions"

@@ -405,6 +405,12 @@ g/pattern/d // delete
 g!/pattern/d  // delete lines that do not match pattern
 
 
-# Common erros
+## Search for string in buffer
+ctrl-r 0  # paste copied text in command line
+ctrl-r ctrl-w # paste current word in command line
+:h cmdline-editing
+
+
+# Common errors
 # pymode lint error after package update
 find . -name \*.pyc -delete

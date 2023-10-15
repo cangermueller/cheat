@@ -1,0 +1,73 @@
+# Special variables
+__name__  == module name, if imported as module
+__name__ == __main__, if executed as script
+
+
+# Special methods
+
+# __new__(cls)
+* Constructs and instance (self) that is then passed to __init__ to initialize the attributes of self
+* if __new__ does not return anything, __init__ is not called
+* Example: singleton class (only one instance)
+
+class Foo:
+  _singleton = None
+
+  def __new__(cls):
+    if cls._singleton is None:
+      cls._singleton = super().__new__(cls)
+    return cls._singleton
+
+  def __init__(self):
+    self.a = 1
+    self.b = 2
+
+
+f1 = Foo()
+f2 = Foo()
+tprint(f1 is f2)
+f1.a = 10
+tprint(f2.a)
+
+[08:23:24.512839 <cell-9>:16] True
+[08:23:24.716323 <cell-9>:18] 10
+
+
+
+# __init__(self)
+* Initialized the attributes of an instance created by __new__
+
+
+
+# __init_subclass__(cls)
+* Foo.__init_subclass__(cls) is called with `cls == Bar` when the interpreter hits `class Bar(Foo):`
+* Example: avoid that certain class attributes are inherited
+
+class Foo:
+  FLAGS = ['f1', 'f2']
+
+  def __init_subclass__(cls):
+    tprint('__init_subclass')
+    cls.FLAGS = []
+
+
+tprint('bar')
+
+class Bar(Foo):
+  pass
+
+tprint('bar done')
+
+tprint(Foo.FLAGS)
+tprint(Foo().FLAGS)
+tprint(Bar.FLAGS)
+tprint(Bar.FLAGS)
+
+
+[08:16:00.488218 <cell-6>:9] bar
+[08:16:00.514208 <cell-6>:5] __init_subclass
+[08:16:00.538956 <cell-6>:14] bar done
+[08:16:00.566184 <cell-6>:16] ['f1', 'f2']
+[08:16:00.594277 <cell-6>:17] ['f1', 'f2']
+[08:16:00.623511 <cell-6>:18] []
+[08:16:00.651290 <cell-6>:19] []

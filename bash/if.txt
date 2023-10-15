@@ -1,13 +1,13 @@
-Test command
+est command
 ============
 if command; then  // if command succeeds; $? == 0
 if ! command; then  // if command fails; $? != 0
 
 test -e file == [ -e file ] // $? == 0 if file exists
-  -z "$v" // True if undefined (v=)
-    * check if variable is unset
-  -n "$v" // True if defined, e.g. v=0,v=1
-    * True if 'v=', not 'v=0'
+  ${foo?} // fail if foo is undefined / empty string
+  ${foo?"err_msg"} // fail with err_msg if foo is undefined
+  -z // size zero, e.g. undefined or ""
+  -n // opposite of -z; size is not zero / defined
   -e  // file exists
   -f  // file exists
   -L // symbolic link exists
@@ -15,22 +15,35 @@ test -e file == [ -e file ] // $? == 0 if file exists
   -r  // readable
   -w  // writeable
   -x  // executable
+  !expr  // not
+  expr -a expr  // and
+  expr -o expr  // or
 
 Integer comparison
 ------------------
-
 -eq // equal
 -ne // not equal
 
 String comparision
 ------------------
+-z $s // check if string is undefined or ""; size/length zero
+$s == "" // equivalent of `-z $s`
+-n $s // opposite of `-z $s`; check if string is not (undefined or "")
+
 s1 == s2 // strings equal
 s1 != s2 // strings unequal
 s1 == 'a'* // check if s1 starts with a
 s1 == *'s2'* // check if s1 contains s2 -> only with [[ ... ]]
-!expr  // not
-expr -a expr  // and
-expr -o expr  // or
+$s =~ regex // regex matched anyware
+  if [[ $name =~ (board|worker|ps|exporter|eval) ]]; then
+    * Use without quotes!
+  ^regex  // at beginning
+  regex$  // at end
+  [0-9A-Za-z] // range
+  [^a-z]  // not
+  . // single character
+  ? // single character
+  * // multiple characters
 
 Integer comparision
 -------------------
@@ -49,18 +62,6 @@ Extended test
 =============
 [[ ... ]]
 a == 'test' // works, even if a=
-a == *substring* // check if a contains substring
-a == *suffix // check if a ends with suffix
 expr && expr  // and; a -
 expr || expr // or
 !expr // not
-$s =~ regex // regex matched anyware
-  if [[ $name =~ (board|worker|ps|exporter|eval) ]]; then
-    * Use without quotes!
-  ^regex  // at beginning
-  regex$  // at end
-  [0-9A-Za-z] // range
-  [^a-z]  // not
-  . // single character
-  ? // single character
-  * // multiple characters
