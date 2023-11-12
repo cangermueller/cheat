@@ -29,3 +29,7 @@ port install vim +python27
 /Library/Frameworks/Python.framework
 ## Macpors
 /opt/local/Library/Frameworks/Python.framework
+
+# Default packages
+Install vim; $cv/install.sh
+sudo port install go rg tree

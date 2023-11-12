@@ -2,6 +2,10 @@
 
 # sudo port install vim +huge +python39 +perl +ruby +gtk2
 
+## For COC
+sudo port install go nodejs18
+cd $VB/coc.vim && git checkout release  // https://github.com/neoclide/coc.nvim/issues/3258#issuecomment-1565392051
+
 # 200324
 ./configure \
     --with-features=huge \

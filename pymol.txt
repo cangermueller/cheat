@@ -6,6 +6,7 @@ zoom: right click + drag
 hide all
 show cartoon, vhh72
 select T103,  chain A and resi 99
+select delta_rbm, delta_rbd and pepseq NLDSKVGG  // select by sequence:w
 label select, "name"
 hide label // hide all labels
 hide everything, hetatm // hide molecules
@@ -14,9 +15,13 @@ hide everything, hetatm // hide molecules
 set seq_view, on // show sequence (1 == on, 0 == off for hide)
 bg_color white
 remove solvent  // removes hydrogens and water molecules (HOH)
+remove chain A  // removes the atoms (sequence) of chain A
+delete sele // delects and object, .e.g. selection
 reinitialize  // delete objects and reinitialize session
 zoom 'visible'
 origin vhh72 // sets vhh72 as the center of rotation
+print(cmd.get_names('selections')) // show all selections
+print(cmd.get_names('objects')) // show all object names selections
 
 # Saving PDBs / Fasta
 save seq.fasta, 6waq and chain A // save sequence of chain A  to fasta file
