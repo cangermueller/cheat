@@ -81,6 +81,8 @@ g = p.add_argument_group('other arguments', description=None)
 g.add_argument(...)
 
 # Forwarding/passing unused args
-1. opts, unknown_opts = parser.parse_known_args(args[1:])
-2. p.add_argument('rest', nargs=argparse.REMAINDER)
-  * arg.parse.REMAINDER == '...', similar to '*'
+opts, unknown_opts = parser.parse_known_args(args[1:])
+  opts is namespace, e.g. opts.foo
+  unknown_opts is list of args, e.g. ['--foo' '-b']
+p.add_argument('rest', nargs=argparse.REMAINDER)
+ * arg.parse.REMAINDER == '...', similar to '*'

@@ -118,4 +118,6 @@ with mock.patch.multiple(AbstractClass, __abstractmethods__={}):
 
 # mock environment variable
 with mock.patch.dict(os.environ, {'foo': '1'}, ...):
+with mock.patch.dict(os.environ, foo=1, ...):
+with mock.patch.dict(os.environ, ...):
   clear=True // (default False) whether to clear the dict before setting values

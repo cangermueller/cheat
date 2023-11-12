@@ -157,6 +157,14 @@ to_markdown(...)
   tablefmt=(simple|github|presto|grid|...)  // pypi.org/project/tabulate/
 
 
+## Parse excel sheet
+import io
+import pandas as pd
+pd.read_csv(io.StringIO('''
+a,b,c
+1,2,3
+'''))
+
 
 # Reading large file / chunking
 reader = pd.read_X(..., chunksize=10)
@@ -579,10 +587,9 @@ g = df.groupby(['c1', 'c2'], ...)
   as_index=False
     * adds default index (0, ..., N-1) instead of group index as index
     * group_keys does not add an index!
-  group_keys=False
+  group_keys=True
     * only when calling apply
-    * use to ignore group index
-    * reuses original index
+    * whether to add group keys to index
 for name, group in groups:  // iterate over groups
 g.groups  // dictionary
   .keys() // group keys

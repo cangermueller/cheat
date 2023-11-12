@@ -146,6 +146,7 @@ tsplot(data, ...)
 heatmap(data, ...)
   data: matrix-like numpy array or DataFrame
   annot=False // print values in cells
+  annot_kwargs = dict(fontsize=10)
   fmt='d|f' // annotation format
   cmap='RdBu_r'
   xticklabels=
@@ -181,6 +182,26 @@ grid.ax_rowdendrogram
 
 ## Getting row/col labels
 row_labels = data.index[grid.dendrogram_row.reordered_ind]
+
+# Example
+def _spearmanr(x, y):
+  idx = np.isnan(x) | np.isnan(y)
+  if idx.all():
+    return 0
+  else:
+    r = 1 - sps.spearmanr(x[~idx], y[~idx])[0]
+    return 0 if np.isnan(r) else r
+
+grid = sns.clustermap(
+    df,
+    cmap='rainbow',
+    metric=_spearmanr,
+    annot=True,
+    fmt='.1f',
+    annot_kws={'fontsize': 10}
+)
+grid.ax_heatmap.set_xlabel('')
+grid.ax_heatmap.set_ylabel(study)
 
 
 # Histogram / density plot

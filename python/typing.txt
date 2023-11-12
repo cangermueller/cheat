@@ -244,3 +244,11 @@ def fn(a):
 # Callable
 Callable[..., Foo]  // Any number of input arguments
 Callable[[A, ..., Foo]  // A followed by any number of arguments
+
+
+# Annotated
+* Enables adding metadata to variables
+* Can be retrieved at runtime with x.__metadata__
+* Metadata is not used for type checking
+x = Annotated[int, 'foo', 'bar']
+x.__metadata__ == ('foo', 'bar')

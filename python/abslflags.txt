@@ -43,9 +43,31 @@ flags.register_validator('my_version',
                          lambda value: value % 2 == 0,
                          message='--my_version must be divisible by 2')
 
+
+# Accessing flags
+flags.FLAGS.xla_flag // value
+flags.FLAGS['xla_flag'] // flag holder
+flags.FLAGS['xla_flag'].value // value
+flags.FLAGS['xla_flag'].default_value // default value
+
 # Changing flag values
+flags.xla_flag = new_value
 flags.FLAGS[k].value = new_value
 
 # Extensions
 go/fancyflags
 go/config-flags
+
+
+# Flagsaver
+from absl.testing import flagsaver
+"//third_party/py/absl/testing:flagsaver",
+
+## decorator
+@flagsaver.flagsaver(a=1, b=2) // flag values must be parsed
+@flagsaver.as_parsed(a='1', b='2') // flag values must be strings
+@flagsaver.as_parsed(**{flags_dict}) // apply dict
+
+## context
+with flagsaver.flagsaver(...):
+with flagsaver.as_parsed(...):

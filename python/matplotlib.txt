@@ -66,9 +66,13 @@ imshow(image) // plot image (mxn array) values/heatmap
 plot_surface(x, y, z, cmap=)  // from mpl_toolkits.mplot3d.axes3d import Axes3D
 hist(x, bins=n, normed=False, cumulative=False)
 vlines(x, vmin, vmax)
-text(x, y, text, fontsize=12, ha='center', va='center', rotation=45, bbox=)
+
+
+# Text
+ax.text(x, y, text, fontsize=12, ha='center', va='center', rotation=45, bbox=)
   x, y scalars, not array!
   fontweight='bold'
+plt.text(0.5, 0.9, text, ha='center', va='top', transform=ax.transAxes)
 annotate('text', xy=(x, y), xytext=(x, y), bbox=, arrowprops=, coords=) // x, y are scalars!
   fontsize=14
   fontweight='bold'
@@ -167,7 +171,8 @@ ax.imshow(image)
 ax.axis('off') // no axis
 fig.savefig(out_file, bbox_inches='tight', transparent=True) // remove border/margin
 plt.tight_layout() // apply to current figure(s)
-fig.set_tight_layout(True) // apply to specific figure
+fig.tight_layout() // apply to selected figure(s)
+fig.set_tight_layout(True) // deprecated
 
 
 # imshow / matshow for images / heatmap
