@@ -1,3 +1,10 @@
 from datetime import datetime
 datetime.now().strftime('%y%m%d_%H%M%S%f')
   %f are milliseconds
+
+start = datetime.datetime.now() // isinstance datetime.datetime
+fn()
+elapsed = datetime.datetime.now() - start  // isinstance datetime.timedelta
+elapsed.total_seconds() // s, e.g. 1.345
+elapsed.total_seconds() * 1e3  // ms
+elapsed.microseconds() // microseconds after decimal, e.g. 345000

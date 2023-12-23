@@ -35,8 +35,8 @@ isdigit == isnumeric == isdecimal // True if *positive int*
 
 isalpha // a-z
 isalnum // a-z0-9
-replace(what, by, ...)
-  * what can be regex, e.g. '^chr'
+replace(what, by, regex=False, ...)  # regex=False is default
+  * what can be regex, e.g. '^chr' if regex=True (default is False)
   * matches anywhere
   * col.str.replace(r'.*_m-([^_]+).*', '\\1')
   case=False // case insensitive
@@ -46,7 +46,8 @@ pad(length, fillchar=' ') // extend length
 startswith(string)  // starts with string (not re!)
 fullmatch(re, ...) // matches full string
 match(re, case=True, flags=0) // == re.match; matches at beginning
-contains(re)  // == re.search; matches anywhere
+contains(re, regex=True, ...)  // == re.search; matches anywhere
+  regex=True is default
   na=None // to specify the result of NaN value
 extract('([a-b]+).*(\d+)', expand=True) // extract pattern and return df
 extract('(?P<name1>[a-b]+).*(?P<name2>\d+)', expand=True) // extract pattern and return df with columns 'name1' and 'name2'

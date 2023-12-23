@@ -1,0 +1,23 @@
+# absllog log level
+* higher -> more verbose
+FATAL: -3
+ERROR: -2
+WARN: -1
+INFO: 0
+DEBUG: 1
+
+# Default logging levels
+* docs.python.org/3/library/logging.html#logging-levels
+NOTSET: 0
+DEBUG: 10
+INFO: 20
+WARNING: 30
+ERROR: 40
+FATAL: 50
+
+# VLOG
+* higher -> more verbose
+--v=<level>  // log if level <= <level>
+--vmodule=<basename>=<level>
+VLOG(N) <<
+if (VLOG_IS_ON(N)) {}

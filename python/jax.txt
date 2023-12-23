@@ -1,0 +1,32 @@
+# Misc
+make_jaxpr(f)   // traces f and returns representation
+jax_array = jax.device_put(numpy_array)  // copies data to device and returns copy
+
+
+# Random
+from jax import random
+
+key = random.PRNGKey(0)
+random.uniform(key, shape=(), dtype=jnp.float_, minval=0, maxval=1)
+random.normal(key, shape=(), dtype)
+  // use values * std + mean to change mean / std
+random.choice(key, values, shape=(), replace=False)
+
+# JIT
+* Traces the shape and dtype of arguments
+* Jitted function is compiled when called the first time with arguments
+* Calling jitted function with other shape or dtype triggers re-compilation
+
+jax.jit(f)(x, y)
+
+
+# AOT compile
+shape = jax.ShapeDtypeStruct((1,), 'float32')
+fl = jax.jit(f).lower(shape, shape)
+  * lower() lowers to StableHLO
+  * Only requires knowing the shape but can be also called with array
+  * fl.as_text() return HLO text
+fc = jl.compile()
+  * XLA compiled
+  * fc can be only called with jax.array with right dtype and shape
+  * fc.cost_analysis() return stats (flops; memory)

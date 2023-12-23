@@ -61,7 +61,10 @@ def test_something(self):
 
 
 # setting up patcher in setUp()
-go/python-tips/032
+* go/python-tips/032
+* only absltest.TestCase, not unittest
+* cleaned in tearDown, not after each test -> do not use in test method!
+
 def setUp(self):
   super().setUp()  #  If we override setUp, we must call super()!
   self.mock_upload_meme = self.enter_context(mock.patch.object(
@@ -121,3 +124,30 @@ with mock.patch.dict(os.environ, {'foo': '1'}, ...):
 with mock.patch.dict(os.environ, foo=1, ...):
 with mock.patch.dict(os.environ, ...):
   clear=True // (default False) whether to clear the dict before setting values
+
+
+# mock.patch vs. mock.patch.object
+mock.patch('module.fn', return_value=123)
+  * takes string; does not require that 'module' is imported
+mock.patch.object(module, 'fn', return_value=123)
+  * takes reference of actual object
+-> prefer mock.patch.object and import modules directly
+
+
+# Different ways of applying patch
+class TestFoo(parameterized.TestCase):
+
+  @mock.patch('jax.default_backend', return_value='foo0')
+  def test_foo0(self, _):
+    print(jax.default_backend())
+
+  def test_foo1(self):
+    m = mock.patch('jax.default_backend', return_value='foo1')
+    m.start()
+    print(jax.default_backend())
+    m.stop()
+
+  def test_foo2(self):
+    m = mock.patch('jax.default_backend', return_value='foo2')
+    with m:
+      print(jax.default_backend())

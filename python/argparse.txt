@@ -86,3 +86,16 @@ opts, unknown_opts = parser.parse_known_args(args[1:])
   unknown_opts is list of args, e.g. ['--foo' '-b']
 p.add_argument('rest', nargs=argparse.REMAINDER)
  * arg.parse.REMAINDER == '...', similar to '*'
+
+
+# Boolean flag
+p.add_argument(
+    '-f', '--foo',
+    action=argparse.BooleanOptionalAction,
+    default=True,  # False if not specified (default)
+    help='Foo'
+)
+# opts.foo is None (if unset)
+-f, --foo  # opts.foo == True
+--no-f, --no-foo  # opts.foo == False
+--foo=(1|true)  # does not work

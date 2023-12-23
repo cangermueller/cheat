@@ -167,3 +167,20 @@ class ArithmeticTest(parameterized.TestCase):
 
   def testSubtract(self, arg1, arg2, result):
     self.assertEqual(result - arg1, arg2)
+
+
+# Registering custom comparator
+addTypeEqualityFunc(MyType, my_comparator(a, b))
+  Should raise self.failureException(msg) if a != b
+
+
+# Failing / custom validator
+* go/python-tips/006
+* The following patterns are all equivalent and raise AssertionError
+
+assert a != b, 'a != b'   // can be disabled by -O command line flag
+
+if a != b:
+  self.fail('a != b')  // Raises AssertionError
+  raise failureException('a != b')
+  raise AssertionError('a != b')

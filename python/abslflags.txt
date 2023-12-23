@@ -27,6 +27,7 @@ flags.DEFINE_list('values') // comma separated list
 flags.spaceseplist(values) // space separated list
   --values "a b c"
 flags.DEFINE_enum('method', 'm1', ['m1', 'm2', 'm3'], 'Method to be used.')
+flags.DEFINE_enum_class('method', MyEnumClass.Value1, MyEnumClass, 'Enum with possible values')
 flags.DEFINE_multi_integer('numbers', [1, 2, 3], 'List of numbers.')
   --numbers 1 --number 2 --number 3
   not `--numbers 1 2 3` or `--number 1,2,3`! -> Use spaceseplist instead
@@ -61,9 +62,7 @@ go/config-flags
 
 # Flagsaver
 from absl.testing import flagsaver
-"//third_party/py/absl/testing:flagsaver",
 
-## decorator
 @flagsaver.flagsaver(a=1, b=2) // flag values must be parsed
 @flagsaver.as_parsed(a='1', b='2') // flag values must be strings
 @flagsaver.as_parsed(**{flags_dict}) // apply dict

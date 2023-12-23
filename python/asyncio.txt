@@ -1,0 +1,109 @@
+# General
+* Has been derived from Generator (function with yield)
+* await behaves similar to yield
+  - yield  f waits until next() is called
+  - await f waits until executing f is finished (and gives control to other
+    coroutines)
+
+# Nomenclature
+# Awaitable: any object that can be awaited
+# - Coroutine function: `async def ..` function
+# - Coroutine object: object returned by calling async def
+# - Task: used to schedule coroutines concurrently
+# - Future: operation like asyncio.gather that represents future results of op
+
+
+# Type
+async def fn1(n) -> list[int]: // returns list when executed with asyncio.run
+  ints = []
+  for i in range(n):
+    print(f'Fn1 {i}/{n}')
+    await asyncio.sleep(1)  # must be awaited!
+    ints.append(i)
+  return ints
+
+f: Awaitable[list[in]] = fn1(3)  // instance is Coroutine or Awaitable[T] or Coroutine[T1, T2, T2]
+f // coroutine type
+type(f) // collections.abc.Coroutine
+isinstance(f, collections.abc.Coroutine)  // true
+isinstance(f, collections.abc.Awaitable)  // true
+
+
+# gather
+async def chained():
+  ints1 = await fn1(3)
+  ints2 = await fn1(3)
+  return ints1, ints2
+
+async def gathered():
+  return await asyncio.gather(fn1(3), fn1(3))
+
+asyncio.run(chained()) // takes 6s
+asyncio.run(gathered()) // takes 3s
+
+
+# Tasks
+* Start running as soon as created with asyncio.create_task
+
+async def tasks():
+  start_time = time.time()
+  task1 = asyncio.create_task(fn1(3))  # starts running at this point
+  task2 = asyncio.create_task(fn1(4))  # starts running at this point
+  await task2  # wait task2 as it takes longer; task1 will be also finished
+  print('Took %ds' % (time.time() - start_time))
+
+
+
+# TaskGroup
+* Used to execute all tasks concurrently until last task has finished
+
+
+async def task_group():
+  # requires py311
+  start_time = time.time()
+  with asyncio.TaskGroup() as tg:
+    tg.create_task(fn1(3))
+    tg.create_task(fn1(2))
+  # Both tasks have completed here
+  print('Took %ds' % (time.time() - start_time))
+
+
+# asyncio.to_thread
+* Transforms usual blocking def to coroutine that can be waited and ran
+  concurrently
+asyncio.to_thead(fn, *args, *kwargs)
+
+
+async def threading():
+  start_time = time.time()
+  ints1, ints2 = await asyncio.gather(
+      asyncio.to_thread(fn1_blocking, 3),
+      asyncio.to_thread(fn1_blocking, 4)
+  )
+  print('Took %ds' % (time.time() - start_time))
+
+
+# ContextVar
+* Global whose value depends on the context of coroutine
+
+
+foo = contextvars.ContextVar('foo')
+
+
+async def print_context_var(uid):
+  print(f'Value uid={uid}: {foo.get()}')
+
+
+async def set_context(uid):
+  foo.set(-uid)
+  await asyncio.sleep(uid)
+  await print_context_var(uid)
+
+
+async def contextvar_example():
+  start = time.time()
+  await asyncio.gather(set_context(1), set_context(2), set_context(3))
+  print('Took %ds' % (time.time() - start))
+
+
+asyncio.run(contextvar_example())

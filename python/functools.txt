@@ -20,3 +20,27 @@ def partial_class(cls, *args, **kwargs):
 
   partial_class.__name__ = cls.__name__
   return partial_class
+
+
+# singledispatch/singledispatchmethod
+* Enables function/method overloading
+
+@functools.singledispatch
+def fun(a):
+  print('Unknown input')
+
+@fun.register
+def _(a: int):
+  print('int input')
+
+@fun.register
+def _(a: float):
+  print('float input')
+
+@fun.register(list) // complex types such as list of str must be specified
+def _(a: list):     // not impossible to differentiate between list element types
+  print('list input')
+
+# @fun.register(str) // complex types such as list of str must be specified
+def _(a: str):
+  print('string input')

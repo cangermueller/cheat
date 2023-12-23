@@ -8,6 +8,7 @@ install name
 install -r requirements.txt // install from requirements file
 install git+https://github.com/PyTables/PyTables.git@develop#egg=tables
 install -I ipdb==0.10.0 // install older version (listed on PyPI)
+!pip install git+https://github.com/google-research/google-research.git#subdirectory=covid_vhh_design
 freeze > requirements.txt // create requirements file
 uninstall name
 pip freeze | grep -v "^-e" | xargs pip uninstall -y // uninstall all packages

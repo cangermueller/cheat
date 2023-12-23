@@ -25,12 +25,17 @@ _source // shows source code
 
 
 
+# Attributes
+@dataclasses.dataclass(...)
+  * frozen=True // immutable
+  * slots=True
+    // pre-allocates memory for attributes instead of storing in __dict__
+    // faster and more memory efficient
+    // does not support multi-class inheritance / mixins
+    //   child cannot inherit multiple classes with slots=True
 
-# dataclasses
-https://docs.python.org/3/library/dataclasses.html#module-dataclasses
 
-from dataclasses import dataclass
-
+# Example
 @dataclass
 class MyClass(object):
   a: int
@@ -41,16 +46,12 @@ class MyClass(object):
   def extra_method(self):
     pass
 
-
-## dataclass(...)
-  frozen=True // make immutable
-
-
-## field(...)
+# field(...)
   init=True // whether to include the field in __init__
   eq=True // whether to include the field in __eq__
 
-## __post_init__
+
+# __post_init__
 @dataclass
 class C:
     a: float
@@ -60,50 +61,10 @@ class C:
     def __post_init__(self):
         self.c = self.a + self.b
 
-
-
-## Functions
+# Functions
 asdict(object) -> dict
   * creates a deep copy; use `vars(self).copy()` to create a shallow copy
 astuple(object)
   * creates a deep copy
 replace(object, **changes) // copy + apply changes
   * does not create a deep copy
-
-
-# attr
-
-@attr.s(...)
-class MyClass(object):
-  a = attr.ib(..)
-
-
-attr.s(...)
-  frozen=False
-  slots=False
-  eq=True
-
-
-attrs.ib(...)
-  default=1
-  type=int
-  converter=lambda x: int(x)
-
-
-# TypedDict
-* total=True is the default value
-
-class Foo(TypeDict):
-  a: int
-  b: int
-Foo(a=1, b=2)
-
-class Foo(TypeDict, total=False):
-  a: int
-  b: int
-Foo(a=1) // b does no appear when printed (None when using dataclasses)
-
-## Limitations
-* Does not allowing mixing optional and non-optional arguments
-* Does not support type checking using isinstance()
-* Does not support adding methods

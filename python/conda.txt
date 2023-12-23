@@ -12,11 +12,9 @@ conda config --set auto_activate_base false
  * creates ~/.condarc
  * add alias="conda activate py39" to bashrc
 
-
-## creating environment
-* use `conda create`, not `conda env create`!
-conda create --name NAME
-conda create py27 python=2.7 anaconda // install py27 with all anaconda packages
+ ## Create environnent
+ * not `conda env create`!
+ conda create -n cov python=3.11.6
 
 # conda install
 PKG
@@ -42,3 +40,11 @@ conda create -n py39 python=3.9
 conda activate py39 // add to bashrc
 conda install numpy pandas scipy scikit-learn hdf5 ipython seaborn matplotlib colorama
 pip install immutabledict ipdb
+
+
+# Example
+conda create -n cov python=3.11
+conda activate cov
+pip list
+pip install git+https://github.com/google-research/google-research.git#subdirectory=covid_vhh_design
+conda env remove -n cov --all

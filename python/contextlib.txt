@@ -15,3 +15,15 @@ def capture_size(values, msg='<X>'):
 
 with capture_size(df, 'Dropped <X> rows.'):
   df = df.iloc[:2]
+
+
+# Using context manager without with
+timer = Timer()
+timer.__enter__()
+fn()
+timer.__exit__()
+print(timer.elapsed)
+
+with Timer() as timer:
+  fn()
+print(timer.elapsed)

@@ -36,7 +36,8 @@ s1 == 'a'* // check if s1 starts with a
 s1 == *'s2'* // check if s1 contains s2 -> only with [[ ... ]]
 $s =~ regex // regex matched anyware
   if [[ $name =~ (board|worker|ps|exporter|eval) ]]; then
-    * Use without quotes!
+  if [[ $name =~ ^[0-9]+$ ]]; then  // is number
+    * Use without quotes!!!!
   ^regex  // at beginning
   regex$  // at end
   [0-9A-Za-z] // range

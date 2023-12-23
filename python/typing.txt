@@ -252,3 +252,11 @@ Callable[[A, ..., Foo]  // A followed by any number of arguments
 * Metadata is not used for type checking
 x = Annotated[int, 'foo', 'bar']
 x.__metadata__ == ('foo', 'bar')
+
+# Immutabledict
+FOO_TO_BAR:= immutabledict.immutabledict[str, str] = (
+  immutabledict.immutabledict(...)
+)
+
+# Final
+CONSTANT: Final[int] = 123 // cannot be reassigned
