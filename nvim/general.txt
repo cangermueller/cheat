@@ -1,0 +1,86 @@
+# Variables
+ini* vim.g.foo= // global variables
+  - same set `let g:foo`
+vim.g.mapleader = '\'
+vim.g.maplocalleader = ','
+vim.env.FZF_DEFAULT_OPTS = '--layout=reverse'  // environment variables
+:let g:foo  // show value
+
+# Options
+* vim.o.foo  // general options (window and buffer)
+  - same as `set foo`
+* vim.opt.foo:(prepend|append|insert) // enables modifying lists
+* vim.wo.foo  // window option
+* vim.bo.foo  // buffer option
+  - same as `setlocal foo`
+:set foo?  // show value
+:lua vim.o.foo // show value
+
+vim.o.relativenumber = true
+vim.o.number = true
+vim.opt.rtp.append('~/.config/nvim')
+
+
+
+# Executing functions
+:lua =vim.fn  // show functions
+if vim.fn.has('myfn') == 1 then // test if function exists
+vim.fn.myfn(arg1, arg2)
+vim.fn['myfn'](arg1, arg2)
+vim.call('fn', arg1, args)
+
+# Executing vimscript commands
+vim.cmd(':split<cr>:wincmd l<cr>')
+vim.cmd 'source ~/.vim/vimrc'  // brackets are not needed
+vim.cmd [[
+  set relativenumber
+  set number
+]]
+:lua vim.cmd(':split<cr>:wincmd l<cr>')
+
+# Key bindings
+vim.keymap.set(MODE, MAP, fn, {...})
+  M: Modes, 'n', 'v', {'n', 'v'} for multiple modes
+  FN: lua function / vimscript
+  {...}: desc = 'Description', remap = True
+vim.keymap.set('n', '<c-w> L', ':split<cr>:wincmd l<cr>', {desc = 'Window left'})  // vimscript command
+vim.keymap.set('n', '<leader> p, print_something) // custom function
+:map <leader> p  // show mapping and description
+
+# Custom command
+vim.api.nvim_create_user_command('Q', ':qa!', {desc = 'Close'})
+vim.api.nvim_create_user_command('Q', lua_fn, {bang = True})
+
+
+# rtp / runtimepath
+* See also github.com/nanotee/nvim-lua-guide#where-to-put-lua-files
+rtp = 'foo,bar'
+require('mymodule')
+* Searches for module in this order (always append lua/ to rtp!)
+  foo/lua/mymodule.lua
+  foo/lua/mymodule/init.lua
+  bar/lua/mymodule.lua
+  bar/lua/mymodule/init.lua
+
+## Example
+vim.opt.rtp.prepend('~/.config/nvim') // prepend to get highest priority
+
+~/.config/nvim/lua/my/init.lua')
+   return {setup = _setup}
+require('my').setup()
+
+~/.config/nvim/lua/my/utils.lua')
+require('my.utils')
+
+
+# Module structure
+RTP/mymodule/
+    * loaded on `require(mymodule)` if `RTP` (not RTP/mymodule) is in rtp (vim.opt.rtp:prepend('RTP'))
+  |- plugin/any.lua
+     * loaded if `RTP/mymodule` is in rtp (`vim.opt.rtp:prepend('RTP/mymodule)`
+     * the file name does not matter
+  |- ftplugin/python.lua
+      * loaded if 'RTP/mymodule` is in rtp and loading a python file
+      * file name corresponds to file type
+  |- lua/file.lua
+      * can be loaded with `require` if `RTP/mymodule` is in rtp

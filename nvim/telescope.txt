@@ -1,0 +1,8 @@
+c-c // exit
+c-n // next item
+c-p // previous items
+c-t // open in tab
+c-v // open in vertical split
+c-d // scroll down in preview mode
+c-u // scoll up in preview mode
+c-/ // show help

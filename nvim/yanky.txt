@@ -1,0 +1,7 @@
+https://github.com/gbprod/yanky.nvim
+
+# Default mappings
+return // p below
+c-g // p below
+c-k // P above
+c-x // delete item

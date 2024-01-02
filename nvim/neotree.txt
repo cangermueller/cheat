@@ -1,0 +1,5 @@
+# Keymaps
+c-s // open in vsplit
+c-S // open in split
+c-P // toggle preview
+c-l // focus on preview

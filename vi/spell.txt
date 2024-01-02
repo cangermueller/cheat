@@ -1,7 +1,0 @@
-\ss // togle spell
-\sj // next
-\sk // previous
-\s? // show list
-\sa // add to spelling list
-\sA // remove from spelling list
-

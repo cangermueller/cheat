@@ -1,0 +1,44 @@
+# if / else
+function cmp_int(i)
+  if ~= 2 then  // ~= means unequal
+    print('Not 2')
+  elseif i == 2 then
+    print('Equals 2')
+  elseif i < 0 then
+    print('Negative')
+  else
+    print('Positive')
+  end
+end
+
+
+# Loops
+for i = 1,10 do  // loop counter is local variable!
+  print(i)
+end
+
+i = 10
+
+while i > 4 do
+  i = i - 1
+  print(i)
+end
+
+repeat
+  i = i + 1
+until i > 10
+
+
+# Tables
+foo = {a = 1, b = 2}
+foo.a == foo['a']
+foo.b = nil // delete element
+
+
+# Functions
+function add_number(a, b)
+  a + b // functions without return do *not* return last expr. as in Python!
+end
+
+function(...) // variable number of arguments
+  #{...} // number of arguments

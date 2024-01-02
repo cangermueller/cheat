@@ -1,0 +1,16 @@
+# neovim/nvim-lspconfig
+* :help lspconfig
+* Configurations for LSP clientkeybindings
+  - which language server to use
+  - keybindings (goto definition, declaration, ...)
+
+# nvimdev/lspsaga
+* Extends nvim-lspconfig by better UI
+* Also defines keybindings (goto definition, declaration, ...)
+
+# hrsh7th/nvim-cmp
+* Command completion that supports different sources
+  - Buffer
+  - LSP
+  - Snippets
+  ...

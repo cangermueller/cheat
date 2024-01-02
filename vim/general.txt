@@ -240,8 +240,10 @@ set cc=+1 // +1 after textwidth
 :setlocal cm=blowfish // strong
 
 # Spell correction
+[s  // previous
 ]s  // next
-z+  // correct
+z=  // list corrections
+zk  // correct
 zg  // add to good list
 
 # Compilation

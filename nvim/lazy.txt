@@ -1,0 +1,2 @@
+keys = {}  // will merge (and replace) key maps of parent
+keys = function() return {} end  // will replace parent key maps
