@@ -19,5 +19,8 @@ FATAL: 50
 * higher -> more verbose
 --v=<level>  // log if level <= <level>
 --vmodule=<basename>=<level>
+--vmodule=gpu_compiler=1
+  * file extension not needed (not gpu_compile.cc)
+  * can be full path (vmodule=../service/gpu/gpu_compiler)
 VLOG(N) <<
 if (VLOG_IS_ON(N)) {}

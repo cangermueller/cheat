@@ -29,10 +29,28 @@ repeat
 until i > 10
 
 
+# Iterator
+for k in pairs({"a", "b", "c"}) do // iterate over keys -> {1, 2, 3}
+for k, v in pairs({"a", "b"}) do  // iterate over keys/values {{1, "a"}, {2, "b'})
+for k, v in pairs({a=10, }) dp -> {"a", 10}, ...
+
+for i, v in ipairs({a=1, 100, 200, b=2, 300}) do  // Only shows indices (i) of table entries without explicit key
+-> {2, 100}, {3, 200}, {5, 300}
+
+
 # Tables
+foo = {1, 2, 3}
 foo = {a = 1, b = 2}
+foo = {"a", "b"} == {1="a", 2="b"}   // key values are indices if not specified
+foo[1] == "a"  // index begin at 1!
+
 foo.a == foo['a']
 foo.b = nil // delete element
+#{foo} == table.getn(foo)  // length of table
+
+table.insert(t, 2, "a")  // inserts "a" as 2nd element (index = 2)
+table.remove(t, 2) // rmove 2nd element in-place
+table.sort(t) // sort table in-place
 
 
 # Functions
@@ -42,3 +60,35 @@ end
 
 function(...) // variable number of arguments
   #{...} // number of arguments
+
+
+# Strings
+"ab" .. "cd"  // concat
+string.len("ab") -> 2
+string.upper("ab") -> "AB"
+string.sub("abcd", 2, 3) -> "cd"
+
+string.find("Hello 12 world 123", "%d+") // returns start-end (inclusive) of first match
+-> {7, 8}
+string.find("Hello 12 world 123", "%d+", 9) // returns start-end (inclusive) of first match starting at 9
+-> {16, 18}
+
+string.gmatch("Hello 12 world 123", "%d+") // returns all matching substrings
+-> {"12", "123"}
+
+string.gsub("Hello 12 world 123", "(%d+)", ">%1<")  // returns string with replacements and number of replacements
+-> {"Hello >12< world >123<", 2}
+
+
+# Patterns
+* `%d` instead of `\d` for match pattersn
+%d // digits
+%u  // upper character
+[a-z]
+[^a-z] // not
+. // any character
+.* // any number (greedy)
+.- // any number (not greedy)
+.+ // at least one
+string.gmatch("abcd123ASD345xy", "(%d+)%u")  // (...) for capture group
+-> {"123"}  // not "345"

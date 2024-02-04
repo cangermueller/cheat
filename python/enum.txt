@@ -1,0 +1,34 @@
+# StrEnum
+* Can be used to assign arbitary string values
+
+class Choices(enum.StrEnum):
+  FOO = 'foo'
+  BAR = 'bar'
+
+Choices.FOO.value == 'foo'
+str(Choices.FOO) == 'foo'
+
+
+# IntEnum
+* Can be used to assign arbitary int values
+
+class Choices(enum.IntEnum):
+  FOO = 100
+  BAR = 200
+
+Choices.FOO.value == 100
+int(Choices.FOO) == 100
+Choices.FOO + Choices.BAR.value == 200
+isinstance(Choices.FOO + Choices.BAR, Choices) == False
+isinstance(Choices.FOO | Choices.BAR, Choices) == False
+
+# Flag / IntFlag
+* Union and intersection of choices are also instances
+
+class Choices(enum.IntFlag):
+  FOO = 100
+  BAR = 200
+
+isinstance(Choices.FOO | Choices.BAR, Choices)
+isinstance(Choices.FOO & Choices.BAR, Choices)
+Choices.FOO & Choices.BAR == 64

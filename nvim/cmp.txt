@@ -1,0 +1,5 @@
+:h cmp
+c-j // select and execute
+c-m // select and one space left
+c-n // next item
+c-p // previous item

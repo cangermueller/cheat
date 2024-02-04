@@ -92,7 +92,7 @@ p.add_argument('rest', nargs=argparse.REMAINDER)
 p.add_argument(
     '-f', '--foo',
     action=argparse.BooleanOptionalAction,
-    default=True,  # False if not specified (default)
+    default=None, // default value is None; True or False if specified
     help='Foo'
 )
 # opts.foo is None (if unset)

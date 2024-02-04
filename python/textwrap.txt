@@ -1,0 +1,28 @@
+# dedent
+ * removed common leading spaces
+ * keeps non-common leading spaces (c below)
+dedent('''\
+  a
+  b
+    c''')
+=>
+a
+b
+   c
+
+
+# wraps(text, width)
+* wraps text to <= width
+* does not break words
+wrap('''\
+foo bar
+baz''', 4)
+=>
+['foo', 'bar', 'baz']
+
+
+# shorten(text, width, placeholder='[...]')
+* Shortens a single line to width by replacing words by placeholder
+* width must be >= len(placeholder)
+shorten('Hello  world!', width=3, placeholder='...') => '...'
+shorten('Hello  world!', width=8, placeholder='...') => 'Hello...'

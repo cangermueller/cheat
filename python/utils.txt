@@ -102,3 +102,16 @@ inspect.getsource(my_fn)
 
 # Absolute path of current file
 os.path.dirname(os.path.realpath(__file__))
+
+
+# Equality / __eq__
+* NotImplmented required to assure that any_object == mock.MagicMock
+* `return` not `raise` NotImplemented
+def __eq__(self, other: Any) -> bool | types.NotImplementedType:
+  if not isinstance(other, CubeTree):
+    return NotImplemented
+  return (
+      self.left == other.left
+      and self.right == other.right
+      and self.join_expr == other.join_expr
+  )

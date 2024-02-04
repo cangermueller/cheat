@@ -1,0 +1,4 @@
+# Search options
+path:py  // search for python files in any repo
+language:python  // seaerch for python repos
+repo:nvim-treesitter/nvim-treesitter-context  // search withing certain repo

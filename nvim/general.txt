@@ -1,57 +1,3 @@
-# Variables
-ini* vim.g.foo= // global variables
-  - same set `let g:foo`
-vim.g.mapleader = '\'
-vim.g.maplocalleader = ','
-vim.env.FZF_DEFAULT_OPTS = '--layout=reverse'  // environment variables
-:let g:foo  // show value
-
-# Options
-* vim.o.foo  // general options (window and buffer)
-  - same as `set foo`
-* vim.opt.foo:(prepend|append|insert) // enables modifying lists
-* vim.wo.foo  // window option
-* vim.bo.foo  // buffer option
-  - same as `setlocal foo`
-:set foo?  // show value
-:lua vim.o.foo // show value
-
-vim.o.relativenumber = true
-vim.o.number = true
-vim.opt.rtp.append('~/.config/nvim')
-
-
-
-# Executing functions
-:lua =vim.fn  // show functions
-if vim.fn.has('myfn') == 1 then // test if function exists
-vim.fn.myfn(arg1, arg2)
-vim.fn['myfn'](arg1, arg2)
-vim.call('fn', arg1, args)
-
-# Executing vimscript commands
-vim.cmd(':split<cr>:wincmd l<cr>')
-vim.cmd 'source ~/.vim/vimrc'  // brackets are not needed
-vim.cmd [[
-  set relativenumber
-  set number
-]]
-:lua vim.cmd(':split<cr>:wincmd l<cr>')
-
-# Key bindings
-vim.keymap.set(MODE, MAP, fn, {...})
-  M: Modes, 'n', 'v', {'n', 'v'} for multiple modes
-  FN: lua function / vimscript
-  {...}: desc = 'Description', remap = True
-vim.keymap.set('n', '<c-w> L', ':split<cr>:wincmd l<cr>', {desc = 'Window left'})  // vimscript command
-vim.keymap.set('n', '<leader> p, print_something) // custom function
-:map <leader> p  // show mapping and description
-
-# Custom command
-vim.api.nvim_create_user_command('Q', ':qa!', {desc = 'Close'})
-vim.api.nvim_create_user_command('Q', lua_fn, {bang = True})
-
-
 # rtp / runtimepath
 * See also github.com/nanotee/nvim-lua-guide#where-to-put-lua-files
 rtp = 'foo,bar'
@@ -84,3 +30,104 @@ RTP/mymodule/
       * file name corresponds to file type
   |- lua/file.lua
       * can be loaded with `require` if `RTP/mymodule` is in rtp
+# Variables
+ini* vim.g.foo= // global variables
+  - same set `let g:foo`
+vim.g.mapleader = '\'
+vim.g.maplocalleader = ','
+vim.env.FZF_DEFAULT_OPTS = '--layout=reverse'  // environment variables
+:let g:foo  // show value
+
+
+# Options
+* vim.o.foo  // general options (window and buffer)
+  - same as `set foo`
+* vim.opt.foo:(prepend|append|insert) // enables modifying lists
+* vim.wo.foo  // window option
+* vim.bo.foo  // buffer option
+  - same as `setlocal foo`
+:set foo?  // show value
+:lua vim.o.foo // show value
+
+vim.o.relativenumber = true
+vim.o.number = true
+vim.opt.rtp.append('~/.config/nvim')
+
+
+# Executing functions
+:lua =vim.fn  // show functions
+if vim.fn.has('myfn') == 1 then // test if function exists
+vim.fn.myfn(arg1, arg2)
+vim.fn['myfn'](arg1, arg2)
+vim.call('fn', arg1, args)
+
+
+# Executing vimscript commands
+vim.cmd(':split<cr>:wincmd l<cr>')
+vim.cmd 'source ~/.vim/vimrc'  // brackets are not needed
+vim.cmd [[
+  set relativenumber
+  set number
+]]
+:lua vim.cmd(':split<cr>:wincmd l<cr>')
+
+
+# Key bindings
+vim.keymap.set(MODE, MAP, fn, {...})
+  M: Modes, 'n', 'v', {'n', 'v'} for multiple modes
+  FN: lua function / vimscript
+  {...}: desc = 'Description', remap = True
+vim.keymap.set('n', '<c-w> L', ':split<cr>:wincmd l<cr>', {desc = 'Window left'})  // vimscript command
+vim.keymap.set('n', '<leader> p, print_something) // custom function
+:map <leader> p  // show mapping and description
+
+# Custom command
+* nargs=1, "+", "*"  // passed as opts.fargs[1], opts.fargs[2], ...
+* bang=false // whether command accepts !, e.g., ":q!"; passed as opts.bang
+* desc="description"
+
+vim.api.nvim_create_user_command('Q', ':qa!', {desc = 'Close'})
+
+vim.api.nvim_create_user_command('Grep', function(opts)
+  require('telescope.builtin').live_grep{cwd = opts.fargs[1]}
+end, { nargs=1 })
+
+vim.cmd('cabbr gr Grep') // abbreviation
+
+
+
+# Autocmds
+* Are executed on specific events, e.g. reading/writing a certain file type
+* Should be added to augroup to enable clearing all autocmds when script is
+  sourced multiple times, e.g. in library code
+
+
+local group = vim.api.nvim_create_augroup("my_group", {clear=true})
+* name: The group namek
+* {}: Optional options; clear=true to clear command when sources multiple times
+
+vim.api.nvim_create_autocmd(
+  event="FileType",
+  pattern="python",
+  desc="Prints message if a Python file is used"
+  group=group,
+  ---command="echo 'Python file'",
+  callback=function(event)
+    print("Python file")
+    print("Event:")
+    for k, v in pairs(event)
+      print(k, v)
+    end
+  end
+)
+* event: one or muliple events (:help autocmd-events), BufRead(Pre)/BufWrite(Pre)
+* pattern: event-specific pattern (python, *.py)
+* desc: Optional description
+* group: optional autogroup group (string name) to be added to
+* command: vim command (like :echo) that can be used instead of `callback`
+* callback: lua function or string with vim script function
+* once=false: Whether is should be executed only once and then deleted
+
+
+# Current working directory
+vim.fn.getcwd()
