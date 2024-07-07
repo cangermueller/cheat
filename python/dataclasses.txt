@@ -24,6 +24,9 @@ _source // shows source code
 * NamedTuple: does not support inheritance and other features like __post_init__
 
 
+# Inheritance
+* Class with non-default attributes cannot inherit from class with default
+  attributes: stackoverflow.com/q/51575931
 
 # Attributes
 @dataclasses.dataclass(...)
@@ -62,6 +65,7 @@ class C:
         self.c = self.a + self.b
 
 # Functions
+is_dataclass(obect)  // check if isinstance dataclass
 asdict(object) -> dict
   * creates a deep copy; use `vars(self).copy()` to create a shallow copy
 astuple(object)

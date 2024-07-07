@@ -12,9 +12,10 @@ runtime ftplugin/man.vim
 # Path expansion
 <c-r>=expand('%:p')<cr>
 :echo expand('%:p')
-%:t // relative file name
-%:p // absolute file name
-%:h  // directory
+%:.  // filename relative to cwd (/CWD/dirname/basename.abc)
+%:t // basename (basename.abc)
+%:p // absolute file name (/CWD/dirname/basename.abc)
+%:h  // directory (/CWD/dirname)
 %:p:h  // absolute directory
 %:r // remove extension
 %:p:r // absolute filename without extension
@@ -282,9 +283,10 @@ gqap  // format current paragraph
 * :reg x  // display content of register x
 * <C-r> x // paste in insert mode from register x
 
+* ": default register used for yank and delete; used for paste (`p`) by default
+
+* 0: default register used for yank (not delete)
 * A, B, C, D  // append to named register
-* "": last used register
-* 0: last yank register
 " 1, 2, ...: last delete register
 
 # Variables
@@ -299,7 +301,7 @@ echo $v // show value
 let $v = 1  // define value
 
 
-# Options
+# Options / options
 set magic // set
 set nomagic // unset
 set nomagic? // show value
@@ -365,7 +367,7 @@ command -nargs=1 Emod call OpenMod("<args>") // Command `Emod` with one argument
 
 
 # Functions
-function! MyFunc(path, by)
+function! MyFunc(path, by) abort
   let path = a:path // use a: to access argument variable
   for name in ['s1', 's2', 's2'] // for loop
     let path = substitute(path, name, a:by, 'g') // use let for assignment!
@@ -373,6 +375,8 @@ function! MyFunc(path, by)
   exec "e" path // execute command
   return path
 endfunction
+
+[abort] // function will terminate as soon as error occurred
 
 :echo MyFunc("p1.p2") // print output
 :call MyFunc("p1.p2") // call function without doing anything
@@ -382,6 +386,7 @@ map <leader>x :call MyFunc('abc')<cr>
 
 
 # Search, substitute, replace
+/\V...  // search literal; only / must be escaped
 ## Misc
 s/ /\r/g // substitute space by newline
 

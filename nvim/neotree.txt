@@ -1,5 +1,10 @@
-# Keymaps
-c-s // open in vsplit
-c-S // open in split
-c-P // toggle preview
-c-l // focus on preview
+s // open in vsplit
+S // open in split
+P // toggle preview
+  l // move cursor to preview window
+</> // switch between sources (filesystem/buffers)
+
+a // add new file
+de // delete
+r // rename
+m // move

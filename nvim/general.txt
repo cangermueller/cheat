@@ -1,3 +1,10 @@
+# nvim directories
+* ~/.config/nvim
+* ~/.local/share/nvim
+* ~/.local/state/nvim
+* ~/.cache/nvim
+
+
 # rtp / runtimepath
 * See also github.com/nanotee/nvim-lua-guide#where-to-put-lua-files
 rtp = 'foo,bar'
@@ -17,7 +24,6 @@ require('my').setup()
 
 ~/.config/nvim/lua/my/utils.lua')
 require('my.utils')
-
 
 # Module structure
 RTP/mymodule/
@@ -42,24 +48,51 @@ vim.env.FZF_DEFAULT_OPTS = '--layout=reverse'  // environment variables
 # Options
 * vim.o.foo  // general options (window and buffer)
   - same as `set foo`
-* vim.opt.foo:(prepend|append|insert) // enables modifying lists
-* vim.wo.foo  // window option
-* vim.bo.foo  // buffer option
-  - same as `setlocal foo`
+vim.opt.foo:(prepend|append|remove) // enables modifying list options
+vim.opt.formatoptions = 'tcq' // set formatoptions = 'tcq'
+vim.opt.formatoptions:remove('tc') // set formatoptions-='tc'
+vim.opt.formatoptions:append('tc') // set formatoptions+='tc'
+
+vim.wo.foo  // window option
+vim.bo.foo  // buffer option
+- same as `setlocal foo`
 :set foo?  // show value
 :lua vim.o.foo // show value
 
-vim.o.relativenumber = true
-vim.o.number = true
-vim.opt.rtp.append('~/.config/nvim')
 
-
-# Executing functions
+# Executing VIM functions
+:lua =hello_world()  // test user defined function
 :lua =vim.fn  // show functions
 if vim.fn.has('myfn') == 1 then // test if function exists
 vim.fn.myfn(arg1, arg2)
 vim.fn['myfn'](arg1, arg2)
 vim.call('fn', arg1, args)
+:call  getcwd() == vim.fn.getcwd()
+
+vim.fn.expand('%:p')
+vim.fn.setreg("0", value) // copy to register
+vim.fn.getenv('USER') // access environment variables
+vim.fn.getcwd() // pwd / cwd; vim.fn.(setcwd|cwd) does not exist!
+vim.fn.filereadable(path) // ==1 if file exists and 0 else
+vim.loop.cwd() // pwd / cwd
+vim.loop.chdir() // changepwd / cwd
+opts.show_line = vim.F.if_nil(opts.show_line, true) // resolve nil
+
+vim.tbl_deep_extend('force'|'keep', tab1, tab2) // merges two tables
+  * keep: use values of tab2
+  * force: use values of tab2
+
+vim.tbl_contains(table, value) // true if table or list contains values
+vim.tbl_contains({1, 2}, 2) // true
+vim.tbl_contains({1, a=2}, 2) // true
+vim.tbl_contains({1, a=2}, 3) // false
+vim.list_extend({1, 2}, {2, 3})  // {1, 2, 2, 3}
+vim.islist({1, 2}) // true
+vim.islist({1, a=2}) // false
+
+# Executing NVIM functions
+vim.api.<fn>
+
 
 
 # Executing vimscript commands
@@ -73,13 +106,29 @@ vim.cmd [[
 
 
 # Key bindings
-vim.keymap.set(MODE, MAP, fn, {...})
-  M: Modes, 'n', 'v', {'n', 'v'} for multiple modes
-  FN: lua function / vimscript
-  {...}: desc = 'Description', remap = True
+vim.keymap.set(mode, lhs, rhs, opts)
+  default values opts:
+    remap  = false // not recursive by default, i.e. does not use existing mapping; existing mapping will be replaced
+    silent = false
 vim.keymap.set('n', '<c-w> L', ':split<cr>:wincmd l<cr>', {desc = 'Window left'})  // vimscript command
 vim.keymap.set('n', '<leader> p, print_something) // custom function
 :map <leader> p  // show mapping and description
+
+
+## Differences to vim.api.nvim_set_keymap
+* use vim.keymap.set!
+* keymap.set is higher-lever and recommended
+* keymap.set supports lua functions as rhs; not only string
+* opts are different, e.g. keymap.set uses `remap=false` instead of `noremap=true`
+
+
+## Differences between ':foo' and '<cmd>foo<cr>'
+* help <cmd>
+* <cmd> must end with <cr>; ':' can be used to enter a command (e.g. :tabnew dir/) without executing it
+* <cmd> is silent (not printed when executed); ':' requires setting silent=true (not silent by default)
+* <cmd> does not change the mode, e.g. does not leave visual mode; ':' does
+* <cmd> is somewhat more performant (because it does not change the mode)
+
 
 # Custom command
 * nargs=1, "+", "*"  // passed as opts.fargs[1], opts.fargs[2], ...
@@ -100,11 +149,12 @@ vim.cmd('cabbr gr Grep') // abbreviation
 * Are executed on specific events, e.g. reading/writing a certain file type
 * Should be added to augroup to enable clearing all autocmds when script is
   sourced multiple times, e.g. in library code
+* `:noautocmd w` // disable any autocmds on command (superuser.com/questions/439078/how-to-disable-autocmd-or-augroup-in-vim)
 
 
 local group = vim.api.nvim_create_augroup("my_group", {clear=true})
 * name: The group namek
-* {}: Optional options; clear=true to clear command when sources multiple times
+* {}: Optional options; clear=true to clear command when sourced multiple times
 
 vim.api.nvim_create_autocmd(
   event="FileType",
@@ -120,13 +170,20 @@ vim.api.nvim_create_autocmd(
     end
   end
 )
-* event: one or muliple events (:help autocmd-events), BufRead(Pre)/BufWrite(Pre)
+* event: one or muliple events (see below)
 * pattern: event-specific pattern (python, *.py)
 * desc: Optional description
 * group: optional autogroup group (string name) to be added to
 * command: vim command (like :echo) that can be used instead of `callback`
 * callback: lua function or string with vim script function
 * once=false: Whether is should be executed only once and then deleted
+
+## autocmd-events
+BufEnter  // when changing to a buffer, e.g. switching between tabs / windows
+BufNew // when starting to edit a new buffer, not swithing to existing one
+BufNewFile  // when starting to edit a file that does not exist
+BufReadPre // when starting to edit new buffer before the file content is read
+BufRead  // when starting to edit new buffer after the file content was read
 
 
 # Current working directory

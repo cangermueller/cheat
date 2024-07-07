@@ -43,7 +43,7 @@ assertSequenceEqual // checks if two iteratables are equal; sorted
   * Supports nested lists; types must be equal
     [[1], [2, 3]] == [[1], [2, 3]]
     [[1], [2, 3]] != [[1], (2, 3)]
-assertSequenceAlmostEqual(a, b, places=None, ...)
+assertSequenceAlmostEqual(a, b, places=None, ...) // like assertAlmostEqual but for a list of floats
 assertNoCommonElements(a, b)  // checks that a and b are disjoint
 
 assert(Dict|Set|Tuple)Equal
@@ -84,6 +84,13 @@ assertDictEqual(d1, d2)
 * assertEqual calls assertDictEqual automatically if both arguments are dict
 * Use assertDictEqual otherwise
 
+// This calls assertDictEqual automatically, since both argument types are 'dict'
+self.assertEqual(dict(foo='bar'), {'foo': 'bar'})
+
+// This doesn't call assertDictEqual: the second argument type is 'OrderedDict',
+// not 'dict', even though 'OrderedDict' is a subclass of dict.
+self.assertEqual(dict(foo='bar'), collections.OrderedDict([('foo', 'bar')]))
+
 
 # tf.test.TestCase
 * https://www.tensorflow.org/api_docs/python/tf/test/TestCase
@@ -107,10 +114,10 @@ blaze test :hello_test
 self.create_tempdir(dirname=None)
   dirname: optional directory name
   .full_path: dirname as string
-  .create_file(name=None, content=None)  # create file inside the tempdir
+  .create_file(name=None, content=None, ...)  # create file inside the tempdir
      name: the basename; will be joined with dirname of the tempdir
   .mkdir('sub1/sub2'):  Create sub-directory
-self.create_tempdir('/d1').mkdir('d2/d3').full_path  -> '/d1/d2/d3'
+self.create_tempdir('/d1').mkdir('d2/d3').full_path  -> '/d1/d2/d3'; not deleted at the end
 self.create_tempdir('/d1').create_file(file_path='image.csv', my_image)
 
 self.create_file('bar.img', image)  # Creates 'bar.img' with content `image`

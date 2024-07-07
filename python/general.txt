@@ -176,3 +176,33 @@ def foo(self, arg: ...): // type annotation unclear
 
 ## As type
 values: tuple[int, ...]
+
+
+# match/case
+docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching
+
+match value:
+  case 1:
+    print('1')
+  case [1]:
+    print('list[1] but not 1')
+  case (1,):  # tuple and list (different types) are treated differently
+    print('tuple(1) not list(1')
+  # case Sequence[1];  # there is no common sequence; use `match tuple(value) instead`
+  #  print('any sequence with 1')
+  case x if value in [2, 3]:  # guard clause; x captures value
+    print(f'2 or 3: {x}')
+  case (2, 3):
+    print('tuple(2, 3)')
+  case (2, x):  # x captures 2nd value
+    print(f'tuple with two elements. 2nd is {x}')
+  case (2, *_):
+    print('tuple with more elements')
+  case str():
+    print('some string')
+  case float():
+    print('some float')
+  case int():
+    print('some int')
+  case _:
+    print('else')

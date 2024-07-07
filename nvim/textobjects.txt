@@ -1,7 +1,8 @@
 [ia]q  // quote
 Q // until next quote
 [ia]y // withing triple quotes ("""")
-[ia]b // bracket
+d% // delete [ ] when placed on bracket
+[i]o // within any bracket
 C // until next closing backet
 [ia]S // subword (like word by _ or i are separators)
 [ia]n // number
@@ -11,6 +12,7 @@ n  // until last character of line
 [ia]g // greedy outer indentation
 R // rest of indentation
 r // rest of paragraph (like } but entire line)
+p // paragraph
 | // column down
 gc // block of comments
 g; // last change

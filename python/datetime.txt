@@ -1,10 +1,107 @@
-from datetime import datetime
-datetime.now().strftime('%y%m%d_%H%M%S%f')
-  %f are milliseconds
+# General
+* Use Unix time seconds to represent dates/times in safe way on different
+  platforms
+* dealing with datetime timezones is error-prone
+* Always use timezone aware datetimes (with timezone)
 
-start = datetime.datetime.now() // isinstance datetime.datetime
-fn()
-elapsed = datetime.datetime.now() - start  // isinstance datetime.timedelta
-elapsed.total_seconds() // s, e.g. 1.345
-elapsed.total_seconds() * 1e3  // ms
-elapsed.microseconds() // microseconds after decimal, e.g. 345000
+
+# Unix time
+* UTC == time relative to Greenwhich (Universial Cooridnate Time)
+* Seconds since 1970-01-01 UTC
+* Timezone is UTC!
+
+time.time()
+* safe way to get Unixtime
+* timezone independent; same value when called in different timezones at same
+  time
+time.time() == datetime.now().timestamp == datetime.now(tz=pytz.UTC).timestamp // equivalent
+
+
+# fromtimestamp() / timestamp()
+datetime.fromtimestamp(0) == dateime(1969, 12, 31, 16, 0) // creates date in current timezone without timezone attached
+datetime.fromtimestamp(0).astimezone() == dateime(1969, 12, 31, 16, 0) // create timezone aware date in current timezone
+datetime.fromtimestamp(0, tz=pytz.UTC) == dateime(1970, 1, 1, 0, 0, tzinfo=<UTC>)  // with timezone; correct
+dateime(1970, 1, 1).timestamp() == 28800  // native; timestamp() incorrectly assumes local timezone when converting to unixtime
+dateime(1970, 1, 1, tzinfo=pytz.UTC).timestamp() == 0  // correct with timezone
+datetime.fromtimestamp(x).timstamp() == x  // this is always true; with out without timezone
+datelib.DatetimeToUTCSeconds(datetime.fromtimestamp(x)) != x  // pyglib incorrect with native dt
+datelib.DatetimeToUTCSeconds(datetime.fromtimestamp(x).astimezone()) == x  // pyglib correct with aware dt
+
+
+# Native vs. timezone aware
+datetime.now()  // native; no time zone information; bad
+datetime.now().astimezone() // timzezone aware in current time; safe!
+datetime.now(tz=pytz.UTC)  // current UTC time (with tzinfo set)
+datetime.utcnow() // native; looks like UTC time but local timezone is assumed incorrectly; bad!
+datetime.now(tz=pytz.UTC)  // timezone aware UTC time (correct)
+dt.astimezone(tz=tz) // native to aware; converts and sets timezone, see below)
+dt.replace(tzinfo=None)  // aware to native; sets the timezone only without converting (see below)
+
+
+# Do not use datetime.utcnow()
+* Creates time that looks like GMT time
+* However, has no timezone (native)
+* datetime.utcnow().timestamp() - time.time() == 25200 == 7 * 60 * 60
+ - since utcnow() does not have timezone and timestamp() incorrectly assumed the
+   local time zone in this case, timestamp() computes the seconds since 1970 incorrectly
+
+
+# Timezones
+import pytz
+pytz.UTC
+pytz.timezone('US/Pacific')
+pytz.timezone('EST')
+pytz.common_timezones // list common time zones
+pytz.all_timezones // all timezones
+
+
+## Get local time zone
+now = datetime.datetime.now()
+local_now = now.astimezone()
+local_tz = local_now.tzinfo
+local_tzname = local_tz.tzname(local_now)
+
+
+# Convert between timezones
+dt = dateime.now() // current local time
+dt.astimezone(pytz.UTC) // convert to UTC time
+dt.astimezone(pytz.timezone('US/Pacific')) // convert to MTV time
+dt.astimezone(pytz.timezone('US/Eastern')) // convert to eastern time
+
+
+# Dates
+* Has no timezone
+date.date(2024, 5, 1)
+date.today()
+d.timestamp()
+datetime(pytz.UTC).date() // convert datetime (with timzone) -> date
+datetime.combine(date, datetime.min.time()) // convert date -> datetime (time 0)
+
+
+# astimezone(tz) vs. replace(tzinfo=tz)
+* astimezone convert date/time (changes numbers) and set the timezone to tz
+* replace(tzinfo=tz) only sets the timezone, without changing numbers
+* dt.replace(tzinfo=pytz.UTC) is equivalent to pytz.UTC.localize(dt)
+
+datetime.datetime.fromtimestamp(0) == datetime.datetime(1969, 12, 31, 16, 0)
+* since tz is not set, the time is converted to the local time zone (which is not set)
+
+datetime.datetime.fromtimestamp(0).astimezone() == datetime.datetime(1969, 12, 31, 16, 0, 'PST')
+ * same as above, just that the later is local-timezone aware
+
+ datetime.datetime.fromtimestamp(0).astimezone(pytz.UTC)  == datetime.datetime(1970, 1, 1, 0, 0, tzinfo=<UTC>)
+ * fromtimestamp first converts to local timezone since tz=None
+ * astimezone converts to UTC
+
+ datetime.datetime.fromtimestamp(0).replace(tzinfo=pytz.UTC) == datetime.datetime(1969, 12, 31, 16, 0, tzinfo=<UTC>)
+ * fromtimestamp converts to local timezone since tz=None
+ * replace set tzinfo, without converting to UTC
+
+
+ # datetime.combine(date, time, tz=None)
+ * Drops timezone if is unset (tz=None)!
+
+ dt = datetime.datetime.fromtimestamp(0, tz=pytz.UTC) == datetime.datetime(1970, 1, 1, 0, 0, tzinfo=<UTC>)
+ datetime.datetime.combine(dt, datetime.time(0, 0, 0)) == datetime.datetime(1970, 1, 1, 0, 0)  // no timezone (local time)
+ datetime.datetime.combine(dt, datetime.time(0, 0, 0)).timestamp() == 28800.0  // not 0 since 1970-01-01 in local time is not 0
+ datetime.datetime.combine(dt, datetime.time(0, 0, 0), tzinfo=pytz.UTC).timestamp() == 0  // expected result with tz argument

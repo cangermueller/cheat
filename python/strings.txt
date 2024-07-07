@@ -1,3 +1,4 @@
+# Unicode
 * A string s = 'Hello world' is represented as a Unicode string
 * A unicode string is a sequence of Unicode code words
 * Each code word (character) is identified by a unicode integer
@@ -23,3 +24,23 @@ hex(255) == '0xff'  // int to hex
 int('0xff', 0)  // hex string to int
 char(0xff) == 'ÿ'  // hex (no quotes!) to character
 chr(0x1f642) == smiley
+
+
+# String methods
+* docs.python.org/3/library/stdtypes.html#string-methods
+
+removeprefix('//foo')
+removesuffix('//foo')
+replace(what, by)
+strip('abc')  // removes characters (not abc!) left and rigth
+lstrip(...)  // strips from left only
+rstrip(...)  // strips from left only
+
+'a/x/b/x/d'.rsplit('/x', maxsplit=1) == ('a/x/b', '/d')
+  * rsplit == split without maxsplit attribute
+  * all rX() methods (rfind, rindex, ...) are right-to-left
+
+## Adjusting strings
+center(width)
+ljust(width)
+rjust(width)

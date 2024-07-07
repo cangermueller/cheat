@@ -1,15 +1,57 @@
+# Style guide
+* http://lua-users.org/wiki/LuaStyleGuide
+CONSTANT (local or global)
+Global  // global modifiable variable
+
+
+# Importing module
+require('foo.bar') // imports a module only once if require() used multiple times
+dotfile('foo.bar')  // imports a module multiple times
+
+
+# True / False evaluation
+* Only nil and false evaluate to evalue; not "" or 0!
+if nil // false
+if false // false
+if 0 // true
+
+if not nil // true
+if not false // true
+if not "" // false
+if not 0 // false
+
 # if / else
+* There is not ternary operator such as a = cond ? c: d
+
 function cmp_int(i)
   if ~= 2 then  // ~= means unequal
     print('Not 2')
   elseif i == 2 then
     print('Equals 2')
+  elseif i == nil then
+    print('NA')
   elseif i < 0 then
     print('Negative')
   else
     print('Positive')
   end
 end
+
+# Local variables
+local a = 'a1' -- Is local to module; can be modified in functions
+
+local function test_fn()
+  a = 'a2' -- Modifies global a
+  b = 'b1' -- Initialized new global variable that can be accessed outside of function
+  local a = 'a3' -- Local to this function; does not modify global a
+  local c = 'c1' -- Local to this function; cannot be accessed outside
+end
+
+test_fn()
+print(a) -- a2
+print(b) -- b1
+print(c) -- nil
+
 
 
 # Loops
@@ -28,20 +70,11 @@ repeat
   i = i + 1
 until i > 10
 
-
-# Iterator
-for k in pairs({"a", "b", "c"}) do // iterate over keys -> {1, 2, 3}
-for k, v in pairs({"a", "b"}) do  // iterate over keys/values {{1, "a"}, {2, "b'})
-for k, v in pairs({a=10, }) dp -> {"a", 10}, ...
-
-for i, v in ipairs({a=1, 100, 200, b=2, 300}) do  // Only shows indices (i) of table entries without explicit key
--> {2, 100}, {3, 200}, {5, 300}
-
-
 # Tables
 foo = {1, 2, 3}
 foo = {a = 1, b = 2}
-foo = {"a", "b"} == {1="a", 2="b"}   // key values are indices if not specified
+foo = {"a", "b"} == {1="a", 2="b"}   // key values are filled indices if not specified
+foo = {10, b = 2, 20} == {1 = 10, 2 = 20, b = 2}
 foo[1] == "a"  // index begin at 1!
 
 foo.a == foo['a']
@@ -51,6 +84,15 @@ foo.b = nil // delete element
 table.insert(t, 2, "a")  // inserts "a" as 2nd element (index = 2)
 table.remove(t, 2) // rmove 2nd element in-place
 table.sort(t) // sort table in-place
+
+
+# Iterator
+for k in pairs({"a", "b", "c"}) do // iterate over keys -> {1, 2, 3}
+for k, v in pairs({"a", "b"}) do  // iterate over keys/values {{1, "a"}, {2, "b'})
+
+for i, v in ipairs({a=1, 100, 200, b=2, 300}) do  // Only shows indices (i) of table entries without explicit key
+-> {2, 100}, {3, 200}, {5, 300}
+
 
 
 # Functions
@@ -63,32 +105,57 @@ function(...) // variable number of arguments
 
 
 # Strings
+* string.fn(input_string, ...) is the same as input_string:fn(...)
+
 "ab" .. "cd"  // concat
+"ab":len() -> 2
 string.len("ab") -> 2
 string.upper("ab") -> "AB"
-string.sub("abcd", 2, 3) -> "cd"
+string.sub("abcd", 2, 3) -> "cd" // Substring; not substitution (gsub)
+string.format('%d .2f%', 1, 1.23)
+
+function startswith(a, b)
+  -- Check if a starts with b
+  return a:sub(1, b:len()) == b
+end
 
 string.find("Hello 12 world 123", "%d+") // returns start-end (inclusive) of first match
 -> {7, 8}
 string.find("Hello 12 world 123", "%d+", 9) // returns start-end (inclusive) of first match starting at 9
 -> {16, 18}
 
-string.gmatch("Hello 12 world 123", "%d+") // returns all matching substrings
--> {"12", "123"}
+string.match("Hello 12 world 123", "%d+") // returns *first* matching substrings
+-> 12
+ * matches anywhere
+ * returns nil if does not match (evaluated to false)
+ * returns matching substring (can be '', which evaluated to True) otherwise
+ * a, b = match('(%d+) (%w+)') // returns matching groups, a==b==nil if no match
+
+string.gmatch("Hello 12 world 123", "%d+") // returns *iterator over all* matching substrings
+for m in gmatch(...) do ... end
 
 string.gsub("Hello 12 world 123", "(%d+)", ">%1<")  // returns string with replacements and number of replacements
 -> {"Hello >12< world >123<", 2}
+string.gsub(path, "^.*/([^/]+)/foo/", "%1/foo/", 1)  // 1 limits number of substitutions to 1; also returns the number of matches (0 or 1)
+path = path::gsub("Foo", "Bar")  // ignores the number of substitutions when unpacking to a single variable
+path:gsub("^.*/([^/]+)/google3/", "%1/google3/", 1)  // same as above
 
 
 # Patterns
+* www.lua.org/manual/5.2/manual.html#6.4.1
 * `%d` instead of `\d` for match pattersn
+* don't work for captures!! E.g. (%d+)? does not work
+
+%w // alphanumberic ([A-Za-z0-9], not _ or .
 %d // digits
 %u  // upper character
 [a-z]
 [^a-z] // not
 . // any character
+%. // match '.'; use % to escape
 .* // any number (greedy)
 .- // any number (not greedy)
 .+ // at least one
 string.gmatch("abcd123ASD345xy", "(%d+)%u")  // (...) for capture group
 -> {"123"}  // not "345"
+%1 // capture group (see gsub above)

@@ -1,0 +1,2 @@
+VCSLog  # Show change history
+VCSReview p4head  # Show content of revision (p4head) in window)

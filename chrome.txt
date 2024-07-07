@@ -45,3 +45,4 @@ chrome://settings/reset
 
 # Search engine priority
 Disable "Improve search suggestions"
+https://www.ghacks.net/2019/05/14/fix-chrome-prioritizing-search-words-over-visited-sites-in-address-bar/

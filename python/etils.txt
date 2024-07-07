@@ -1,0 +1,38 @@
+# ecolab
+
+## adhoc
+with ecolab.adhoc(
+    'workspace',
+    reload='foo.bar',  // reload all modules of that module; can be list of modules
+    cell_autoreload=True, // reload and workspace is changed
+    reload_mode=None | ecolab.ReloadMode.(UPDATE_INPLACE,
+):
+  from foo.bar import baz
+
+with ecolab.adhoc(('christofa', 'ev')):
+
+
+epy.binary_adhoc // Similar to ecolab.adhoc() but is a no-op when run outside a xmanager launch or ml_python
+
+
+## inspecting
+foo;i // same as ecolab.inspect
+foo;p // pretty print that also works with dataclasses; same as epy.pprint(foo)
+foo;ph // pretty print and syntax highlight
+
+
+# epy
+list(epy.zip_dict({'a': 1, 'b': 2}, {'a': 10, 'b': 20}))
+-> [('a', (1, 10)), ('b', (2, 20))]
+
+epy.splitby([1, 2, 3, 4], lambda x: x < 3)
+-> ([3, 4], [1, 2])
+
+epy.groupby(['a', 'bb', 'c', 'dd'], key=lambda x: len(x))
+-> {1: ['a', 'c'], 2: ['bb', 'dd']}
+
+epy.reverse_fstring('/foo/{dir}/bar/{dir2}', '/foo/a/bar/b')
+-> 'dir': 'a', 'dir2': 'b'}
+
+# capturing stdout and stderr
+etils.set_verbose()  // not a context manager like glog.Capture()

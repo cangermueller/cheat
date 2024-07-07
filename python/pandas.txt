@@ -117,6 +117,9 @@ df.filter(...)
   items=['c1', 'c2'] // select by list of items (exact match)
   regex='e$' // select by regex using re.search -> partial match
   axis=None // =1 by default for DataFrame
+series.nlargest(n) // select the n largest values
+ * pd.Series([2, 1, 2]).nlargest(2) == [2, 2]  // not performed on unique values
+df.nlargest(n, 'column') // same as series, but keeps other columns
 
 
 # IO
@@ -152,7 +155,8 @@ to_csv(file, ...)
   compression="gzip"/None // compress files
 to_string(...) // aligns columns; only use if to_csv() does not work
   index=False // no index
-  justify='left' // align columns left
+  header=False // no columns
+  justify='left' // align column labels; values are not aligned
 to_markdown(...)
   index=False // no index
   tablefmt=(simple|github|presto|grid|...)  // pypi.org/project/tabulate/
@@ -427,7 +431,7 @@ replace('\w+', '', regex=True)
 ?set_option // lists all options
 -1: infinite
 set_option('display.width', 150)
-  display.width=80 // line width
+  display.widtk=80 // line width
   display.max_colwidth=60 // max column width; longer will be truncated by ...
   display.max_rows=60
   display.max_columns=60

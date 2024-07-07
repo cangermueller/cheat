@@ -1,3 +1,4 @@
+
 # StrEnum
 * Can be used to assign arbitary string values
 
@@ -7,6 +8,7 @@ class Choices(enum.StrEnum):
 
 Choices.FOO.value == 'foo'
 str(Choices.FOO) == 'foo'
+[x.value for x in Choices] // extract sting values as a list
 
 
 # IntEnum

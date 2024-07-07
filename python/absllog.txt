@@ -11,7 +11,7 @@ DEBUG: 1
 NOTSET: 0
 DEBUG: 10
 INFO: 20
-WARNING: 30
+WARNING: 30 // WARN (logging.warn) is deprecated
 ERROR: 40
 FATAL: 50
 
@@ -24,3 +24,13 @@ FATAL: 50
   * can be full path (vmodule=../service/gpu/gpu_compiler)
 VLOG(N) <<
 if (VLOG_IS_ON(N)) {}
+
+
+# logging exceptions
+try:
+...
+except Exception:
+  logging.error(msg, exc_info=True) == logging.exception(msg)
+
+* Shows the full stack trace of the current exception
+* Does not require including the exception in the msg (Exception as e not needed)

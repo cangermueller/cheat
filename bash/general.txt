@@ -2,6 +2,7 @@
 stty -ixon  //disable <c-s> flow control
 set -e  // exit on error
 set +e  // do not exit on error
+set -x  // print executed command
 shopt -s expand_aliases // enable aliases in scripts
 shopt -s extglob // extended ls !(abc|cde) globs
 
@@ -163,6 +164,7 @@ EVENT:WORD  // !!:WORD
 
 # Debugging
 set -e  // exit on error
+set -x // print executed command
 bash -x file.sh // print executed command
 
 # ssh

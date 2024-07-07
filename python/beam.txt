@@ -1,0 +1,31 @@
+# Transforms
+Create([value1, value2, value])  // Creates PCollection given iterable
+Map(lambda x: ...)  // Applies function to each element
+MapTuple(lambda x, y: ...) // Applies function to elements that are tuples
+FlatMap(lambda x: ...) // Maps list elements to [[x11, x12], [x21, x22]] and flattens to [x11, x12, x21, x22]
+FlatMapTuple(lambda x, y: ...)  //  Maps tuples and flattens into [x1, y1, x2, x2]
+CombineByKey(fn) // Groups and combines [(k1, v1), (k1, v2), (k3, v3)] -> [(k1, fn([v1, v2]), (k3, fn([v3]))]
+CoGroupByKey()  // Groups only [(k1, v1), (k1, v2), (k3, v3)] -> [(k1, [v1, v2], (k3, [v3])]
+  ({'p1: pcol1, 'p2': pcol3}) | 'group' >> beam.CoGroupByKey()  // Joins multiple pcollections by key; {'c1': [('a', 1)], 'c2': [('b', 2)]} -> [('a', {'c1': [1], 'c2': [2]})]
+  * Yields pairs that exist in *either* of the two tables; values of one of the tables can be missing
+
+
+
+# IO
+
+io.ReadFromText(
+  file_pattern,
+)
+
+capacitorio.ReadFromCapacitor(
+      filepattern=filepattern,
+      field_names=['*'],
+      coder=beam.coders.ProtoCoder(batch_api_pb2.Revision),
+)
+
+recordio.WriteToRecordIO(
+  filepattern,
+  coder=beam.coders.ProtoCoder(foo_proto_pb2.FooProto)
+)
+
+--flume_exec_mode="IN_PROCESS" // run locally and sequentially

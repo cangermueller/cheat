@@ -61,3 +61,34 @@ raise ValueError('Only this message is shown') from None
 # Avoid catchig BaseException (e.g. sys.exit)
 except Exception as e: // does not catch BaseException (okay)
 except: // does catch BaseException (never use)
+
+
+# Notes
+* To add additional context information
+
+try:
+  raise ValueError('Foo')
+except ValueError as e:
+  e.add_note('Some note')
+  raise
+
+class MyException(Exception):
+  __notes__ = ['note1', 'note2']
+
+
+# Exception
+* To raise multipled excpetions at the same time
+
+raise ExceptionGroup('group1', [ValueError('foo'), RuntimeError('bar')])
+
+# except*
+* To catch indiviual exceptions of an exception group
+* except ValueError does not catch ExceptionGroup with ValueError
+* except* catches ValueError and ExceptionGroup with ValueError
+
+try:
+  raise ExceptionGroup('group1', [ValueError('foo'), RuntimeError('bar')])
+except* ValueError:
+  print('ValueError')
+except* RuntimeError:
+  print('RuntimeError')

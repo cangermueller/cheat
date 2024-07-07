@@ -4,7 +4,7 @@ if TYPE_CHECKING  // true if type checking is enabled
 
 
 # Iterable <- Collection <- Sequence
-Iterable: allows iterating only once (e.g. function with yield)
+Iterable: allows iterating only once
 Container: has __contains__
 |- Collection: allows iterating multiple times (e.g. set)
   * Is also an iterable
@@ -30,15 +30,10 @@ Sequence:
  - An Iterable with a __getitem__() method
  - Example: List, Tuple
 
-
-Sequences: objects that iterate via __getitem__; ordered; Sequence -> Iterable
-Tuple[str, int]: Tuple of two elements; Sequence / Iterable does not allow specifying the length!
-Tuple[str, ...]: Tuple of variable # elements
-
-# Annotating a function with yield
-* Iterator[yield_type] suited in most cases
-* Generator[yield_type, send_type, return_type] can be when using different send, yield, return types
-* https://stackoverflow.com/questions/38419654/proper-type-annotation-of-python-functions-with-yield
+## Annotating a function with yield
+* Generator[yield_type, send_type, return_type] most specific but cumbersome
+* Iterator[yield_type] is easiest most specific annotation
+* Iterator[yield_type] is the most abstract type annotation
 
 def my_iterator() -> Iterator[int]
   for i in range(10):
@@ -69,6 +64,10 @@ def myfun(a: FooOrBar) -> FooOrBar:
 FooOrBar = TypeVar('FooOrBar', bounds=Union[Foo, Bar])
  * bounds allows passing any combination, e.g [Foo, Foo, Bar]
  * Without bounds, only [Foo, Foo, Foo] or [Bar, Bar, Bar] allowed
+ * with bounds=Base, Base -> Base or SubClassBase -> SubClassBase is allowed,
+   not OtherClass -> OtherClass
+
+
 def return_last(a: List[FooOrBar]) -> FooOrBar:
   return a[-1]
 
@@ -149,20 +148,24 @@ type(typing.cast(int, '12')) == int
 
 class Foo(TypedDict):
   a: int
-  b: Optional[int]
-
+  b: Optional[int] // must be present, e.g. b=None or b=123
 
 f = Foo(a=1, b=2)
 type(f) -> dict
 isinstance(f, dict) -> true
 
 
-## total=False
+f = Foo(a=1) // error
+
+class Data(TypedDict):
+  a: Required[int]
+  b: NotRequired[int] // can be missing
+
+
+## total=False (before Required/NotRequired was introduced)
 By default, all keys must be present, but `None` is okay if annotate as Optional
 
 f = Foo(a=1, b=None) // no error
-f = Foo(a=1) // error
-
 class Foo(TypedDict, total=False):
   // Some keys can be missing
   a: int
@@ -225,6 +228,7 @@ def get_flags(platform: Literal['pl', 'pf']):
 # overload
 * Allows using different input/return type annotation
 * Only for type checking; only one implementation possible
+* Using functools.singledispath for real overloading
 
 @overload
 def fn(a: int) -> list[int]:
@@ -260,3 +264,23 @@ FOO_TO_BAR:= immutabledict.immutabledict[str, str] = (
 
 # Final
 CONSTANT: Final[int] = 123 // cannot be reassigned
+
+
+# Classmethod
+* Use -> Self:
+from typing import Self
+
+class Data:
+
+  @classmethod
+  def make(cls) -> Self:
+    foo = Data()
+    foo.a = 1
+    return foo
+
+
+# Ellipsis ... vs Any
+* Any: can be anything
+* ...: the type annotation will be inferred, e.g.
+  def f(x: float) -> ...:  // will be float
+    return x + 1

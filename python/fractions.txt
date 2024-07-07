@@ -1,0 +1,5 @@
+fractions.Fraction(1, 4)
+fractions.Fraction(0.25) // 1/4
+print(fractions.Fraction('1/2'))
+fractions.Fraction(0.5) + fractions.Fraction(0.75))
+type(fractions.Fraction(0.2))) // Fraction

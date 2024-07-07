@@ -41,6 +41,18 @@ d['start'], d['stop']
   * d['stop'] == None if missing
 
 
+# Special characerts
+\n: newline linux
+\r\n: newline windows
+\t: horizontal tab
+\v: vertical tab (historic)
+\f: new page (historic)
+\s: any whitespace [ \n\r\t\v\f]
+\S: opposite of \s [^\s]
+\w: alphanumeric [a-zA-Z0-9_].
+\W: opposite of \w
+
+
 # Flags
 r'(?ism)...' // to express options in regex
 re.I | re.IGNORECASE // insensitive

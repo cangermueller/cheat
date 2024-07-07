@@ -71,6 +71,11 @@ def setUp(self):
       memegen_client, 'UploadMeme', autospec=True))
 
 
+# Replacing function by other function
+mock.patch.object(module, 'my_fun', my_fun_test)
+mock.patch.object(module, 'my_fun', side_effect=my_fun_test) // same as above
+
+
 # Changing default arguments
 def my_fun(a, b=1, c=2, **kwargs):  // my_fun.__defaults__ == (1, 2)
   pass
@@ -93,9 +98,15 @@ mock.patch.object(module.Class, 'attribute', new='42')
 mock.patch.multiple(module.Class, attribute=42)
 
 
-# mocking multiple things in one call
-with mock.patch.multiple(Foo, A=2, B=3):
-  ...
+# mocking multiple functions, constants, etc
+from absl import logging
+
+def log(x):
+  print(x)
+
+with mock.patch.multiple(logging, info=log, warn=log):
+  logging.info('INFO')
+  logging.warn('WARN')
 
 
 # mocking a sequence of calls

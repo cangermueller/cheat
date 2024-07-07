@@ -12,7 +12,7 @@
   'hrsh7th/cmp-cmdline'
 
 
-# neovim/nvim-lspconfig
+# neovim/nvim-lspconfig / lspconfig
 * :help lspconfig
 * Configurations for LSP client
   - which language server to use
