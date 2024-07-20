@@ -34,8 +34,13 @@ def get_current_stack_trace():
   return ''.join(traceback.format_exception(exc_type, exc_value, exc_tb))
 
 
+# Formatting exceptions
+* Use repr (f'{e:r}', '%r') for formatting instead of str (f'{e}')
+* repr is more detailed; str shows only x when raising Exception(x)
+
+
 # Re-raising exception
-## No extra error message -> bare raise
+## Hide location in stack strace -> bare raise
 try:
 except BaseException:
   do_somthing()
@@ -44,10 +49,10 @@ except BaseException:
 ## Extra error message -> raise from
 try:
 except BaseException as e:
-  raise ValueError('Error occurred') from e
+  raise ValueError('Error occurred') from e  # Location included in stack trace
 
 
-## Suppress to root source message -> raise from None
+## Suppress the root source message -> raise from None
 raise ValueError('Only this message is shown') from None
 
 
@@ -77,7 +82,7 @@ class MyException(Exception):
 
 
 # Exception
-* To raise multipled excpetions at the same time
+* To raise multiple exceptions at the same time
 
 raise ExceptionGroup('group1', [ValueError('foo'), RuntimeError('bar')])
 

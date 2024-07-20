@@ -10,7 +10,7 @@ dotfile('foo.bar')  // imports a module multiple times
 
 
 # True / False evaluation
-* Only nil and false evaluate to evalue; not "" or 0!
+* Only nil and false evaluate to evaluate to false; not "" or 0!
 if nil // false
 if false // false
 if 0 // true
@@ -81,8 +81,9 @@ foo.a == foo['a']
 foo.b = nil // delete element
 #{foo} == table.getn(foo)  // length of table
 
+table.insert(t, value) // append `value` to `t`; in-place
 table.insert(t, 2, "a")  // inserts "a" as 2nd element (index = 2)
-table.remove(t, 2) // rmove 2nd element in-place
+table.remove(t, 2) // remove 2nd element in-place
 table.sort(t) // sort table in-place
 
 
