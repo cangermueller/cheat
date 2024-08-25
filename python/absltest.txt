@@ -120,7 +120,7 @@ self.create_tempdir(dirname=None)
 self.create_tempdir('/d1').mkdir('d2/d3').full_path  -> '/d1/d2/d3'; not deleted at the end
 self.create_tempdir('/d1').create_file(file_path='image.csv', my_image)
 
-self.create_file('bar.img', image)  # Creates 'bar.img' with content `image`
+self.create_tempfile('bar.img', image)  # Creates 'bar.img' with content `image`
   name: must a basename (not dirname)
   content=None: optional file content
   mode='w'

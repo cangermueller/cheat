@@ -115,6 +115,7 @@ string.upper("ab") -> "AB"
 string.sub("abcd", 2, 3) -> "cd" // Substring; not substitution (gsub)
 string.format('%d .2f%', 1, 1.23)
 
+string.match(a, '^sso://')  // Check if starts with 'sso://'
 function startswith(a, b)
   -- Check if a starts with b
   return a:sub(1, b:len()) == b

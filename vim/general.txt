@@ -200,12 +200,15 @@ middle mouse  // insert
 <c-r> i: insert from buffer 0 to command line
 
 # Jumping, scrolling
-<c-f> // scroll down page
-<c-b> // scroll up page
+<c-y> // scoll up slowly
+<c-e> // scoll down slowly
+--
 <c-d> // scroll down block
 <c-u> // scroll up block
-<c-y> // scoll up single
-<c-e> // scoll down single
+--
+<c-f> // scroll down page
+<c-b> // scroll up page
+--
 <c-r> // redo change
 H // top of page
 M // middle of page
@@ -421,3 +424,11 @@ ctrl-r ctrl-w # paste current word in command line
 # Common errors
 # pymode lint error after package update
 find . -name \*.pyc -delete
+
+# vim keymap mode
+map // normal, visual, select, operator-pending
+cmap // command line
+xmap // visual
+vmap // visual and select
+omap // operator-pending (movement commands, e.g. 'w' for next work', that can be combined with yw, for example)
+map! // insert and command line

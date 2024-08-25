@@ -1,3 +1,5 @@
+* See also more_iteratools.txt
+
 import itertools
 
 # Examples

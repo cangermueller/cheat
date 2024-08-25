@@ -170,10 +170,25 @@ c-s-t // new tab with existing kernel
 %who  // defined objects
 %whos // information about all objects
 %time commmand  // execute command once and measure time
+
 %timeit command // execute command several times and measure time
-  -n fitted if not specified // number of executions per loop; cmd is executed -n times and then the mean is computed
-  -r  3 // how oven the loop is repeated to estimate minimum of means
-        // the minimum lower-bounds the runtime; higher runtime most likely because of something else (https://docs.python.org/3/library/timeit.html#timeit.Timer.repeat)
+  * stackoverflow.com/q/48258008
+  -r # repeat: number of outer loops
+    * default: 3
+    * min (or average) is taking over outer loops
+  -n # number: number of inner loops
+    * default: fitted depending on how fast the function is
+    * To obtain one timing per loop.
+    * Should be high enough if the function is fast
+
+measurements = []
+for _ in range(r):
+   start_time = time.time()
+   for _ in range(n):
+     _ = fn()
+   measurements.append((time.time() - start_time) / n)
+return min(measurements) # or average
+
 %cd dir // change directory
 %pwd // show current directory
 %debug

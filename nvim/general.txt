@@ -103,6 +103,7 @@ vim.cmd [[
   set number
 ]]
 :lua vim.cmd(':split<cr>:wincmd l<cr>')
+vim.cmd('normal! zz')  # Execute keymap
 
 
 # Key bindings
