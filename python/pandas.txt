@@ -63,6 +63,7 @@ decode('utf') // bytes -> unicode
 cat(sep=":', na_rep='') // concatenate values
   sep=  // field separator
   na_rep=None // if None, to sep is inserted / values ignored
+wrap(max_width)  // inserts \n after max_width
 
 
 # Delete, exclude, drop columns
@@ -84,6 +85,8 @@ df.corr(...)  // computes correlation between all columns
 df.apply(fun, axis=0) // apply function over axis
   axis=0  // over rows -> return value for each column
   axis=1 // over columns -> return value for each row
+  result_type='expand' // broadcast dict / list to DataFrame
+df.map // apply function to every element of DataFrame
 
 # sample DataFrame
 df.sample(n, ...)
@@ -522,12 +525,6 @@ pd.concat([d1, d2], axis=0, ...) // join data.frames on indices
   keys=['d1', 'd2'] // create Multiindex with these outer level values
   names=['outer', 'inner']  // names of levels in Multiindex
 
-## Stacking two frames like np.concat
-* Make sure than index is equal
-a.index = range(len(a))
-b.index = a.index
-ab = pd.concat((a, b), axis=1)
-
 
 # Joining 2 DataFrames on COLUMNS
 * Join by COLUMNS! (not index as pd.concat)
@@ -708,6 +705,7 @@ df.values // numpy array used internally
 df.values.nbytes  // memory usage
 df.sort_values('column', ascending=True, inplace=False)  // sort by column(s)
   ascinding=[True, False] // multiple columns
+df.sort_values([('level1_name, 'leve2_name')]) // sort by multiindex
 df.sort_index(axis=0, inplace=False)  // sort by row index
 df.sort_index(axis=1) // sort columns by names
 df.sort_index(by='column')  // sort by column -> like sort
@@ -988,12 +986,6 @@ series = to_datetime(pd.Series(['2010-01-01', '2010-02-01', '2010-03-01']))
 series.dt // returns object to access datetime properties
 
 
-# Applying functions
-.apply(lambda row: row + 1, axis=1) // apply over rows or columns
-.applymap(lambda x: x + 1)  // apply on single elements
-.pipe(lambda df: df.iloc[:2])  // apply on entire dataframe
-
-
 # Replacing columns
 df.set_axis(new_columns, 1)
 
@@ -1051,7 +1043,6 @@ df.style.
     # Maps values to a CSS style
     max_value = values.max()
     return ['background-color:yellow' if v == max_value else '' for v in values]
-.applymap(fn) // applies to values independently
 .set_caption(caption) // title
 .bar(cmap='viridis', width=100, ...)
 .set_properties{**{'text-align': 'center'}) // set CSS attributes
@@ -1073,3 +1064,26 @@ def show_corr(corr, metric='spearmanr', absolute=True, caption=None):
       .set_table_styles(
           [{'selector': 'th', 'props': [('border', '1px solid black')]}])
   )
+
+
+# to_dict / from_dict
+df.to_dict(orient='records')  // rows as dicts [{'c1': v1, 'c2': v2, ...}]
+df.to_dict(orient='list') // columns as dicts [{'c1:' [v1, v2, ...]}]
+pd.DataFrame(dicts) // from_dict
+
+
+# Column of dicts -> DataFrame
+pd.json_normalize(df['dict'])
+
+# Convert to list / tuples
+df.values.tolist()
+df.itertuples(index=False, name=None)
+
+
+# Iterating over rows
+index, series = df.iterrows() // returns Series; dtype of Series can change over rows
+named_tuples = df.itertuples(index=True) // returns NamedTuples; more efficient
+  getattr(named_tuple, 'column') // acccess by string
+  named_tuple._asdict()['column'] // acccess by string, less efficient than getattr
+series = df.items() // iterate over columns
+df.to_dict(orient='records') // returns list instead of Iterator (inefficient)

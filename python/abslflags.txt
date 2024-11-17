@@ -70,3 +70,8 @@ from absl.testing import flagsaver
 ## context
 with flagsaver.flagsaver(...):
 with flagsaver.as_parsed(...):
+
+
+# --undefok=flagname1,flagname2
+Avoid throwing an error if --flagname1 is used although no correspondig absl
+flag is defined

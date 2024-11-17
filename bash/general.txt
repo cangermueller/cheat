@@ -124,7 +124,7 @@ args=${args[*]}
 man bash -> Parameter Expansion
 ${!v*}  // expand variable name
 ${v:-value} // assign value if undefined
-${v:?msg}  // print msg if unset
+${v?msg}  // print msg if unset; ${1?"First parameter must be set"}
 ${file.tar.gz%.*} // file.tar
 ${file.tar.gz%%.*} // file
 ${file.tar.gz#*.} // tar.gz

@@ -19,10 +19,15 @@ for m in re.finditer(pattern, string)  // like search, but iter of all hits
 re.findall(pattern, string) // all matches as str in array (see below)
 len(re.findall(...)) // count
 re.split(p, s)  // split by p; s.split(p) does not support re
+
+
+# re.sub
 re.sub(p, r, s) // subst ALL p in s by r and returns substituted string
-  re.sub(r'(.*\.)(solver)$', r'\g<1>\g<2>_cls', idx) // reference groups
-  re.sub(r'(.)\1{2,}', r'\1', 'aaabbbccc')  // replace duplicate chars
 re.subn() // like sub, but return number of replacements
+re.sub(r'(.*\.)(solver)$', r'\g<1>\g<2>_cls', idx) // reference groups
+  * use \g<1> instead of \1 since '\123' does not replace by (group1)23!
+// Backslash must be escaped in the replacement, not with re.escape!
+re.sub(regex, r'\g<1>' + repl.replace('\\', '\\\\') + r'\g<2>', text)
 
 
 # Groups
@@ -51,13 +56,20 @@ d['start'], d['stop']
 \S: opposite of \s [^\s]
 \w: alphanumeric [a-zA-Z0-9_].
 \W: opposite of \w
+\b: Word boundary (end/beginning of string; before/after whitespace)
 
 
 # Flags
 r'(?ism)...' // to express options in regex
 re.I | re.IGNORECASE // insensitive
 re.S | re.DOTALL // . matches also \n (it matches everything but . by default)
-re.M | re.MULTILINE // ^ matches also is beginning of a line, not only the entire string
+re.M | re.MULTILINE // ^ matches also beginning of a line, not only the entire string
+re.X | re.VERBOSE // ignores any whitespaces (' ' or \n) except '[ ]' and '\ ';
+                  // # must be escaped!
+  re.compile(r'''
+   \d +  # digests
+   [ ] \   # two spaces
+     ''', re.X) == re.compile(r'\d+[ ] ')
 
 # Matching string over multiple lines
 * `.` does not match \n by default
@@ -91,16 +103,13 @@ re.findall('[\w]+', source)
 
 
 # Capture groups
+(?P<name>regex): named capture group (for m.groupdict())
+(?:regex): group that is ignored (not in m.groups() / m.groupdict())
+(?=regex): positive lookahead; group that is not included m.group()
+  * re.search(f'[a-z]+(?=\d+)', ' abc213 ').group() == 'abc'
 
-## Exclude a sub-string that must exist (positive lookahead assertion)
-re.search(r'[^-]+(?=bar)', 'abcbar').group() -> abc; group() == group(0)
-re.search(r'[^-]+(?=bar)', 'abcba') // fails since string does not end with 'bar'
 
-## Ignore a group (non-capturing group)
-re.search(r'(set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('set', '1')
-re.search(r'(?:set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('1',)
-
-## Named groups
+## ?P<name> Named groups
 m = re.fullmatch(r'(--)?(?P<name>[^=]+)(=(?P<value>[^=]+))?', flag_string)
 m.group('name')
 m.group('value')  // None if missing
@@ -108,15 +117,41 @@ m.groups()  // returns tuple of values
 .m.groupdict() returns dict mapping group names to group values
 .m.group('name')
 
+## ?: Ignore a group (non-capturing group)
+re.search(r'(set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('set', '1')
+re.search(r'(?:set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('1',)
 
-# Escaping / raw string
-* Enables using backslash '\' in string without escaping
-* Use in regex when it is necessary to match '\'
-print('123\345') // 123å
-print(r'123\345') // 123/345
+## ?= Exclude a sub-string that must exist (positive lookahead assertion)
+re.search(r'[^-]+(?=bar)', 'abcbar').group() -> abc; group() == group(0)
+re.search(r'[^-]+(?=bar)', 'abcba') // fails since string does not end with 'bar'
 
+## Replace digests that are followed characters by 'DIGEST' (not the characters)
+* Use !lookahead! for things that are not replace
+re.sub(r'\d+(?=[a-z]+)', 'DIGESTS|', '123abc') == 'DIGEST|abc'
+
+## Replace characters that are preceeded by by digests by '|CHARS (not the digests)
+* Use !lookbehind! expression
+* Lookbind expression must have fixed-width; \d+ does not work, only \d
+re.sub(r'(?<=\d)[a-z]+', '|CHARS', '123abc')  == '123|CHARS'
+
+
+# Raw string (r'', r"", r""" """)
+* \ has no effect
+print(r'\n') == '\n'
+print(r'\\n') == '\\n'
+display(r'\n') == '\\n'   // display (__repr__) escapes backslashes!
 
 re.fullmatch(r'\d+\\\d+', r'123\456')  # matches
 re.fullmatch('\d+\\\d+', r'123\456')  # does not match (re is not r)
 re.fullmatch('\d+\\\\\d+', r'123\456')  # matches
 re.fullmatch('\d+ \d+', '123 456')  # r not required for \d, \s, or \w
+
+# Triple quote
+* Allows line breaks (newline \n)
+* Newline can be escaped unless in raw string
+print('''\
+a''') == 'a'
+
+print(r'''\
+a''') == '\
+a'

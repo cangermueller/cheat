@@ -179,6 +179,7 @@ values: tuple[int, ...]
 
 
 # match/case
+henryiii.github.io/level-up-your-python/notebooks/2.8%20Pattern%20Matching
 docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching
 
 match value:
@@ -206,3 +207,40 @@ match value:
     print('some int')
   case _:
     print('else')
+
+
+## Examples
+
+class Foo:
+
+  def __init__(self, a):
+    self.a = a
+
+
+class Foo2:
+  __match_args__ = ('a', )
+
+  def __init__(self, a):
+    self.a = a
+
+
+def match_type(x: Any):
+  match x:
+    case int() if x < 3:
+      print('Int < 3')
+    case int(4):
+      print('Int 4')
+    case str() if len(x) < 3: # conditional; if is "guard"
+      print('Str < 3')
+    case dict({'a': a}):  # Matches any dict that contains 'a'
+      print('Dict {a: %d}' % a)
+    case dict({'b': b, 'c': c}):
+      print('Dict {a: %d, b: %d}' % (b, c))
+    case float() | str():
+      print('Float or str')
+    case Foo():   # An instance of this class; alternative to isinstance
+      print('Foo')
+    case Foo2(x):  # capturing x requires defining __match_args__
+      print('Foo2 with %d' % x)
+    case _:
+      print('Unknown')

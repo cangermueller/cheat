@@ -1,0 +1,23 @@
+# Itertools
+first(seq) // first item of sequence or iterator
+last(seq)
+
+# Dicttools
+assoc(, a, 2, b=3)
+keymap(lambda k: k * 2, {'a': 1, 'b': 2}) // map keys
+valmap(lambda v: v + 1, {'a': 1, 'b': 2})  // map values
+itemmap(fn, dict)
+keyfilter(fn, dict)
+valfilter(fn, dict)
+itemfilter(fn, dict)
+merge({'a': 1}, {'a': 2, 'b': 3}) // merge dict; values of last dict have precendence
+merge_with(list, {'a': 1, 'b': 2}, {'a': 2, 'b': 3}) // merge values by function
+
+
+## Dict of lists to list of dicts
+DL = dict(a=[1, 2], b=[3, 4], c=[5, 6])
+[dict(zip(DL,t)) for t in zip(*DL.values())]
+
+# List of dicts to dict of lists
+LD = [dict(a=0, b=10, c=20), dict(a=1, b=11, c=21)]
+toolz.merge_with(list, LD)

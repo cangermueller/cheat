@@ -1,0 +1,30 @@
+from tqdm import auto as tqdm  // auto detects console vs. notebook
+
+# Misc
+def fn3(n):
+  for i in range(n):
+    yield i
+
+
+def fn2():
+  # Total required for objects without __len__
+  # leave=False to close and hide inner pbar and the end
+  for _ in tqdm.tqdm(fn3(10), desc='f2', total=10, leave=False):
+    time.sleep(0.05)
+
+
+def fn1():
+  pbar = tqdm.tqdm(range(3), desc='f1')
+  for i, _ in enumerate(pbar):
+    fn2()
+    time.sleep(0.05)
+
+    # Description at beginning
+    pbar.set_description(f'Current i={i}')
+    # Additional stats at the end
+    pbar.set_postfix(i=i, i2=i * 2)
+
+
+# Pandas
+tqdm.tqdm.pandas(desc='DF')
+_ = df['a'].progress_map(lambda x: x ** 2)

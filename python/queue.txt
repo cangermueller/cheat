@@ -1,0 +1,58 @@
+# Queue
+
+## collections.dequeue
+* queue: only supports removing elements from the back
+* dequeue: also supports removing elements form the front
+
+import collections
+
+q = collections.deque([1, 2, 3], maxlen=None)
+q.append(4)
+q.extend([5, 6])
+while q:
+  print(q.popleft())
+
+
+## queue.Queue
+* Used for synchronizing threads
+* thread-safe
+* Use collections.dequeue otherwise
+
+import queue
+
+q = queue.Queue(maxsize=0)
+q.put(1)
+q.put(2)
+while not q.empty():
+  print(q.get())
+
+
+# Priority queue
+
+## heapq
+* see heapq.txt
+
+q = []
+heapq.heappush(q, 3)
+heapq.heappush(q, 1)
+heapq.heappush(q, 2)
+
+q = [3, 1, 2]
+heapq.heapify(q) // in-place
+
+while q:
+  print(heapq.heappop(q))
+
+## queue.PriorityQueue
+* For threads (like queue.Queue)
+* Wrapper around heapq
+
+pq = queue.PriorityQueue()
+
+pq.put((1, "Task 1"))
+pq.put((3, "Task 3"))
+pq.put((2, "Task 2"))
+
+print(pq.get())  # Output: (1, 'Task 1')
+print(pq.get())  # Output: (2, 'Task 2')
+print(pq.get())  # Output: (3, 'Task 3')

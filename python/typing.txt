@@ -218,11 +218,14 @@ get_flags(platform) // fails; not a literal string
 * Literal[int] does not work
 
 def get_flags(platform: Literal[1, 2, 3]):
-  # can only be called with 1, 2, 3
+  * can only be called with 1, 2, 3
 
-# Can be only called with 'pl' or 'pf'
 def get_flags(platform: Literal['pl', 'pf']):
-  # Can be only called with 'pl' or 'pf'
+  * Can be only called with 'pl' or 'pf'
+
+typing.get_args(Literal['a', 'b']) -> ['a', 'b']  // Literal -> list
+
+
 
 
 # overload
@@ -284,3 +287,14 @@ class Data:
 * ...: the type annotation will be inferred, e.g.
   def f(x: float) -> ...:  // will be float
     return x + 1
+
+
+# Check if object supports len()
+isinstance(x, collections.abc.Sized)
+
+
+# Numerics
+* float is equivalent to int | float, i.e. llows passing integers
+* but isinstance(1, float) == False, i.e. int is not a sub-type of float
+* this is because float type annotations are treated as a special case to
+  enable annotating numerics more easily

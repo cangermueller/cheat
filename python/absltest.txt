@@ -57,6 +57,7 @@ assertBetween(value, min, max) // checks if value is in range (max inclusive)
 assertContainsSubset(expected_subset, actual_superset)
 assertContainsSubsequence(list, sub_list) // [0, 1, 0, 2, 0, 3] contains [1, 2, 3]
 assertContainsExactSubsequence(list, sub_list) // [0, 1, 0, 2, 0, 3] contains [1, 0, 2]
+assertDataclassEqual(d1, d2) // compare dataclasses; nicer error message
 
 ## logs
 with self.assertLogs(level=logging.INFO) as logs:

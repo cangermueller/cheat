@@ -322,7 +322,7 @@ random.choice(array, size, replace=False)  // sample (without) replacement from 
 
 
 ## Random generator
-rng = np.random.default_rng(0)
+rng = np.random.default_rng(0 | None)
 rng.(uniform|integer|normal|choice|permutation|...)
 isinstance(rng, np.random.Generator) == True
 isinstance(rng, np.random.RandomState) == False

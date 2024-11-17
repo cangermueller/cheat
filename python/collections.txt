@@ -11,6 +11,7 @@ d = OrderedDict([['a', 1], ['b', 2]]) // Initialize ordered via list of tuples
 d.popitem() // removed last inserted item
 
 # deque
+* See queue.txt for more details
 d = deque([1, 2, 3])
 append(x) // append single item right
 appendleft(x)

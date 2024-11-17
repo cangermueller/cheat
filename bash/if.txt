@@ -66,3 +66,19 @@ a == 'test' // works, even if a=
 expr && expr  // and; a -
 expr || expr // or
 !expr // not
+
+
+Check if list contains value
+============================
+values=(
+  "value1"
+  "value2"
+  "value3"
+  "value4"
+)
+value="value2"
+if [[ ${values[*]} =~ (^|[[:space:]])$value($|[[:space:]]) ]] then
+  echo 'yes'
+else
+  echo 'no'
+fi
