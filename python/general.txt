@@ -185,14 +185,16 @@ docs.python.org/3/whatsnew/3.10.html#pep-634-structural-pattern-matching
 match value:
   case 1:
     print('1')
+  case 1 | 2:  // 1 or 2
   case [1]:
     print('list[1] but not 1')
   case (1,):  # tuple and list (different types) are treated differently
     print('tuple(1) not list(1')
   # case Sequence[1];  # there is no common sequence; use `match tuple(value) instead`
   #  print('any sequence with 1')
-  case x if value in [2, 3]:  # guard clause; x captures value
+  case x if x in [2, 3]:  # guard clause; x captures value
     print(f'2 or 3: {x}')
+  case [1, _] as l: # catch as variable
   case (2, 3):
     print('tuple(2, 3)')
   case (2, x):  # x captures 2nd value
@@ -226,6 +228,12 @@ class Foo2:
 
 def match_type(x: Any):
   match x:
+    case 1:
+      print('1')
+    case 1 | 2:
+      print('1 or 2')
+    case y if y in < -1:
+      print('y < -1')
     case int() if x < 3:
       print('Int < 3')
     case int(4):
@@ -244,3 +252,98 @@ def match_type(x: Any):
       print('Foo2 with %d' % x)
     case _:
       print('Unknown')
+
+
+# Class variables
+
+## With default value
+* Can be accessed without creating a class
+* Can be modified to adapt all new instances
+
+class Foo:
+  a: int = 2
+
+  def run(self):
+    print(self.a)
+    self.a += 1
+
+
+print(Foo.a) # 2
+print('--')
+t = Foo()
+t.run() # 2
+t.run() # 3
+print('--')
+t = Foo()
+t.run() # 2; newly initialized
+t.run()
+
+print('--')
+Foo.a = 4
+t = Foo()
+t.run() # 4; newly initialized
+t.run()
+
+
+## Without default value
+* Must be overridden in subclass
+
+class Foo:
+  a: int
+
+  def run(self):
+    print(self.a)
+    self.a += 1
+
+
+class Bar(Foo):
+  a: int = 1
+
+  def run(self):
+    print(self.a)
+    self.a += 1
+
+t = Foo() # can be instantiated
+t.a  # AttributeError since a is missing
+
+t2 = Bar()
+t2.a # but access fails
+
+
+
+# nonlocal
+* required to modify variable in outer scope
+* also requires if variable is first read and then modified
+* not required if variable is read only, or written first and than read (creates local copy)
+
+
+def fn():
+  a = 1
+  def _fn1():
+    print(a) # 1
+
+  _fn1()
+  print(a) # 1
+
+def fn():
+  a = 1
+  def _fn1():
+    # nonlocal not required since write creates inner copy
+    a = 4
+    print(a) # 4
+
+  _fn1()
+  print(a) # 1
+
+
+def fn():
+  a = 1
+  def _fn1():
+    # nonlocal required since outer a is read and modified
+    nonlocal a
+    print(a) # 1
+    a = 4
+    print(a) # 4
+
+  _fn1()
+  print(a) # 4

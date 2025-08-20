@@ -55,6 +55,8 @@ foo_cls:  Type[Foo]
 
 # TypeVar
 * Templates / Generics
+* Use TypeVar _T for variable and functions
+* Use Generic[_T] for classes that depend on type globally
 * https://stackoverflow.com/questions/59933946/difference-between-typevart-a-b-and-typevart-bound-uniona-b
 
 FooOrBar = TypeVar('FooOrBar', Foo, Bar)
@@ -67,7 +69,6 @@ FooOrBar = TypeVar('FooOrBar', bounds=Union[Foo, Bar])
  * with bounds=Base, Base -> Base or SubClassBase -> SubClassBase is allowed,
    not OtherClass -> OtherClass
 
-
 def return_last(a: List[FooOrBar]) -> FooOrBar:
   return a[-1]
 
@@ -78,12 +79,29 @@ def return_last(a: List[FooOrBar]) -> FooOrBar:
 * covariance=True: list[Derived] can be passed to list[Base]
 * contravariance=True: list[Base] can be passed to list[Derived]
 
+## Generic
+* Use for classes (not function) that depend on type globally
 
-# TypeVarTuple
+_T = TypeVar('_T')
+
+class Storage(Generic[_T]):
+
+  def __init__(self, value: _T):
+    self._value = value
+
+  def content(self) -> _T:
+    return self._value
+
+
+storage1 = Storage(value=1)
+storage2 = Storage(value='1')
+
+
+## TypeVarTuple
 * To specify an unbounded number of variables with a certain type
 * Can be only used inside tuple[...] with *Name.
 
-## Example1
+### Example1
 Value = TypeVar('Value', int, float)
 Values = TypeVarTuple('Values', int | float | str)
 
@@ -91,7 +109,7 @@ def swap_first_last(values: tuple[Value, *Values]) -> tuple[*Values, Value]:
   return (*values[1:], values[0])
 
 
-## Example2
+### Example2
 DType = TypeVar('Dtype', str, np.dtype)
 Shape = TypeVarTuple(Shape)
 
@@ -108,8 +126,11 @@ array = Array[np.dtype, Height](np.float32, (3, Height(10))):
 
 
 # NewType
-* For defining new primitive types
+* For defining new primitive types and give a meaning to int, float, for example
+* Not type checked at runtime; using isinstance(x, UserId) does not work
+* Subclass int/float to type checking at runtime
 
+## Static
 UserId = NewType('UserId', int)
 BookId = NewType('BookId', int)
 
@@ -119,6 +140,11 @@ def create(user_id: USER_ID, book_id: BOOK_ID):
 create(UserId(1), BookId(2)) // works
 create(BookId(1), UserId(2)) // fails
 create(1, 2) // works since UserId and BookId are sub-classes of int
+
+
+## Dynamic
+class UserId(int):
+  """Represents a user id."""
 
 
 # TypeAlias
@@ -298,3 +324,46 @@ isinstance(x, collections.abc.Sized)
 * but isinstance(1, float) == False, i.e. int is not a sub-type of float
 * this is because float type annotations are treated as a special case to
   enable annotating numerics more easily
+
+
+# runtime_checkable protocols
+* Enable using isinstance(x, Protocol) at runtime
+* Protocol types are still not checked at runtime
+
+from typing import Protocol, runtime_checkable
+
+@runtime_checkable
+class Protocol1(Protocol):
+
+  def fn1(self, x: int) -> int:
+    ...
+
+
+@runtime_checkable
+class Protocol2(Protocol):
+
+  def fn2(self, x: str) -> str:
+    ...
+
+
+class Class1:
+
+  def fn1(self, x: int) -> int:
+    return x + 1
+
+
+class Class2:
+
+  def fn2(self, x: str) -> str:
+    return x + '!'
+
+
+print(isinstance(Class1(), Protocol1))  # True
+print(isinstance(Class2(), Protocol2))  # True
+print(isinstance(Class1(), Protocol2))  # False
+
+
+def call(obj: Protocol1):  # Not checked at runtime
+  obj.fn1(1) # fails here
+
+call(Class2())

@@ -1,16 +1,19 @@
-# Base exceptions
+# Exception hiearachy
 * https://docs.python.org/3/library/exceptions.html#concrete-exceptions
+* Exception inherits from BaseException
+
+
 BaseException // base for build-in errors
 * SystemExit
-
-Exception // base for non-build-in errors (
-* ValueError // for invalid arguments (length, ...)
-* IndexError  // invalid index
-* KeyError  // (dict) key does not exist
-* TypeError // invalid dtype
-* IOError
-* NotImplementedError
-* RuntimeError // does not fit into any other category
+* GeneratorExit
+* Exception // base for non-build-in errors (
+  * ValueError // for invalid arguments (length, ...)
+  * IndexError  // invalid index
+  * KeyError  // (dict) key does not exist
+  * TypeError // invalid dtype
+  * IOError
+  * NotImplementedError
+  * RuntimeError // does not fit into any other category
 
 try:
   raise Exception('error!')
@@ -40,16 +43,21 @@ def get_current_stack_trace():
 
 
 # Re-raising exception
-## Hide location in stack strace -> bare raise
-try:
-except BaseException:
-  do_somthing()
-  raise  # This location is not shown in the stack trace
+def fn():
+  raise ValueError('fn')
 
-## Extra error message -> raise from
 try:
-except BaseException as e:
-  raise ValueError('Error occurred') from e  # Location included in stack trace
+  fn()
+except BaseException:
+  logging.exception('Exception occurred') // not not require `as e` and adding e! Does not shut down;
+  logging.fatal('Exception occurred') // Shuts down but does not show exception
+
+  raise  # Only original location, not this location
+  raise ValueError('Extra') from None # only this location
+  raise ValueError('Extra') from e  # Both this and original location; this exception is consequence of orignal
+    e.add_note('Extra') // alternative to only add extra notes without showing this location
+    raise
+  raise ValueError('Extra) # Both this and original location but this exception is considered separately: 'During handling of the above exception, another exception occurred:'
 
 
 ## Suppress the root source message -> raise from None
@@ -61,6 +69,17 @@ raise ValueError('Only this message is shown') from None
 * Python3: shows the line of `raise e` in the stack although it is not needed
            requires defining e
 * Python2: does not show the source error message
+
+
+# Logging exceptions
+try:
+  ...
+except Exception as e:
+  logging.exception('Exception occurred!') // does not require including e in the message!
+  logging.error('Exception occurred %s', e)  // don't use str()! Does not include exception class, chained exceptions, and exception notes
+  logging.error('Exception occurred %r', e)  // repr is better than %s but does not include chained exceptions and exception notes!
+  logging.error('Exception occurred %s', traceback.format_exception(e)) // also includes chained exceptions and exception notes
+  logging.error('Exception occurred %s', traceback.format_exc())  // same as format_exception but does not require e
 
 
 # Avoid catchig BaseException (e.g. sys.exit)

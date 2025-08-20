@@ -30,6 +30,9 @@ String comparision
 $s == "" // equivalent of `-z $s`
 -n $s // opposite of `-z $s`; check if string is not (undefined or "")
 
+(( VAR != 0 ))  // check if integer variable is true
+[[ "$VAR" != 0 ]]  // check if integer variable is true; quotes recommended
+
 s1 == s2 // strings equal
 s1 != s2 // strings unequal
 s1 == 'a'* // check if s1 starts with a

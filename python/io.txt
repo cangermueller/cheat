@@ -27,6 +27,7 @@ f = open(filename, 'rwa')
 with open(filename) as f: // will be closed at the end
   f.read()
 f.read()  // read everything as single string
+f.read() == "" // read() returns empty string/bytes if EOF end of file reached
 f.readline()  // f.readline() == 'line\n'; '' == eof; '\n' is empty line
 for line in f:  // read line by line
 lines = open(filename).read().splitlines() // read all lines in array
@@ -36,6 +37,11 @@ lines = [l.rstrip() for l in open(filename, 'r')]
 ## Writing content
 f.write('\n'.join(lines))
 f.writelines(lines) // does not add '\n'; write() better!
+
+
+## Read / write bytes
+f.write(i.to_bytes(8))  // encode int to bytes and write
+int.from_bytes(f.read(8)) // read 8 bytes and convert to int
 
 ## Misc
 f.close()
@@ -74,24 +80,20 @@ my_path.split(os.sep) // /dir1/dir2/dir3 -> dir1, dir2, dir3
 path.split(os.extsep) // /a/b/c/d -> (/a/b/c/, /d) // splitext all extensions
 
 
+# list files / dirs
+os.listdir(dirname)  // relative filenames / dirnames
+glob.glob('dirname/*')
 
-# Misc
-os.listdir('.') // list all files in directory
-  * lists basenames -> without dirname
-  * list with dirname: [pt.join(root, child) for child in os.listdir(roor)]
-for root, dirs, files in os.walk(dirname) // traverse all files in dirname recursively
-os.getcwd()  // current working directory
-os.chdir(dir) // change working directory
-import glob
-glob.glob('dir/*.py')
-os.remove(file) // remove/delete file
-os.rmdir(dir) // remove/delete EMPTY dir; see shutil.rmtree
-import shutil
-shutil.copyfile(src, dst) // copy file
-shutil.copytree(src_dir, dst_dir) // copy dir
-shutil.move(src, dst) // rename, move file like mv
-shutil.rmtree(path) // remove dir with content
+# copy file / dir
+shutil.copyfile(a, b)
+shutil.copytree(a, b)
 
+# remove file / dir
+os.remove(file)
+shutil.rmtree(dir)
+
+# move file / dir
+shutil.move(a, b)
 
 
 
@@ -122,11 +124,35 @@ os.makedirs('d1/d2', exist_ok=True) // mkdir -p; exist_ok only Python3
   * NOTE: not mkdir!
 
 
+# Temporary file
+with tempfile.NamedTemporaryFile(suffix='.csv') as f:
+  * returns file-like object
+  dir='/tmp' // temp is default dir
+  f.name // full path
+  f.write // write *bytes*
+  f.read // read *bytes*
 
-# Temporary files
-import tempfile
-path = NamedTemporaryFile().name // creates the file and returns the path
-path = mkdtemp(dir=, prefix=, suffix=)  // create temp dir and returns path
+f = tempfile.NamedTemporaryFile()
+* Can be used not as context manager
+* but relies on garbage collection to to cleaned up (brittle)
+
+with tempfile.NamedTemporaryFile(suffix='.txt') as f:
+  print(f.name)
+  f.write(b'Content')
+  f.seek(0)
+  print(f.read())
+
+
+# Temporary directory
+with tempfile.TemporaryDirectory(suffix='.csv') as dirname:
+  * Returns dirname (str), not object!
+  dir='/tmp' // temp is default dir
+
+d = tempfile.TemporaryDirectory(suffix='.csv')
+  * Return TemporaryDirectory *object*
+d.name // dirname
+d.cleanup() // remove explicilty
+
 
 
 # String file

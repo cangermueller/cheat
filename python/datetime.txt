@@ -6,6 +6,7 @@
 
 
 # Unix time
+* time.time()
 * UTC == time relative to Greenwhich (Universial Cooridnate Time)
 * Seconds since 1970-01-01 UTC
 * Timezone is UTC!
@@ -105,3 +106,7 @@ datetime.datetime.fromtimestamp(0).astimezone() == datetime.datetime(1969, 12, 3
  datetime.datetime.combine(dt, datetime.time(0, 0, 0)) == datetime.datetime(1970, 1, 1, 0, 0)  // no timezone (local time)
  datetime.datetime.combine(dt, datetime.time(0, 0, 0)).timestamp() == 28800.0  // not 0 since 1970-01-01 in local time is not 0
  datetime.datetime.combine(dt, datetime.time(0, 0, 0), tzinfo=pytz.UTC).timestamp() == 0  // expected result with tz argument
+
+
+ # Format to string
+ dt.strftime('%Y-%m-%d %H:%M:%S')

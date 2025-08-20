@@ -26,11 +26,7 @@ VLOG(N) <<
 if (VLOG_IS_ON(N)) {}
 
 
-# logging exceptions
-try:
-...
-except Exception:
-  logging.error(msg, exc_info=True) == logging.exception(msg)
-
-* Shows the full stack trace of the current exception
-* Does not require including the exception in the msg (Exception as e not needed)
+# Log and exit
+logging.error('Error; does not shut down')
+logging.exception('Error; show exception stack trace; does not shut down')
+logging.fatal('Error; shutting down with ugly stack trace')

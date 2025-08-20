@@ -1,9 +1,6 @@
-import hashlib
+* Use sha256 by default
+* md5 faster but less secure
 
-md5 = hashlib.md5()
-md5.update('s1'.encode())
-md5.update(...)
-  * NOTE: order of update() matters!
-  * unicode strings need to be encoded!
-md5.digest() // binary string
-md5.hexdigest() // as readable hex string
+hashlib.sha256('Bytes string'.encode()).hexdigest
+with open('/foo', 'r') as f:
+  hashlib.file_digest(f, 'sha256')

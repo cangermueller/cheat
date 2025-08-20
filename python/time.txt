@@ -1,0 +1,7 @@
+time.time() -> float
+ * float seconds since 1970-01-01
+ * precision depends on platform; microseconds (1e-6) in case of UNIX
+
+time.time_ns() -> int
+ * nano seconds since 1970-01-01
+ * use instead of time.time() for higher resolution

@@ -48,6 +48,8 @@ fullmatch(re, ...) // matches full string
 match(re, case=True, flags=0) // == re.match; matches at beginning
 contains(re, regex=True, ...)  // == re.search; matches anywhere
   regex=True is default
+  flags=re.I // re flags
+  case=True // upper/lower case
   na=None // to specify the result of NaN value
 extract('([a-b]+).*(\d+)', expand=True) // extract pattern and return df
 extract('(?P<name1>[a-b]+).*(?P<name2>\d+)', expand=True) // extract pattern and return df with columns 'name1' and 'name2'
@@ -123,6 +125,10 @@ df.filter(...)
 series.nlargest(n) // select the n largest values
  * pd.Series([2, 1, 2]).nlargest(2) == [2, 2]  // not performed on unique values
 df.nlargest(n, 'column') // same as series, but keeps other columns
+
+
+# Filter rows by function
+df.pipe(lambda df: df.loc[df.apply(_filter_fn, axis=1)])
 
 
 # IO
@@ -327,11 +333,14 @@ i.reorder_levels((1, 1)) // change the order of levels
 df.reindex(['col2', 'col1'], level='sub_header', axis=1)  // reorder column values of a level
 
 # Index options
-.nlevels
+.index.nlevels // number of levels
+.index.names // level names
 
 ## Merge  / join hierarchical columns
-df.columns = df.columns.map('_'.join)
-df.columns = df.reorder_levels((1, 0)).columns.map('_'.join)
+df.columns = df.columns.map(
+      lambda levels: '_'.join(str(level) for level in levels)
+)
+df.reorder_levels((1, 0)).columns.map('_'.join)) // only if reordering required
 
 
 # Index operations
@@ -340,6 +349,7 @@ rename(...)
   index={'old':'new'} // rename rows
   columns=lambda x: x + '_' // apply renaming function
   inplace=True
+df.columns.str.replace('^foo$', 'X', regex=True) // replace exact string values
 set_axis(columns, axis=1) // set new columns (rename all columns)
 rename_axis('key', axis=0) // rename index or columns; changes index.name
 set_index([columns], ...) // set row index
@@ -623,6 +633,10 @@ agg([np.mean, np.std]) // apply multiple functions to columns
 agg({'c1': fun1, 'c2': fun2}) // apply different functions to columns
   * NOTE: returned column order is arbitrary!
 agg({'c1': ['mean', 'median'], 'c2': 'size'}) // different and multiple functions
+df.groupby('a').agg(
+    b_mean=pd.NamedAgg(column='b', aggfunc='mean'),
+    c_sum=pd.NamedAgg(column='c', aggfunc='sum'),
+)
 
 ## Transform: perform group specific modifications
 * return df must have same shape
@@ -635,6 +649,9 @@ d['col'] = d.groupby('key')['col'].transform(...) // transform single column
 
 ## Filter: select particular group (not single group members)
 d.groupby('key').filter(lambda x: x.a.mean() > 0) // select groups with a.mean() > 0
+
+## Filter rows by function
+df.pipe(lambda df: df.loc[df.apply(_filter_fn, axis=1)])
 
 ## null / nan values
 * Are treated as unique values
@@ -877,7 +894,6 @@ q = np.percentile(values, [25, 50, 75])
 
 
 
-
 # plotting
 matplotlib.style.use('ggplot')
 NEW in pandas0.7
@@ -1081,9 +1097,21 @@ df.itertuples(index=False, name=None)
 
 
 # Iterating over rows
-index, series = df.iterrows() // returns Series; dtype of Series can change over rows
+index, series = df.iterrows()
+  * return iterators over returns Series
+  * not as efficient as itertuples since it requires creating a Series for each row
+  * dtype of Series can change over rows
 named_tuples = df.itertuples(index=True) // returns NamedTuples; more efficient
   getattr(named_tuple, 'column') // acccess by string
   named_tuple._asdict()['column'] // acccess by string, less efficient than getattr
 series = df.items() // iterate over columns
 df.to_dict(orient='records') // returns list instead of Iterator (inefficient)
+
+
+# Drop rows with index / oppsite of isin
+df.loc[df.index.difference([3, 5])]
+== df.loc[~df.index.isi(n[3, 5])]
+
+
+# Selecting first non-nan value across columns
+df.bfill(axis=1).iloc[:, 0]

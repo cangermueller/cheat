@@ -1,0 +1,23 @@
+import uuid
+
+u = uuid.uuid1()
+u.int  // to int
+u.hex  // to hex string
+str(t) // to string; not the same as hex!
+
+
+# Differences
+* uuid1: timestamp + MAC address
+  - sorted since it is based on time
+  - can be predicted if MAC is known
+  - can reveal information about MAC
+* uuid4: random
+  - not sorted
+  - collisions less likely than uuid1
+* uuid5(namespace=uuid.NAMESPACE_URL, name='www')
+  - name is unique withing namespace
+  - does not change for fixed namespace and name
+* uuid3
+  - same as uuid5 but less secure
+* uuid2
+  - uncommon; not implemented

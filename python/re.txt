@@ -57,6 +57,8 @@ d['start'], d['stop']
 \w: alphanumeric [a-zA-Z0-9_].
 \W: opposite of \w
 \b: Word boundary (end/beginning of string; before/after whitespace)
+\A: matches beginning of string (^ is beginning of line with re.MULTILINE)
+\Z: matches end of string ($ is end of line with re.MULTILINE)
 
 
 # Flags
@@ -66,10 +68,20 @@ re.S | re.DOTALL // . matches also \n (it matches everything but . by default)
 re.M | re.MULTILINE // ^ matches also beginning of a line, not only the entire string
 re.X | re.VERBOSE // ignores any whitespaces (' ' or \n) except '[ ]' and '\ ';
                   // # must be escaped!
-  re.compile(r'''
-   \d +  # digests
-   [ ] \   # two spaces
-     ''', re.X) == re.compile(r'\d+[ ] ')
+
+re.compile(r'''
+ \d +  # digests
+ [ ] \   # two spaces
+   ''', re.X) == re.compile(r'\d+[ ] ')
+
+re.compile(r'''
+^Line1[^\n]+$\n
+^Line1[^\n]+$\n
+''', re.MULTILINE | re.VERBOSE
+) matches 'Line1\nLine2'
+* $ marks the end of the line
+* \n still requires after \n, which is the actual newline character
+
 
 # Matching string over multiple lines
 * `.` does not match \n by default
@@ -105,8 +117,10 @@ re.findall('[\w]+', source)
 # Capture groups
 (?P<name>regex): named capture group (for m.groupdict())
 (?:regex): group that is ignored (not in m.groups() / m.groupdict())
-(?=regex): positive lookahead; group that is not included m.group()
+(?=regex): positive lookahead; regx that must exist but that is not included m.group()
   * re.search(f'[a-z]+(?=\d+)', ' abc213 ').group() == 'abc'
+((?!regex)regex2): negative lookahead: regex that must not exist in a group (regex2)
+  * re.search(r'explanation: ((?!hello)\w)+$', 'explanation: 1hello23')  // does not match since it contains "hello"
 
 
 ## ?P<name> Named groups

@@ -9,12 +9,16 @@ def mult(fun):
 
 
 # Function decorator with args
-def mult(fact):
-  def _mult(fun):
+* two nested functions requires
+* mult(factor) returns function _get_decorator that returns the decorater function
+* @mult(factor) calls the decorater function _get_decorator that returns the decorated function
+
+def mult(factor):
+  def _get_decorator(fun):
     def decorator(*args, **kwargs):
-      return fun(*args, **kwargs) * fact
+      return fun(*args, **kwargs) * factor
     return decorator
-  return _mult
+  return _get_decorator
 
 
 # Class decorator with args

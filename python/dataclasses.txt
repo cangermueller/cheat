@@ -36,6 +36,8 @@ _source // shows source code
     // faster and more memory efficient
     // does not support multi-class inheritance / mixins
     //   child cannot inherit multiple classes with slots=True
+    // prevents assigning new attributes (good)
+    // existing attributes can be modified (unlike frozen=True)
 
 
 # Example
@@ -72,3 +74,30 @@ astuple(object)
   * creates a deep copy
 replace(object, **changes) // copy + apply changes
   * does not create a deep copy
+
+
+# Sortabable / Comparable
+* Not orderable without order=True
+* set order=True
+* Fields ordered by the oder they appear in the class definition
+* field(compare=False) to exclude attributes from being sortable
+* Use internal field (hidden with repr=False) to define a custom order
+
+
+@dataclasses.dataclass(frozen=True, order=True)
+class Record:
+  # Exclude single fiel
+  a: int = dataclasses.field(compare=False)
+  b: int
+
+sorted([Record(a=5, b=3), Record(a=4, b=1), Record(a=3, b=2)])
+
+
+@dataclasses.dataclass(order=True)
+class Record:
+  _order: int = dataclasses.field(init=False, repr=False)
+  a: int
+  b: int
+
+  def __post_init__(self):
+    self._order = self.b

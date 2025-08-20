@@ -19,7 +19,11 @@ with assertRaisesRegex(ValueError, 'r.search regex'):
  with assertRaisesWithLiteralMatch(ValueError, 'Exact error message')
 
 assertIsInstance(object, cls)
-assertRegex(text, pattern)  // re.search
+assertRegex(text, pattern)
+  * don't use assertRegexMatch
+  * like re.search
+  * pattern must be string, not re.compile!
+  * does not support false
 assertNotRegex(text, pattern)
 
 

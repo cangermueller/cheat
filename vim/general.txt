@@ -26,11 +26,10 @@ pwd // cwd path
 :python3 print(sys.path)
 
 # Folding
-zr, zR // open all folds (recursively)
-zm, zM // close all folds (recursively)
 za, zA // toggle
 zo, zO // open
 zc, zC // close
+zj, zk // jump to next, previous fold
 
 
 # Running shell
