@@ -1,4 +1,6 @@
-# Infos / Memory usage / efficiency
+e Infos / Memory usage / efficiency
+  # "--thinking"
+  # "--thinking_budget=6000"
 df.info()
 df.info(memory_usage='deep')
 df.memory_usage()
@@ -51,6 +53,7 @@ contains(re, regex=True, ...)  // == re.search; matches anywhere
   flags=re.I // re flags
   case=True // upper/lower case
   na=None // to specify the result of NaN value
+count(regex, flags=0)  // counts how often regex occurs
 extract('([a-b]+).*(\d+)', expand=True) // extract pattern and return df
 extract('(?P<name1>[a-b]+).*(?P<name2>\d+)', expand=True) // extract pattern and return df with columns 'name1' and 'name2'
 
@@ -338,7 +341,7 @@ df.reindex(['col2', 'col1'], level='sub_header', axis=1)  // reorder column valu
 
 ## Merge  / join hierarchical columns
 df.columns = df.columns.map(
-      lambda levels: '_'.join(str(level) for level in levels)
+      lambda levels: '_'.join(str(level) for level in levels if level)
 )
 df.reorder_levels((1, 0)).columns.map('_'.join)) // only if reordering required
 
@@ -637,6 +640,7 @@ df.groupby('a').agg(
     b_mean=pd.NamedAgg(column='b', aggfunc='mean'),
     c_sum=pd.NamedAgg(column='c', aggfunc='sum'),
 )
+series.agg(dict(name1=fn1, name2=f2))  // set different names
 
 ## Transform: perform group specific modifications
 * return df must have same shape
@@ -884,6 +888,8 @@ c = pd.cut(values, bins, ...) // equally spaced bins
     c[0] are categories
     c[1] are tuples of cuts
   include_lowest=True // first interval is left-inclusive
+pd.cut(np.random.normal(size=100), bins=3, labels=['low', 'medium', 'high']).value_counts()
+  * return categorical series ordered by bins
 pd.qcut(values, q, ...)  // same #obs in bins
   q=4 -> q=[0, 0.25, 0.5, 0.75, 1.0]
   q=[0, 0.5, 1.0] -> q=2
@@ -1046,6 +1052,7 @@ df.style.
 .background_gradient(cmap='PuBu', ...)
   axis=0: // colors normalized by min/max across rows (to show max of column)
   axis=None // colors normalized over all data
+  vmin/vmax // set min, max of color palette
 
 .highlight_max(...)
   axis=1
@@ -1080,6 +1087,11 @@ def show_corr(corr, metric='spearmanr', absolute=True, caption=None):
       .set_table_styles(
           [{'selector': 'th', 'props': [('border', '1px solid black')]}])
   )
+
+def show_corr2(df):
+   corr = df.corr(method='spearman')
+   return corr.style.background_gradient(cmap='Reds').format('{:.2f}')
+
 
 
 # to_dict / from_dict

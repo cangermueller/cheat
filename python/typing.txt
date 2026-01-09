@@ -76,20 +76,21 @@ def return_last(a: List[FooOrBar]) -> FooOrBar:
 * stackoverflow.com/q/61568462
 * only applicable to generics such as list[Base]
 * invariance (default): list[Derrived] can be only passed to list[Derived] (and Base to Base)
-* covariance=True: list[Derived] can be passed to list[Base]
-* contravariance=True: list[Base] can be passed to list[Derived]
+* covariance=True: list[Derived] can be passed to list[Base]; if A is subtype of B, then G[A] is a subtype of G[B]
+* contravariance=True: list[Base] can be passed to list[Derived]; if A is subtype of B, then G[B] is  subtype of G[A]
 
 ## Generic
 * Use for classes (not function) that depend on type globally
 
-_T = TypeVar('_T')
 
-class Storage(Generic[_T]):
+class Storage(Generic[T]):  // old syntax
+class Storage[T]:
+class Storage[T: (bound1, bound2)]:
 
-  def __init__(self, value: _T):
+  def __init__(self, value: T):
     self._value = value
 
-  def content(self) -> _T:
+  def content(self) -> T:
     return self._value
 
 

@@ -19,7 +19,7 @@ with assertRaisesRegex(ValueError, 'r.search regex'):
  with assertRaisesWithLiteralMatch(ValueError, 'Exact error message')
 
 assertIsInstance(object, cls)
-assertRegex(text, pattern)
+assertRegex(text, pattern) // patern is 2nd argument!
   * don't use assertRegexMatch
   * like re.search
   * pattern must be string, not re.compile!
@@ -52,6 +52,7 @@ assertNoCommonElements(a, b)  // checks that a and b are disjoint
 
 assert(Dict|Set|Tuple)Equal
 assertDictContainsSubset // checks if dict constains other dict
+assertDictAlmostEqual
 assertStartsWith(string, prefix) // test if prefix starts with prefix
 assert(Not)?(Starts|Ends)With
 assertSequenceStarts with // same as above but for any iteratable

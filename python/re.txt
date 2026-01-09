@@ -18,8 +18,6 @@ re.fullmatch(pattern, string, flags
 for m in re.finditer(pattern, string)  // like search, but iter of all hits
 re.findall(pattern, string) // all matches as str in array (see below)
 len(re.findall(...)) // count
-re.split(p, s)  // split by p; s.split(p) does not support re
-
 
 # re.sub
 re.sub(p, r, s) // subst ALL p in s by r and returns substituted string
@@ -28,6 +26,13 @@ re.sub(r'(.*\.)(solver)$', r'\g<1>\g<2>_cls', idx) // reference groups
   * use \g<1> instead of \1 since '\123' does not replace by (group1)23!
 // Backslash must be escaped in the replacement, not with re.escape!
 re.sub(regex, r'\g<1>' + repl.replace('\\', '\\\\') + r'\g<2>', text)
+
+# re.split
+// Split and do return delimiter
+re.split(r'[xy]', '123x456y789') # ['123', '456', '789']
+
+# Split and return delimiter
+re.split(r'([xy])', '123x456y789') # ['123', 'x', '456', 'y', '789']
 
 
 # Groups
@@ -46,7 +51,7 @@ d['start'], d['stop']
   * d['stop'] == None if missing
 
 
-# Special characerts
+# Special characters
 \n: newline linux
 \r\n: newline windows
 \t: horizontal tab
@@ -61,6 +66,27 @@ d['start'], d['stop']
 \Z: matches end of string ($ is end of line with re.MULTILINE)
 
 
+# Raw string (r'', r"", r""" """)
+* \ has no effect
+print(r'\n') == '\n'
+print(r'\\n') == '\\n'
+display(r'\n') == '\\n'   // display (__repr__) escapes backslashes!
+
+re.fullmatch(r'\d+\\\d+', r'123\456')  # matches
+re.fullmatch('\d+\\\d+', r'123\456')  # does not match (re is not r)
+re.fullmatch('\d+\\\\\d+', r'123\456')  # matches
+re.fullmatch('\d+ \d+', '123 456')  # r not required for \d, \s, or \w
+
+
+# Triple quote
+* Allows line breaks (newline \n)
+* Newline can be escaped unless in raw string
+print('''\
+a''') == 'a'
+
+print(r'''\
+a''') == '\
+a'
 # Flags
 r'(?ism)...' // to express options in regex
 re.I | re.IGNORECASE // insensitive
@@ -69,6 +95,7 @@ re.M | re.MULTILINE // ^ matches also beginning of a line, not only the entire s
 re.X | re.VERBOSE // ignores any whitespaces (' ' or \n) except '[ ]' and '\ ';
                   // # must be escaped!
 
+## Verbose
 re.compile(r'''
  \d +  # digests
  [ ] \   # two spaces
@@ -83,45 +110,12 @@ re.compile(r'''
 * \n still requires after \n, which is the actual newline character
 
 
-# Matching string over multiple lines
-* `.` does not match \n by default
-* Use either (.|\n)+ or re.DOTALL
-
-re.search('Foo(.|\n)+Bar', 'Foo\nXXXX\nBarXXXX')
-re.search('Foo.+Bar', 'Foo\nXXXX\nBarXXXX', re.DOTALL)
-
-
-# Grep lines from file
-file = open(...)
-for line in file:
-  m = re.search('.../([^/]+)/...')
-  if m:
-    lines.append(m.group(1))
-
-# Compiling regex
-* Can clearly speed-up code!
-regex = re.compile(r'REGEX')
-regex.(match|search|fullmatch)
-
-
-# Not
-re.search('^((?!abc).)*$', 'cccabcccc')  // does not match
-
-
-# findall
-source = "Hello World Ker HAHA"
-re.findall('[\w]+', source)
--> ['Hello', 'World', 'Ker', 'HAHA']
-
-
 # Capture groups
 (?P<name>regex): named capture group (for m.groupdict())
 (?:regex): group that is ignored (not in m.groups() / m.groupdict())
-(?=regex): positive lookahead; regx that must exist but that is not included m.group()
-  * re.search(f'[a-z]+(?=\d+)', ' abc213 ').group() == 'abc'
-((?!regex)regex2): negative lookahead: regex that must not exist in a group (regex2)
-  * re.search(r'explanation: ((?!hello)\w)+$', 'explanation: 1hello23')  // does not match since it contains "hello"
-
+(?ismx)regex: set flags (re.I, re.D, re.M, re.V) for the entire regex
+(?ismx:regex): set flags for single group; won't be captured with :
+(?P<name>(?ismx:regex)): combined flags with other options
 
 ## ?P<name> Named groups
 m = re.fullmatch(r'(--)?(?P<name>[^=]+)(=(?P<value>[^=]+))?', flag_string)
@@ -130,42 +124,109 @@ m.group('value')  // None if missing
 m.groups()  // returns tuple of values
 .m.groupdict() returns dict mapping group names to group values
 .m.group('name')
+# Positive/negative lookahead/lookbehind
 
-## ?: Ignore a group (non-capturing group)
-re.search(r'(set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('set', '1')
-re.search(r'(?:set|let) var = (\\w+|\\d+)', 'set var = 1') ->  ('1',)
+## Positive lookahead
+(?=regex1)regex2: Check that regex1 is a prefix of regex2 by iterating forward from the current position without consuming characters
+regex1(?=regex2): Check that regex1 is followed by regex2 by iterating forward
+(?!regex)regex2: Check that regex1 is not a prefix of regex2
+regex1(?!regex2): Check that regex1 is not followed by regex2
 
-## ?= Exclude a sub-string that must exist (positive lookahead assertion)
-re.search(r'[^-]+(?=bar)', 'abcbar').group() -> abc; group() == group(0)
-re.search(r'[^-]+(?=bar)', 'abcba') // fails since string does not end with 'bar'
+## Positive/negative lookbehind
+* Must be fixed-length (not `?<.*)
 
-## Replace digests that are followed characters by 'DIGEST' (not the characters)
-* Use !lookahead! for things that are not replace
-re.sub(r'\d+(?=[a-z]+)', 'DIGESTS|', '123abc') == 'DIGEST|abc'
+(?<regex1)regex2: Check that regex2 is preceded by regex1 by iterating backward from the current position without consuming characters
+regex1(?<regex2): Check that regex2 is a suffix of regex1 by iterating backward
+(?<!regex1)regex2: Check that regex2 it not preceded by regex1
+regex1(?<!regex2): Check that regex2 is not a suffix of regex1
 
-## Replace characters that are preceeded by by digests by '|CHARS (not the digests)
-* Use !lookbehind! expression
-* Lookbind expression must have fixed-width; \d+ does not work, only \d
+## Examples
+
+// Match lines of digests that start with 123
+re.findall(
+    r'^(?=123)\d+$',
+    """
+234
+1234
+12245
+12345
+""",
+    re.MULTILINE,
+)  # ['1234', '12345']
+
+// Match lines of digests that do not start with 123
+re.findall(
+    r'^(?!123)\d+$',
+    """
+234
+1234
+12245
+12345
+""",
+    re.MULTILINE,
+)  # ['234', '12245']
+
+// Match lines of digests that end with 789
+re.findall(
+    r'^\d+(?<=789)$',
+    """
+234789
+1234
+12789
+12779
+""",
+    re.MULTILINE,
+)  # ['234789', '12789']
+
+// Match lines of digests that to not end with 789
+re.findall(
+    r'^\d+(?<!789)$',
+    """
+234789
+1234
+12789
+12779
+""",
+    re.MULTILINE,
+)  # ['1234', '12779']
+
+// Match digests that are followed 789
+re.findall(
+    r'^\d+(?=789)',
+    """
+234789
+1234
+12789
+12779
+""",
+    re.MULTILINE,
+)  # ['234', '234']
+
+
+// Match lines of digests that contain 123
+re.findall(
+    r'^(?=.*123)\d+$',
+    """
+12345
+01234
+0124
+0123
+""",
+    re.MULTILINE,
+)  # ['12345', '01234' '0123']
+
+
+// Match lines of digests that do not contain 123
+re.findall(
+    r'^(?!.*123)\d+$',
+    """
+12345
+01234
+0124
+0123
+""",
+    re.MULTILINE,
+)  # ['0124']
+
+// Replace characters that are preceeded by digests by '|CHARS (not the digests)
 re.sub(r'(?<=\d)[a-z]+', '|CHARS', '123abc')  == '123|CHARS'
-
-
-# Raw string (r'', r"", r""" """)
-* \ has no effect
-print(r'\n') == '\n'
-print(r'\\n') == '\\n'
-display(r'\n') == '\\n'   // display (__repr__) escapes backslashes!
-
-re.fullmatch(r'\d+\\\d+', r'123\456')  # matches
-re.fullmatch('\d+\\\d+', r'123\456')  # does not match (re is not r)
-re.fullmatch('\d+\\\\\d+', r'123\456')  # matches
-re.fullmatch('\d+ \d+', '123 456')  # r not required for \d, \s, or \w
-
-# Triple quote
-* Allows line breaks (newline \n)
-* Newline can be escaped unless in raw string
-print('''\
-a''') == 'a'
-
-print(r'''\
-a''') == '\
-a'

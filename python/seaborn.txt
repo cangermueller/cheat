@@ -398,3 +398,36 @@ with sns.plotting_context(font_scale=1.2)
 ax.set_xlabel(..., fontsize=20)
 ax.set_title(..., fontsize=20)
 plt.rcParams.update({'font.size': 12})
+
+
+# Scatter matrix with correlation scores
+from scipy import stats
+
+def _corrfunc(x, y, **kws):
+  del kws
+  idx = ~np.isnan(x) & ~np.isnan(y)
+  r, _ = stats.spearmanr(x[idx], y[idx])
+  ax = plt.gca()
+  ax.annotate(
+      f'R = {r:.2f}', xy=(0.1, 0.8), xycoords=ax.transAxes, fontweight='bold'
+  )
+
+
+def pairplot(df, kde=False):
+  grid = sns.pairplot(
+      df,
+      kind='reg',
+      plot_kws=dict(
+          line_kws=dict(color='red'), scatter_kws=dict(alpha=0.1, s=1)
+      ),
+      height=4.0,
+      aspect=1.0,
+  )
+  grid.map_lower(_corrfunc)
+  if kde:
+    grid.map_upper(sns.kdeplot, cmap='Blues_d')
+
+
+# Rotate xlabels grid (catplot)
+grid.set_xticklabels(rotation=45, horizontalalignment='right')
+grid.fig.subplots_adjust(hspace=1.0)  # increases spacing between subplots

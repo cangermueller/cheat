@@ -116,3 +116,13 @@ except* ValueError:
   print('ValueError')
 except* RuntimeError:
   print('RuntimeError')
+
+
+# Catching exception with message
+try:
+  raise ValueError('foo')
+except ValueError as e:
+  if 'foo' in str(e):
+    print('a')
+  else:
+    print('b')
