@@ -189,3 +189,11 @@ BufRead  // when starting to edit new buffer after the file content was read
 
 # Current working directory
 vim.fn.getcwd()
+
+
+# Error debugging
+:messages // show last error messages
+  - shows print() statements
+  - shows vim.notify(msg, vim.log.level.(INFO|WARNING|ERROR))
+:checkhealth provider // Check language provider (python, nodejs)
+:checkhealth lspsage // Check some plugin
