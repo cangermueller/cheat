@@ -1,11 +1,4 @@
-# General
-* Has been derived from Generator (function with yield)
-* await behaves similar to yield
-  - yield  f waits until next() is called
-  - await f waits until executing f is finished (and gives control to other
-    coroutines)
-
-# Nomenclature
+# Types
 # Awaitable: any object that can be awaited
 # - Coroutine function: `async def ..` function
 # - Coroutine object: object returned by calling async def
@@ -14,7 +7,7 @@
 
 
 # Type
-async def fn1(n) -> list[int]: // returns list when executed with asyncio.run
+async def fn1(n) -> list[int]: // returns list when awaited or executed with asyncio.run
   ints = []
   for i in range(n):
     print(f'Fn1 {i}/{n}')
@@ -29,63 +22,70 @@ isinstance(f, collections.abc.Coroutine)  // true
 isinstance(f, collections.abc.Awaitable)  // true
 
 
-# gather
-async def chained():
-  ints1 = await fn1(3)
+# Gather
+
+async def fn1_chained():
+  start_time = time.time()
+  ints1 = await fn1(0)
+  # waits 3s until fn1 finished
   ints2 = await fn1(3)
-  return ints1, ints2
-
-async def gathered():
-  return await asyncio.gather(fn1(3), fn1(3))
-
-asyncio.run(chained()) // takes 6s
-asyncio.run(gathered()) // takes 3s
-
-
-# Tasks
-* Start running as soon as created with asyncio.create_task
-
-async def tasks():
-  start_time = time.time()
-  task1 = asyncio.create_task(fn1(3))  # starts running at this point
-  task2 = asyncio.create_task(fn1(4))  # starts running at this point
-  await task2  # wait task2 as it takes longer; task1 will be also finished
+  # waits 3s until fn1 finished
   print('Took %ds' % (time.time() - start_time))
+  # 6s
+  return [ints1, ints2]
 
-
-
-# TaskGroup
-* Used to execute all tasks concurrently until last task has finished
-
-
-async def task_group():
-  # requires py311
+async def fn1_gathered():
   start_time = time.time()
-  with asyncio.TaskGroup() as tg:
-    tg.create_task(fn1(3))
-    tg.create_task(fn1(2))
-  # Both tasks have completed here
+  # Executed in parallel; preserves order
+  result = await asyncio.gather(fn1(0), fn1(3))
   print('Took %ds' % (time.time() - start_time))
+  # Takes 3s
+  return result
 
 
-# asyncio.to_thread
-* Transforms usual blocking def to coroutine that can be waited and ran
-  concurrently
-asyncio.to_thead(fn, *args, *kwargs)
+# Async for
+
+async def fn1(start) -> collections.abc.Iterator[int]:
+  for i in range(start, start + 3):
+    print(f'Fn1-{start} {i}')
+    await asyncio.sleep(1)
+    yield i
 
 
-async def threading():
+async def fn():
+  values = []
+  # fn1() must be an asynchronous generator; range(3) does not work since sychronous
+  # for value in await fn1() does not work
+  async for value in fn1(0):
+    values.append(value)
+  return values
+
+
+# Threads
+* to parallel blocking synchronous function
+* asyncio.to_thread executes function in thread
+* threads can access context vars
+
+
+def read_file(filename):
+  time.sleep(1)
+  return filename
+
+async def read_files():
   start_time = time.time()
-  ints1, ints2 = await asyncio.gather(
-      asyncio.to_thread(fn1_blocking, 3),
-      asyncio.to_thread(fn1_blocking, 4)
+  values = await asyncio.gather(
+      asyncio.to_thread(read_file, 'file1'),
+      asyncio.to_thread(read_file, 'file2'),
+      asyncio.to_thread(read_file, 'file3')
   )
-  print('Took %ds' % (time.time() - start_time))
+  print('Tool %ds' % (time.time() - start_time))
+  # Takes 1s
+  return values
+
 
 
 # ContextVar
 * Global whose value depends on the context of coroutine
-
 
 foo = contextvars.ContextVar('foo')
 

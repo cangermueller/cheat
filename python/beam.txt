@@ -10,6 +10,20 @@ CoGroupByKey()  // Groups only [(k1, v1), (k1, v2), (k3, v3)] -> [(k1, [v1, v2],
   * Yields pairs that exist in *either* of the two tables; values of one of the tables can be missing
 
 
+# ParDo for filtering
+* Filter(lamda) does fails with "cannot pickle" if lambda cannot be pickeled
+* Use ParDo that yields nothing instead
+
+class Filter(beam.DoFn):
+
+  def process(self, example):
+    if ...:
+       yield example
+
+
+pipeline.ParDo(Filter())
+
+
 # IO
 
 io.ReadFromText(

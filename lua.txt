@@ -59,6 +59,13 @@ for i = 1,10 do  // loop counter is local variable!
   print(i)
 end
 
+for i = 10,1,-1 do  // reverse loop
+  print(i)
+end
+
+for _ = 1,10 do  // loop without counter
+end
+
 i = 10
 
 while i > 4 do

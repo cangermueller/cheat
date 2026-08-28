@@ -367,12 +367,13 @@ np.alltrue(a == 1.0)
 -> better: numpy.testing
 
 import numpy.testing as npt
-npt.assert_ // throw exception which is recognized by unittest
-assert_array_equal(a, b)  // exact
-assert_array_less(a, b) // assert_array_greater does not exist
-assert_allclose(a, 1.9) // approx
-assert_allclose(a, b) // approx
-assert_almost_equal // deprecated; use allclose
+npt.assert_ // throws exception which is recognized by unittest
+assert_allclose(a, b) // all values in a close to all values in b (or single scalar)
+  assert_almost_equal // deprecated; use allclose
+assert_array_equal(a, b)  // all values exactly equal
+assert_array_less(a, b) // all in a < all in b (or scalar)
+  assert_array_greater does not exist!
+  use assert_array_less(-a, -c) for <= c (a > c => -a < -c)
 
 Sorting
 =======

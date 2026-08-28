@@ -38,11 +38,12 @@ sudo mule remove google-chrome<version> (this is gotten from the check command e
 reboot device
 sudo mule install google-chrome 80.0.3987.132
 
-
 # Reset settings
 chrome://settings/reset
-
 
 # Search engine priority
 Disable "Improve search suggestions"
 https://www.ghacks.net/2019/05/14/fix-chrome-prioritizing-search-words-over-visited-sites-in-address-bar/
+
+# Split view
+cmd-opt-n

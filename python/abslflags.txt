@@ -13,7 +13,7 @@ flags.DEFINE_X('xid'...)
 # Definitions
 flags.DEFINE_integer(name, default, descr)
 flags.DEFINE_string()
-flags.DEFINE_bool(verbose) == DEFINE_boolean
+flags.DEFINE_boolean(verbose) == DEFINE_bool (bool is alias; prefer boolean)
   --verbose // True
   --verbose=false // False
   --verbose=0 // False

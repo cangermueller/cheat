@@ -2,5 +2,5 @@ import more_iteratools
 
 # batching / chunking
 divide(3, range(10)) // Returns list of iterators
-chunked(range(10), 3)  // Returns iterator of lists
 batched(range(10), 3)  // Returns generator of tuples
+chunked(range(10), 3)  // Returns iterator of lists

@@ -5,11 +5,23 @@
 
 
 items = [(3, 'a'), (1, 'b')]
+
+O(n)
 heapify(items)  // converts list inplace into heap
  -> [(1, 'b'), (3, 'a')]
   items.pop() -> (3, 'a')
 
+O(log n)
 heappush(p, item)
+
+O(log n)
 heappop(p, item)
+
+O(log n)
+heappop(p, item)
+
+O(log n)
 heappushpop(p, item)  // push + pop; more efficient than push/pop separately
+
+O(log n)
 heapreplace(p, item)  // pop + push

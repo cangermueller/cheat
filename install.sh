@@ -11,7 +11,7 @@
 #         source ~/.bashrc
 #
 
-# Dotdrop
+i Dotdrop
 cd ~/etc/dotfiles
 # use -p to use other profile (does not work? nothing to install)
 .dotdrop/dotdrop.sh install --cfg $(pwd)/config.yaml

@@ -108,6 +108,9 @@ a=($@) // strings to list
 ${a[0]} // first element
 ${a[*]} // all elements -> convert to list again
 ${#a[*]}  // length
+${!a[*]}  // returns list of valid indices 0...len(a)
+    for i in ${!a[*]}; do
+
 ${a[${#a[*]}-1]} // last element
 unset a[${#a[*]}-1] remove last element
      |-> no '$' !

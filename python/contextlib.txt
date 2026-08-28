@@ -27,3 +27,10 @@ print(timer.elapsed)
 with Timer() as timer:
   fn()
 print(timer.elapsed)
+
+
+# nullcontext
+* has not effect
+
+with contextlib.nullcontext():
+  ...

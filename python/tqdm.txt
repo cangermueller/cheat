@@ -28,3 +28,9 @@ def fn1():
 # Pandas
 tqdm.tqdm.pandas(desc='DF')
 _ = df['a'].progress_map(lambda x: x ** 2)
+
+
+# Manually update
+with tqdm.tqdm(total=n) as pbar:
+  while ...:
+    pbar.update(1)

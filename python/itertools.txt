@@ -21,7 +21,8 @@ count(10, [2]) // 10, 12, 14, ...
 # Functions that create new iterators
 accumulate(iter, operator)
   import operator
-  accumulate([1, 2, 3], operator.sum) // [1, 3, 6]
+  accumulate([1, 2, 3], sum) // [1, 3, 6]
+  accumulate([1, 2, 3], operator.mul, initial=1) // [1, 2, 6]
 ifilter(lambda x: ..., iter) // filter iterator
 imap(lambda x: x + 1, iter)
 islice(iter, start_index, stop_index)
@@ -33,6 +34,8 @@ izip(iter1, iter2) // like zip, put return tuple
 # Misc
 product(['x1', 'x2'], [1, 2, 3]) // [('x1', 1), ('x1, 2'), ..., ('x2', 3)]
 
-
-# Flatten nested list
-itertools.chain.from_iterable([[1, 2], [3, 4]]) -> [1, 2, 3, 4]
+# Chaining iterables
+itertools.chain(_fn(1), _fn(2), ...) -> Iterable[_fn(1), ..., _fn(n)]
+* Arguments are iterables
+itertools.chain.from_iterables([_fn(1), _fn(2), ...]) -> Iterable[_fn(1), ..., _fn(n)]
+* Argument is a list of iterables

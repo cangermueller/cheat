@@ -79,6 +79,9 @@ annotate('text', xy=(x, y), xytext=(x, y), bbox=, arrowprops=, coords=) // x, y 
 for x, y, label in zip(all_x, all_y, all_labels):
   annotate(label, xy=(x, y), ha='left', va='bottom')
 
+# Global font size
+plt.rcParams.update({'font.size': 12})
+
 
 # axis
 cla() // clear axis
