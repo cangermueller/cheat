@@ -18,6 +18,7 @@ cd ~/etc/dotfiles
 
 # iterm
 Import preferences: General -> Settings
+Font: MonaspiceRn Nerd Font Mono
 
 ## Installing tmux-mem-cpu-load
 cd ~/.tmux/plugins/tmux-mem-cpu-load
